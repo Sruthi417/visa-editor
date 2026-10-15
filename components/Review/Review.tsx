@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { QuoteDownIcon } from "@hugeicons/core-free-icons";
@@ -13,7 +12,6 @@ type ReviewItem = {
   rating: string;
   text: string;
   date: string;
-  // Drop the image files into /public/reviews with these names.
   avatar: string;
 };
 
@@ -26,7 +24,7 @@ const reviews: Record<"left" | "center" | "right", [ReviewItem, ReviewItem]> = {
       rating: "5.0",
       text: "I needed a passport photo for a visa appointment the next morning. I took one on my phone by the window, uploaded it, and the editor fixed the crop and background in seconds. It was accepted at the first attempt and saved me a trip to the studio.",
       date: "24/02/2026",
-      avatar: "/reviews/avatar-1.png",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&crop=faces&w=200&h=200&q=80",
     },
     {
       name: "Rahul Mehta",
@@ -34,7 +32,7 @@ const reviews: Record<"left" | "center" | "right", [ReviewItem, ReviewItem]> = {
       rating: "4.5",
       text: "The crop and head size were exactly right for the US visa. I did not have to measure anything myself, and the guide on how to take the photo made a real difference.",
       date: "24/02/2026",
-      avatar: "/reviews/avatar-2.png",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&crop=faces&w=200&h=200&q=80",
     },
   ],
   center: [
@@ -44,7 +42,7 @@ const reviews: Record<"left" | "center" | "right", [ReviewItem, ReviewItem]> = {
       rating: "5.0",
       text: "Clean white background in one tap, and the photo checks told me my shoulders were tilted before I submitted. I retook it and it passed.",
       date: "24/02/2026",
-      avatar: "/reviews/avatar-3.png",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&crop=faces&w=200&h=200&q=80",
     },
     {
       name: "Daniel Okoye",
@@ -52,7 +50,7 @@ const reviews: Record<"left" | "center" | "right", [ReviewItem, ReviewItem]> = {
       rating: "5.0",
       text: "I renewed my passport and had to supply a digital photo. The photo checks warned me my lighting was uneven, so I retook it before paying. The download was high resolution and the print sheet worked perfectly at my local photo shop.",
       date: "24/02/2026",
-      avatar: "/reviews/avatar-4.png",
+      avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&crop=faces&w=200&h=200&q=80",
     },
   ],
   right: [
@@ -62,7 +60,7 @@ const reviews: Record<"left" | "center" | "right", [ReviewItem, ReviewItem]> = {
       rating: "4.0",
       text: "I took photos of my two kids for their passports, which is normally a nightmare. The tips on distance and lighting helped, and the tool handled the framing and background for both. Both photos were accepted, and the price is fair.",
       date: "24/02/2026",
-      avatar: "/reviews/avatar-5.png",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&crop=faces&w=200&h=200&q=80",
     },
     {
       name: "Arjun Rao",
@@ -70,7 +68,7 @@ const reviews: Record<"left" | "center" | "right", [ReviewItem, ReviewItem]> = {
       rating: "4.5",
       text: "Picking my country and document type applied the right size straight away. I was done in under two minutes, and the free plan covered everything I needed.",
       date: "24/02/2026",
-      avatar: "/reviews/avatar-6.png",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&crop=faces&w=200&h=200&q=80",
     },
   ],
 };
@@ -123,6 +121,19 @@ function Quote() {
   );
 }
 
+/** Avatar, name and destination: identical on every review card. */
+function Person({ review }: { review: ReviewItem }) {
+  return (
+    <div className="review-person">
+      <Avatar name={review.name} src={review.avatar} />
+      <div className="review-person__info">
+        <strong>{review.name}</strong>
+        <span>{review.location}</span>
+      </div>
+    </div>
+  );
+}
+
 /** The tall card, in the slot where a portrait photo used to be. */
 function FeaturedReview({ review }: { review: ReviewItem }) {
   return (
@@ -136,13 +147,7 @@ function FeaturedReview({ review }: { review: ReviewItem }) {
       </div>
 
       <div className="review-featured__footer">
-        <div className="review-featured__person">
-          <Avatar name={review.name} src={review.avatar} />
-          <div>
-            <strong>{review.name}</strong>
-            <span>{review.location}</span>
-          </div>
-        </div>
+        <Person review={review} />
 
         <div className="review-featured__rating">
           <strong>{review.rating}</strong>
@@ -161,10 +166,7 @@ function ReviewCard({ review }: { review: ReviewItem }) {
       <p className="review-card__text">{review.text}</p>
 
       <div className="review-card__footer">
-        <div className="review-card__person">
-          <Avatar name={review.name} src={review.avatar} />
-          <span className="review-card__author">{review.name}</span>
-        </div>
+        <Person review={review} />
         <span className="review-card__date">{review.date}</span>
       </div>
     </article>
@@ -199,10 +201,6 @@ export default function Review() {
               </div>
               <span>10k+ photos made</span>
             </div>
-
-            <Link href="/upload" className="reviews__cta">
-              Get started
-            </Link>
           </motion.div>
         </motion.div>
 
