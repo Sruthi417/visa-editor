@@ -1,0 +1,224 @@
+$ink-900: #162637;
+$ink-700: #23374a;
+$ink-500: #647789;
+$line: #e3e9ed;
+$surface: #f4f6f7;
+$blue: #2b97f0;
+$blue-deep: #0087ca;
+
+.pricing {
+  width: 100%;
+  padding: clamp(72px, 10vw, 140px) 20px;
+  background: $surface;
+
+  &__container {
+    width: min(900px, 100%);
+    margin: 0 auto;
+  }
+
+  // Header ----------------------------------------------------------------
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: clamp(44px, 6vw, 70px);
+    text-align: center;
+
+    h2 {
+      font-family: var(--font-heading);
+      max-width: 18ch;
+      margin-top: 20px;
+      color: $ink-900;
+      font-size: clamp(40px, 5.2vw, 56px);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      max-width: 46ch;
+      margin-top: 18px;
+      color: $ink-500;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid $line;
+    border-radius: 100px;
+    background: #ffffff;
+    color: $blue-deep;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $blue;
+    }
+  }
+
+  // Plans -----------------------------------------------------------------
+  // One rounded container holds both plans; the featured one sits inside it
+  // as a white card with a dashed edge.
+  &__plans {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 24px;
+    border: 1px solid $line;
+    border-radius: 44px;
+    background: #fafafa;
+  }
+
+  &__plan {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(28px, 4vw, 40px);
+    border: 1px dashed transparent;
+    border-radius: 32px;
+
+    &--featured {
+      border-color: #d5dde2;
+      background: #ffffff;
+    }
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #e6f4fe;
+    border: 1px solid #bfe0f8;
+    color: $blue-deep;
+
+    .pricing__plan--featured & {
+      border: 0;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
+        #131313;
+    }
+  }
+
+  &__name {
+    font-family: var(--font-heading);
+    margin-top: 28px;
+    color: $ink-900;
+    font-size: clamp(32px, 4vw, 42px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  &__price {
+    margin-top: 24px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__amount {
+    font-family: var(--font-heading);
+    color: $ink-900;
+    font-size: clamp(36px, 4.4vw, 46px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  &__unit {
+    color: $ink-500;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__tagline {
+    margin-top: 12px;
+    padding-bottom: 24px;
+    width: 100%;
+    border-bottom: 1px solid $line;
+    color: $ink-500;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  &__features {
+    list-style: none;
+    margin: 24px 0 36px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: $ink-700;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: $blue-deep;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border-radius: 100px;
+    background: #ececec;
+    color: $ink-900;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(19, 19, 19, 0.15);
+    }
+
+    .pricing__plan--featured & {
+      background: #131313;
+      color: #ffffff;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .pricing {
+    padding: 72px 16px 80px;
+
+    &__plans {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 14px;
+      border-radius: 32px;
+    }
+
+    &__plan {
+      border-radius: 24px;
+    }
+  }
+}

@@ -59,6 +59,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   }
 
   &__title {
+    font-family: var(--font-heading);
     margin-top: 20px;
     max-width: 15ch;
     color: $ink-900;
@@ -127,6 +128,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   }
 
   &__card-title {
+    font-family: var(--font-heading);
     color: $ink-900;
     font-size: clamp(1.25rem, 1.05rem + 0.85vw, 1.5rem);
     font-weight: 500;

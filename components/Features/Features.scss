@@ -31,6 +31,7 @@ $blue-deep: #0087ca;
     text-align: center;
 
     h2 {
+      font-family: var(--font-heading);
       max-width: 18ch;
       margin-top: 20px;
       color: $ink-900;
@@ -115,6 +116,7 @@ $blue-deep: #0087ca;
   }
 
   &__title {
+    font-family: var(--font-heading);
     margin: 0 0 1rem;
     color: $ink-900;
     font-size: clamp(28px, 4.2vw, 38px);
