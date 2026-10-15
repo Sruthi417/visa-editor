@@ -39,13 +39,14 @@ export default function Navbar() {
 
         {/* Right Button */}
         <Link href="/upload" className="navbar__button">
+        <span>Upload</span>
           <HugeiconsIcon
             icon={Upload01Icon}
             size={20}
             color="currentColor"
             strokeWidth={1.5}
           />
-          <span>Upload</span>
+          
         </Link>
 
       </nav>

@@ -1,0 +1,232 @@
+$ink-900: #162637;
+$ink-700: #23374a;
+$ink-500: #647789;
+$line: #e3e9ed;
+$surface: #f4f6f7;
+$blue: #2b97f0;
+$blue-deep: #0087ca;
+
+.features {
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(72px, 10vw, 140px) clamp(1.25rem, 6vw, 5rem);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  // Header ----------------------------------------------------------------
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    h2 {
+      max-width: 18ch;
+      margin-top: 20px;
+      color: $ink-900;
+      font-size: clamp(40px, 5.2vw, 56px);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      max-width: 46ch;
+      margin-top: 18px;
+      color: $ink-500;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid $line;
+    border-radius: 100px;
+    background: $surface;
+    color: $blue-deep;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $blue;
+    }
+  }
+
+  // Cards -----------------------------------------------------------------
+  &__cards {
+    margin-top: clamp(2.75rem, 1rem + 6vw, 6rem);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(80px, 10vw, 120px);
+  }
+
+  &__card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+
+    &--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__icon {
+    width: 54px;
+    height: 48px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px solid #bfe0f8;
+    background-color: #e6f4fe;
+    box-shadow: 0 4px 0 #a9d3f1;
+    color: $blue-deep;
+  }
+
+  &__title {
+    margin: 0 0 1rem;
+    color: $ink-900;
+    font-size: clamp(28px, 4.2vw, 38px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  &__desc {
+    margin: 0 0 32px;
+    color: $ink-500;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: $ink-900;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: $blue-deep;
+    }
+  }
+
+  &__illustration {
+    flex: 1;
+    max-width: 450px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    overflow: hidden;
+    border: 1px solid #eef1f3;
+    border-radius: 32px;
+    background: $surface;
+  }
+
+  &__img {
+    display: block;
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 32px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1100px) {
+  .features__card {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  .features {
+    &__card,
+    &__card--reverse {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    &__content {
+      max-width: 100%;
+    }
+
+    &__title,
+    &__desc {
+      max-width: 650px;
+    }
+
+    // The card is a column here and aligns to flex-start, so the image box
+    // sizes to its content unless it is given an explicit width.
+    &__illustration {
+      width: 100%;
+      max-width: 550px;
+      box-sizing: border-box;
+      padding: 2rem;
+    }
+
+    &__img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .features {
+    &__cards {
+      gap: 80px;
+    }
+
+    &__illustration {
+      padding: 1rem;
+    }
+  }
+}

@@ -1,0 +1,285 @@
+$ink-900: #162637;
+$ink-700: #294457;
+$ink-500: #647789;
+$ink-300: #a8c1d0;
+$line: #e3e9ed;
+$surface: #f4f6f7;
+$blue: #2b97f0;
+$blue-deep: #0087ca;
+
+.tips {
+  width: 100%;
+  padding: clamp(72px, 10vw, 140px) 20px;
+  background: #ffffff;
+
+  &__container {
+    width: min(1160px, 100%);
+    margin: 0 auto;
+  }
+
+  // Header ----------------------------------------------------------------
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: clamp(44px, 6vw, 70px);
+    text-align: center;
+
+    h2 {
+      margin-top: 20px;
+      color: $ink-900;
+      font-size: clamp(40px, 5.2vw, 56px);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      max-width: 46ch;
+      margin-top: 18px;
+      color: $ink-500;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid $line;
+    border-radius: 100px;
+    background: $surface;
+    color: $blue-deep;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $blue;
+    }
+  }
+
+  // Layout ----------------------------------------------------------------
+  &__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: clamp(40px, 6vw, 80px);
+  }
+
+  // Accordion -------------------------------------------------------------
+  &__accordion {
+    width: 100%;
+  }
+
+  &__item {
+    border-bottom: 1px solid $line;
+  }
+
+  &__trigger {
+    width: 100%;
+    min-height: 96px;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+      border-radius: 12px;
+    }
+
+    h3 {
+      color: $ink-700;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      transition: color 0.25s ease;
+    }
+  }
+
+  &__trigger-content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  &__number {
+    color: $ink-300;
+    font-size: 13px;
+    line-height: 1;
+    transition: color 0.25s ease;
+  }
+
+  &__icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: $surface;
+    color: $ink-500;
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 1;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease;
+  }
+
+  &__item--active {
+    .tips__trigger h3 {
+      color: $ink-900;
+    }
+
+    .tips__number {
+      color: $blue-deep;
+    }
+
+    .tips__icon {
+      background: #131313;
+      color: #ffffff;
+    }
+  }
+
+  &__answer {
+    display: grid;
+    overflow: hidden;
+    transition: grid-template-rows 0.35s ease;
+  }
+
+  &__answer-inner {
+    min-height: 0;
+    overflow: hidden;
+
+    p {
+      max-width: 480px;
+      padding: 0 56px 28px 0;
+      color: $ink-500;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  }
+
+  // Visual ----------------------------------------------------------------
+  &__visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 500 / 550;
+    overflow: hidden;
+    border-radius: 25px;
+    background: $blue-deep;
+    isolation: isolate;
+  }
+
+  &__visual-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url("/hero-bg.avif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__visual-grain {
+    position: absolute;
+    inset: -50%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.16;
+    background-image: url("/hero-grain.png");
+    background-repeat: repeat;
+    background-size: 280px 280px;
+  }
+
+  // One image per tip, stacked; only the active one is visible.
+  &__image {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.04);
+    pointer-events: none;
+    transition:
+      opacity 0.45s ease,
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &--active {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+// Responsive ------------------------------------------------------------------
+@media (max-width: 900px) {
+  .tips {
+    padding: 72px 20px 80px;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    &__visual {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    &__answer-inner p {
+      padding-right: 44px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .tips {
+    padding-left: 16px;
+    padding-right: 16px;
+
+    &__trigger {
+      min-height: 84px;
+
+      h3 {
+        font-size: 18px;
+      }
+    }
+
+    &__answer-inner p {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tips__answer,
+  .tips__icon,
+  .tips__image {
+    transition: none;
+  }
+}
