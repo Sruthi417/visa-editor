@@ -1,0 +1,469 @@
+$ink-900: #162637;
+$ink-700: #23374a;
+$ink-500: #647789;
+$line: #e3e9ed;
+$surface: #f4f6f7;
+$blue: #2b97f0;
+$blue-deep: #0087ca;
+
+$preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+.doc-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  background: #ffffff;
+
+  &__close {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: $ink-900;
+    cursor: pointer;
+    transition: background 0.25s ease;
+
+    &:hover {
+      background: $surface;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+    }
+  }
+
+  &__grid {
+    width: 100%;
+    max-width: 1240px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: clamp(64px, 8vh, 110px) clamp(20px, 4vw, 48px);
+    display: grid;
+    align-content: center;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+    align-items: center;
+    column-gap: clamp(32px, 5vw, 64px);
+  }
+
+  // Left column -------------------------------------------------------------
+  &__title {
+    margin-bottom: 28px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4.6vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  &__card {
+    padding: 26px;
+    border: 1px solid $line;
+    border-radius: 24px;
+    background: $surface;
+  }
+
+  &__switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid $line;
+    border-radius: 100px;
+    background: #ffffff;
+  }
+
+  &__switch-btn {
+    padding: 11px 16px;
+    border: 0;
+    border-radius: 100px;
+    background: transparent;
+    color: $ink-500;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background 0.3s ease,
+      color 0.3s ease;
+
+    &--active {
+      background: #131313;
+      color: #ffffff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  // Select with its label sitting on the border.
+  &__field {
+    position: relative;
+    margin-top: 22px;
+
+    label {
+      position: absolute;
+      top: -10px;
+      left: 14px;
+      z-index: 1;
+      padding: 0 6px;
+      background: $surface;
+      color: $ink-900;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    select {
+      width: 100%;
+      height: 56px;
+      padding: 0 48px 0 20px;
+      border: 1px solid $ink-900;
+      border-radius: 12px;
+      outline: none;
+      background: #ffffff;
+      color: $ink-900;
+      font-size: 17px;
+      appearance: none;
+      cursor: pointer;
+
+      &:focus-visible {
+        border-color: $blue;
+        box-shadow: 0 0 0 3px rgba($blue, 0.2);
+      }
+    }
+  }
+
+  &__chevron {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    pointer-events: none;
+    color: $ink-900;
+  }
+
+  &__summary {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  // A stand-in for the document's cover.
+  &__cover {
+    flex-shrink: 0;
+    width: 104px;
+    height: 148px;
+    padding: 14px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 6px;
+    color: #e8c872;
+    box-shadow: 0 6px 16px rgba(11, 27, 43, 0.18);
+
+    span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+    }
+
+    strong {
+      font-family: var(--font-heading);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    &--passport {
+      background: linear-gradient(160deg, #1d2f5c, #0f1b3a);
+    }
+
+    &--visa {
+      background: linear-gradient(160deg, #1f6f5c, #0f3f34);
+    }
+  }
+
+  &__details {
+    flex: 1;
+    min-width: 0;
+
+    h3 {
+      padding-bottom: 14px;
+      border-bottom: 1px solid $line;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 2.4vw, 28px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    dl {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+
+      > div {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        font-size: 16px;
+      }
+    }
+
+    dt {
+      color: $ink-500;
+    }
+
+    dd {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: $ink-900;
+      font-weight: 600;
+    }
+  }
+
+  &__swatch {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border: 1px solid #c9d2d8;
+    border-radius: 50%;
+  }
+
+  &__upload {
+    margin-top: 24px;
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 0;
+    cursor: pointer;
+    border-radius: 100px;
+    background: #131313;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(19, 19, 19, 0.25);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
+    }
+  }
+
+  // Right column ----------------------------------------------------------------
+  &__spec-title {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  &__previews {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    column-gap: 32px;
+    row-gap: 32px;
+  }
+
+  &__preview {
+    margin: 0;
+
+    figcaption {
+      display: inline-block;
+      margin-bottom: 26px;
+      padding: 5px 11px;
+      border: 1px solid $line;
+      border-radius: 8px;
+      background: $surface;
+      color: $ink-900;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  &__before {
+    overflow: hidden;
+    border-radius: 6px;
+    background: $surface;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 52% 50%;
+    }
+  }
+
+  // Room for the measurement lines that sit outside the frame.
+  &__after {
+    padding-right: 44px;
+  }
+
+  &__frame {
+    position: relative;
+    max-width: 100%;
+    outline: 1px dashed $ink-900;
+    background: #ffffff;
+    box-shadow: 0 10px 28px rgba(11, 27, 43, 0.12);
+    transition: width 0.55s $preview-ease;
+  }
+
+  &__crop {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      display: block;
+      max-width: none;
+      height: auto;
+      transition:
+        width 0.55s $preview-ease,
+        left 0.55s $preview-ease,
+        top 0.55s $preview-ease;
+    }
+  }
+
+  &__ruler {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+
+    b {
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: #131313;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      background: $ink-900;
+    }
+
+    &--top {
+      top: -16px;
+      left: 0;
+      right: 0;
+      height: 1px;
+
+      &::before {
+        inset: 0;
+      }
+    }
+
+    &--right {
+      top: 0;
+      bottom: 0;
+      right: -20px;
+      width: 1px;
+
+      &::before {
+        inset: 0;
+      }
+    }
+  }
+
+  &__note {
+    margin-top: 44px;
+    padding-top: 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border-top: 1px solid $line;
+    color: $ink-500;
+    font-size: 15px;
+    line-height: 1.5;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: $blue-deep;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .doc-modal {
+    &__grid {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 48px;
+      align-items: start;
+      padding-top: 88px;
+    }
+
+    &__close {
+      top: 16px;
+      right: 16px;
+    }
+
+    &__title {
+      margin-bottom: 24px;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .doc-modal {
+    &__card {
+      padding: 20px;
+    }
+
+    &__summary {
+      flex-direction: column;
+    }
+
+    &__cover {
+      width: 88px;
+      height: 124px;
+    }
+
+    &__previews {
+      column-gap: 24px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doc-modal__frame,
+  .doc-modal__crop img {
+    transition: none;
+  }
+}

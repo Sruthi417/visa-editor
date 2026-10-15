@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import GetStartedButton from "../DocumentModal/GetStartedButton";
 import HeroVisual from "./HeroVisual";
 import "./Hero.scss";
 
@@ -13,9 +12,7 @@ export default function Hero() {
             Create passport and visa photos that match your destination&apos;s
             requirements
           </p>
-          <Link href="/upload" className="hero__button">
-            Get started
-          </Link>
+          <GetStartedButton className="hero__button" />
         </div>
 
         <div className="hero__visual">
