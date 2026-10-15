@@ -5,6 +5,7 @@ import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import PhotoTips from "@/components/PhotoTips/PhotoTips";
 import Pricing from "@/components/Pricing/Pricing";
 import Faq from "@/components/Faq/Faq";
+import Review from "@/components/Review/Review";
 import Footer from "@/components/Footer/Footer";
 export default function Page() {
   return (
@@ -15,6 +16,7 @@ export default function Page() {
   <HowItWorks />
   <PhotoTips />
   <Pricing />
+  <Review />
   <Faq />
   <Footer/>
   </div>

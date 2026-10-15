@@ -1,0 +1,449 @@
+$ink-900: #162637;
+$ink-700: #23374a;
+$ink-500: #647789;
+$ink-300: #a5b5c0;
+$line: #e3e9ed;
+$surface: #f4f6f7;
+$blue: #2b97f0;
+$blue-deep: #0087ca;
+
+.reviews {
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(72px, 10vw, 140px) 20px;
+  background: $surface;
+
+  &__container {
+    width: min(1160px, 100%);
+    margin: 0 auto;
+  }
+
+  // Header ----------------------------------------------------------------
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    h2 {
+      max-width: 14ch;
+      margin-top: 20px;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: clamp(40px, 5.2vw, 56px);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      max-width: 38ch;
+      margin-top: 18px;
+      color: $ink-500;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid $line;
+    border-radius: 100px;
+    background: #ffffff;
+    color: $blue-deep;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $blue;
+    }
+  }
+
+  // App rating ------------------------------------------------------------
+  &__app {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding-top: 92px;
+  }
+
+  &__rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    strong {
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    > span {
+      margin-top: 14px;
+      color: $ink-300;
+      font-size: 14px;
+      line-height: 1;
+    }
+  }
+
+  &__stars {
+    margin-top: 10px;
+    color: #f5b301;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border-radius: 100px;
+    background: #131313;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(19, 19, 19, 0.2);
+    }
+  }
+
+  // Columns ---------------------------------------------------------------
+  &__columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 20px;
+  }
+
+  &__column {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+// Shared pieces -------------------------------------------------------------
+.review-quote {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e6f4fe;
+  color: $blue-deep;
+}
+
+.review-avatar {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $line, #ffffff);
+
+  &__initials {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Large card: same footprint as the portrait photo it replaces ---------------
+.review-featured {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.2;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #ffffff;
+  color: $ink-700;
+  isolation: isolate;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    
+    // background-image: url("/hero-bg.avif");
+    // background-size: cover;
+    // background-position: center;
+  }
+
+  &__grain {
+    position: absolute;
+    inset: -50%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.16;
+    
+    // background-image: url("/hero-grain.png");
+    // background-repeat: repeat;
+    // background-size: 280px 280px;
+  }
+
+  &__text {
+    // Same type as .review-card__text
+    margin-top: 18px;
+    color: $ink-700;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: -0.015em;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  &__person {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    strong {
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    span {
+      color: $ink-500;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+  }
+
+  &__rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+
+    strong {
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    span {
+      color: $ink-300;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.03em;
+    }
+  }
+}
+
+// Small card ----------------------------------------------------------------
+.review-card {
+  width: 100%;
+  min-height: 308px;
+  box-sizing: border-box;
+  padding: 22px 22px 25px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: #ffffff;
+
+  &__text {
+    margin-top: 18px;
+    color: $ink-700;
+    font-size: 16px;
+    line-height: 1.55;
+    letter-spacing: -0.015em;
+  }
+
+  &__footer {
+    margin-top: auto;
+    padding-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  &__person {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .review-avatar {
+      width: 38px;
+      height: 38px;
+    }
+  }
+
+  &__author {
+    color: $ink-500;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  &__date {
+    flex-shrink: 0;
+    color: $ink-300;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+}
+
+// Responsive ----------------------------------------------------------------
+@media (max-width: 950px) {
+  .reviews {
+    padding: 90px 20px 110px;
+
+    &__header {
+      margin-bottom: 55px;
+    }
+
+    &__app {
+      gap: 32px;
+      padding-top: 70px;
+    }
+
+    &__columns,
+    &__column {
+      gap: 16px;
+    }
+  }
+
+  .review-featured {
+    padding: 20px;
+
+    &__text {
+      font-size: 15px;
+    }
+  }
+
+  .review-card {
+    min-height: 290px;
+    padding: 20px;
+
+    &__text {
+      font-size: 15px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .reviews {
+    padding: 75px 16px 90px;
+
+    &__header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    &__heading {
+      align-items: center;
+
+      h2 {
+        max-width: none;
+        font-size: clamp(38px, 10.5vw, 52px);
+      }
+
+      p {
+        max-width: 32ch;
+        font-size: 15px;
+      }
+    }
+
+    &__app {
+      display: none;
+    }
+
+    &__columns {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  // One column: the large card leads in each group, so the text fits.
+  .reviews__column:nth-child(2) .review-featured {
+    order: -1;
+  }
+
+  .review-featured {
+    aspect-ratio: auto;
+    min-height: 340px;
+    border-radius: 22px;
+  }
+
+  .review-card {
+    min-height: 0;
+    border-radius: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews__cta {
+    transition: none;
+  }
+}
