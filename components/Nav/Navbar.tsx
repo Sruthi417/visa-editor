@@ -103,10 +103,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="navbar__logo" onClick={close}>
             <Image
-              src="/logo.png"
-              alt="Logo"
-              width={38}
-              height={38}
+              src="/logo-wordmark.png"
+              alt="FlyFrame"
+              width={124}
+              height={32}
               priority
             />
           </Link>

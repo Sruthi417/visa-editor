@@ -49,26 +49,13 @@ $land-ratio: calc(371 / 1635);
   &__logo {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    color: $ink-900;
     text-decoration: none;
-  }
 
-  &__logo-mark {
-    width: 38px;
-    height: 38px;
-    display: grid;
-    place-items: center;
-    border-radius: 11px;
-    background: #131313;
-    color: #ffffff;
-  }
-
-  &__logo-name {
-    font-family: var(--font-heading);
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.03em;
+    img {
+      display: block;
+      width: auto;
+      height: 44px;
+    }
   }
 
   &__about {
@@ -153,8 +140,8 @@ $land-ratio: calc(371 / 1635);
       padding-top: 44px;
     }
 
-    &__logo-name {
-      font-size: 24px;
+    &__logo img {
+      height: 38px;
     }
 
     &__nav {

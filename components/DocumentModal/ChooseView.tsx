@@ -1,15 +1,11 @@
 "use client";
 
-import { useId } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  ArrowDown01Icon,
-  InformationCircleIcon,
-  Upload01Icon,
-} from "@hugeicons/core-free-icons";
+import { InformationCircleIcon, Upload01Icon } from "@hugeicons/core-free-icons";
 
-import { itemVariants, panelVariants, viewVariants } from "./motion";
+import CountrySelect from "./CountrySelect";
+import { EASE, itemVariants, panelVariants, viewVariants } from "./motion";
 import {
   SAMPLE_PHOTO,
   cropFor,
@@ -55,7 +51,6 @@ export default function ChooseView({
   onUpload,
   error,
 }: Props) {
-  const selectId = useId();
   const crop = cropFor(spec);
   const frameWidth = (PREVIEW_HEIGHT * spec.widthMm) / spec.heightMm;
 
@@ -85,33 +80,36 @@ export default function ChooseView({
                 aria-pressed={type === item.id}
                 onClick={() => onTypeChange(item.id)}
               >
-                {item.label}
+                {/* One pill that slides from option to option. */}
+                {type === item.id && (
+                  <motion.span
+                    layoutId="doc-switch-thumb"
+                    className="doc-modal__switch-thumb"
+                    transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                  />
+                )}
+                <span className="doc-modal__switch-label">{item.label}</span>
               </button>
             ))}
           </div>
 
-          <div className="doc-modal__field">
-            <label htmlFor={selectId}>Country</label>
-            <select
-              id={selectId}
-              value={entry.code}
-              onChange={(event) => onCountryChange(event.target.value)}
-            >
-              {countries.map((item) => (
-                <option key={item.code} value={item.code}>
-                  {item.country}
-                </option>
-              ))}
-            </select>
-            <HugeiconsIcon
-              className="doc-modal__chevron"
-              icon={ArrowDown01Icon}
-              size={20}
-              strokeWidth={1.8}
-            />
-          </div>
+          <CountrySelect
+            label="Country"
+            value={entry.code}
+            options={countries.map((item) => ({ value: item.code, label: item.country }))}
+            onChange={onCountryChange}
+          />
 
-          <div className="doc-modal__summary">
+          {/* The summary fades through when the document or country changes. */}
+          <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={`${type}-${entry.code}`}
+            className="doc-modal__summary"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.22, ease: EASE }}
+          >
             <div
               className={`doc-modal__cover doc-modal__cover--${type}`}
               aria-hidden="true"
@@ -124,21 +122,21 @@ export default function ChooseView({
               <h3>{documentName}</h3>
               <dl>
                 <div>
-                  <dt>Size</dt>
+                  <dt>Size : </dt>
                   <dd>{sizeLabel(spec)}</dd>
                 </div>
                 <div>
-                  <dt>Resolution</dt>
+                  <dt>Resolution : </dt>
                   <dd>
                     {spec.dpi} dpi ({pixelLabel(spec)})
                   </dd>
                 </div>
                 <div>
-                  <dt>File</dt>
+                  <dt>File : </dt>
                   <dd>{fileLabel(spec)}</dd>
                 </div>
                 <div>
-                  <dt>Background</dt>
+                  <dt>Background : </dt>
                   <dd>
                     <i
                       className="doc-modal__swatch"
@@ -149,7 +147,7 @@ export default function ChooseView({
                 </div>
                 {spec.headMm && (
                   <div>
-                    <dt>Head height</dt>
+                    <dt>Head height : </dt>
                     <dd>
                       {spec.headMm[0]}–{spec.headMm[1]} mm
                     </dd>
@@ -157,7 +155,8 @@ export default function ChooseView({
                 )}
               </dl>
             </div>
-          </div>
+          </motion.div>
+          </AnimatePresence>
 
           <button type="button" className="doc-modal__upload" onClick={onUpload}>
             <HugeiconsIcon icon={Upload01Icon} size={20} strokeWidth={1.8} />

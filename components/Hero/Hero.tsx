@@ -1,5 +1,6 @@
+import Image from "next/image";
+
 import GetStartedButton from "../DocumentModal/GetStartedButton";
-import HeroVisual from "./HeroVisual";
 import "./Hero.scss";
 
 export default function Hero() {
@@ -16,7 +17,15 @@ export default function Hero() {
         </div>
 
         <div className="hero__visual">
-          <HeroVisual />
+          <Image
+            className="hero__image"
+            src="/hero-sub.png"
+            alt="Passport photos of a woman, an older man and a baby, next to a passport"
+            width={1272}
+            height={1237}
+            sizes="(max-width: 900px) 80vw, 45vw"
+            priority
+          />
         </div>
       </div>
     </section>

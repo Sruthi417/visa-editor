@@ -35,19 +35,19 @@ $ink-900: #162637;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 100px;
 
+  // The FlyFrame wordmark, inset from the pill's rounded end.
   &__logo {
-    width: 46px;
     height: 46px;
+    margin-left: 12px;
     flex-shrink: 0;
 
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    background: #f5f5f5;
 
     img {
+      display: block;
+      width: auto;
+      height: 32px;
       object-fit: contain;
     }
   }

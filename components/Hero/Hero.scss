@@ -9,7 +9,7 @@
   //   #c9eaff 70%,
   //   #ffffff 100%
   // );
-  background-image: url("/heroo.png");
+  background-image: url("/heroo2.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -79,6 +79,15 @@
     justify-content: center;
     min-width: 0;
   }
+
+  // The picture is kept inside the first screen, whatever the window height.
+  &__image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: min(660px, calc(100vh - 220px));
+    object-fit: contain;
+  }
 }
 
 @media (max-width: 900px) {
@@ -94,6 +103,11 @@
 
     &__description {
       font-size: 16px;
+    }
+
+    &__image {
+      max-width: min(100%, 460px);
+      max-height: none;
     }
   }
 }

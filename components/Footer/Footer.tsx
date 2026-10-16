@@ -1,6 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Camera01Icon } from "@hugeicons/core-free-icons";
 
 import "./Footer.scss";
 
@@ -39,14 +38,16 @@ export default function Footer() {
         <div className="footer__top">
           <div className="footer__brand">
             <Link href="/" className="footer__logo">
-              <span className="footer__logo-mark">
-                <HugeiconsIcon icon={Camera01Icon} size={22} strokeWidth={1.6} />
-              </span>
-              <span className="footer__logo-name">Visa Editor</span>
+              <Image
+                src="/logo-wordmark.png"
+                alt="FlyFrame"
+                width={170}
+                height={44}
+              />
             </Link>
 
             <p className="footer__about">
-              Visa Editor turns an everyday snapshot into a passport or visa
+              FlyFrame turns an everyday snapshot into a passport or visa
               photo that meets your destination&apos;s rules, in seconds.
             </p>
           </div>

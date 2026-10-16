@@ -33,7 +33,7 @@ $red: #d63b3f;
 
   &__title--sm {
     margin-bottom: 20px;
-    font-size: clamp(30px, 3.6vw, 44px);
+    font-size: clamp(30px, 3.6vw, 42px);
   }
 
   &__right--center {
@@ -325,8 +325,8 @@ $red: #d63b3f;
   &__lead {
     max-width: 58ch;
     color: $ink-900;
-    font-size: 17px;
-    line-height: 1.7;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   &__checks {
@@ -360,7 +360,7 @@ $red: #d63b3f;
   &__check-label {
     color: $ink-900;
     font-family: var(--font-heading);
-    font-size: clamp(17px, 1.7vw, 21px);
+    font-size: clamp(17px, 1.7vw, 18px);
     font-weight: 500;
     letter-spacing: -0.015em;
   }
@@ -379,15 +379,15 @@ $red: #d63b3f;
     padding: 8px 16px;
     border-radius: 100px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
 
     &--passed {
-      background: $green-soft;
+      // background: $green-soft;
       color: #1a9b5a;
     }
 
     &--failed {
-      background: #fdeaea;
+      // background: #fdeaea;
       color: $red;
     }
 

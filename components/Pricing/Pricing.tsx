@@ -20,7 +20,7 @@ const plans = [
   {
     name: "Free",
     icon: GiftIcon,
-    price: "₹0",
+    price: "$0",
     unit: "",
     tagline: "For casual users",
     features: [
@@ -35,7 +35,7 @@ const plans = [
   {
     name: "Premium",
     icon: SparklesIcon,
-    price: "₹49",
+    price: "$16.99",
     unit: "/ photo",
     tagline: "For ready-to-download photos",
     features: [

@@ -83,18 +83,13 @@ $blue-deep: #0087ca;
     display: grid;
     place-items: center;
     border-radius: 14px;
-    background: #e6f4fe;
-    border: 1px solid #bfe0f8;
-    color: $blue-deep;
-
-    .pricing__plan--featured & {
-      border: 0;
-      color: #ffffff;
-      background:
-        radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 55%),
-        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
-        #131313;
-    }
+    border: 0;
+    color: #ffffff;
+    // The same blue tile for every plan.
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 55%),
+      radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
+      #2b97f0;
   }
 
   &__name {
