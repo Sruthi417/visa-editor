@@ -77,7 +77,7 @@ const features = [
       "Digital Download",
       "Home or Shop Printing",
     ],
-    image: "/features/card4.png",
+    image: "/fea4.png",
     icon: PrinterIcon,
   },
 ];

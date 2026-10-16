@@ -13,7 +13,7 @@ const tips = [
     title: "Consider the distance",
     description:
       "Keep your front-facing camera 16–20 inch (40–50 cm) away from the face. For rear cameras, keep a 4–6 foot (1–2 meter) distance.",
-    image: "/photo-tips/distance.png",
+    image: "/photo1.png",
     alt: "Phone held at arm's length from the face",
   },
   {
@@ -140,6 +140,13 @@ export default function PhotoTips() {
                   >
                     <div className="tips__answer-inner">
                       <p>{tip.description}</p>
+
+                      {/* On small screens the picture opens with its tip,
+                          instead of sitting below the whole list. */}
+                      <div className="tips__inline-visual">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={tip.image} alt={tip.alt} loading="lazy" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -151,16 +158,21 @@ export default function PhotoTips() {
             <div className="tips__visual-bg" />
             <div className="tips__visual-grain" />
             {tips.map((tip, index) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <div
                 key={tip.number}
-                className={`tips__image${
-                  activeIndex === index ? " tips__image--active" : ""
+                className={`tips__slide${
+                  activeIndex === index ? " tips__slide--active" : ""
                 }`}
-                src={tip.image}
-                alt={tip.alt}
                 aria-hidden={activeIndex !== index}
-              />
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="tips__image"
+                  src={tip.image}
+                  alt={tip.alt}
+                  loading="lazy"
+                />
+              </div>
             ))}
           </motion.div>
         </motion.div>

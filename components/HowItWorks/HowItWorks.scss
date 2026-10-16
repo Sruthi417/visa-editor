@@ -18,6 +18,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   width: 100%;
   background: white;
   padding: var(--section-py) var(--section-px);
+  padding-bottom: 3rem;
 
   &__inner {
     width: 100%;
@@ -108,7 +109,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
     background:
       radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 55%),
       radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
-      #131313;
+      #2b97f0;
   }
 
   &__card-title {

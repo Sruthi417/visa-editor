@@ -13,6 +13,8 @@ $blue-deep: #0087ca;
   width: 100%;
   padding: var(--section-py) var(--section-px);
   background: #ffffff;
+  padding-bottom: 4rem;
+  padding-top: 9rem;
 
   &__container {
     width: min(1080px, 100%);
@@ -172,41 +174,39 @@ $blue-deep: #0087ca;
     width: 100%;
     aspect-ratio: 500 / 550;
     overflow: hidden;
+    border: 1px solid #e9e9e9;
     border-radius: 25px;
-    background: $blue-deep;
+    // background: $blue-deep;
     isolation: isolate;
   }
 
-  &__visual-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image: url("/hero-bg.avif");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+  // &__visual-bg {
+  //   position: absolute;
+  //   inset: 0;
+  //   z-index: 0;
+  //   background-image: url("/hero-bg.avif");
+  //   background-size: cover;
+  //   background-position: center;
+  //   background-repeat: no-repeat;
+  // }
 
-  &__visual-grain {
-    position: absolute;
-    inset: -50%;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.16;
-    background-image: url("/hero-grain.png");
-    background-repeat: repeat;
-    background-size: 280px 280px;
-  }
+  // &__visual-grain {
+  //   position: absolute;
+  //   inset: -50%;
+  //   z-index: 1;
+  //   pointer-events: none;
+  //   opacity: 0.16;
+  //   background-image: url("/hero-grain.png");
+  //   background-repeat: repeat;
+  //   background-size: 280px 280px;
+  // }
 
-  // One image per tip, stacked; only the active one is visible.
-  &__image {
+  // One slide per tip, stacked; only the active one is visible.
+  &__slide {
     position: absolute;
     inset: 0;
     z-index: 2;
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    overflow: hidden;
     opacity: 0;
     transform: scale(1.04);
     pointer-events: none;
@@ -219,9 +219,38 @@ $blue-deep: #0087ca;
       transform: none;
     }
   }
+
+  // The whole picture, never cropped: full width, centred, at its own height.
+  // Its top and bottom edges fade into the sky fill behind it.
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: translateY(-50%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 8%, #000 92%, transparent 100%);
+  }
+}
+
+// Pale sky behind a picture, in the space its shape does not cover.
+$sky-fill: linear-gradient(180deg, #d9edfb 0%, #eaf5fd 50%, #d9edfb 100%);
+
+.tips__slide {
+  background: $sky-fill;
+}
+
+.tips__inline-visual {
+  background: $sky-fill;
 }
 
 // Responsive ------------------------------------------------------------------
+// The picture inside each accordion item, only shown on small screens.
+.tips__inline-visual {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .tips {
 
@@ -231,13 +260,35 @@ $blue-deep: #0087ca;
       gap: 40px;
     }
 
+    // The side picture is replaced by one inside each open item.
     &__visual {
-      max-width: 520px;
-      margin: 0 auto;
+      display: none;
     }
 
     &__answer-inner p {
       padding-right: 44px;
+    }
+  }
+
+  .tips__inline-visual {
+    display: block;
+    width: 100%;
+    position: relative;
+    max-width: 420px;
+    margin: 0 0 28px;
+    aspect-ratio: 500 / 550;
+    overflow: hidden;
+    border-radius: 20px;
+
+    img {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: translateY(-50%);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 8%, #000 92%, transparent 100%);
     }
   }
 }
@@ -262,7 +313,7 @@ $blue-deep: #0087ca;
 @media (prefers-reduced-motion: reduce) {
   .tips__answer,
   .tips__icon,
-  .tips__image {
+  .tips__slide {
     transition: none;
   }
 }
