@@ -17,6 +17,7 @@ import { Cancel01Icon } from "@hugeicons/core-free-icons";
 
 import ChooseView from "./ChooseView";
 import ProcessingView from "./ProcessingView";
+import RetakeView from "./RetakeView";
 import ResultView from "./ResultView";
 import { EASE } from "./motion";
 import {
@@ -34,7 +35,7 @@ import "./DocumentFlow.scss";
 const MAX_FILE_BYTES = 15 * 1024 * 1024;
 const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
 
-type View = "choose" | "processing" | "result";
+type View = "choose" | "processing" | "result" | "retake";
 
 /** What was chosen when the photo was uploaded, kept for the later views. */
 type Job = {
@@ -142,7 +143,10 @@ export default function DocumentModal({ open, onClose }: Props) {
         setResult(output);
         setStepIndex(STEPS.length);
         // Let the finished state register before moving on.
-        timer = setTimeout(() => setView("result"), 900);
+        timer = setTimeout(
+          () => setView(output.retake ? "retake" : "result"),
+          900,
+        );
       })
       .catch((reason) => {
         if (isAbort(reason)) return;
@@ -261,6 +265,16 @@ export default function DocumentModal({ open, onClose }: Props) {
                 stepIndex={stepIndex}
                 face={face}
                 spec={job.spec}
+              />
+            )}
+
+            {view === "retake" && job && result && (
+              <RetakeView
+                key="retake"
+                titleId={titleId}
+                result={result}
+                spec={job.spec}
+                onRetake={retake}
               />
             )}
 

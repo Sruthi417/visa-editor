@@ -13,6 +13,10 @@ export type PhotoSpec = {
   backgroundColor: string;
   /** Allowed chin-to-crown height in millimetres, when it is specified. */
   headMm?: [number, number];
+  /** Format of the file that is submitted. */
+  format: "JPEG";
+  /** Allowed file size in kilobytes: [minimum, maximum]. */
+  fileKb: [number, number];
 };
 
 export type CountrySpecs = {
@@ -20,6 +24,16 @@ export type CountrySpecs = {
   country: string;
   passport?: PhotoSpec;
   visa?: PhotoSpec;
+};
+
+/** A spec before its file limits are added (see FILE_LIMITS). */
+type SpecBase = Omit<PhotoSpec, "format" | "fileKb">;
+
+type CountryBase = {
+  code: string;
+  country: string;
+  passport?: SpecBase;
+  visa?: SpecBase;
 };
 
 const WHITE = { background: "White", backgroundColor: "#ffffff" };
@@ -46,7 +60,7 @@ const SQUARE_2IN = {
  * these, so the interface tells people to confirm against the official
  * source before submitting.
  */
-export const photoSpecs: CountrySpecs[] = [
+const baseSpecs: CountryBase[] = [
   {
     code: "AU",
     country: "Australia",
@@ -214,6 +228,37 @@ export const photoSpecs: CountrySpecs[] = [
   },
 ];
 
+/**
+ * Accepted file sizes in kilobytes, [minimum, maximum], where a country
+ * differs from the default of 50 to 5000. All photos are submitted as JPEG.
+ */
+const DEFAULT_FILE_KB: [number, number] = [50, 5000];
+
+const FILE_LIMITS: Record<string, Partial<Record<DocumentType, [number, number]>>> = {
+  CA: { passport: [200, 5120] },
+  CN: { passport: [40, 500], visa: [40, 500] },
+  IN: { passport: [20, 100], visa: [10, 300] },
+  NZ: { passport: [250, 5120] },
+  PK: { passport: [20, 500] },
+  SG: { passport: [50, 8000] },
+  GB: { passport: [50, 10240] },
+  US: { passport: [54, 10240], visa: [50, 240] },
+};
+
+function withFile(code: string, type: DocumentType, spec?: SpecBase): PhotoSpec | undefined {
+  return spec && {
+    ...spec,
+    format: "JPEG",
+    fileKb: FILE_LIMITS[code]?.[type] ?? DEFAULT_FILE_KB,
+  };
+}
+
+export const photoSpecs: CountrySpecs[] = baseSpecs.map((entry) => ({
+  ...entry,
+  passport: withFile(entry.code, "passport", entry.passport),
+  visa: withFile(entry.code, "visa", entry.visa),
+}));
+
 /** Countries that have a spec for this document type. */
 export function countriesFor(type: DocumentType): CountrySpecs[] {
   return photoSpecs.filter((entry) => entry[type]);
@@ -222,6 +267,11 @@ export function countriesFor(type: DocumentType): CountrySpecs[] {
 export function sizeLabel(spec: PhotoSpec): string {
   const metric = `${spec.widthMm}x${spec.heightMm} mm`;
   return spec.imperial ? `${spec.imperial} (${metric})` : metric;
+}
+
+/** "JPEG, 50–5000 KB" */
+export function fileLabel(spec: PhotoSpec): string {
+  return `${spec.format}, ${spec.fileKb[0]}–${spec.fileKb[1]} KB`;
 }
 
 /** Photo size in pixels at the spec's resolution. */

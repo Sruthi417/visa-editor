@@ -45,6 +45,14 @@ export type ProcessResult = {
   checks: Check[];
   /** Every check that ran passed. */
   passed: boolean;
+  /** Size of the encoded file, and the JPEG quality it was saved at (0-1). */
+  sizeKb: number;
+  quality: number;
+  /**
+   * Set when the photo cannot meet the file-size limit without losing too
+   * much quality. The photo should be retaken, not compressed harder.
+   */
+  retake: "large" | "small" | null;
   /** Crown and chin as percentages of the frame's height, when a face was found. */
   head: { top: number; bottom: number } | null;
   headMm: number | null;
@@ -172,6 +180,70 @@ function toBlob(canvas: HTMLCanvasElement, quality: number) {
       quality,
     ),
   );
+}
+
+/** Best JPEG quality for a normal photo, and the lowest we will accept. */
+const QUALITY_BEST = 0.95;
+const QUALITY_FLOOR = 0.7;
+
+type Encoded = {
+  blob: Blob;
+  quality: number;
+  retake: "large" | "small" | null;
+};
+
+/**
+ * Saves the photo as a JPEG inside the document's file-size limits.
+ *
+ * It is encoded once at high quality. If that is too large, one search finds
+ * the highest quality that fits, going no lower than QUALITY_FLOOR. A photo
+ * that still does not fit at the floor is full of noise or fine detail, and
+ * squeezing it further would visibly damage it, so we ask for a retake.
+ */
+async function encodeWithinLimits(
+  canvas: HTMLCanvasElement,
+  spec: PhotoSpec,
+): Promise<Encoded> {
+  const minBytes = spec.fileKb[0] * 1024;
+  const maxBytes = spec.fileKb[1] * 1024;
+
+  const best = await toBlob(canvas, QUALITY_BEST);
+
+  if (best.size > maxBytes) {
+    const floor = await toBlob(canvas, QUALITY_FLOOR);
+    if (floor.size > maxBytes) {
+      return { blob: floor, quality: QUALITY_FLOOR, retake: "large" };
+    }
+
+    // Some quality between the floor and the best fits: find the highest.
+    let fit = { blob: floor, quality: QUALITY_FLOOR };
+    let low = QUALITY_FLOOR;
+    let high = QUALITY_BEST;
+    for (let i = 0; i < 6; i++) {
+      const mid = (low + high) / 2;
+      const attempt = await toBlob(canvas, mid);
+      if (attempt.size <= maxBytes) {
+        fit = { blob: attempt, quality: mid };
+        low = mid;
+      } else {
+        high = mid;
+      }
+    }
+    return { ...fit, retake: null };
+  }
+
+  if (best.size < minBytes) {
+    // Too small: allow the top quality. A file that is still too small has
+    // very little detail in it, which means it is blurred or flat.
+    const top = await toBlob(canvas, 1);
+    return {
+      blob: top,
+      quality: 1,
+      retake: top.size < minBytes ? "small" : null,
+    };
+  }
+
+  return { blob: best, quality: QUALITY_BEST, retake: null };
 }
 
 const previewOf = (canvas: HTMLCanvasElement) => canvas.toDataURL("image/jpeg", 0.85);
@@ -503,10 +575,20 @@ export async function processPhoto(
     return results;
   });
 
-  // 5. Finalising: encode the photo and work out the head measurements.
-  const done = await runStep("finalise", cb, async () => {
-    const blob = await toBlob(final, 0.95);
-    return { blob, url: URL.createObjectURL(blob) };
+  // 5. Finalising: save the photo within the file-size limits.
+  const encoded = await runStep("finalise", cb, () =>
+    encodeWithinLimits(final, spec),
+  );
+  const sizeKb = Math.round(encoded.blob.size / 1024);
+  const [minKb, maxKb] = spec.fileKb;
+
+  checks.push({
+    id: "file",
+    label: "File size",
+    status: encoded.retake ? "failed" : "passed",
+    detail: encoded.retake
+      ? `${sizeKb} KB, but this document needs ${minKb}–${maxKb} KB.`
+      : `${sizeKb} KB (allowed ${minKb}–${maxKb} KB)`,
   });
 
   const head = plan.faceFound
@@ -517,7 +599,11 @@ export async function processPhoto(
     : null;
 
   return {
-    ...done,
+    blob: encoded.blob,
+    url: URL.createObjectURL(encoded.blob),
+    sizeKb,
+    quality: encoded.quality,
+    retake: encoded.retake,
     width: final.width,
     height: final.height,
     checks,

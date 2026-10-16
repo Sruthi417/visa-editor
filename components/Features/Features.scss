@@ -167,7 +167,9 @@ $blue-deep: #0087ca;
     overflow: hidden;
     border: 1px solid #eef1f3;
     border-radius: 32px;
-    background: $surface;
+    // The sky, with its clouds along the bottom edge; the flat blue shows
+    // while the image loads.
+    background: #48a9fa url("/features-bg.webp") center bottom / cover no-repeat;
   }
 
   &__img {

@@ -13,6 +13,7 @@ import { itemVariants, panelVariants, viewVariants } from "./motion";
 import {
   SAMPLE_PHOTO,
   cropFor,
+  fileLabel,
   pixelLabel,
   sizeLabel,
   type CountrySpecs,
@@ -131,6 +132,10 @@ export default function ChooseView({
                   <dd>
                     {spec.dpi} dpi ({pixelLabel(spec)})
                   </dd>
+                </div>
+                <div>
+                  <dt>File</dt>
+                  <dd>{fileLabel(spec)}</dd>
                 </div>
                 <div>
                   <dt>Background</dt>

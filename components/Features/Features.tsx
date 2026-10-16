@@ -29,20 +29,20 @@ const item: Variants = {
 // Drop the image files into /public/features with these names.
 const features = [
   {
-    title: "Smart Background Removal",
+    title: "AI Image Analysis",
     description:
-      "Replace any backdrop with a clean, evenly lit white one in a single tap, with no studio or editing skills needed.",
+      "Analyse your photo with AI to assess background, facial positioning, and image clarity to meet your passport or visa photo requirements.",
     list: [
-      "Clean White Background",
-      "Accurate Hair Edges",
+      "Country-Specific Backgrounds",
+      "Accurate Positioning & Edge Detection",
       "Shadow Removal",
-      "One-Tap Result",
+      "One-Tap Processing",
     ],
     image: "/features/card1.png",
     icon: MagicWand01Icon,
   },
   {
-    title: "Auto Crop & Sizing",
+    title: "Cropping & Sizing",
     description:
       "Head size, framing and proportions are set to the official specification for your document automatically.",
     list: [
@@ -96,8 +96,7 @@ export default function Features() {
           <span className="features__eyebrow">Features</span>
           <h2>Everything you need for a perfect photo.</h2>
           <p>
-            From the first snapshot to the final print, every step is handled
-            so your photo is accepted first time.
+            From the first snapshot to the final print, get your passport or visa photo ready with ease.
           </p>
         </motion.div>
 
@@ -113,7 +112,11 @@ export default function Features() {
             >
               <div className="features__content">
                 <span className="features__icon">
-                  <HugeiconsIcon icon={feature.icon} size={26} strokeWidth={1.8} />
+                  <HugeiconsIcon
+                    icon={feature.icon}
+                    size={26}
+                    strokeWidth={1.8}
+                  />
                 </span>
                 <h3 className="features__title">{feature.title}</h3>
                 <p className="features__desc">{feature.description}</p>

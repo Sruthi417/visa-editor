@@ -538,6 +538,68 @@ $red: #d63b3f;
   }
 }
 
+// Retake (file size could not be met) -------------------------------------------
+.retake {
+  &__tips {
+    list-style: none;
+    margin: 22px 0 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: $ink-900;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  &__tip-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: $green-soft;
+    color: $green;
+  }
+
+  &__frame {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #eef1f3;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__sizes {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 16px;
+    color: $ink-500;
+    font-size: 15px;
+
+    b {
+      color: $red;
+      font-weight: 600;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .proc__glow,
   .proc__line,
