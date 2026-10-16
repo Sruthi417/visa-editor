@@ -33,7 +33,7 @@ $red: #d63b3f;
 
   &__title--sm {
     margin-bottom: 20px;
-    font-size: clamp(30px, 3.6vw, 42px);
+    font-size: 22px;
   }
 
   &__right--center {
@@ -41,6 +41,9 @@ $red: #d63b3f;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    // Falls back to the top edge when the column is shorter than its content,
+    // so a tall photo scrolls instead of being cut off above.
+    justify-content: safe center;
   }
 
   &__ruler--left {
@@ -59,29 +62,33 @@ $red: #d63b3f;
 .proc {
   &__steps {
     list-style: none;
-    margin-top: 40px;
+    margin: 16px 0 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
   }
 
   &__step {
     position: relative;
-    min-height: 96px;
     display: flex;
     align-items: flex-start;
-    gap: 22px;
-    padding-bottom: 24px;
+    gap: 16px;
+    padding-bottom: 26px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
 
     // The line that joins one marker to the next.
     &:not(:last-child)::after {
       content: "";
       position: absolute;
-      left: 24px;
-      top: 58px;
-      bottom: 0;
+      left: 19px;
+      top: 48px;
+      bottom: 6px;
       width: 2px;
       border-radius: 2px;
-      background: #e1e6ea;
+      background: #e4e4e0;
       transition: background 0.5s ease;
     }
 
@@ -93,71 +100,73 @@ $red: #d63b3f;
   &__marker {
     position: relative;
     flex-shrink: 0;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: grid;
     place-items: center;
-    border: 1.5px solid #d5dce1;
+    border: 1px solid #e4e4e0;
     border-radius: 50%;
     background: #ffffff;
-    color: #cfd6db;
+    color: #a3a39e;
     transition:
       background 0.4s ease,
       border-color 0.4s ease,
-      color 0.4s ease,
-      box-shadow 0.4s ease;
+      color 0.4s ease;
   }
 
-  &__number,
-  &__tick {
+  &__icon {
     position: absolute;
     display: grid;
     place-items: center;
   }
 
-  &__number {
-    font-size: 19px;
-    font-weight: 600;
+  // Thin arc that circles the active marker.
+  &__spinner {
+    position: absolute;
+    inset: -5px;
+    border: 2px solid transparent;
+    border-top-color: #1b1b1a;
+    border-radius: 50%;
+    animation: proc-spin 0.9s linear infinite;
   }
 
   &__text {
     display: flex;
     flex-direction: column;
-    padding-top: 4px;
+    min-width: 0;
+    padding-top: 9px;
   }
 
   &__label {
-    line-height: 1.3;
-    color: #c3cbd1;
-    font-size: clamp(20px, 2.1vw, 25px);
+    color: #8a8a85;
+    font-size: 16px;
     font-weight: 500;
+    line-height: 1.35;
     letter-spacing: -0.01em;
     transition: color 0.4s ease;
   }
 
   &__sub {
-    margin: 5px 0 0;
-    font-size: 13.5px;
-    line-height: 1.45;
-    color: #c3cbd1;
+    margin: 4px 0 0;
+    color: #b0b0ab;
+    font-size: 14px;
+    line-height: 1.5;
     transition: color 0.4s ease;
   }
 
   &__step--active {
     .proc__marker {
-      border-color: #131313;
-      background: #131313;
+      border-color: #1b1b1a;
+      background: #1b1b1a;
       color: #ffffff;
-      box-shadow: 0 0 0 5px #e4e7ea;
     }
 
     .proc__label {
-      color: $ink-900;
-      font-weight: 600;
+      color: #1b1b1a;
     }
 
     .proc__sub {
-      color: #525866;
+      color: #6f6f6b;
     }
   }
 
@@ -169,11 +178,11 @@ $red: #d63b3f;
     }
 
     .proc__label {
-      color: $ink-500;
+      color: #4a4a47;
     }
 
     .proc__sub {
-      color: #8c95a0;
+      color: #8a8a85;
     }
   }
 
@@ -360,10 +369,17 @@ $red: #d63b3f;
     flex-direction: column;
   }
 
+  // The photo and the Retake button form one group, centred in the column.
   .doc-modal__right {
     align-items: center;
-    justify-content: space-between;
-    gap: 28px;
+    justify-content: center;
+    justify-content: safe center;
+    gap: 20px;
+
+    // Not pushed to the bottom like the Download button on the left.
+    .res__button {
+      margin-top: 0;
+    }
   }
 }
 
@@ -470,16 +486,6 @@ $red: #d63b3f;
       outline-offset: 3px;
     }
 
-    &--primary {
-      border: 0;
-      background: #131313;
-      color: #ffffff;
-
-      &:hover {
-        box-shadow: 0 8px 20px rgba(19, 19, 19, 0.25);
-      }
-    }
-
     &--secondary {
       max-width: 440px;
       border: 1px solid $ink-900;
@@ -492,11 +498,17 @@ $red: #d63b3f;
     }
   }
 
+  // "Download photo" (on .doc-modal__upload): pinned to the bottom of the sidebar.
+  &__download {
+    margin-top: auto;
+  }
+
   &__visual {
     width: 100%;
     display: grid;
     place-items: center;
-    padding: 40px 56px 16px 56px;
+    // Top and sides leave room for the rulers; nothing sits below the photo.
+    padding: 28px 56px 0;
   }
 
   &__frame {
@@ -538,11 +550,14 @@ $red: #d63b3f;
       background: $green;
     }
 
+    // Centred on the line (which is 1px wide, 17px out from the frame) and
+    // drawn above it, like the black rulers, so any label width fits.
     b {
       position: absolute;
-      right: -62px;
+      z-index: 1;
+      left: calc(100% + 17.5px);
       top: 50%;
-      transform: translateY(-50%);
+      transform: translate(-50%, -50%);
       padding: 2px 6px;
       border-radius: 3px;
       background: $green;
@@ -562,7 +577,7 @@ $red: #d63b3f;
   }
 
   .res__visual {
-    padding: 36px 56px 12px;
+    padding: 28px 56px 0;
   }
 
 
@@ -570,7 +585,7 @@ $red: #d63b3f;
 
 @media (max-width: 520px) {
   .res__visual {
-    padding: 36px 48px 12px 40px;
+    padding: 28px 48px 0 40px;
   }
 
   .res__check-label {
@@ -644,7 +659,8 @@ $red: #d63b3f;
   .proc__glow,
   .proc__line,
   .proc__corners,
-  .proc__face {
+  .proc__face,
+  .proc__spinner {
     animation: none;
   }
 }

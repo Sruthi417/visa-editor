@@ -1,0 +1,653 @@
+// Checkout: photo option, extras and payment, inside the document window.
+// Same palette as the window itself (DocumentModal.scss).
+
+$text: #1b1b1a;
+$muted: #7a7a76;
+$hairline: #e9e9e6;
+$border: #e4e4e0;
+$border-hover: #cfcfca;
+$control: #c9c9c4;
+$sidebar: #f8f8f6;
+$track: #f0f0ee;
+$blue: #2b97f0;
+$green: #22b573;
+$green-soft: #e6f7ee;
+$red: #d63b3f;
+
+.co {
+  // Right column: the steps, in a readable column ------------------------------
+  &__main {
+    width: 100%;
+    max-width: 560px;
+    min-height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__back {
+    width: 36px;
+    height: 36px;
+    margin-left: -8px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: $text;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: $track;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__step-label {
+    color: $muted;
+    font-size: 14px;
+
+    b {
+      margin-left: 6px;
+      color: $text;
+      font-weight: 500;
+    }
+  }
+
+  &__progress {
+    margin: 14px 0 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  &__bar {
+    height: 4px;
+    border-radius: 4px;
+    background: $track;
+    transition: background-color 0.35s ease;
+
+    &--on {
+      background: $text;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    margin-bottom: 18px;
+    outline: none;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__optional {
+    color: $muted;
+    font-weight: 400;
+  }
+
+  &__skip {
+    padding: 4px 2px;
+    border: 0;
+    background: none;
+    color: $muted;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+
+    &:hover {
+      color: $text;
+      text-decoration-color: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+
+  // Option and extra cards ------------------------------------------------------
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 20px;
+    border: 1px solid $border;
+    border-radius: 16px;
+    background: #ffffff;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      border-color: $border-hover;
+    }
+
+    // Reads as a 2px border without shifting the layout.
+    &--selected,
+    &--selected:hover {
+      border-color: $text;
+      box-shadow: 0 0 0 1px $text;
+    }
+
+    &:has(.co__native:focus-visible) {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
+    }
+  }
+
+  // The real inputs stay for keyboard and screen readers; the drawn ones show
+  // the state.
+  &__native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__option-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__option-label {
+    flex: 1;
+    min-width: 0;
+    color: $text;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__price {
+    color: $text;
+    font-size: 16px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__radio {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid $control;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: border-color 0.2s ease;
+
+    &::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: $text;
+      transform: scale(0);
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &__check {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid $control;
+    border-radius: 6px;
+    background: #ffffff;
+    color: transparent;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  // Lines up under the label, past the radio or checkbox.
+  &__features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 32px;
+  }
+
+  &__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: $muted;
+    font-size: 14.5px;
+    line-height: 1.45;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: #8f8f8a;
+    }
+  }
+
+  &__info {
+    margin-left: 32px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    background: $sidebar;
+    color: #6f6f6b;
+    font-size: 13.5px;
+    line-height: 1.4;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  // On the shared gradient button (.doc-modal__upload).
+  &__cta {
+    margin-top: 24px;
+
+    &:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+
+  &__spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: co-spin 0.8s linear infinite;
+  }
+
+  // Payment form -----------------------------------------------------------------
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  &__label {
+    color: $text;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid $border;
+    border-radius: 12px;
+    background: #ffffff;
+    color: $text;
+    font: inherit;
+    font-size: 15px;
+    line-height: 1.4;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: #a8a8a3;
+    }
+
+    &:hover {
+      border-color: $border-hover;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $text;
+      box-shadow: 0 0 0 3px rgba(27, 27, 26, 0.08);
+    }
+
+    &--error,
+    &--error:hover,
+    &--error:focus {
+      border-color: $red;
+    }
+
+    &--error:focus {
+      box-shadow: 0 0 0 3px rgba(214, 59, 63, 0.12);
+    }
+  }
+
+  &__textarea {
+    min-height: 76px;
+    resize: vertical;
+  }
+
+  &__hint {
+    color: $muted;
+    font-size: 13px;
+
+    &--error {
+      color: $red;
+    }
+  }
+
+  &__agree {
+    position: relative;
+    margin: 4px 0 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #4a4a47;
+    font-size: 14.5px;
+    line-height: 1.45;
+    cursor: pointer;
+
+    .co__check {
+      margin-top: 1px;
+    }
+
+    &:has(.co__native:focus-visible) .co__check {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__subtitle {
+    margin: 0 0 12px;
+    color: $text;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  &__methods {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__method {
+    position: relative;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid $border;
+    border-radius: 14px;
+    background: #ffffff;
+    color: $text;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      border-color: $border-hover;
+    }
+
+    &--selected,
+    &--selected:hover {
+      border-color: $text;
+      box-shadow: 0 0 0 1px $text;
+    }
+
+    &:has(.co__native:focus-visible) {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__method-label {
+    flex: 1;
+    font-size: 15.5px;
+    font-weight: 500;
+  }
+
+  &__missing {
+    margin: 10px 0 0;
+    color: $muted;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  // Done -------------------------------------------------------------------------
+  &__done {
+    flex: 1;
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .co__title {
+      margin-bottom: 10px;
+    }
+
+    p {
+      max-width: 420px;
+      margin: 0;
+      color: $muted;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .co__cta {
+      max-width: 360px;
+      margin-top: 28px;
+    }
+  }
+
+  &__done-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: $green-soft;
+    color: $green;
+  }
+
+  // Sidebar: order summary --------------------------------------------------------
+  &__eyebrow {
+    margin: 4px 0 14px;
+    color: $muted;
+    font-size: 14px;
+  }
+
+  &__product {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid $hairline;
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  &__thumb {
+    flex-shrink: 0;
+    width: 64px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__product-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    strong {
+      color: $text;
+      font-family: var(--font-heading);
+      font-size: 15.5px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    span {
+      color: $muted;
+      font-size: 13.5px;
+    }
+  }
+
+  &__lines {
+    margin: 18px 0 0;
+
+    > div {
+      padding: 12px 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid $hairline;
+      font-size: 14.5px;
+    }
+
+    dt {
+      margin: 0;
+      color: #4a4a47;
+    }
+
+    dd {
+      margin: 0;
+      color: $text;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+
+    > .co__total {
+      padding-top: 16px;
+      border-bottom: 0;
+
+      dt {
+        color: $text;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      dd {
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  // On .doc-modal__note: tighter in the sidebar.
+  &__trust {
+    margin-top: 24px;
+    font-size: 13.5px;
+  }
+}
+
+// Selected state of the drawn controls.
+.co__option--selected .co__radio,
+.co__method--selected .co__radio {
+  border-color: $text;
+
+  &::after {
+    transform: scale(1);
+  }
+}
+
+.co__option--selected .co__check,
+.co__check--on {
+  border-color: $text;
+  background: $text;
+  color: #ffffff;
+}
+
+@keyframes co-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Small screens: the steps first, the summary below them.
+@media (max-width: 900px) {
+  .doc-modal__grid--checkout {
+    display: flex;
+    flex-direction: column;
+
+    .doc-modal__right {
+      order: 1;
+    }
+
+    .doc-modal__left {
+      order: 2;
+      padding-top: 28px;
+      border-bottom: 0;
+      border-top: 1px solid $hairline;
+    }
+  }
+
+  .co__main {
+    min-height: 0;
+  }
+
+  .co__head {
+    padding-right: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .co__spinner {
+    animation-duration: 2.4s;
+  }
+}

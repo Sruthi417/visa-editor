@@ -17,6 +17,26 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* Everything clickable shows the hand cursor, including cards that wrap a
+   radio or checkbox. Disabled controls show they can't be used. A component
+   class can still opt out (the menu backdrop keeps the arrow). */
+button,
+[role="button"],
+a[href],
+summary,
+select,
+input[type="checkbox"],
+input[type="radio"],
+label:has(> input[type="checkbox"]),
+label:has(> input[type="radio"]) {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 
 .main-layout{
   position: relative;

@@ -15,6 +15,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 
+import CheckoutView from "./CheckoutView";
 import ChooseView from "./ChooseView";
 import ProcessingView from "./ProcessingView";
 import RetakeView from "./RetakeView";
@@ -31,11 +32,12 @@ import {
 import { countriesFor, type DocumentType, type PhotoSpec, type CountrySpecs } from "./specs";
 import "./DocumentModal.scss";
 import "./DocumentFlow.scss";
+import "./Checkout.scss";
 
 const MAX_FILE_BYTES = 15 * 1024 * 1024;
 const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
 
-type View = "choose" | "processing" | "result" | "retake";
+type View = "choose" | "processing" | "result" | "retake" | "checkout";
 
 /** What was chosen when the photo was uploaded, kept for the later views. */
 type Job = {
@@ -216,86 +218,110 @@ export default function DocumentModal({ open, onClose }: Props) {
       {open && (
         <motion.div
           className="doc-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={titleId}
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 24 }}
-          transition={{ duration: 0.35, ease: EASE }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          onClick={(event) => {
+            // Only a click on the dimmed backdrop itself closes the window.
+            if (event.target === event.currentTarget) onClose();
+          }}
         >
-          <button
-            ref={closeRef}
-            type="button"
-            className="doc-modal__close"
-            aria-label="Close"
-            onClick={onClose}
+          <motion.div
+            className="doc-modal__dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.985 }}
+            transition={{ duration: 0.3, ease: EASE }}
           >
-            <HugeiconsIcon icon={Cancel01Icon} size={26} strokeWidth={1.6} />
-          </button>
+            <button
+              ref={closeRef}
+              type="button"
+              className="doc-modal__close"
+              aria-label="Close"
+              onClick={onClose}
+            >
+              <HugeiconsIcon icon={Cancel01Icon} size={22} strokeWidth={1.6} />
+            </button>
 
-          <input
-            ref={inputRef}
-            type="file"
-            accept={ACCEPTED.join(",")}
-            className="doc-modal__file"
-            tabIndex={-1}
-            aria-hidden="true"
-            onChange={handleFile}
-          />
+            <input
+              ref={inputRef}
+              type="file"
+              accept={ACCEPTED.join(",")}
+              className="doc-modal__file"
+              tabIndex={-1}
+              aria-hidden="true"
+              onChange={handleFile}
+            />
 
-          <AnimatePresence mode="wait">
-            {view === "choose" && (
-              <ChooseView
-                key="choose"
-                titleId={titleId}
-                type={type}
-                onTypeChange={setType}
-                countries={countries}
-                entry={entry}
-                spec={spec}
-                documentName={documentName}
-                onCountryChange={setCode}
-                onUpload={openPicker}
-                onFileDrop={processSelectedFile}
-                error={error}
-              />
-            )}
+            <AnimatePresence mode="wait">
+              {view === "choose" && (
+                <ChooseView
+                  key="choose"
+                  titleId={titleId}
+                  type={type}
+                  onTypeChange={setType}
+                  countries={countries}
+                  entry={entry}
+                  spec={spec}
+                  documentName={documentName}
+                  onCountryChange={setCode}
+                  onUpload={openPicker}
+                  onFileDrop={processSelectedFile}
+                  error={error}
+                />
+              )}
 
-            {view === "processing" && job && (
-              <ProcessingView
-                key="processing"
-                titleId={titleId}
-                originalUrl={job.originalUrl}
-                previewUrl={preview}
-                stepIndex={stepIndex}
-                face={face}
-                spec={job.spec}
-              />
-            )}
+              {view === "processing" && job && (
+                <ProcessingView
+                  key="processing"
+                  titleId={titleId}
+                  originalUrl={job.originalUrl}
+                  previewUrl={preview}
+                  stepIndex={stepIndex}
+                  face={face}
+                  spec={job.spec}
+                />
+              )}
 
-            {view === "retake" && job && result && (
-              <RetakeView
-                key="retake"
-                titleId={titleId}
-                result={result}
-                spec={job.spec}
-                onRetake={retake}
-              />
-            )}
+              {view === "retake" && job && result && (
+                <RetakeView
+                  key="retake"
+                  titleId={titleId}
+                  result={result}
+                  spec={job.spec}
+                  onRetake={retake}
+                />
+              )}
 
-            {view === "result" && job && result && (
-              <ResultView
-                key="result"
-                titleId={titleId}
-                result={result}
-                spec={job.spec}
-                documentName={job.documentName}
-                fileName={`${job.entry.code.toLowerCase()}-${job.type}-photo.jpg`}
-                onRetake={retake}
-              />
-            )}
-          </AnimatePresence>
+              {view === "result" && job && result && (
+                <ResultView
+                  key="result"
+                  titleId={titleId}
+                  result={result}
+                  spec={job.spec}
+                  documentName={job.documentName}
+                  onRetake={retake}
+                  onCheckout={() => setView("checkout")}
+                />
+              )}
+
+              {view === "checkout" && job && result && (
+                <CheckoutView
+                  key="checkout"
+                  titleId={titleId}
+                  result={result}
+                  spec={job.spec}
+                  documentName={job.documentName}
+                  fileName={`${job.entry.code.toLowerCase()}-${job.type}-photo.jpg`}
+                  onBack={() => setView("result")}
+                />
+              )}
+            </AnimatePresence>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>,

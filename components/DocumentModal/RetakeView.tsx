@@ -70,12 +70,12 @@ export default function RetakeView({ titleId, result, spec, onRetake }: Props) {
 
         <motion.button
           type="button"
-          className="res__button res__button--primary"
+          className="doc-modal__upload res__download"
           variants={itemVariants}
           onClick={onRetake}
         >
-          <HugeiconsIcon icon={Camera01Icon} size={20} strokeWidth={1.8} />
-          Retake photo
+          <span>Retake photo</span>
+          <HugeiconsIcon icon={Camera01Icon} size={20} color="currentColor" strokeWidth={1.5} />
         </motion.button>
       </section>
 

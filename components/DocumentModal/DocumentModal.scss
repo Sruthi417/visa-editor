@@ -7,39 +7,63 @@ $surface-subtle: #f7f8fa;
 $blue: #2b97f0;
 $blue-deep: #0087ca;
 
+// Settings-dialog palette
+$text: #1b1b1a;
+$muted: #7a7a76;
+$hairline: #e9e9e6;
+$sidebar: #f8f8f6;
+$track: #f0f0ee;
+
 $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
+// Dimmed backdrop that centers the dialog -----------------------------------
 .doc-modal {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  overflow-y: auto;
-  background: #ffffff;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vh, 56px) clamp(16px, 4vw, 72px);
+  overflow: hidden;
+  background: rgba(38, 38, 36, 0.55);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+
+  // The white dialog itself
+  &__dialog {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: min(880px, 100%);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow:
+      0 32px 90px rgba(0, 0, 0, 0.28),
+      0 0 0 1px rgba(0, 0, 0, 0.04);
+  }
 
   &__close {
-    position: fixed;
-    top: 24px;
-    right: 28px;
+    position: absolute;
+    top: 20px;
+    right: 22px;
     z-index: 20;
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     display: grid;
     place-items: center;
-    border: 1px solid $line;
-    border-radius: 50%;
-    background: #ffffff;
-    color: $ink-900;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #4a4a47;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    transition:
-      background-color 0.2s ease,
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
+    transition: background-color 0.2s ease;
 
     &:hover {
-      background: $surface-subtle;
-      transform: scale(1.04);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      background: $track;
     }
 
     &:focus-visible {
@@ -47,77 +71,87 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
 
+  // Sidebar + content layout -----------------------------------------------
   &__grid {
+    flex: 1;
+    min-height: 0;
     width: 100%;
-    max-width: 1240px;
-    min-height: 100%;
-    margin: 0 auto;
-    padding: clamp(64px, 8vh, 110px) clamp(20px, 4vw, 48px);
+    max-width: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    align-content: center;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
-    align-items: center;
-    column-gap: clamp(32px, 5vw, 64px);
+    grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+    align-items: stretch;
+    column-gap: 0;
+  }
+
+  &__left {
+    min-height: 0;
+    padding: 32px 28px 28px;
+    overflow-y: auto;
+    background: $sidebar;
+    border-right: 1px solid $hairline;
+  }
+
+  &__right {
+    min-height: 0;
+    padding: 44px 56px 36px 44px;
+    overflow-y: auto;
+    background: #ffffff;
   }
 
   // Left column -------------------------------------------------------------
   &__title {
-    margin-bottom: 24px;
-    color: $ink-900;
+    margin: 0 0 20px;
+    color: $text;
     font-family: var(--font-heading);
-    font-size: clamp(32px, 4vw, 40px);
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
+  // Flat: the sidebar panel is the surface, the rows are divided by hairlines.
   &__card {
-    padding: clamp(20px, 3vw, 26px);
-    border: 1px solid $line;
-    border-radius: 28px;
-    background: $surface;
-    box-shadow:
-      0 4px 20px -2px rgba(17, 24, 39, 0.05),
-      0 1px 3px rgba(17, 24, 39, 0.02);
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 0;
   }
 
-  // Passport / Visa switch: compact, sleek pill segmented control
+  // Passport / Visa switch: light segmented control
   &__switch {
     display: inline-grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3px;
-    padding: 3px;
-    border: 1px solid $line;
-    border-radius: 100px;
-    background: $surface-subtle;
+    gap: 4px;
+    padding: 4px;
+    border: 0;
+    border-radius: 12px;
+    background: $track;
     width: fit-content;
     min-width: 200px;
     max-width: 240px;
-    margin: 0 auto;
+    margin: 0 0 8px;
   }
 
   &__switch-btn {
     position: relative;
-    padding: 7px 18px;
+    padding: 8px 20px;
     border: 0;
-    border-radius: 100px;
+    border-radius: 9px;
     background: transparent;
-    color: #717680;
-    font-size: 13.5px;
-    font-weight: 500;
+    color: #6f6f6b;
+    font-size: 15px;
+    font-weight: 400;
     cursor: pointer;
     transition: color 0.25s ease;
 
     &:hover:not(&--active) {
-      color: $ink-900;
+      color: $text;
     }
 
     &--active {
-      color: #ffffff;
-      font-weight: 600;
+      color: $text;
+      font-weight: 500;
     }
 
     &:focus-visible {
@@ -129,41 +163,37 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   &__switch-thumb {
     position: absolute;
     inset: 0;
-    border-radius: 100px;
-    background: #111111;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 9px;
+    background: #ffffff;
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(0, 0, 0, 0.04);
   }
 
   &__switch-label {
     position: relative;
   }
 
-  // Document Summary: Image 3 file card + Image 2 rows
+  // Document summary: flat header row + hairline spec rows
   &__summary {
     width: 100%;
+    // Space before the upload button that follows (kept off __upload itself).
+    margin-bottom: 24px;
   }
 
   &__doc-card {
-    border: 1px solid $line;
-    border-radius: 18px;
-    background: #ffffff;
-    padding: 16px 18px;
-    transition: border-color 0.2s ease;
-
-    &:hover {
-      // border-color: #d1d5db;
-    }
+    padding: 0;
   }
 
   &__doc-header {
     display: flex;
     align-items: flex-start;
     gap: 18px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid #f3f4f6;
+    padding: 18px 0;
+    border-bottom: 1px solid $hairline;
   }
 
-  // Realistic booklet cover matching Image 2 & 3 references
+  // Realistic booklet cover
   &__cover {
     flex-shrink: 0;
     width: 90px;
@@ -226,7 +256,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
     h3 {
       margin: 0;
-      color: $ink-900;
+      color: $text;
       font-family: var(--font-heading);
       font-size: 16px;
       font-weight: 600;
@@ -237,9 +267,9 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   &__doc-sub {
     margin: 3px 0 0;
-    color: $ink-500;
+    color: $muted;
     font-size: 12.5px;
-    font-weight: 500;
+    font-weight: 400;
   }
 
   &__details {
@@ -247,31 +277,26 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       display: flex;
       flex-direction: column;
       margin: 0;
-      padding-top: 4px;
+      padding: 0;
 
-      >div {
+      > div {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 9px 0;
-        border-bottom: 1px solid #f3f4f6;
-        font-size: 13.5px;
-
-        &:last-child {
-          border-bottom: 0;
-          padding-bottom: 2px;
-        }
+        padding: 14px 0;
+        border-bottom: 1px solid $hairline;
+        font-size: 14.5px;
       }
     }
 
     dt {
-      color: $ink-500;
-      font-weight: 500;
+      color: $muted;
+      font-weight: 400;
       margin: 0;
     }
 
     dd {
-      color: $ink-900;
+      color: $text;
       font-weight: 500;
       margin: 0;
       display: inline-flex;
@@ -288,7 +313,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     border-radius: 50%;
   }
 
-  // Dropzone: Image 3 style
+  // Dropzone (not rendered at the moment, kept for the drag-and-drop path)
   &__dropzone {
     padding: 18px 16px;
     border: 1.5px dashed #e2e5e9;
@@ -349,31 +374,44 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     font-weight: 500;
   }
 
-  // Upload button: Image 3 bottom button style
+  // Upload button: same gradient pill as the nav's Upload button
+  // (see .navbar__button / .navbar__menu-cta in Nav/Navbar.scss).
   &__upload {
     width: 100%;
-    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 16px 24px;
     border: 0;
     cursor: pointer;
     border-radius: 100px;
-    background: #111111;
+    // Fixed-size corner highlights: the button stays as dark in the middle at
+    // any width (105px is what 30% gave on the Upload button).
+    background:
+      radial-gradient(
+        circle 105px at top left,
+        rgba(255, 255, 255, 0.4) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        circle 105px at bottom right,
+        rgba(255, 255, 255, 0.5) 0%,
+        transparent 100%
+      ),
+      #131313;
     color: #ffffff;
-    font-size: 15.5px;
-    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
     text-decoration: none;
+    white-space: nowrap;
     transition:
-      background-color 0.2s ease,
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
 
     &:hover {
-      background: #000000;
-      // transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 5px 15px rgba(43, 151, 240, 0.25);
     }
 
     &:active {
@@ -387,10 +425,10 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &__hint {
-    margin: 2px 0 0;
+    margin: 10px 0 0;
     text-align: center;
-    font-size: 12px;
-    color: $ink-500;
+    font-size: 12.5px;
+    color: $muted;
     line-height: 1.4;
 
     &[role="alert"] {
@@ -403,24 +441,26 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   &__spec-header {
     display: flex;
     flex-direction: column;
+    // Keep a long title clear of the close button in the corner.
+    padding-right: 24px;
   }
 
   &__spec-title {
-    color: $ink-900;
+    color: $text;
     font-family: var(--font-heading);
-    font-size: clamp(22px, 2.5vw, 26px);
+    font-size: 22px;
     font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: -0.025em;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     max-width: none;
     margin: 0;
   }
 
   &__spec-sub {
     margin: 6px 0 0;
-    color: $ink-500;
-    font-size: 14px;
-    font-weight: 500;
+    color: $muted;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 1.4;
   }
 
@@ -444,7 +484,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       background: #111111;
       color: #ffffff;
       font-size: 13.5px;
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: 0.01em;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
     }
@@ -469,7 +509,6 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   // Room for the measurement lines that sit outside the frame.
   &__after {
     padding-right: 44px;
-    
   }
 
   &__frame {
@@ -540,7 +579,6 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       right: -20px;
       width: 1px;
 
-
       &::before {
         inset: 0;
       }
@@ -553,8 +591,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    border-top: 1px solid $line;
-    color: $ink-500;
+    border-top: 1px solid $hairline;
+    color: $muted;
     font-size: 14px;
     line-height: 1.5;
 
@@ -566,32 +604,47 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
+// Narrow screens: the dialog fills the viewport and the columns stack.
 @media (max-width: 900px) {
   .doc-modal {
+    padding: 0;
+
+    &__dialog {
+      height: 100%;
+      max-height: none;
+      border-radius: 0;
+      overflow-y: auto;
+    }
+
     &__grid {
-      grid-template-columns: minmax(0, 1fr);
-      row-gap: 40px;
-      align-items: start;
-      padding-top: 84px;
+      display: block;
+    }
+
+    &__left,
+    &__right {
+      overflow: visible;
+      min-height: auto;
+    }
+
+    &__left {
+      border-right: 0;
+      border-bottom: 1px solid $hairline;
+      padding: 72px 20px 24px;
+    }
+
+    &__right {
+      padding: 28px 20px 32px;
     }
 
     &__close {
-      top: 16px;
-      right: 16px;
-    }
-
-    &__title {
-      margin-bottom: 20px;
+      top: 14px;
+      right: 14px;
     }
   }
 }
 
 @media (max-width: 520px) {
   .doc-modal {
-    &__card {
-      padding: 18px;
-    }
-
     &__previews {
       column-gap: 20px;
     }
@@ -599,7 +652,6 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   .doc-modal__frame,
   .doc-modal__crop img {
     transition: none;

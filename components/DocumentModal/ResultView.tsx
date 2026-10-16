@@ -25,8 +25,9 @@ type Props = {
   result: ProcessResult;
   spec: PhotoSpec;
   documentName: string;
-  fileName: string;
   onRetake: () => void;
+  /** "Download photo": goes on to the checkout. */
+  onCheckout: () => void;
 };
 
 export default function ResultView({
@@ -34,8 +35,8 @@ export default function ResultView({
   result,
   spec,
   documentName,
-  fileName,
   onRetake,
+  onCheckout,
 }: Props) {
   const frameWidth = (FRAME_HEIGHT * spec.widthMm) / spec.heightMm;
   const failures = result.checks.filter((check) => check.status === "failed");
@@ -82,15 +83,15 @@ export default function ResultView({
           ))}
         </ul>
 
-        <motion.a
-          className="res__button res__button--primary"
+        <motion.button
+          type="button"
+          className="doc-modal__upload res__download"
           variants={itemVariants}
-          href={result.url}
-          download={fileName}
+          onClick={onCheckout}
         >
-          <HugeiconsIcon icon={Download01Icon} size={20} strokeWidth={1.8} />
-          Download photo
-        </motion.a>
+          <span>Download photo</span>
+          <HugeiconsIcon icon={Download01Icon} size={20} color="currentColor" strokeWidth={1.5} />
+        </motion.button>
       </section>
 
       <section className="doc-modal__right doc-modal__right--center">

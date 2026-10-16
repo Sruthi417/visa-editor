@@ -2,10 +2,17 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Tick02Icon } from "@hugeicons/core-free-icons";
+import {
+  AiBackgroundEraserIcon,
+  FileExportIcon,
+  ImageCropIcon,
+  ResizeFieldRectangleIcon,
+  ScanFaceIcon,
+  Tick02Icon,
+} from "@hugeicons/core-free-icons";
 
 import { EASE, itemVariants, panelVariants, viewVariants } from "./motion";
-import { STEPS, type FrameBox } from "./processPhoto";
+import { STEPS, type FrameBox, type StepId } from "./processPhoto";
 import type { PhotoSpec } from "./specs";
 
 const FRAME_HEIGHT = 380;
@@ -21,20 +28,31 @@ type Props = {
   spec: PhotoSpec;
 };
 
-function getStepSub(stepId: string, spec: PhotoSpec) {
+const STEP_ICONS: Record<StepId, typeof Tick02Icon> = {
+  crop: ImageCropIcon,
+  background: AiBackgroundEraserIcon,
+  resize: ResizeFieldRectangleIcon,
+  analyse: ScanFaceIcon,
+  finalise: FileExportIcon,
+};
+
+/** 900 → "900 KB", 10240 → "10 MB" */
+function kbLabel(kb: number) {
+  return kb >= 1024 ? `${Math.round((kb / 1024) * 10) / 10} MB` : `${kb} KB`;
+}
+
+function getStepSub(stepId: StepId, spec: PhotoSpec) {
   switch (stepId) {
     case "crop":
-      return "Centering head and aligning eye level to official guidelines";
+      return "Centring your face and setting eye level to the official guide";
     case "background":
-      return `Isolating subject and applying compliant ${spec.background.toLowerCase()} background`;
+      return `Replacing the background with plain ${spec.background.toLowerCase()}`;
     case "resize":
-      return `Scaling to exact ${spec.widthMm} × ${spec.heightMm} mm at 300 DPI`;
+      return `Scaling to exactly ${spec.widthMm} × ${spec.heightMm} mm at ${spec.dpi} dpi`;
     case "analyse":
-      return "Checking biometric symmetry, lighting balance, and compliance rules";
+      return "Checking your face, lighting and background against the rules";
     case "finalise":
-      return `Encoding JPEG within ${spec.fileKb[0]}–${spec.fileKb[1]} KB file size limits`;
-    default:
-      return "";
+      return `Saving a ${spec.format} between ${kbLabel(spec.fileKb[0])} and ${kbLabel(spec.fileKb[1])}`;
   }
 }
 
@@ -77,28 +95,30 @@ export default function ProcessingView({
                 aria-current={state === "active" ? "step" : undefined}
               >
                 <span className="proc__marker">
+                  {/* A ring turns around the step in progress. */}
+                  {state === "active" && <span className="proc__spinner" aria-hidden="true" />}
                   <AnimatePresence mode="wait" initial={false}>
-                    {state === "active" ? (
-                      <motion.span
-                        key="number"
-                        className="proc__number"
-                        initial={{ scale: 0.6, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.6, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: EASE }}
-                      >
-                        {index + 1}
-                      </motion.span>
-                    ) : (
+                    {state === "done" ? (
                       <motion.span
                         key="tick"
-                        className="proc__tick"
+                        className="proc__icon"
                         initial={{ scale: 0.4, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.4, opacity: 0 }}
                         transition={{ duration: 0.3, ease: EASE }}
                       >
-                        <HugeiconsIcon icon={Tick02Icon} size={18} strokeWidth={2.2} />
+                        <HugeiconsIcon icon={Tick02Icon} size={20} strokeWidth={2.2} />
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="icon"
+                        className="proc__icon"
+                        initial={{ scale: 0.6, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.6, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: EASE }}
+                      >
+                        <HugeiconsIcon icon={STEP_ICONS[step.id]} size={20} strokeWidth={1.7} />
                       </motion.span>
                     )}
                   </AnimatePresence>

@@ -208,8 +208,13 @@ export default function ChooseView({
 
           {/* Bottom upload button: Image 3 style */}
           <button type="button" className="doc-modal__upload" onClick={onUpload}>
-            <HugeiconsIcon icon={Upload01Icon} size={20} strokeWidth={1.9} />
-            Upload photo
+            <span>Upload photo</span>
+            <HugeiconsIcon
+              icon={Upload01Icon}
+              size={20}
+              color="currentColor"
+              strokeWidth={1.5}
+            />
           </button>
 
           <p className="doc-modal__hint" role={error ? "alert" : undefined}>

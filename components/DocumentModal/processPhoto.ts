@@ -16,11 +16,11 @@ import { headFraction, pixelSize, type PhotoSpec } from "./specs";
 --------------------------------------------------------------------------- */
 
 export const STEPS = [
-  { id: "crop", label: "Cropping" },
-  { id: "background", label: "Background removing" },
-  { id: "resize", label: "Resizing" },
-  { id: "analyse", label: "Analysing" },
-  { id: "finalise", label: "Finalising" },
+  { id: "crop", label: "Crop and align" },
+  { id: "background", label: "Remove background" },
+  { id: "resize", label: "Resize to spec" },
+  { id: "analyse", label: "Check requirements" },
+  { id: "finalise", label: "Export photo" },
 ] as const;
 
 export type StepId = (typeof STEPS)[number]["id"];
