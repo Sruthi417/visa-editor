@@ -54,8 +54,21 @@ $blue-deep: #0087ca;
   &__selection {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     min-width: 0;
+  }
+
+  &__flag {
+    flex-shrink: 0;
+    display: inline-block;
+    width: 24px;
+    height: 18px;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    // Override flag-icons default em-based sizing
+    font-size: 18px;
+    line-height: 18px;
   }
 
   &__value {
@@ -124,6 +137,20 @@ $blue-deep: #0087ca;
     transition:
       background 0.15s ease,
       color 0.15s ease;
+
+    &-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    &-name {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     svg {
       flex-shrink: 0;

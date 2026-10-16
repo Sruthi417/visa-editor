@@ -64,7 +64,6 @@ export default function ChooseView({
 }: Props) {
   const crop = cropFor(spec);
   const frameWidth = (PREVIEW_HEIGHT * spec.widthMm) / spec.heightMm;
-  const [isDragging, setIsDragging] = useState(false);
   const [sampleCutout, setSampleCutout] = useState<string | null>(null);
 
   useEffect(() => {
@@ -72,30 +71,6 @@ export default function ChooseView({
       if (url) setSampleCutout(url);
     });
   }, []);
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file && onFileDrop) {
-      onFileDrop(file);
-    } else if (file) {
-      onUpload();
-    }
-  };
 
   return (
     <motion.div
@@ -230,29 +205,6 @@ export default function ChooseView({
             </motion.div>
           </AnimatePresence>
 
-          {/* Dropzone area: Image 3 style */}
-          <div
-            className={`doc-modal__dropzone${isDragging ? " doc-modal__dropzone--dragging" : ""}`}
-            onClick={onUpload}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            role="button"
-            tabIndex={0}
-            aria-label="Drop photo here or browse"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onUpload();
-              }
-            }}
-          >
-            <div className="doc-modal__dropzone-icon">
-              <HugeiconsIcon icon={Upload01Icon} size={20} strokeWidth={1.8} />
-            </div>
-            <p className="doc-modal__dropzone-title">Drop photo here or browse</p>
-            <p className="doc-modal__dropzone-hint">JPG, PNG or WebP, up to 15 MB</p>
-          </div>
 
           {/* Bottom upload button: Image 3 style */}
           <button type="button" className="doc-modal__upload" onClick={onUpload}>

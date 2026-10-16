@@ -17,6 +17,12 @@ type Props = {
   onChange: (value: string) => void;
 };
 
+/** Returns the flag-icons CSS class for a given country code (e.g. "fi fi-us"). */
+function getFlagClass(countryCode: string): string {
+  const code = (countryCode === "SCH" ? "eu" : countryCode).toLowerCase();
+  return `fi fi-${code}`;
+}
+
 /**
  * A dropdown that replaces the browser's select: a soft field, and a floating
  * list that opens beneath it. Works with the keyboard (arrows, Home, End,
@@ -128,6 +134,8 @@ export default function CountrySelect({ label, options, value, onChange }: Props
     }
   };
 
+
+
   return (
     <div className="country-select" ref={rootRef}>
       <button
@@ -144,6 +152,7 @@ export default function CountrySelect({ label, options, value, onChange }: Props
           {label}
         </span>
         <div className="country-select__selection">
+          <span className={`country-select__flag ${getFlagClass(selected.value)}`} aria-hidden="true" />
           <span className="country-select__value" id={`${id}-value`}>
             {selected.label}
           </span>
@@ -188,7 +197,10 @@ export default function CountrySelect({ label, options, value, onChange }: Props
                   onPointerMove={() => setHighlight(index)}
                   onClick={() => choose(index)}
                 >
-                  <span>{option.label}</span>
+                  <div className="country-select__option-main">
+                    <span className={`country-select__flag ${getFlagClass(option.value)}`} aria-hidden="true" />
+                    <span className="country-select__option-name">{option.label}</span>
+                  </div>
                   {isSelected && (
                     <HugeiconsIcon icon={Tick02Icon} size={18} strokeWidth={2.4} />
                   )}
