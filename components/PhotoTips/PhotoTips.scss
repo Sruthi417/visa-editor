@@ -33,10 +33,11 @@ $blue-deep: #0087ca;
       font-family: var(--font-heading);
       margin-top: 20px;
       color: $ink-900;
-      font-size: clamp(40px, 5.2vw, 56px);
+      font-size: clamp(40px, 5.2vw, 48px);
       font-weight: 500;
-      line-height: 1.05;
+      line-height: 1.2;
       letter-spacing: -0.04em;
+       max-width: 15ch;
     }
 
     p {
@@ -67,6 +68,11 @@ $blue-deep: #0087ca;
 
   &__item {
     border-bottom: 1px solid $line;
+
+    // No line after the last item.
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 
   &__trigger {
@@ -135,6 +141,11 @@ $blue-deep: #0087ca;
   }
 
   &__item--active {
+    // The open item stays open, so its header does nothing when clicked.
+    .tips__trigger {
+      cursor: default;
+    }
+
     .tips__trigger h3 {
       color: $ink-900;
     }

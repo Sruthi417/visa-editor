@@ -38,9 +38,10 @@ $blue-deep: #0087ca;
       max-width: 18ch;
       margin-top: 20px;
       color: $ink-900;
-      font-size: clamp(40px, 5.2vw, 56px);
+      font-size: clamp(40px, 5.2vw, 42px);
+      line-height: 1.2;
       font-weight: 500;
-      line-height: 1.05;
+      
       letter-spacing: -0.04em;
     }
 
@@ -104,7 +105,7 @@ $blue-deep: #0087ca;
     font-family: var(--font-heading);
     margin: 0 0 1rem;
     color: $ink-900;
-    font-size: clamp(28px, 4.2vw, 38px);
+    font-size: clamp(28px, 4.2vw, 32px);
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.03em;

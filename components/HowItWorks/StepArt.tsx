@@ -1,67 +1,32 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  CropIcon,
   Download01Icon,
   Image01Icon,
   Tick02Icon,
-  Upload01Icon,
 } from "@hugeicons/core-free-icons";
 
-const unsplash = (id: string, w: number) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+const UPLOAD_ILLUSTRATION = "/work1.png";
+const FIT_PORTRAIT = "/work2.png";
+const DOWNLOAD_ILLUSTRATION = "/work3.png";
 
-const PORTRAIT = unsplash("photo-1500648767791-00dcc994a43e", 300);
-const PASSPORT = unsplash("photo-1506794778202-cad84cf45f1d", 300);
-
-/** Step 1: a drop zone with the file mid-upload. */
+/** Step 1: a photo being dropped onto the upload area. */
 export function UploadArt() {
   return (
     <div className="art art--upload" aria-hidden="true">
-      <div className="art__dropzone">
-        <span className="art__dropzone-icon">
-          <HugeiconsIcon icon={Upload01Icon} size={18} strokeWidth={1.8} />
-        </span>
-        <span className="art__dropzone-text">Drop your photo here</span>
-      </div>
-
-      <div className="art__file">
-        <div className="art__file-thumb">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={PORTRAIT} alt="" loading="lazy" />
-        </div>
-        <div className="art__file-meta">
-          <div className="art__file-row">
-            <span className="art__file-name">portrait.jpg</span>
-            <span className="art__file-size">2.4 MB</span>
-          </div>
-          <div className="art__progress">
-            <span className="art__progress-bar" />
-          </div>
-        </div>
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="art__illustration" src={UPLOAD_ILLUSTRATION} alt="" loading="lazy" />
     </div>
   );
 }
 
-/** Step 2: the portrait inside the official crop frame, with its checks. */
+/** Step 2: the framed portrait with its checks, centred together. */
 export function FitArt() {
   const checks = ["Face centred", "Plain background", "Correct head size"];
 
   return (
     <div className="art art--fit" aria-hidden="true">
-      <div className="art__frame">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={PASSPORT} alt="" loading="lazy" />
-        <span className="art__guide" />
-        <span className="art__corner art__corner--tl" />
-        <span className="art__corner art__corner--tr" />
-        <span className="art__corner art__corner--bl" />
-        <span className="art__corner art__corner--br" />
-        <span className="art__chip">
-          <HugeiconsIcon icon={CropIcon} size={13} strokeWidth={1.8} />
-          35 × 45 mm
-        </span>
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="art__portrait" src={FIT_PORTRAIT} alt="" loading="lazy" />
 
       <ul className="art__checks">
         {checks.map((label) => (
@@ -77,17 +42,13 @@ export function FitArt() {
   );
 }
 
-/** Step 3: a print sheet of the finished photo and the download button. */
+/** Step 3: a printer with the photo sheet, and the download button. */
 export function DownloadArt() {
   return (
     <div className="art art--download" aria-hidden="true">
-      <div className="art__sheet">
-        {Array.from({ length: 8 }, (_, i) => (
-          <div key={i} className="art__sheet-photo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={PASSPORT} alt="" loading="lazy" />
-          </div>
-        ))}
+      <div className="art__printer">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={DOWNLOAD_ILLUSTRATION} alt="" loading="lazy" />
       </div>
 
       <div className="art__actions">

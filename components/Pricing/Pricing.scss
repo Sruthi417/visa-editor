@@ -32,14 +32,14 @@ $blue-deep: #0087ca;
       max-width: 18ch;
       margin-top: 20px;
       color: $ink-900;
-      font-size: clamp(40px, 5.2vw, 56px);
+      font-size: clamp(40px, 5.2vw, 42px);
       font-weight: 500;
-      line-height: 1.05;
+      line-height: 1.2;
       letter-spacing: -0.04em;
     }
 
     p {
-      max-width: 46ch;
+      max-width: 35ch;
       margin-top: 18px;
       color: $ink-500;
       font-size: 17px;

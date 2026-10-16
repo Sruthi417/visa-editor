@@ -51,9 +51,9 @@ $blue-deep: #0087ca;
       margin-top: 20px;
       color: $ink-900;
       font-family: var(--font-heading);
-      font-size: clamp(40px, 5.2vw, 56px);
+      font-size: clamp(40px, 5.2vw, 42px);
       font-weight: 500;
-      line-height: 1.05;
+      line-height: 1.2;
       letter-spacing: -0.04em;
     }
 
@@ -173,6 +173,7 @@ $blue-deep: #0087ca;
   width: 100%;
   aspect-ratio: 1 / 1.2;
   padding: 28px;
+ 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -194,20 +195,21 @@ $blue-deep: #0087ca;
     // background-position: center;
   }
 
-  &__grain {
-    position: absolute;
-    inset: -50%;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.16;
+  // &__grain {
+  //   position: absolute;
+  //   inset: -50%;
+  //   z-index: -1;
+  //   pointer-events: none;
+  //   opacity: 0.16;
     
-    // background-image: url("/hero-grain.png");
-    // background-repeat: repeat;
-    // background-size: 280px 280px;
-  }
+  //   // background-image: url("/hero-grain.png");
+  //   // background-repeat: repeat;
+  //   // background-size: 280px 280px;
+  // }
 
   &__text {
     @include review-text;
+    
   }
 
   &__footer {
@@ -256,6 +258,7 @@ $blue-deep: #0087ca;
 
   &__text {
     @include review-text;
+  
   }
 
   &__footer {

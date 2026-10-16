@@ -21,7 +21,7 @@ const tips = [
     title: "Keep your head and body straight",
     description:
       "Look directly into the camera and avoid tilting your body. Remember, portrait mode is unacceptable for passport photos.",
-    image: "/photo-tips/posture.png",
+    image: "/photo3.png",
     alt: "Head and body facing the camera straight on",
   },
   {
@@ -29,23 +29,23 @@ const tips = [
     title: "Prepare good lighting",
     description:
       "Take your passport photos in a daylight setting, like near a window on a sunny day. Shadows on your face or in the background are not permitted.",
-    image: "/photo-tips/lighting.png",
+    image: "/photo2.png",
     alt: "Face lit by soft daylight from a window",
   },
+  // {
+  //   number: "04.",
+  //   title: "Keep a neutral expression",
+  //   description:
+  //     "Keep both eyes open and your mouth closed, with a natural, relaxed face. Big smiles and raised eyebrows are not accepted.",
+  //   image: "/photo-tips/expression.png",
+  //   alt: "Neutral expression with eyes open and mouth closed",
+  // },
   {
     number: "04.",
-    title: "Keep a neutral expression",
-    description:
-      "Keep both eyes open and your mouth closed, with a natural, relaxed face. Big smiles and raised eyebrows are not accepted.",
-    image: "/photo-tips/expression.png",
-    alt: "Neutral expression with eyes open and mouth closed",
-  },
-  {
-    number: "05.",
     title: "Remove glasses and accessories",
     description:
       "Take off hats, headphones and glasses so nothing covers or frames your face. Religious or medical head coverings are allowed if your whole face is visible.",
-    image: "/photo-tips/accessories.png",
+    image: "/photo4.png",
     alt: "Face with no glasses, hat or headphones",
   },
 ];
@@ -65,20 +65,9 @@ const staggerContainer: Variants = {
 };
 
 export default function PhotoTips() {
-  // The first item starts open. `activeIndex` drives the image and is never
-  // empty, so closing an item leaves the last picture on screen instead of a
-  // blank card.
+  // Exactly one item is always open, and its picture is the one on show.
+  // Choosing another item switches to it; the open item cannot be closed.
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(true);
-
-  const handleToggle = (index: number) => {
-    if (index === activeIndex) {
-      setIsOpen((open) => !open);
-      return;
-    }
-    setActiveIndex(index);
-    setIsOpen(true);
-  };
 
   return (
     <section className="tips" id="photo-tips">
@@ -91,7 +80,7 @@ export default function PhotoTips() {
           viewport={{ once: true, amount: 0.2 }}
         >
           <span className="tips__eyebrow">Photo guide</span>
-          <h2>How to take the photo.</h2>
+          <h2>Tips for taking a compliant photo</h2>
           <p>
             Follow these steps before you upload, and your picture will
             pass the official passport requirements first time.
@@ -107,7 +96,7 @@ export default function PhotoTips() {
         >
           <motion.div className="tips__accordion" variants={revealFromBottom}>
             {tips.map((tip, index) => {
-              const open = isOpen && activeIndex === index;
+              const open = activeIndex === index;
 
               return (
                 <div
@@ -120,7 +109,7 @@ export default function PhotoTips() {
                     id={`tips-trigger-${index}`}
                     aria-expanded={open}
                     aria-controls={`tips-panel-${index}`}
-                    onClick={() => handleToggle(index)}
+                    onClick={() => setActiveIndex(index)}
                   >
                     <span className="tips__trigger-content">
                       <span className="tips__number">{tip.number}</span>

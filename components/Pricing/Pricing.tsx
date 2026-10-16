@@ -27,8 +27,7 @@ const plans = [
       "Basic photo cropping",
       "Country-specific dimensions",
       "Basic photo checks",
-      "Limited AI background processing",
-      "Standard-quality download",
+      
     ],
     cta: "Start for free",
     featured: false,
