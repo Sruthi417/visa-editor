@@ -67,7 +67,7 @@ export type Callbacks = {
 };
 
 /** How long each step stays on screen, so the progress is readable. */
-const MIN_STEP_MS = 1300;
+const MIN_STEP_MS = 3800;
 
 const ASSETS = "/mediapipe";
 

@@ -150,7 +150,7 @@ export default function DocumentModal({ open, onClose }: Props) {
         // Let the finished state register before moving on.
         timer = setTimeout(
           () => setView(output.retake ? "retake" : "result"),
-          900,
+          1400,
         );
       })
       .catch((reason) => {

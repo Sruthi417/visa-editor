@@ -21,6 +21,23 @@ type Props = {
   spec: PhotoSpec;
 };
 
+function getStepSub(stepId: string, spec: PhotoSpec) {
+  switch (stepId) {
+    case "crop":
+      return "Centering head and aligning eye level to official guidelines";
+    case "background":
+      return `Isolating subject and applying compliant ${spec.background.toLowerCase()} background`;
+    case "resize":
+      return `Scaling to exact ${spec.widthMm} × ${spec.heightMm} mm at 300 DPI`;
+    case "analyse":
+      return "Checking biometric symmetry, lighting balance, and compliance rules";
+    case "finalise":
+      return `Encoding JPEG within ${spec.fileKb[0]}–${spec.fileKb[1]} KB file size limits`;
+    default:
+      return "";
+  }
+}
+
 export default function ProcessingView({
   titleId,
   originalUrl,
@@ -86,7 +103,10 @@ export default function ProcessingView({
                     )}
                   </AnimatePresence>
                 </span>
-                <span className="proc__label">{step.label}</span>
+                <div className="proc__text">
+                  <span className="proc__label">{step.label}</span>
+                  <p className="proc__sub">{getStepSub(step.id, spec)}</p>
+                </div>
               </motion.li>
             );
           })}
