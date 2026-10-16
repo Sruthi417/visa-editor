@@ -1,8 +1,9 @@
-$ink-900: #162637;
-$ink-700: #23374a;
-$ink-500: #647789;
-$line: #e3e9ed;
-$surface: #f4f6f7;
+$ink-900: #111827;
+$ink-700: #374151;
+$ink-500: #8e8e93;
+$line: #eaedf1;
+$surface: #ffffff;
+$surface-subtle: #f7f8fa;
 $blue: #2b97f0;
 $blue-deep: #0087ca;
 
@@ -19,20 +20,26 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     position: fixed;
     top: 24px;
     right: 28px;
-    z-index: 2;
-    width: 44px;
-    height: 44px;
+    z-index: 20;
+    width: 42px;
+    height: 42px;
     display: grid;
     place-items: center;
-    border: 0;
+    border: 1px solid $line;
     border-radius: 50%;
-    background: transparent;
+    background: #ffffff;
     color: $ink-900;
     cursor: pointer;
-    transition: background 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:hover {
-      background: $surface;
+      background: $surface-subtle;
+      transform: scale(1.04);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     &:focus-visible {
@@ -55,23 +62,29 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   // Left column -------------------------------------------------------------
   &__title {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     color: $ink-900;
     font-family: var(--font-heading);
-    font-size: clamp(36px, 4.6vw, 42px);
-    font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+    font-size: clamp(32px, 4vw, 40px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
   }
 
   &__card {
-    padding: 26px;
+    padding: clamp(20px, 3vw, 26px);
     border: 1px solid $line;
-    border-radius: 24px;
+    border-radius: 28px;
     background: $surface;
+    box-shadow:
+      0 4px 20px -2px rgba(17, 24, 39, 0.05),
+      0 1px 3px rgba(17, 24, 39, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
-  // Passport / Visa switch: a dark pill slides under the chosen option.
+  // Passport / Visa switch: Image 2 style pill segmented control
   &__switch {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -79,20 +92,20 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     padding: 4px;
     border: 1px solid $line;
     border-radius: 100px;
-    background: #ffffff;
+    background: $surface-subtle;
   }
 
   &__switch-btn {
     position: relative;
-    padding: 11px 16px;
+    padding: 10px 16px;
     border: 0;
     border-radius: 100px;
     background: transparent;
-    color: $ink-500;
+    color: #717680;
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
-    transition: color 0.35s ease;
+    transition: color 0.25s ease;
 
     &:hover:not(&--active) {
       color: $ink-900;
@@ -112,131 +125,254 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     position: absolute;
     inset: 0;
     border-radius: 100px;
-    background: #131313;
-    box-shadow: 0 4px 12px rgba(19, 19, 19, 0.22);
+    background: #111111;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
   }
 
   &__switch-label {
     position: relative;
   }
 
+  // Document Summary: Image 3 file card + Image 2 rows
   &__summary {
-    margin-top: 24px;
-    display: flex;
-    align-items: flex-start;
-    gap: 22px;
+    width: 100%;
   }
 
-  // A stand-in for the document's cover.
+  &__doc-card {
+    border: 1px solid $line;
+    border-radius: 18px;
+    background: #ffffff;
+    padding: 16px 18px;
+    transition: border-color 0.2s ease;
+
+    &:hover {
+      // border-color: #d1d5db;
+    }
+  }
+
+  &__doc-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  // Realistic booklet cover matching Image 2 & 3 references
   &__cover {
     flex-shrink: 0;
-    width: 104px;
-    height: 148px;
-    padding: 14px 8px;
+    width: 90px;
+    height: 124px;
+    padding: 12px 6px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    border-radius: 6px;
-    color: #e8c872;
-    box-shadow: 0 6px 16px rgba(11, 27, 43, 0.18);
+    border-radius: 14px;
+    color: #f5cb68;
+    box-shadow:
+      0 8px 24px -4px rgba(11, 27, 43, 0.22),
+      0 2px 6px -1px rgba(11, 27, 43, 0.1);
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease;
 
-    span {
+    &-title {
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #f5cb68;
+      text-transform: uppercase;
+      line-height: 1;
     }
 
-    strong {
+    &-globe {
+      width: 36px;
+      height: 36px;
+      color: #f5cb68;
+      margin: 4px 0;
+      flex-shrink: 0;
+    }
+
+    &-code {
       font-family: var(--font-heading);
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-size: 22px;
+      font-weight: 800;
+      color: #f5cb68;
+      letter-spacing: 0.05em;
+      line-height: 1;
     }
 
     &--passport {
-      background: linear-gradient(160deg, #1d2f5c, #0f1b3a);
+      background: #0d223f;
+      border: 1px solid rgba(245, 203, 104, 0.18);
     }
 
     &--visa {
-      background: linear-gradient(160deg, #1f6f5c, #0f3f34);
+      background: #09472e;
+      border: 1px solid rgba(245, 203, 104, 0.18);
     }
   }
 
-  &__details {
+  &__doc-info {
     flex: 1;
     min-width: 0;
+    padding-top: 2px;
 
     h3 {
-      padding-bottom: 14px;
-      border-bottom: 1px solid $line;
+      margin: 0;
       color: $ink-900;
       font-family: var(--font-heading);
-      font-size: clamp(16px, 2.4vw, 18px);
-      font-weight: 500;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
     }
+  }
 
+  &__doc-sub {
+    margin: 3px 0 0;
+    color: $ink-500;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  &__details {
     dl {
-      margin-top: 14px;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      margin: 0;
+      padding-top: 4px;
 
       > div {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
-        gap: 6px;
-        font-size: 14px;
+        justify-content: space-between;
+        padding: 9px 0;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 13.5px;
+
+        &:last-child {
+          border-bottom: 0;
+          padding-bottom: 2px;
+        }
       }
     }
 
     dt {
       color: $ink-500;
+      font-weight: 500;
+      margin: 0;
     }
 
     dd {
+      color: $ink-900;
+      font-weight: 500;
+      margin: 0;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: $ink-900;
-      font-weight: 500;
     }
   }
 
   &__swatch {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     display: inline-block;
-    border: 1px solid #c9d2d8;
+    border: 1px solid #d1d5db;
     border-radius: 50%;
   }
 
+  // Dropzone: Image 3 style
+  &__dropzone {
+    padding: 18px 16px;
+    border: 1.5px dashed #e2e5e9;
+    border-radius: 18px;
+    background: $surface-subtle;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: #f1f3f6;
+      border-color: #cbd2d9;
+    }
+
+    &--dragging {
+      background: #eef5fc;
+      border-color: $blue;
+      border-style: solid;
+      transform: scale(1.01);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__dropzone-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: grid;
+    place-items: center;
+    margin-bottom: 6px;
+    color: $ink-700;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  &__dropzone-title {
+    margin: 0;
+    color: $ink-900;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__dropzone-hint {
+    margin: 2px 0 0;
+    color: $ink-500;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  // Upload button: Image 3 bottom button style
   &__upload {
-    margin-top: 24px;
     width: 100%;
-    height: 56px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     border: 0;
     cursor: pointer;
     border-radius: 100px;
-    background: #131313;
+    background: #111111;
     color: #ffffff;
-    font-size: 17px;
+    font-size: 15.5px;
     font-weight: 600;
     text-decoration: none;
     transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+      background-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(19, 19, 19, 0.25);
+      background: #000000;
+      // transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
     }
 
     &:focus-visible {
@@ -245,20 +381,46 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
 
+  &__hint {
+    margin: 2px 0 0;
+    text-align: center;
+    font-size: 12px;
+    color: $ink-500;
+    line-height: 1.4;
+
+    &[role="alert"] {
+      color: #e53935;
+      font-weight: 500;
+    }
+  }
+
   // Right column ----------------------------------------------------------------
+  &__spec-header {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__spec-title {
     color: $ink-900;
     font-family: var(--font-heading);
-    font-size: clamp(20px, 2.4vw, 22px);
-    font-weight: 500;
-    line-height: 1.3;
-    letter-spacing: -0.03em;
-    max-width: 250px;
+    font-size: clamp(22px, 2.5vw, 26px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    max-width: none;
+    margin: 0;
+  }
 
+  &__spec-sub {
+    margin: 6px 0 0;
+    color: $ink-500;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
   }
 
   &__previews {
-    margin-top: 40px;
+    margin-top: 32px;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -271,21 +433,22 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
     figcaption {
       display: inline-block;
-      margin-bottom: 26px;
-      padding: 5px 11px;
+      margin-bottom: 20px;
+      padding: 5px 12px;
       border: 1px solid $line;
-      border-radius: 8px;
-      background: $surface;
+      border-radius: 100px;
+      background: $surface-subtle;
       color: $ink-900;
-      font-size: 18px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 600;
     }
   }
 
   &__before {
     overflow: hidden;
-    border-radius: 6px;
-    background: $surface;
+    border-radius: 8px;
+    background: $surface-subtle;
+    border: 1px solid $line;
 
     img {
       display: block;
@@ -305,9 +468,10 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     max-width: 100%;
     outline: 1px dashed $ink-900;
-    background: #ffffff;
     box-shadow: 0 10px 28px rgba(11, 27, 43, 0.12);
-    transition: width 0.55s $preview-ease;
+    transition:
+      width 0.55s $preview-ease,
+      background-color 0.35s ease;
   }
 
   &__crop {
@@ -335,8 +499,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
     b {
       padding: 2px 6px;
-      border-radius: 3px;
-      background: #131313;
+      border-radius: 4px;
+      background: #111111;
       color: #ffffff;
       font-size: 11px;
       font-weight: 700;
@@ -374,19 +538,19 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &__note {
-    margin-top: 44px;
-    padding-top: 22px;
+    margin-top: 40px;
+    padding-top: 20px;
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 12px;
     border-top: 1px solid $line;
     color: $ink-500;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
 
     svg {
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 2px;
       color: $blue-deep;
     }
   }
@@ -396,9 +560,9 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   .doc-modal {
     &__grid {
       grid-template-columns: minmax(0, 1fr);
-      row-gap: 48px;
+      row-gap: 40px;
       align-items: start;
-      padding-top: 88px;
+      padding-top: 84px;
     }
 
     &__close {
@@ -407,7 +571,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     &__title {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
   }
 }
@@ -415,20 +579,11 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 @media (max-width: 520px) {
   .doc-modal {
     &__card {
-      padding: 20px;
-    }
-
-    &__summary {
-      flex-direction: column;
-    }
-
-    &__cover {
-      width: 88px;
-      height: 124px;
+      padding: 18px;
     }
 
     &__previews {
-      column-gap: 24px;
+      column-gap: 20px;
     }
   }
 }

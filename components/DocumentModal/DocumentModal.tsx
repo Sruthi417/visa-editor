@@ -88,37 +88,42 @@ export default function DocumentModal({ open, onClose }: Props) {
     inputRef.current?.click();
   }, []);
 
+  const processSelectedFile = useCallback(
+    (file: File) => {
+      if (!ACCEPTED.includes(file.type)) {
+        setError("Please choose a JPG, PNG or WebP image.");
+        setView("choose");
+        return;
+      }
+      if (file.size > MAX_FILE_BYTES) {
+        setError("That file is larger than 15 MB. Please choose a smaller one.");
+        setView("choose");
+        return;
+      }
+
+      setError(null);
+      setStepIndex(0);
+      setPreview(null);
+      setFace(null);
+      setResult(null);
+      setJob({
+        file,
+        originalUrl: URL.createObjectURL(file),
+        type,
+        entry,
+        spec,
+        documentName,
+      });
+      setView("processing");
+    },
+    [type, entry, spec, documentName],
+  );
+
   const handleFile = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     // Reset so choosing the same file again still fires a change.
     event.target.value = "";
-    if (!file) return;
-
-    if (!ACCEPTED.includes(file.type)) {
-      setError("Please choose a JPG, PNG or WebP image.");
-      setView("choose");
-      return;
-    }
-    if (file.size > MAX_FILE_BYTES) {
-      setError("That file is larger than 15 MB. Please choose a smaller one.");
-      setView("choose");
-      return;
-    }
-
-    setError(null);
-    setStepIndex(0);
-    setPreview(null);
-    setFace(null);
-    setResult(null);
-    setJob({
-      file,
-      originalUrl: URL.createObjectURL(file),
-      type,
-      entry,
-      spec,
-      documentName,
-    });
-    setView("processing");
+    if (file) processSelectedFile(file);
   };
 
   // Run the pipeline for the uploaded photo. Closing the window, or starting
@@ -252,6 +257,7 @@ export default function DocumentModal({ open, onClose }: Props) {
                 documentName={documentName}
                 onCountryChange={setCode}
                 onUpload={openPicker}
+                onFileDrop={processSelectedFile}
                 error={error}
               />
             )}

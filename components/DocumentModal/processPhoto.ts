@@ -133,6 +133,69 @@ export function warmUp() {
   getSegmenter().catch(() => {});
 }
 
+let sampleCutoutPromise: Promise<string | null> | null = null;
+
+/**
+ * Creates a transparent PNG cutout of the sample portrait so that the
+ * background color of the chosen document type and country is visible behind it.
+ */
+export function getSampleCutout(imageUrl = "/sample-original.jpg"): Promise<string | null> {
+  if (typeof window === "undefined") return Promise.resolve(null);
+  sampleCutoutPromise ??= (async () => {
+    try {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error("Failed to load image for cutout"));
+        img.src = imageUrl;
+      });
+
+      const canvas = makeCanvas(img.naturalWidth, img.naturalHeight);
+      const ctx = context(canvas);
+      ctx.drawImage(img, 0, 0);
+
+      const segmenter = await getSegmenter();
+      const result = segmenter.segment(canvas);
+      const mask = result.confidenceMasks?.[0];
+      if (!mask) {
+        result.close();
+        return null;
+      }
+
+      const values = mask.getAsFloat32Array();
+      const maskCanvas = makeCanvas(mask.width, mask.height);
+      const maskCtx = context(maskCanvas);
+      const image = maskCtx.createImageData(mask.width, mask.height);
+      for (let i = 0; i < values.length; i++) {
+        image.data[i * 4 + 3] = Math.round(smoothstep(0.35, 0.65, values[i]) * 255);
+      }
+      maskCtx.putImageData(image, 0, 0);
+      result.close();
+
+      const person = makeCanvas(canvas.width, canvas.height);
+      const personCtx = context(person);
+      personCtx.drawImage(canvas, 0, 0);
+      personCtx.globalCompositeOperation = "destination-in";
+      personCtx.drawImage(maskCanvas, 0, 0, person.width, person.height);
+
+      const dataUrl = person.toDataURL("image/png");
+      try {
+        fetch("/api/save-cutout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dataUrl }),
+        }).catch(() => {});
+      } catch {}
+      return dataUrl;
+    } catch (e) {
+      console.warn("Could not compute sample cutout", e);
+      return null;
+    }
+  })();
+  return sampleCutoutPromise;
+}
+
 /* -------------------------------- helpers -------------------------------- */
 
 function throwIfAborted(signal: AbortSignal) {

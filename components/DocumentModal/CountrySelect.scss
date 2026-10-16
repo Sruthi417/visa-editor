@@ -1,59 +1,61 @@
-$ink-900: #162637;
-$ink-700: #23374a;
-$ink-500: #647789;
+$ink-900: #111827;
+$ink-700: #374151;
+$ink-500: #8e8e93;
+$line: #eaedf1;
 $blue: #2b97f0;
 $blue-deep: #0087ca;
 
 .country-select {
   position: relative;
-  margin-top: 22px;
+  width: 100%;
 
-  &__label {
-    display: block;
-    margin: 0 0 8px 6px;
-    color: $ink-500;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-  }
-
-  // The field: soft and raised, with the chevron on the right.
+  // The field: sleek rounded row matching Image 2
   &__trigger {
     width: 100%;
-    height: 58px;
-    padding: 0 20px 0 22px;
+    min-height: 52px;
+    padding: 13px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    border: 1px solid rgba(11, 27, 43, 0.05);
-    border-radius: 18px;
+    border: 1px solid $line;
+    border-radius: 16px;
     background: #ffffff;
-    box-shadow:
-      0 1px 2px rgba(11, 27, 43, 0.04),
-      0 8px 20px rgba(11, 27, 43, 0.07);
     color: $ink-900;
-    font-size: 17px;
     text-align: left;
     cursor: pointer;
     transition:
-      box-shadow 0.3s ease,
-      border-color 0.3s ease;
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
 
     &:hover {
-      box-shadow:
-        0 1px 2px rgba(11, 27, 43, 0.05),
-        0 10px 26px rgba(11, 27, 43, 0.1);
+      border-color: #d1d5db;
+      background: #fafbfc;
     }
 
     &:focus-visible,
     &--open {
-      border-color: rgba($blue, 0.55);
+      border-color: #111111;
       outline: none;
-      box-shadow:
-        0 0 0 4px rgba($blue, 0.16),
-        0 10px 26px rgba(11, 27, 43, 0.1);
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
     }
+  }
+
+  &__label {
+    flex-shrink: 0;
+    margin: 0;
+    color: $ink-500;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: normal;
+  }
+
+  &__selection {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
   }
 
   &__value {
@@ -61,13 +63,16 @@ $blue-deep: #0087ca;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: $ink-900;
+    font-size: 15px;
+    font-weight: 500;
   }
 
   &__chevron {
     flex-shrink: 0;
     display: grid;
     place-items: center;
-    color: $blue-deep;
+    color: $ink-500;
   }
 
   // The floating list, a little below the field.
@@ -76,46 +81,44 @@ $blue-deep: #0087ca;
     top: calc(100% + 8px);
     left: 0;
     right: 0;
-    z-index: 30;
-    max-height: min(300px, 45vh);
+    z-index: 50;
+    max-height: min(280px, 45vh);
     margin: 0;
-    padding: 8px;
+    padding: 6px;
     list-style: none;
     overflow-y: auto;
     overscroll-behavior: contain;
     transform-origin: top center;
-    border: 1px solid rgba(11, 27, 43, 0.05);
-    border-radius: 22px;
+    border: 1px solid $line;
+    border-radius: 18px;
     background: #ffffff;
     box-shadow:
-      0 2px 6px rgba(11, 27, 43, 0.04),
-      0 22px 50px rgba(11, 27, 43, 0.18);
+      0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 16px 36px -4px rgba(0, 0, 0, 0.12);
     outline: none;
 
-    // A slim scrollbar that stays out of the way.
     scrollbar-width: thin;
     scrollbar-color: #cfd8df transparent;
 
     &::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
 
     &::-webkit-scrollbar-thumb {
-      border: 2px solid #ffffff;
-      border-radius: 8px;
+      border-radius: 6px;
       background: #cfd8df;
     }
   }
 
   &__option {
-    padding: 14px 16px;
+    padding: 11px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    border-radius: 14px;
+    gap: 10px;
+    border-radius: 12px;
     color: $ink-700;
-    font-size: 17px;
+    font-size: 14.5px;
     line-height: 1.3;
     cursor: pointer;
     transition:
@@ -124,17 +127,18 @@ $blue-deep: #0087ca;
 
     svg {
       flex-shrink: 0;
-      color: $blue-deep;
+      color: #111111;
     }
 
     &--highlight {
-      background: #f1f6fb;
+      background: #f4f5f7;
       color: $ink-900;
     }
 
     &--selected {
       color: $ink-900;
-      font-weight: 500;
+      font-weight: 600;
+      background: #f4f5f7;
     }
   }
 }

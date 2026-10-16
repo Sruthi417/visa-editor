@@ -130,10 +130,6 @@ export default function CountrySelect({ label, options, value, onChange }: Props
 
   return (
     <div className="country-select" ref={rootRef}>
-      <span className="country-select__label" id={`${id}-label`}>
-        {label}
-      </span>
-
       <button
         ref={triggerRef}
         type="button"
@@ -144,17 +140,22 @@ export default function CountrySelect({ label, options, value, onChange }: Props
         onClick={() => (open ? close(false) : openList())}
         onKeyDown={onTriggerKeyDown}
       >
-        <span className="country-select__value" id={`${id}-value`}>
-          {selected.label}
+        <span className="country-select__label" id={`${id}-label`}>
+          {label}
         </span>
-        <motion.span
-          className="country-select__chevron"
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: EASE }}
-          aria-hidden="true"
-        >
-          <HugeiconsIcon icon={ArrowDown01Icon} size={20} strokeWidth={2.2} />
-        </motion.span>
+        <div className="country-select__selection">
+          <span className="country-select__value" id={`${id}-value`}>
+            {selected.label}
+          </span>
+          <motion.span
+            className="country-select__chevron"
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.3, ease: EASE }}
+            aria-hidden="true"
+          >
+            <HugeiconsIcon icon={ArrowDown01Icon} size={18} strokeWidth={2.2} />
+          </motion.span>
+        </div>
       </button>
 
       <AnimatePresence>

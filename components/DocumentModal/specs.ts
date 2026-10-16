@@ -309,7 +309,7 @@ export function headFraction(spec: PhotoSpec): number {
 --------------------------------------------------------------------------- */
 
 export const SAMPLE_PHOTO = {
-  src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=1200&q=80",
+  src: "/sample-original.jpg",
   aspect: 3 / 2,
   faceCenterX: 0.52,
   headTop: 0.06,
