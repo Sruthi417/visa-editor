@@ -10,7 +10,7 @@ $blue-deep: #0087ca;
 
 .pricing {
   width: 100%;
-  padding: clamp(72px, 10vw, 140px) 20px;
+  padding: var(--section-py) var(--section-px);
   background: white;
 
   &__container {
@@ -193,7 +193,6 @@ $blue-deep: #0087ca;
 
 @media (max-width: 800px) {
   .pricing {
-    padding: 72px 16px 80px;
 
     &__plans {
       grid-template-columns: minmax(0, 1fr);

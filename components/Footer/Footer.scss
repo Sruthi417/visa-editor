@@ -29,7 +29,7 @@ $land-ratio: calc(371 / 1635);
     max-width: 1280px;
     min-height: inherit;
     margin: 0 auto;
-    padding: 56px clamp(20px, 5vw, 64px) 0;
+    padding: 56px var(--section-px) 0;
     display: flex;
     flex-direction: column;
   }

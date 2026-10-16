@@ -6,7 +6,7 @@ $ink-900: #162637;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  padding: 24px 20px;
+  padding: 24px var(--section-px);
   position: fixed;
   top: 0;
   left: 0;
@@ -198,7 +198,7 @@ $ink-900: #162637;
 // Responsive: the links and the action move into the menu.
 @media (max-width: 768px) {
   .navbar-wrapper {
-    padding: 16px;
+    padding: 16px var(--section-px);
   }
 
   .navbar {

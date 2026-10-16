@@ -11,7 +11,7 @@ $blue-deep: #0087ca;
 
 .tips {
   width: 100%;
-  padding: clamp(72px, 10vw, 140px) 20px;
+  padding: var(--section-py) var(--section-px);
   background: #ffffff;
 
   &__container {
@@ -224,7 +224,6 @@ $blue-deep: #0087ca;
 // Responsive ------------------------------------------------------------------
 @media (max-width: 900px) {
   .tips {
-    padding: 72px 20px 80px;
 
     &__content {
       display: flex;
@@ -245,8 +244,6 @@ $blue-deep: #0087ca;
 
 @media (max-width: 500px) {
   .tips {
-    padding-left: 16px;
-    padding-right: 16px;
 
     &__trigger {
       min-height: 84px;

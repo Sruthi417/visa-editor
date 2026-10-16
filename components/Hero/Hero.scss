@@ -21,7 +21,7 @@
   min-height: 100vh;
   margin: 0 auto;
   // clear the fixed navbar
-  padding: 130px 40px 60px;
+  padding: 130px var(--section-px) 60px;
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   align-items: center;
@@ -83,7 +83,7 @@
 
 @media (max-width: 900px) {
   .hero {
-    padding: 110px 20px 48px;
+    padding: 110px var(--section-px) 48px;
     grid-template-columns: minmax(0, 1fr);
     gap: 40px;
     text-align: center;

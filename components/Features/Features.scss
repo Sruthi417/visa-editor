@@ -11,7 +11,7 @@ $blue-deep: #0087ca;
 .features {
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(72px, 10vw, 140px) clamp(1.25rem, 6vw, 5rem);
+  padding: var(--section-py) var(--section-px);
   display: flex;
   justify-content: center;
   overflow: hidden;

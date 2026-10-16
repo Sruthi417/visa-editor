@@ -23,7 +23,7 @@ $blue-deep: #0087ca;
 .reviews {
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(72px, 10vw, 140px) 20px;
+  padding: var(--section-py) var(--section-px);
   background: white;
 
   &__container {
@@ -347,6 +347,11 @@ $blue-deep: #0087ca;
     align-items: center;
   }
 
+  // The star row is dropped on smaller screens.
+  .reviews__stars {
+    display: none;
+  }
+
   .review-featured,
   .review-card {
     height: 100%;
@@ -364,7 +369,6 @@ $blue-deep: #0087ca;
 
 @media (max-width: 950px) {
   .reviews {
-    padding: 90px 20px 110px;
 
     &__header {
       margin-bottom: 55px;
@@ -398,7 +402,6 @@ $blue-deep: #0087ca;
 
 @media (max-width: 700px) {
   .reviews {
-    padding: 75px 16px 90px;
 
     &__header {
       flex-direction: column;

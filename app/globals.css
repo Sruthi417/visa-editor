@@ -2,6 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
 
 :root {
+  /* Standard section spacing. Every section uses these, so they line up
+     at every screen size. The vertical value is unchanged on desktop. */
+  --section-px: clamp(16px, 5vw, 40px);
+  --section-py: clamp(72px, 10vw, 140px);
   --font-heading: "Manrope", "Poppins", sans-serif;
 }
 
