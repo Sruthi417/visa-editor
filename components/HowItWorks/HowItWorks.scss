@@ -1,3 +1,5 @@
+@use "../eyebrow" as *;
+
 $ink-900: #162637;
 $ink-700: #23374a;
 $ink-500: #647789;
@@ -19,7 +21,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
 
   &__inner {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1080px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
@@ -37,25 +39,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   }
 
   &__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 100px;
-    border: 1px solid $line;
-    background: #ffffff;
-    color: $blue-deep;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-
-    &::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: $blue;
-    }
+    @include eyebrow;
   }
 
   &__title {
@@ -422,7 +406,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   .how {
     padding: 64px 20px;
 
@@ -430,8 +414,11 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
       grid-template-columns: minmax(0, 1fr);
     }
 
+    // The heading sits above the cards, centred like the other sections.
     &__heading {
       position: static;
+      align-items: center;
+      text-align: center;
     }
 
     // Plain column: no pinning, so cards size to their content.

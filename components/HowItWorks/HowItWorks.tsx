@@ -22,7 +22,7 @@ const steps: Step[] = [
   {
     key: "upload",
     title: "Upload your photo",
-    body: "Pick any portrait from your phone or computer. A casual snapshot is fine, we take it from there.",
+    body: "Upload a photo from your phone or computer that meets the photo guidelines. We'll take it from there.",
     icon: Upload01Icon,
     art: <UploadArt />,
   },
@@ -44,7 +44,7 @@ const steps: Step[] = [
 
 /**
  * Sticky heading on the left, a stack of sticky step cards on the right that
- * slide over one another as the page scrolls. Below 768px it is a plain column.
+ * slide over one another as the page scrolls. Below 900px it is a plain column.
  */
 export default function HowItWorks() {
   return (

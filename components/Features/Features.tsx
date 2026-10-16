@@ -38,7 +38,7 @@ const features = [
       "Shadow Removal",
       "One-Tap Processing",
     ],
-    image: "/features/card1.png",
+    image: "/fea1.png",
     icon: MagicWand01Icon,
   },
   {
@@ -51,7 +51,7 @@ const features = [
       "Centred Framing",
       "Exact Dimensions",
     ],
-    image: "/features/card2.png",
+    image: "/fea2.png",
     icon: CropIcon,
   },
   {
@@ -64,7 +64,7 @@ const features = [
       "Compliance Checks",
       "Clear Fix Suggestions",
     ],
-    image: "/features/card3.png",
+    image: "/fea3.png",
     icon: Globe02Icon,
   },
   {

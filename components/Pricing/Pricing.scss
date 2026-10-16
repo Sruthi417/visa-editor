@@ -1,3 +1,5 @@
+@use "../eyebrow" as *;
+
 $ink-900: #162637;
 $ink-700: #23374a;
 $ink-500: #647789;
@@ -9,7 +11,7 @@ $blue-deep: #0087ca;
 .pricing {
   width: 100%;
   padding: clamp(72px, 10vw, 140px) 20px;
-  background: $surface;
+  background: white;
 
   &__container {
     width: min(900px, 100%);
@@ -45,25 +47,7 @@ $blue-deep: #0087ca;
   }
 
   &__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border: 1px solid $line;
-    border-radius: 100px;
-    background: #ffffff;
-    color: $blue-deep;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-
-    &::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: $blue;
-    }
+    @include eyebrow;
   }
 
   // Plans -----------------------------------------------------------------

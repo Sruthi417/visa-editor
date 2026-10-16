@@ -1,3 +1,5 @@
+@use "../eyebrow" as *;
+
 $ink-900: #162637;
 $ink-700: #294457;
 $ink-500: #647789;
@@ -45,25 +47,7 @@ $blue-deep: #0087ca;
   }
 
   &__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border: 1px solid $line;
-    border-radius: 100px;
-    background: $surface;
-    color: $blue-deep;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-
-    &::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: $blue;
-    }
+    @include eyebrow;
   }
 
   // Layout ----------------------------------------------------------------

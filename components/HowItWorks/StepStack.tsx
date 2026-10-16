@@ -6,7 +6,7 @@ import { useEffect, useRef, type ReactNode } from "react";
  * Scrubs `--lift` (0 to 1) on every step card after the first as its top
  * travels from 92% to 28% of the viewport; `.how__card--lift` turns that into
  * the upward shadow that separates a card sliding over the one already stuck.
- * Only from 768px, where the cards are sticky; reduced motion gets the end
+ * Only above 900px, where the cards are sticky; reduced motion gets the end
  * state with no scrub.
  */
 export default function StepStack({ children }: { children: ReactNode }) {
@@ -20,7 +20,7 @@ export default function StepStack({ children }: { children: ReactNode }) {
     ).slice(1);
     if (!cards.length) return;
 
-    const wide = window.matchMedia("(min-width: 768px)");
+    const wide = window.matchMedia("(min-width: 901px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0;
     let active = false;
