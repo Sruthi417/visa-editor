@@ -443,10 +443,6 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       transform 0.3s ease,
       box-shadow 0.3s ease;
 
-    &:hover {
-      box-shadow: 0 5px 15px rgba(43, 151, 240, 0.25);
-    }
-
     &:active {
       transform: translateY(0);
     }
@@ -774,10 +770,6 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
         ),
         #131313;
       color: #ffffff;
-
-      &:hover {
-        box-shadow: 0 5px 15px rgba(43, 151, 240, 0.25);
-      }
     }
   }
 }

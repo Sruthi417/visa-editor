@@ -143,25 +143,29 @@ $red: #d63b3f;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 18px 20px;
+    gap: 14px;
+    padding: 20px 22px;
     border: 1px solid $border;
-    border-radius: 16px;
+    border-radius: 18px;
     background: #ffffff;
     cursor: pointer;
     transition:
       border-color 0.2s ease,
-      box-shadow 0.2s ease;
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
 
     &:hover {
       border-color: $border-hover;
+      box-shadow: 0 6px 20px rgba(11, 27, 43, 0.06);
     }
 
     // Reads as a 2px border without shifting the layout.
     &--selected,
     &--selected:hover {
       border-color: $text;
-      box-shadow: 0 0 0 1px $text;
+      box-shadow:
+        0 0 0 1px $text,
+        0 10px 28px rgba(11, 27, 43, 0.1);
     }
 
     &:has(.co__native:focus-visible) {
@@ -191,15 +195,32 @@ $red: #d63b3f;
     flex: 1;
     min-width: 0;
     color: $text;
-    font-size: 16px;
-    font-weight: 500;
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
   }
 
+  // The price sits in a small tag, like the section eyebrows.
   &__price {
+    padding: 5px 12px;
+    border: 1px solid $border;
+    border-radius: 10px;
+    background: $sidebar;
     color: $text;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  &__option--selected &__price {
+    border-color: $text;
+    background: $text;
+    color: #ffffff;
   }
 
   &__radio {
@@ -244,32 +265,38 @@ $red: #d63b3f;
   &__features {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     padding-left: 32px;
   }
 
   &__feature {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: $muted;
+    align-items: center;
+    gap: 12px;
+    color: #5f5f5b;
     font-size: 14.5px;
     line-height: 1.45;
 
+    // Icon in a small rounded-square tile.
     svg {
       flex-shrink: 0;
-      margin-top: 1px;
-      color: #8f8f8a;
+      box-sizing: content-box;
+      padding: 7px;
+      border: 1px solid $hairline;
+      border-radius: 10px;
+      background: $sidebar;
+      color: #4a4a47;
     }
   }
 
   &__info {
     margin-left: 32px;
-    padding: 10px 12px;
+    padding: 10px 14px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    border-radius: 10px;
+    gap: 10px;
+    border: 1px solid $hairline;
+    border-radius: 12px;
     background: $sidebar;
     color: #6f6f6b;
     font-size: 13.5px;
@@ -277,6 +304,7 @@ $red: #d63b3f;
 
     svg {
       flex-shrink: 0;
+      color: #0087ca;
     }
   }
 
@@ -361,6 +389,52 @@ $red: #d63b3f;
   &__textarea {
     min-height: 76px;
     resize: vertical;
+  }
+
+  // Delivery address (only when prints are chosen) ------------------------------
+  &__address {
+    margin: 4px 0 12px;
+    padding: 20px 20px 4px;
+    min-width: 0;
+    border: 1px solid $border;
+    border-radius: 18px;
+    background: #ffffff;
+  }
+
+  &__address-title {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    svg {
+      flex-shrink: 0;
+      color: $text;
+    }
+
+    + * {
+      clear: both;
+    }
+  }
+
+  &__address-sub {
+    margin: 6px 0 18px;
+    color: $muted;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 12px;
+
+    > .co__field {
+      min-width: 0;
+    }
   }
 
   &__hint {

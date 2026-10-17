@@ -336,12 +336,7 @@ export type CropBox = {
   topPct: number;
 };
 
-/**
- * Places the sample photo inside a frame of the spec's proportions, with the
- * head sized to the allowed range and centred. The crop is limited to the
- * photo itself, so very small head sizes are shown as large as the picture
- * allows.
- */
+
 export function cropFor(spec: PhotoSpec): CropBox {
   const { aspect, faceCenterX, headTop, headBottom } = SAMPLE_PHOTO;
   const headHeight = headBottom - headTop;

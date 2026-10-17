@@ -22,7 +22,6 @@ import {
   MagicWand01Icon,
   PaypalIcon,
   PrinterIcon,
-  Store01Icon,
   Tick02Icon,
   UserCheck01Icon,
 } from "@hugeicons/core-free-icons";
@@ -42,7 +41,7 @@ const OPTIONS = [
       { icon: Download01Icon, text: "Instant download after payment" },
       { icon: PrinterIcon, text: "Ready for online applications and self-printing" },
     ],
-    note: { icon: Store01Icon, text: "Print it at any photo store or kiosk." },
+    note: null,
   },
   {
     id: "prints",
@@ -88,6 +87,40 @@ type Step = 0 | 1 | 2 | "done";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** Where printed photos are sent. Only asked for when prints are chosen. */
+type Address = {
+  name: string;
+  line1: string;
+  line2: string;
+  city: string;
+  region: string;
+  zip: string;
+  country: string;
+  phone: string;
+};
+type AddressKey = keyof Address;
+
+const EMPTY_ADDRESS: Address = {
+  name: "",
+  line1: "",
+  line2: "",
+  city: "",
+  region: "",
+  zip: "",
+  country: "",
+  phone: "",
+};
+
+const REQUIRED_ADDRESS: AddressKey[] = ["name", "line1", "city", "zip", "country"];
+
+const ADDRESS_ERRORS: Partial<Record<AddressKey, string>> = {
+  name: "Enter the recipient's full name.",
+  line1: "Enter the street address.",
+  city: "Enter the city.",
+  zip: "Enter the postal code.",
+  country: "Enter the country.",
+};
+
 const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 const money = (cents: number) => currency.format(cents / 100);
 
@@ -115,9 +148,10 @@ export default function CheckoutView({
   const [extras, setExtras] = useState<ExtraId[]>([]);
   const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
-  const [note, setNote] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [method, setMethod] = useState<MethodId | null>(null);
+  const [address, setAddress] = useState<Address>(EMPTY_ADDRESS);
+  const [addressTouched, setAddressTouched] = useState<Partial<Record<AddressKey, boolean>>>({});
   const [paying, setPaying] = useState(false);
   const payTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -127,8 +161,13 @@ export default function CheckoutView({
 
   const emailValid = EMAIL.test(email.trim());
   const emailError = emailTouched && !emailValid;
+  const needsAddress = option === "prints";
+  const addressMissing = (key: AddressKey) =>
+    REQUIRED_ADDRESS.includes(key) && address[key].trim() === "";
+  const addressValid = !REQUIRED_ADDRESS.some(addressMissing);
   const missing = [
     !emailValid && "add your email",
+    needsAddress && !addressValid && "fill in your delivery address",
     !agreed && "accept the terms",
     !method && "choose a payment method",
   ].filter(Boolean);
@@ -156,6 +195,9 @@ export default function CheckoutView({
   const pay = (event: FormEvent) => {
     event.preventDefault();
     setEmailTouched(true);
+    if (needsAddress) {
+      setAddressTouched(Object.fromEntries(REQUIRED_ADDRESS.map((key) => [key, true])));
+    }
     if (!canPay || paying) return;
     setPaying(true);
     // TODO: hand off to the payment provider (Stripe, PayPal, Google Pay) and
@@ -164,6 +206,48 @@ export default function CheckoutView({
       setPaying(false);
       setStep("done");
     }, 1200);
+  };
+
+  // One labelled address input, with an inline message once it has been left
+  // empty (or after a failed Pay).
+  const addressField = (
+    key: AddressKey,
+    label: string,
+    options: {
+      autoComplete: string;
+      placeholder?: string;
+      optional?: boolean;
+      inputMode?: "tel" | "numeric" | "text";
+      type?: string;
+    },
+  ) => {
+    const id = `${uid}-addr-${key}`;
+    const error = !!addressTouched[key] && addressMissing(key);
+    return (
+      <div className="co__field">
+        <label htmlFor={id} className="co__label">
+          {label} {options.optional && <span className="co__optional">(optional)</span>}
+        </label>
+        <input
+          id={id}
+          type={options.type ?? "text"}
+          inputMode={options.inputMode}
+          autoComplete={options.autoComplete}
+          className={`co__input${error ? " co__input--error" : ""}`}
+          placeholder={options.placeholder}
+          value={address[key]}
+          onChange={(event) => setAddress((current) => ({ ...current, [key]: event.target.value }))}
+          onBlur={() => setAddressTouched((current) => ({ ...current, [key]: true }))}
+          aria-invalid={error || undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
+        />
+        {error && (
+          <span id={`${id}-error`} className="co__hint co__hint--error">
+            {ADDRESS_ERRORS[key]}
+          </span>
+        )}
+      </div>
+    );
   };
 
   const continueButton = (onClick: () => void) => (
@@ -304,10 +388,12 @@ export default function CheckoutView({
                               </span>
                             ))}
                           </span>
-                          <span className="co__info">
-                            <HugeiconsIcon icon={item.note.icon} size={16} strokeWidth={1.6} />
-                            {item.note.text}
-                          </span>
+                          {item.note && (
+                            <span className="co__info">
+                              <HugeiconsIcon icon={item.note.icon} size={16} strokeWidth={1.6} />
+                              {item.note.text}
+                            </span>
+                          )}
                         </label>
                       );
                     })}
@@ -374,7 +460,7 @@ export default function CheckoutView({
               {step === 2 && (
                 <form className="co__form" onSubmit={pay} noValidate>
                   <h2 id={titleId} ref={focusHeading} tabIndex={-1} className="doc-modal__title co__title">
-                    Contact and payment
+                    {needsAddress ? "Contact, delivery and payment" : "Contact and payment"}
                   </h2>
 
                   <div className="co__field">
@@ -405,20 +491,49 @@ export default function CheckoutView({
                     </span>
                   </div>
 
-                  <div className="co__field">
-                    <label htmlFor={`${uid}-note`} className="co__label">
-                      Order note <span className="co__optional">(optional)</span>
-                    </label>
-                    <textarea
-                      id={`${uid}-note`}
-                      rows={2}
-                      maxLength={500}
-                      className="co__input co__textarea"
-                      placeholder="Special requests, accessibility needs…"
-                      value={note}
-                      onChange={(event) => setNote(event.target.value)}
-                    />
-                  </div>
+                  {needsAddress && (
+                    <fieldset className="co__address">
+                      <legend className="co__subtitle co__address-title">
+                        <HugeiconsIcon icon={DeliveryTruck01Icon} size={20} strokeWidth={1.6} />
+                        Delivery address
+                      </legend>
+                      <p className="co__address-sub">
+                        Where should we send your printed photos? Delivery takes 2–3 business days.
+                      </p>
+
+                      {addressField("name", "Full name", {
+                        autoComplete: "name",
+                        placeholder: "Name of the person receiving the photos",
+                      })}
+                      {addressField("line1", "Street address", {
+                        autoComplete: "address-line1",
+                        placeholder: "House number and street name",
+                      })}
+                      {addressField("line2", "Apartment, suite, etc.", {
+                        autoComplete: "address-line2",
+                        placeholder: "Apartment, floor, building",
+                        optional: true,
+                      })}
+                      <div className="co__row">
+                        {addressField("city", "City", { autoComplete: "address-level2" })}
+                        {addressField("region", "State / region", {
+                          autoComplete: "address-level1",
+                          optional: true,
+                        })}
+                      </div>
+                      <div className="co__row">
+                        {addressField("zip", "Postal code", { autoComplete: "postal-code" })}
+                        {addressField("country", "Country", { autoComplete: "country-name" })}
+                      </div>
+                      {addressField("phone", "Phone number", {
+                        autoComplete: "tel",
+                        type: "tel",
+                        inputMode: "tel",
+                        placeholder: "For the courier, if they need to reach you",
+                        optional: true,
+                      })}
+                    </fieldset>
+                  )}
 
                   <label className="co__agree">
                     <input
@@ -498,7 +613,9 @@ export default function CheckoutView({
                   <p>
                     Download your {documentName} and keep a copy somewhere safe.
                     {option === "prints" &&
-                      " Your prints will be on their way within 2–3 business days."}
+                      ` Your prints will be sent to ${[address.line1, address.city]
+                        .filter(Boolean)
+                        .join(", ")} within 2–3 business days.`}
                   </p>
                   <a className="doc-modal__upload co__cta" href={result.url} download={fileName}>
                     <span>Download photo</span>
