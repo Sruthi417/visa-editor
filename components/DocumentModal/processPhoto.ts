@@ -71,8 +71,6 @@ const MIN_STEP_MS = 3800;
 
 const ASSETS = "/mediapipe";
 
-/* ----------------------------- model loading ----------------------------- */
-
 let visionPromise: Promise<Awaited<ReturnType<typeof loadVision>>> | null = null;
 let detectorPromise: Promise<FaceDetector> | null = null;
 let segmenterPromise: Promise<ImageSegmenter> | null = null;
@@ -139,7 +137,7 @@ let sampleCutoutPromise: Promise<string | null> | null = null;
  * Creates a transparent WebP cutout of the sample portrait so that the
  * background color of the chosen document type and country is visible behind it.
  */
-export function getSampleCutout(imageUrl = "/sample-original.webp"): Promise<string | null> {
+export function getSampleCutout(imageUrl = "/images/sample/sample-original.webp"): Promise<string | null> {
   if (typeof window === "undefined") return Promise.resolve(null);
   sampleCutoutPromise ??= (async () => {
     try {
@@ -195,8 +193,6 @@ export function getSampleCutout(imageUrl = "/sample-original.webp"): Promise<str
   })();
   return sampleCutoutPromise;
 }
-
-/* -------------------------------- helpers -------------------------------- */
 
 function throwIfAborted(signal: AbortSignal) {
   if (signal.aborted) throw new DOMException("Aborted", "AbortError");
@@ -331,8 +327,6 @@ async function runStep<T>(
   throwIfAborted(cb.signal);
   return value;
 }
-
-/* --------------------------------- steps --------------------------------- */
 
 type Face = { x: number; y: number; w: number; h: number };
 
@@ -522,8 +516,6 @@ function brightness(canvas: HTMLCanvasElement, x: number, y: number, w: number, 
   }
   return sum / (data.length / 4);
 }
-
-/* -------------------------------- pipeline -------------------------------- */
 
 export async function processPhoto(
   file: File,

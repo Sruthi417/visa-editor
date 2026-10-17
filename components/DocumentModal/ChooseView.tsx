@@ -76,14 +76,12 @@ export default function ChooseView({
       animate="show"
       exit="exit"
     >
-      {/* Left: choose the document ---------------------------------- */}
       <section className="doc-modal__left">
         <motion.h2 id={titleId} className="doc-modal__title" variants={itemVariants}>
           Choose a document
         </motion.h2>
 
         <motion.div className="doc-modal__card" variants={itemVariants}>
-          {/* Segmented control: Image 2 style */}
           <div className="doc-modal__switch" role="group" aria-label="Document">
             {TYPES.map((item) => (
               <button
@@ -108,7 +106,6 @@ export default function ChooseView({
             ))}
           </div>
 
-          {/* Country selection row: Image 2 style */}
           <CountrySelect
             label="Country"
             value={entry.code}
@@ -116,7 +113,6 @@ export default function ChooseView({
             onChange={onCountryChange}
           />
 
-          {/* Document Summary & Specs: Image 3 file card + Image 2 specs rows */}
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`${type}-${entry.code}`}
@@ -128,7 +124,6 @@ export default function ChooseView({
             >
               <div className="doc-modal__doc-card">
                 <div className="doc-modal__doc-header">
-                  {/* Booklet cover matching Image 2 & 3 references */}
                   <div
                     className={`doc-modal__cover doc-modal__cover--${type}`}
                     aria-hidden="true"
@@ -201,8 +196,6 @@ export default function ChooseView({
             </motion.div>
           </AnimatePresence>
 
-
-          {/* Bottom upload button: Image 3 style */}
           <div className="doc-modal__actions">
             <button type="button" className="doc-modal__upload" onClick={onUpload}>
               <span>Upload photo</span>
@@ -221,7 +214,6 @@ export default function ChooseView({
         </motion.div>
       </section>
 
-      {/* Right: what the result looks like -------------------------- */}
       <section className="doc-modal__right">
         <motion.div variants={itemVariants} className="doc-modal__spec-header">
           <h2 className="doc-modal__spec-title">

@@ -129,14 +129,13 @@ export default function Navbar() {
 
       <header className="navbar-wrapper">
         <nav className="navbar" aria-label="Main navigation">
-          {/* Logo */}
           <Link
             href="#home"
             className="navbar__logo"
             onClick={(e) => handleNavClick(e, "#home")}
           >
             <Image
-              src="/logo1.webp"
+              src="/images/logo/flyframe-logo.webp"
               alt="FlyFrame"
               width={150}
               height={50}
@@ -144,7 +143,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Navigation Links */}
           <div className="navbar__links">
             {navLinks.map((link) => (
               <Link
@@ -157,7 +155,6 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right Button - opens Country Selection popup */}
           <button
             type="button"
             className="navbar__button"
@@ -173,7 +170,6 @@ export default function Navbar() {
             />
           </button>
 
-          {/* Menu button, shown on small screens */}
           <button
             type="button"
             className="navbar__toggle"
@@ -201,7 +197,6 @@ export default function Navbar() {
           </button>
         </nav>
 
-        {/* The menu: the links, then the main action */}
         <AnimatePresence>
           {open && (
             <motion.div
@@ -246,7 +241,6 @@ export default function Navbar() {
         </AnimatePresence>
       </header>
 
-      {/* Country & Document Selection Modal */}
       <DocumentModal
         key={uploadSession}
         open={uploadOpen}

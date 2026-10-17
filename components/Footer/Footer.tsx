@@ -39,7 +39,7 @@ export default function Footer() {
           <div className="footer__brand">
             <Link href="/" className="footer__logo">
               <Image
-                src="/logo1.webp"
+                src="/images/logo/flyframe-logo.webp"
                 alt="FlyFrame"
                 width={168}
                 height={56}
@@ -67,10 +67,6 @@ export default function Footer() {
             ))}
           </nav>
         </div>
-
-        {/* <p className="footer__copyright">
-          &copy;2026 VISA EDITOR. All rights reserved.
-        </p> */}
       </div>
     </footer>
   );

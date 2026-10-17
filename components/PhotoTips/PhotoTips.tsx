@@ -6,14 +6,13 @@ import { motion, type Variants } from "motion/react";
 import "./PhotoTips.scss";
 
 // Each tip carries the picture shown on the right while it is selected.
-// Drop the image files into /public/photo-tips with these names.
 const tips = [
   {
     number: "01.",
     title: "Consider the distance",
     description:
       "Keep your front-facing camera 16–20 inch (40–50 cm) away from the face. For rear cameras, keep a 4–6 foot (1–2 meter) distance.",
-    image: "/photo1.webp",
+    image: "/images/photo-tips/photo-1.webp",
     alt: "Phone held at arm's length from the face",
   },
   {
@@ -21,7 +20,7 @@ const tips = [
     title: "Keep your head and body straight",
     description:
       "Look directly into the camera and avoid tilting your body. Remember, portrait mode is unacceptable for passport photos.",
-    image: "/photo3.webp",
+    image: "/images/photo-tips/photo-3.webp",
     alt: "Head and body facing the camera straight on",
   },
   {
@@ -29,23 +28,15 @@ const tips = [
     title: "Prepare good lighting",
     description:
       "Take your passport photos in a daylight setting, like near a window on a sunny day. Shadows on your face or in the background are not permitted.",
-    image: "/photo2.webp",
+    image: "/images/photo-tips/photo-2.webp",
     alt: "Face lit by soft daylight from a window",
   },
-  // {
-  //   number: "04.",
-  //   title: "Keep a neutral expression",
-  //   description:
-  //     "Keep both eyes open and your mouth closed, with a natural, relaxed face. Big smiles and raised eyebrows are not accepted.",
-  //   image: "/photo-tips/expression.png",
-  //   alt: "Neutral expression with eyes open and mouth closed",
-  // },
   {
     number: "04.",
     title: "Remove glasses and accessories",
     description:
       "Take off hats, headphones and glasses so nothing covers or frames your face. Religious or medical head coverings are allowed if your whole face is visible.",
-    image: "/photo4.webp",
+    image: "/images/photo-tips/photo-4.webp",
     alt: "Face with no glasses, hat or headphones",
   },
 ];

@@ -26,7 +26,6 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
-// Drop the image files into /public/features with these names.
 const features = [
   {
     title: "AI Image Analysis",
@@ -38,7 +37,7 @@ const features = [
       "Shadow Removal",
       "One-Tap Processing",
     ],
-    image: "/fea1.webp",
+    image: "/images/features/feature-1.webp",
     icon: MagicWand01Icon,
   },
   {
@@ -51,7 +50,7 @@ const features = [
       "Centred Framing",
       "Exact Dimensions",
     ],
-    image: "/fea2.webp",
+    image: "/images/features/feature-2.webp",
     icon: CropIcon,
   },
   {
@@ -64,7 +63,7 @@ const features = [
       "Compliance Checks",
       "Clear Fix Suggestions",
     ],
-    image: "/fea3.webp",
+    image: "/images/features/feature-3.webp",
     icon: Globe02Icon,
   },
   {
@@ -77,7 +76,7 @@ const features = [
       "Digital Download",
       "Home or Shop Printing",
     ],
-    image: "/fea4.webp",
+    image: "/images/features/feature-4.webp",
     icon: PrinterIcon,
   },
 ];

@@ -58,7 +58,6 @@ $red: #d63b3f;
   }
 }
 
-// Processing ------------------------------------------------------------------
 .proc {
   &__steps {
     list-style: none;
@@ -186,7 +185,6 @@ $red: #d63b3f;
     }
   }
 
-  // The photo card ---------------------------------------------------------------
   &__card {
     width: min(100%, 380px);
     padding: clamp(18px, 3.4vw, 40px);
@@ -223,7 +221,6 @@ $red: #d63b3f;
     object-fit: contain;
   }
 
-  // Scan: a dotted line with arrow heads, and a glow that trails it ----------------
   &__glow,
   &__line {
     position: absolute;
@@ -359,7 +356,6 @@ $red: #d63b3f;
   }
 }
 
-// Result ----------------------------------------------------------------------
 .doc-modal__grid--result {
   align-items: stretch;
 
@@ -444,12 +440,10 @@ $red: #d63b3f;
     font-weight: 500;
 
     &--passed {
-      // background: $green-soft;
       color: #1a9b5a;
     }
 
     &--failed {
-      // background: #fdeaea;
       color: $red;
     }
 
@@ -587,8 +581,6 @@ $red: #d63b3f;
   .res__visual {
     padding: 28px 56px 0;
   }
-
-
 }
 
 @media (max-width: 520px) {
@@ -606,7 +598,6 @@ $red: #d63b3f;
   }
 }
 
-// Retake (file size could not be met) -------------------------------------------
 .retake {
   &__tips {
     list-style: none;

@@ -211,19 +211,16 @@ export default function Review() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.12 }}
         >
-          {/* Left: large, small */}
           <motion.div className="reviews__column" variants={revealFromBottom}>
             <FeaturedReview review={reviews.left[0]} />
             <ReviewCard review={reviews.left[1]} />
           </motion.div>
 
-          {/* Center: small, large */}
           <motion.div className="reviews__column" variants={revealFromBottom}>
             <ReviewCard review={reviews.center[0]} />
             <FeaturedReview review={reviews.center[1]} />
           </motion.div>
 
-          {/* Right: large, small */}
           <motion.div className="reviews__column" variants={revealFromBottom}>
             <FeaturedReview review={reviews.right[0]} />
             <ReviewCard review={reviews.right[1]} />

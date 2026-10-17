@@ -265,7 +265,6 @@ export default function CheckoutView({
       animate="show"
       exit="exit"
     >
-      {/* Left: order summary ------------------------------------------- */}
       <section className="doc-modal__left" aria-label="Order summary">
         <motion.p className="co__eyebrow" variants={itemVariants}>
           Order summary
@@ -314,7 +313,6 @@ export default function CheckoutView({
         </motion.p>
       </section>
 
-      {/* Right: the current step --------------------------------------- */}
       <section className="doc-modal__right">
         <motion.div className="co__main" variants={itemVariants}>
           {step !== "done" && (

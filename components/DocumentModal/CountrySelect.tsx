@@ -134,8 +134,6 @@ export default function CountrySelect({ label, options, value, onChange }: Props
     }
   };
 
-
-
   return (
     <div className="country-select" ref={rootRef}>
       <button

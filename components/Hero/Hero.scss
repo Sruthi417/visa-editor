@@ -6,7 +6,7 @@
   max-height: 100dvh;
   position: relative;
   overflow: hidden;
-  background-image: url("/heroo.webp");
+  background-image: url("/images/hero/hero-background.webp");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -99,12 +99,6 @@
 
     &:hover {
       background: #000000;
-      // transform: translateY(-2px);
-      // box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-
-      .hero__button-icon {
-        // transform: scale(1.04);
-      }
     }
   }
 
@@ -124,7 +118,6 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    // transition: transform 0.25s ease;
   }
 
   &__visual {
@@ -153,18 +146,13 @@
 }
 
 // Responsive: everything below 1200px (desktop above is untouched).
-// The title is always two lines (nowrap) and the image scales with the
-// viewport. The image stays pinned to the bottom like desktop; the text block
-// fills the space between the navbar and the image and is centered in it,
-// both vertically and horizontally.
+// Below desktop: the text block is centered between the navbar and the image.
 @media (max-width: 1199px) {
   .hero {
     --hero-img-w: clamp(430px, calc(67vw + 216px), 1040px);
     --hero-max-gap: clamp(8px, 2vh, 24px);
-    // Space under the photo, so it sits clear of the bottom edge and fade.
     --hero-lift: clamp(36px, 8vh, 96px);
 
-    // Just clears the navbar; the text is centered in what is left.
     padding-top: clamp(88px, 12vh, 110px);
     justify-content: flex-start;
 
@@ -179,8 +167,7 @@
     }
 
     &__title {
-      // Width-based, but also capped by the height so short landscape screens
-      // leave room for the photo.
+      // Also capped by height so short landscape screens leave room for the photo.
       font-size: clamp(24px, min(7.6vw, 6.4vh), 56px);
       line-height: 1.12;
       max-width: 100%;
@@ -196,9 +183,7 @@
       font-size: clamp(16px, 2.2vw, 18px);
     }
 
-    // The photo area asks for the full image height (+ the max gap) and only
-    // shrinks when the screen is too short; the text block takes whatever
-    // space is left. The image then scales down proportionally.
+    // Takes the full image height and only shrinks on short screens.
     &__visual {
       flex: 0 1 calc(var(--hero-img-w) * 0.54 + var(--hero-max-gap) + var(--hero-lift));
       min-height: 0;

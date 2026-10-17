@@ -31,7 +31,6 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
     gap: clamp(2rem, 0.5rem + 5vw, 4.5rem);
   }
 
-  // Heading ---------------------------------------------------------------
   &__heading {
     position: sticky;
     top: $stick-top;
@@ -63,7 +62,6 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
     line-height: 1.55;
   }
 
-  // Cards -----------------------------------------------------------------
   &__stack {
     display: flex;
     flex-direction: column;
@@ -138,7 +136,6 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   }
 }
 
-// Step art ------------------------------------------------------------------
 .art {
   position: absolute;
   inset: 0;
@@ -217,7 +214,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
     gap: clamp(20px, 5vw, 36px);
   }
 
-  // work3.webp is 1536 x 1024 with a lot of white around the printer, mostly on
+  // step-3-download.webp is 1536 x 1024 with a lot of white around the printer, mostly on
   // the left. Only its content (x 360-1430, y 40-990) is shown, so the printer
   // and the button sit in the middle of the card together.
   &__printer {
@@ -269,7 +266,6 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   }
 }
 
-// Responsive ----------------------------------------------------------------
 @media (min-width: 1100px) {
   .how__inner {
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
@@ -278,7 +274,6 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
 
 @media (max-width: 900px) {
   .how {
-
     &__inner {
       grid-template-columns: minmax(0, 1fr);
     }

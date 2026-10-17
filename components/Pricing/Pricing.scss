@@ -19,7 +19,6 @@ $blue-deep: #0087ca;
     margin: 0 auto;
   }
 
-  // Header ----------------------------------------------------------------
   &__header {
     display: flex;
     flex-direction: column;
@@ -51,7 +50,6 @@ $blue-deep: #0087ca;
     @include eyebrow;
   }
 
-  // Plans -----------------------------------------------------------------
   // One rounded container holds both plans; the featured one sits inside it
   // as a white card with a dashed edge.
   &__plans {
@@ -189,7 +187,6 @@ $blue-deep: #0087ca;
 
 @media (max-width: 800px) {
   .pricing {
-
     &__plans {
       grid-template-columns: minmax(0, 1fr);
       padding: 14px;

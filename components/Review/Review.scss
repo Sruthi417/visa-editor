@@ -32,7 +32,6 @@ $blue-deep: #0087ca;
     margin: 0 auto;
   }
 
-  // Header ----------------------------------------------------------------
   &__header {
     display: flex;
     align-items: flex-start;
@@ -70,7 +69,6 @@ $blue-deep: #0087ca;
     @include eyebrow;
   }
 
-  // App rating ------------------------------------------------------------
   &__app {
     display: flex;
     align-items: center;
@@ -107,7 +105,6 @@ $blue-deep: #0087ca;
     letter-spacing: 1px;
   }
 
-  // Columns ---------------------------------------------------------------
   &__columns {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -124,7 +121,6 @@ $blue-deep: #0087ca;
   }
 }
 
-// Shared pieces -------------------------------------------------------------
 .review-quote {
   width: 44px;
   height: 44px;
@@ -167,7 +163,6 @@ $blue-deep: #0087ca;
   }
 }
 
-// Large card: same footprint as the portrait photo it replaces ---------------
 .review-featured {
   position: relative;
   width: 100%;
@@ -190,22 +185,9 @@ $blue-deep: #0087ca;
     inset: 0;
     z-index: -2;
     
-    // background-image: url("/hero-bg.avif");
-    // background-size: cover;
-    // background-position: center;
   }
 
-  // &__grain {
-  //   position: absolute;
-  //   inset: -50%;
-  //   z-index: -1;
-  //   pointer-events: none;
-  //   opacity: 0.16;
     
-  //   // background-image: url("/hero-grain.webp");
-  //   // background-repeat: repeat;
-  //   // background-size: 280px 280px;
-  // }
 
   &__text {
     @include review-text;
@@ -243,7 +225,6 @@ $blue-deep: #0087ca;
   }
 }
 
-// Small card ----------------------------------------------------------------
 .review-card {
   width: 100%;
   min-height: 308px;
@@ -279,7 +260,6 @@ $blue-deep: #0087ca;
   }
 }
 
-// Avatar + name + destination, shared by both card types ----------------------
 .review-person {
   min-width: 0;
   display: flex;
@@ -310,7 +290,6 @@ $blue-deep: #0087ca;
   }
 }
 
-// Responsive ----------------------------------------------------------------
 // Below 1200px the three columns become a 2 x 2 grid of equal cards, and the
 // heading is centred above them.
 @media (max-width: 1200px) {
@@ -373,7 +352,6 @@ $blue-deep: #0087ca;
 
 @media (max-width: 950px) {
   .reviews {
-
     &__header {
       margin-bottom: 55px;
     }
@@ -406,7 +384,6 @@ $blue-deep: #0087ca;
 
 @media (max-width: 700px) {
   .reviews {
-
     &__header {
       flex-direction: column;
       align-items: center;

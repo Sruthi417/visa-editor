@@ -26,7 +26,6 @@ $blue-deep: #0087ca;
     align-items: center;
   }
 
-  // Header ----------------------------------------------------------------
   &__header {
     display: flex;
     flex-direction: column;
@@ -58,7 +57,6 @@ $blue-deep: #0087ca;
     @include eyebrow;
   }
 
-  // Cards -----------------------------------------------------------------
   &__cards {
     margin-top: clamp(2.75rem, 1rem + 6vw, 6rem);
     width: 100%;

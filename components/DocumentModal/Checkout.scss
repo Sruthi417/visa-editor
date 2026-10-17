@@ -15,7 +15,6 @@ $green-soft: #e6f7ee;
 $red: #d63b3f;
 
 .co {
-  // Right column: the steps, in a readable column ------------------------------
   &__main {
     width: 100%;
     max-width: 560px;
@@ -132,7 +131,6 @@ $red: #d63b3f;
     }
   }
 
-  // Option and extra cards ------------------------------------------------------
   &__options {
     display: flex;
     flex-direction: column;
@@ -328,7 +326,6 @@ $red: #d63b3f;
     animation: co-spin 0.8s linear infinite;
   }
 
-  // Payment form -----------------------------------------------------------------
   &__form {
     display: flex;
     flex-direction: column;
@@ -391,7 +388,6 @@ $red: #d63b3f;
     resize: vertical;
   }
 
-  // Delivery address (only when prints are chosen) ------------------------------
   &__address {
     margin: 4px 0 12px;
     padding: 20px 20px 4px;
@@ -530,7 +526,6 @@ $red: #d63b3f;
     text-align: center;
   }
 
-  // Done -------------------------------------------------------------------------
   &__done {
     flex: 1;
     padding: 24px 0;
@@ -569,7 +564,6 @@ $red: #d63b3f;
     color: $green;
   }
 
-  // Sidebar: order summary --------------------------------------------------------
   &__eyebrow {
     margin: 4px 0 14px;
     color: $muted;

@@ -322,7 +322,7 @@ export function headFraction(spec: PhotoSpec): number {
 --------------------------------------------------------------------------- */
 
 export const SAMPLE_PHOTO = {
-  src: "/sample-original.webp",
+  src: "/images/sample/sample-original.webp",
   aspect: 3 / 2,
   faceCenterX: 0.52,
   headTop: 0.06,
@@ -335,7 +335,6 @@ export type CropBox = {
   leftPct: number;
   topPct: number;
 };
-
 
 export function cropFor(spec: PhotoSpec): CropBox {
   const { aspect, faceCenterX, headTop, headBottom } = SAMPLE_PHOTO;
