@@ -217,7 +217,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
     gap: clamp(20px, 5vw, 36px);
   }
 
-  // work3.png is 1536 x 1024 with a lot of white around the printer, mostly on
+  // work3.webp is 1536 x 1024 with a lot of white around the printer, mostly on
   // the left. Only its content (x 360-1430, y 40-990) is shown, so the printer
   // and the button sit in the middle of the card together.
   &__printer {

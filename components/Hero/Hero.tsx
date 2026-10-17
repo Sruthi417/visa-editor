@@ -67,7 +67,7 @@ export default function Hero() {
         >
           <Image
             className="hero__image"
-            src="/hero2.png"
+            src="/hero2.webp"
             alt="Passport and visa photo preview with before and after comparison"
             width={1920}
             height={1080}

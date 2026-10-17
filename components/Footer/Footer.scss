@@ -3,7 +3,7 @@ $ink-700: #23374a;
 $ink-500: #647789;
 $blue-deep: #0087ca;
 
-// In footer.png (1635 x 962) the landscape fills the bottom 371px, so at full
+// In footer.webp (1635 x 962) the landscape fills the bottom 371px, so at full
 // width it is this tall. The rest of the image is empty sky.
 $land-ratio: calc(371 / 1635);
 
@@ -16,7 +16,7 @@ $land-ratio: calc(371 / 1635);
   min-height: clamp(560px, 58.8vw, 400px);
   overflow: hidden;
   background-color: #ffffff;
-  background-image: url("/footer.png");
+  background-image: url("/footer.webp");
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: 100% auto;

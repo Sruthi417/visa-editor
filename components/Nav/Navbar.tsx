@@ -136,7 +136,7 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, "#home")}
           >
             <Image
-              src="/logo1.png"
+              src="/logo1.webp"
               alt="FlyFrame"
               width={150}
               height={50}

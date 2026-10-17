@@ -5,9 +5,9 @@ import {
   Tick02Icon,
 } from "@hugeicons/core-free-icons";
 
-const UPLOAD_ILLUSTRATION = "/work1.png";
-const FIT_PORTRAIT = "/work2.png";
-const DOWNLOAD_ILLUSTRATION = "/work3.png";
+const UPLOAD_ILLUSTRATION = "/work1.webp";
+const FIT_PORTRAIT = "/work2.webp";
+const DOWNLOAD_ILLUSTRATION = "/work3.webp";
 
 /** Step 1: a photo being dropped onto the upload area. */
 export function UploadArt() {

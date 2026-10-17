@@ -322,7 +322,7 @@ export function headFraction(spec: PhotoSpec): number {
 --------------------------------------------------------------------------- */
 
 export const SAMPLE_PHOTO = {
-  src: "/sample-original.jpg",
+  src: "/sample-original.webp",
   aspect: 3 / 2,
   faceCenterX: 0.52,
   headTop: 0.06,

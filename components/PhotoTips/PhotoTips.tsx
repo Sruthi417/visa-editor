@@ -13,7 +13,7 @@ const tips = [
     title: "Consider the distance",
     description:
       "Keep your front-facing camera 16–20 inch (40–50 cm) away from the face. For rear cameras, keep a 4–6 foot (1–2 meter) distance.",
-    image: "/photo1.png",
+    image: "/photo1.webp",
     alt: "Phone held at arm's length from the face",
   },
   {
@@ -21,7 +21,7 @@ const tips = [
     title: "Keep your head and body straight",
     description:
       "Look directly into the camera and avoid tilting your body. Remember, portrait mode is unacceptable for passport photos.",
-    image: "/photo3.png",
+    image: "/photo3.webp",
     alt: "Head and body facing the camera straight on",
   },
   {
@@ -29,7 +29,7 @@ const tips = [
     title: "Prepare good lighting",
     description:
       "Take your passport photos in a daylight setting, like near a window on a sunny day. Shadows on your face or in the background are not permitted.",
-    image: "/photo2.png",
+    image: "/photo2.webp",
     alt: "Face lit by soft daylight from a window",
   },
   // {
@@ -45,7 +45,7 @@ const tips = [
     title: "Remove glasses and accessories",
     description:
       "Take off hats, headphones and glasses so nothing covers or frames your face. Religious or medical head coverings are allowed if your whole face is visible.",
-    image: "/photo4.png",
+    image: "/photo4.webp",
     alt: "Face with no glasses, hat or headphones",
   },
 ];

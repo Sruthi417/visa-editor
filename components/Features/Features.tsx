@@ -38,7 +38,7 @@ const features = [
       "Shadow Removal",
       "One-Tap Processing",
     ],
-    image: "/fea1.png",
+    image: "/fea1.webp",
     icon: MagicWand01Icon,
   },
   {
@@ -51,7 +51,7 @@ const features = [
       "Centred Framing",
       "Exact Dimensions",
     ],
-    image: "/fea2.png",
+    image: "/fea2.webp",
     icon: CropIcon,
   },
   {
@@ -64,7 +64,7 @@ const features = [
       "Compliance Checks",
       "Clear Fix Suggestions",
     ],
-    image: "/fea3.png",
+    image: "/fea3.webp",
     icon: Globe02Icon,
   },
   {
@@ -77,7 +77,7 @@ const features = [
       "Digital Download",
       "Home or Shop Printing",
     ],
-    image: "/fea4.png",
+    image: "/fea4.webp",
     icon: PrinterIcon,
   },
 ];

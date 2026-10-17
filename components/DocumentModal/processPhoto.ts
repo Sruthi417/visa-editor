@@ -136,10 +136,10 @@ export function warmUp() {
 let sampleCutoutPromise: Promise<string | null> | null = null;
 
 /**
- * Creates a transparent PNG cutout of the sample portrait so that the
+ * Creates a transparent WebP cutout of the sample portrait so that the
  * background color of the chosen document type and country is visible behind it.
  */
-export function getSampleCutout(imageUrl = "/sample-original.jpg"): Promise<string | null> {
+export function getSampleCutout(imageUrl = "/sample-original.webp"): Promise<string | null> {
   if (typeof window === "undefined") return Promise.resolve(null);
   sampleCutoutPromise ??= (async () => {
     try {
@@ -179,7 +179,7 @@ export function getSampleCutout(imageUrl = "/sample-original.jpg"): Promise<stri
       personCtx.globalCompositeOperation = "destination-in";
       personCtx.drawImage(maskCanvas, 0, 0, person.width, person.height);
 
-      const dataUrl = person.toDataURL("image/png");
+      const dataUrl = person.toDataURL("image/webp", 0.95);
       try {
         fetch("/api/save-cutout", {
           method: "POST",
