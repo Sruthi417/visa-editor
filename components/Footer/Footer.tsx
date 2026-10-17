@@ -10,7 +10,7 @@ const columns = [
       { label: "Features", href: "/#features" },
       { label: "How it works", href: "/#process" },
       { label: "Pricing", href: "/#pricing" },
-      { label: "Upload photo", href: "/upload" },
+      { label: "Upload photo", href: "/drop" },
     ],
   },
   {

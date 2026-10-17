@@ -101,7 +101,7 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <Link href="/upload" className="pricing__button">
+              <Link href="/drop" className="pricing__button">
                 {plan.cta}
               </Link>
             </div>

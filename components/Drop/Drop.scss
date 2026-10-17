@@ -1,0 +1,266 @@
+$ink-900: #162637;
+$ink-500: #647789;
+$blue: #2b97f0;
+
+.drop {
+  position: relative;
+  width: 100%;
+  // One screen tall; it only grows if the content does not fit (very short screens).
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(110px, 15vh, 150px) var(--section-px) clamp(32px, 6vh, 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/images/hero/hero-background.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  &__container {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__title {
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  &__sub {
+    max-width: 46ch;
+    margin-top: 14px;
+    color: #ffffff;
+    font-size: clamp(14px, 1.6vw, 17px);
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  // One rounded container with the drop area inside it as a white card with a
+  // dashed edge, the same pairing as the pricing plans.
+  &__card {
+    width: 100%;
+    margin-top: clamp(28px, 4vh, 44px);
+    padding: clamp(10px, 2vw, 20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: clamp(28px, 4vw, 44px);
+    background: rgba(250, 250, 250, 0.92);
+    box-shadow: 0 24px 60px rgba(11, 27, 43, 0.14);
+  }
+
+  &__zone {
+    padding: clamp(36px, 6vw, 64px) clamp(18px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1.5px dashed #c3cdd4;
+    border-radius: clamp(22px, 3vw, 32px);
+    background: #ffffff;
+    cursor: pointer;
+    transition:
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+
+    &:hover {
+      border-color: #9fb0bb;
+    }
+
+    &--active,
+    &--active:hover {
+      border-style: solid;
+      border-color: $blue;
+      background: #f3f9ff;
+
+      .drop__icon {
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  // Same blue tile as the pricing plans.
+  &__icon {
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    color: #ffffff;
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 55%),
+      radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
+      $blue;
+    transition: transform 0.25s ease;
+  }
+
+  &__zone-title {
+    margin-top: 22px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(20px, 2.6vw, 26px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  &__or {
+    margin: 10px 0 14px;
+    color: $ink-500;
+    font-size: 14px;
+  }
+
+  // Same pill as the hero's Upload button.
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 7px 8px 7px 32px;
+    border: 0;
+    border-radius: 100px;
+    background: #131313;
+    color: #ffffff;
+    white-space: nowrap;
+    transition: background-color 0.25s ease;
+
+    &:hover {
+      background: #000000;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
+    }
+  }
+
+  &__button-text {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  &__button-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+
+  &__hint {
+    max-width: 40ch;
+    margin-top: 22px;
+    color: $ink-500;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  &__error {
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #d63b3f;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  &__file {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__tip {
+    margin-top: 18px;
+    color: #ffffff;
+    font-size: 13.5px;
+    text-shadow: 0 1px 8px rgba(11, 27, 43, 0.45);
+  }
+}
+
+@media (max-width: 600px) {
+  .drop {
+    &__button {
+      padding: 6px 7px 6px 26px;
+      gap: 16px;
+    }
+
+    &__button-text {
+      font-size: 16px;
+    }
+
+    &__button-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__tip {
+      display: none;
+    }
+  }
+}
+
+// Short windows (small laptops): tighten the spacing so the page still fits one screen.
+@media (max-height: 820px) {
+  .drop {
+    padding-top: 96px;
+    padding-bottom: 20px;
+
+    &__title {
+      font-size: clamp(28px, 5.4vh, 44px);
+    }
+
+    &__sub {
+      margin-top: 10px;
+    }
+
+    &__card {
+      margin-top: 20px;
+    }
+
+    &__zone {
+      padding: 26px 24px;
+    }
+
+    &__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 15px;
+    }
+
+    &__zone-title {
+      margin-top: 14px;
+    }
+
+    &__or {
+      margin: 6px 0 10px;
+    }
+
+    &__hint {
+      margin-top: 14px;
+    }
+
+    &__tip {
+      margin-top: 12px;
+    }
+  }
+}
