@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, type Variants } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -58,6 +59,10 @@ export default function Navbar() {
   const [uploadOpen, setUploadOpen] = useState(false);
   const [uploadSession, setUploadSession] = useState(0);
   const menuId = useId();
+  const isHome = usePathname() === "/";
+
+  // On other pages (Terms, Privacy) a section link has to go back to the home page.
+  const resolveHref = (href: string) => (isHome || !href.startsWith("#") ? href : `/${href}`);
 
   // Close the menu with Escape, and when the window grows past the breakpoint
   // (the desktop links are visible again).
@@ -92,6 +97,10 @@ export default function Navbar() {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
+    if (!isHome) {
+      close();
+      return;
+    }
     if (href.startsWith("#")) {
       e.preventDefault();
       close();
@@ -130,7 +139,7 @@ export default function Navbar() {
       <header className="navbar-wrapper">
         <nav className="navbar" aria-label="Main navigation">
           <Link
-            href="#home"
+            href={resolveHref("#home")}
             className="navbar__logo"
             onClick={(e) => handleNavClick(e, "#home")}
           >
@@ -147,7 +156,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <Link
                 key={link.label}
-                href={link.href}
+                href={resolveHref(link.href)}
                 onClick={(e) => handleNavClick(e, link.href)}
               >
                 {link.label}
@@ -211,7 +220,7 @@ export default function Navbar() {
                 {navLinks.map((link) => (
                   <motion.li key={link.label} variants={itemVariants}>
                     <Link
-                      href={link.href}
+                      href={resolveHref(link.href)}
                       onClick={(e) => handleNavClick(e, link.href)}
                     >
                       {link.label}

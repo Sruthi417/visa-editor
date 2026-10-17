@@ -3,10 +3,16 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Alert02Icon, Upload01Icon } from "@hugeicons/core-free-icons";
+import {
+  Alert02Icon,
+  ArrowRight01Icon,
+  Cancel01Icon,
+  Upload01Icon,
+} from "@hugeicons/core-free-icons";
 
 import CountrySelect from "./CountrySelect";
 import { EASE, itemVariants, panelVariants, viewVariants } from "./motion";
+import { formatFileSize } from "./photoFile";
 import { getSampleCutout } from "./processPhoto";
 import {
   CROP_ONLY_NOTICE,
@@ -43,6 +49,9 @@ type Props = {
   onCountryChange: (code: string) => void;
   onUpload: () => void;
   onFileDrop?: (file: File) => void;
+  /** A photo already chosen (for example dropped on the /drop page). */
+  attachedFile?: File | null;
+  onClearFile?: () => void;
   error: string | null;
 };
 
@@ -57,10 +66,23 @@ export default function ChooseView({
   onCountryChange,
   onUpload,
   onFileDrop,
+  attachedFile = null,
+  onClearFile,
   error,
 }: Props) {
   const crop = cropFor(spec);
   const [sampleCutout, setSampleCutout] = useState<string | null>(null);
+  const [attachedUrl, setAttachedUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!attachedFile) {
+      setAttachedUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(attachedFile);
+    setAttachedUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [attachedFile]);
 
   useEffect(() => {
     getSampleCutout().then((url) => {
@@ -197,10 +219,31 @@ export default function ChooseView({
           </AnimatePresence>
 
           <div className="doc-modal__actions">
+            {attachedFile && (
+              <div className="doc-modal__attached">
+                {attachedUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={attachedUrl} alt="" className="doc-modal__attached-thumb" />
+                )}
+                <span className="doc-modal__attached-text">
+                  <strong>{attachedFile.name}</strong>
+                  <span>{formatFileSize(attachedFile.size)}</span>
+                </span>
+                <button
+                  type="button"
+                  className="doc-modal__attached-remove"
+                  aria-label="Remove this photo"
+                  onClick={onClearFile}
+                >
+                  <HugeiconsIcon icon={Cancel01Icon} size={18} strokeWidth={1.8} />
+                </button>
+              </div>
+            )}
+
             <button type="button" className="doc-modal__upload" onClick={onUpload}>
-              <span>Upload photo</span>
+              <span>{attachedFile ? "Continue" : "Upload photo"}</span>
               <HugeiconsIcon
-                icon={Upload01Icon}
+                icon={attachedFile ? ArrowRight01Icon : Upload01Icon}
                 size={20}
                 color="currentColor"
                 strokeWidth={1.5}

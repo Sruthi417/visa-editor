@@ -444,6 +444,72 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
 
+  // A photo that arrived before the window opened.
+  &__attached {
+    margin-bottom: 12px;
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid $hairline;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(11, 27, 43, 0.06);
+  }
+
+  &__attached-thumb {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: $track;
+  }
+
+  &__attached-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      overflow: hidden;
+      color: $text;
+      font-size: 14px;
+      font-weight: 500;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    span {
+      color: $muted;
+      font-size: 12.5px;
+    }
+  }
+
+  &__attached-remove {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #4a4a47;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: $track;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
   &__hint {
     margin: 10px 0 0;
     text-align: center;

@@ -29,13 +29,11 @@ import {
   type FrameBox,
   type ProcessResult,
 } from "./processPhoto";
+import { ACCEPTED, validatePhoto } from "./photoFile";
 import { countriesFor, type DocumentType, type PhotoSpec, type CountrySpecs } from "./specs";
 import "./DocumentModal.scss";
 import "./DocumentFlow.scss";
 import "./Checkout.scss";
-
-const MAX_FILE_BYTES = 15 * 1024 * 1024;
-const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
 
 type View = "choose" | "processing" | "result" | "retake" | "checkout";
 
@@ -52,13 +50,17 @@ type Job = {
 type Props = {
   open: boolean;
   onClose: () => void;
+  /** A photo that was already dropped or chosen before the window opened. */
+  initialFile?: File | null;
 };
 
-export default function DocumentModal({ open, onClose }: Props) {
+export default function DocumentModal({ open, onClose, initialFile = null }: Props) {
   const [type, setType] = useState<DocumentType>("passport");
   const [code, setCode] = useState("US");
   const [view, setView] = useState<View>("choose");
   const [error, setError] = useState<string | null>(null);
+  // A photo that arrived with the window; it is used when "Continue" is pressed.
+  const [attached, setAttached] = useState<File | null>(initialFile);
 
   const [job, setJob] = useState<Job | null>(null);
   const [stepIndex, setStepIndex] = useState(0);
@@ -89,6 +91,10 @@ export default function DocumentModal({ open, onClose }: Props) {
       ? `${entry.country} Passport Photo`
       : `${entry.country} Visa Photo`;
 
+  useEffect(() => {
+    if (open && initialFile) warmUp();
+  }, [open, initialFile]);
+
   const openPicker = useCallback(() => {
     warmUp();
     inputRef.current?.click();
@@ -96,18 +102,16 @@ export default function DocumentModal({ open, onClose }: Props) {
 
   const processSelectedFile = useCallback(
     (file: File) => {
-      if (!ACCEPTED.includes(file.type)) {
-        setError("Please choose a JPG, PNG or WebP image.");
-        setView("choose");
-        return;
-      }
-      if (file.size > MAX_FILE_BYTES) {
-        setError("That file is larger than 15 MB. Please choose a smaller one.");
+      const problem = validatePhoto(file);
+      if (problem) {
+        setError(problem);
+        setAttached(null);
         setView("choose");
         return;
       }
 
       setError(null);
+      setAttached(null);
       setStepIndex(0);
       setPreview(null);
       setFace(null);
@@ -212,7 +216,7 @@ export default function DocumentModal({ open, onClose }: Props) {
   // A click outside the window: close straight away on the first screen, but
   // ask first once there is a photo in progress.
   const requestClose = () => {
-    if (view === "choose") onClose();
+    if (view === "choose" && !attached) onClose();
     else setConfirmOpen(true);
   };
 
@@ -287,7 +291,9 @@ export default function DocumentModal({ open, onClose }: Props) {
                   spec={spec}
                   documentName={documentName}
                   onCountryChange={setCode}
-                  onUpload={openPicker}
+                  onUpload={attached ? () => processSelectedFile(attached) : openPicker}
+                  attachedFile={attached}
+                  onClearFile={() => setAttached(null)}
                   onFileDrop={processSelectedFile}
                   error={error}
                 />

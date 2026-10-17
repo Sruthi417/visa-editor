@@ -195,6 +195,10 @@ $blue-deep: #0087ca;
 
     &__plan {
       border-radius: 24px;
+
+      &--featured {
+        order: -1;
+      }
     }
   }
 }
