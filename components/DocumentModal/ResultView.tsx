@@ -132,6 +132,9 @@ export default function ResultView({
         <motion.button
           type="button"
           className="res__button res__button--secondary"
+          // Same width as the photo above (the visual keeps 56px either side
+          // of it for the rulers).
+          style={{ width: `min(${frameWidth}px, calc(100% - var(--res-visual-pad, 112px)))`, maxWidth: "none" }}
           variants={itemVariants}
           onClick={onRetake}
         >

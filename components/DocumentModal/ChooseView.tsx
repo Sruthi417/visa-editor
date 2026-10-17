@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { InformationCircleIcon, Upload01Icon } from "@hugeicons/core-free-icons";
+import { Alert02Icon, Upload01Icon } from "@hugeicons/core-free-icons";
 
 import CountrySelect from "./CountrySelect";
 import { EASE, itemVariants, panelVariants, viewVariants } from "./motion";
 import { getSampleCutout } from "./processPhoto";
 import {
+  CROP_ONLY_NOTICE,
   SAMPLE_PHOTO,
   cropFor,
   fileLabel,
@@ -275,13 +276,18 @@ export default function ChooseView({
           </figure>
         </motion.div>
 
-        <motion.p className="doc-modal__note" variants={itemVariants}>
-          <HugeiconsIcon icon={InformationCircleIcon} size={22} strokeWidth={1.6} />
-          <span>
-            Requirements change from time to time. Please confirm them with the
-            official issuing authority before you submit.
-          </span>
-        </motion.p>
+        {entry.cropOnly && (
+          <motion.p
+            className="doc-modal__note doc-modal__note--warning"
+            variants={itemVariants}
+            role="note"
+          >
+            <HugeiconsIcon icon={Alert02Icon} size={22} strokeWidth={1.6} />
+            <span>
+              <strong>Background must not be changed.</strong> {CROP_ONLY_NOTICE}
+            </span>
+          </motion.p>
+        )}
       </section>
     </motion.div>
   );

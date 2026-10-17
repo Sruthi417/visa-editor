@@ -13,7 +13,7 @@ import {
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { Alert02Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 
 import CheckoutView from "./CheckoutView";
 import ChooseView from "./ChooseView";
@@ -66,7 +66,11 @@ export default function DocumentModal({ open, onClose }: Props) {
   const [face, setFace] = useState<FrameBox | null>(null);
   const [result, setResult] = useState<ProcessResult | null>(null);
 
+  // Asks before closing when the person has already uploaded a photo.
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
   const closeRef = useRef<HTMLButtonElement>(null);
+  const keepRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const titleId = useId();
   const mounted = useSyncExternalStore(
@@ -189,7 +193,10 @@ export default function DocumentModal({ open, onClose }: Props) {
     if (!open) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      // Escape first dismisses the "discard?" question, then closes the window.
+      if (confirmOpen) setConfirmOpen(false);
+      else onClose();
     };
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -200,7 +207,18 @@ export default function DocumentModal({ open, onClose }: Props) {
       window.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
     };
-  }, [open, onClose]);
+  }, [open, onClose, confirmOpen]);
+
+  // A click outside the window: close straight away on the first screen, but
+  // ask first once there is a photo in progress.
+  const requestClose = () => {
+    if (view === "choose") onClose();
+    else setConfirmOpen(true);
+  };
+
+  useEffect(() => {
+    if (confirmOpen) keepRef.current?.focus();
+  }, [confirmOpen]);
 
   const retake = () => {
     setJob(null);
@@ -224,7 +242,7 @@ export default function DocumentModal({ open, onClose }: Props) {
           transition={{ duration: 0.3, ease: EASE }}
           onClick={(event) => {
             // Only a click on the dimmed backdrop itself closes the window.
-            if (event.target === event.currentTarget) onClose();
+            if (event.target === event.currentTarget) requestClose();
           }}
         >
           <motion.div
@@ -322,6 +340,60 @@ export default function DocumentModal({ open, onClose }: Props) {
               )}
             </AnimatePresence>
           </motion.div>
+
+          <AnimatePresence>
+            {confirmOpen && (
+              <motion.div
+                className="doc-modal__confirm-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: EASE }}
+              >
+                <motion.div
+                  className="doc-modal__confirm"
+                  role="alertdialog"
+                  aria-modal="true"
+                  aria-labelledby={`${titleId}-discard`}
+                  aria-describedby={`${titleId}-discard-text`}
+                  initial={{ opacity: 0, y: 12, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: EASE }}
+                >
+                  <span className="doc-modal__confirm-icon" aria-hidden="true">
+                    <HugeiconsIcon icon={Alert02Icon} size={22} strokeWidth={1.8} />
+                  </span>
+                  <h3 id={`${titleId}-discard`} className="doc-modal__confirm-title">
+                    Discard your changes?
+                  </h3>
+                  <p id={`${titleId}-discard-text`} className="doc-modal__confirm-text">
+                    Your photo and its checks will be lost if you close this window.
+                  </p>
+                  <div className="doc-modal__confirm-actions">
+                    <button
+                      ref={keepRef}
+                      type="button"
+                      className="doc-modal__confirm-btn doc-modal__confirm-btn--ghost"
+                      onClick={() => setConfirmOpen(false)}
+                    >
+                      Keep editing
+                    </button>
+                    <button
+                      type="button"
+                      className="doc-modal__confirm-btn doc-modal__confirm-btn--solid"
+                      onClick={() => {
+                        setConfirmOpen(false);
+                        onClose();
+                      }}
+                    >
+                      Discard
+                    </button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>,

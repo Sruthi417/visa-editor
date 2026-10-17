@@ -82,6 +82,11 @@ export default function ProcessingView({
           Preparing your photo
         </motion.h2>
 
+        <motion.p className="res__lead" variants={itemVariants}>
+          Sizing and checking your photo against the requirements. Everything
+          stays on your device.
+        </motion.p>
+
         <ol className="proc__steps" aria-live="polite">
           {STEPS.map((step, index) => {
             const state =

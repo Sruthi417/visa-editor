@@ -93,10 +93,22 @@ export default function RetakeView({ titleId, result, spec, onRetake }: Props) {
           </div>
         </motion.div>
 
-        <motion.p className="retake__sizes" variants={itemVariants}>
-          Your file: <b>{result.sizeKb} KB</b>
-          <span>Needed: {minKb}–{maxKb} KB</span>
-        </motion.p>
+        <motion.div
+          className="retake__sizes"
+          variants={itemVariants}
+          style={{ width: `min(${frameWidth}px, 100%)` }}
+        >
+          <div className="retake__size retake__size--yours">
+            <span className="retake__size-label">Your file</span>
+            <strong>{result.sizeKb} KB</strong>
+          </div>
+          <div className="retake__size retake__size--needed">
+            <span className="retake__size-label">Needed</span>
+            <strong>
+              {minKb}–{maxKb} KB
+            </strong>
+          </div>
+        </motion.div>
       </section>
     </motion.div>
   );

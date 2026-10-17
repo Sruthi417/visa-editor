@@ -24,6 +24,11 @@ export type CountrySpecs = {
   country: string;
   passport?: PhotoSpec;
   visa?: PhotoSpec;
+  /**
+   * The authority only accepts an unaltered photo: cropping is fine, but
+   * background removal or any other AI editing is prohibited.
+   */
+  cropOnly?: boolean;
 };
 
 /** A spec before its file limits are added (see FILE_LIMITS). */
@@ -34,6 +39,7 @@ type CountryBase = {
   country: string;
   passport?: SpecBase;
   visa?: SpecBase;
+  cropOnly?: boolean;
 };
 
 const WHITE = { background: "White", backgroundColor: "#ffffff" };
@@ -64,6 +70,7 @@ const baseSpecs: CountryBase[] = [
   {
     code: "AU",
     country: "Australia",
+    cropOnly: true,
     passport: { ...ICAO, ...LIGHT },
     visa: { ...ICAO, ...LIGHT },
   },
@@ -76,6 +83,7 @@ const baseSpecs: CountryBase[] = [
   {
     code: "CA",
     country: "Canada",
+    cropOnly: true,
     passport: {
       widthMm: 50,
       heightMm: 70,
@@ -146,6 +154,7 @@ const baseSpecs: CountryBase[] = [
   {
     code: "NZ",
     country: "New Zealand",
+    cropOnly: true,
     passport: { ...ICAO, ...LIGHT },
     visa: { ...ICAO, ...LIGHT },
   },
@@ -258,6 +267,10 @@ export const photoSpecs: CountrySpecs[] = baseSpecs.map((entry) => ({
   passport: withFile(entry.code, "passport", entry.passport),
   visa: withFile(entry.code, "visa", entry.visa),
 }));
+
+/** Shown in the Choose view for countries that only accept an unaltered photo. */
+export const CROP_ONLY_NOTICE =
+  "Background removal and any other AI editing is strictly prohibited for this country. Only cropping is allowed, so take your photo against a plain, light background; a photo with a changed background may be rejected.";
 
 /** Countries that have a spec for this document type. */
 export function countriesFor(type: DocumentType): CountrySpecs[] {
