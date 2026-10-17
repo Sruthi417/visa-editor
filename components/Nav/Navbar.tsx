@@ -136,10 +136,10 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, "#home")}
           >
             <Image
-              src="/logo-wordmark.png"
+              src="/logo1.png"
               alt="FlyFrame"
-              width={124}
-              height={32}
+              width={150}
+              height={50}
               priority
             />
           </Link>

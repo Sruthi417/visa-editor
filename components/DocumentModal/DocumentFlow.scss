@@ -499,8 +499,16 @@ $red: #d63b3f;
   }
 
   // "Download photo" (on .doc-modal__upload): pinned to the bottom of the sidebar.
+  // The sidebar has no bottom padding (the Choose view pins its own button), so
+  // the gap under the button lives here. Mobile adds its own, see DocumentModal.scss.
   &__download {
     margin-top: auto;
+    margin-bottom: 28px;
+
+    @media (max-width: 767px) {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
   }
 
   &__visual {
