@@ -11,13 +11,14 @@ import {
   Upload01Icon,
 } from "@hugeicons/core-free-icons";
 
+import DocumentModal from "../DocumentModal/DocumentModal";
 import "./Navbar.scss";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Features", href: "/features" },
-  { label: "Resources", href: "/resources" },
+  { label: "Home", href: "#home" },
+  { label: "Process", href: "#process" },
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
 ];
 
 // The links collapse into the menu below this width. Keep in sync with the
@@ -54,6 +55,8 @@ const itemVariants: Variants = {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [uploadOpen, setUploadOpen] = useState(false);
+  const [uploadSession, setUploadSession] = useState(0);
   const menuId = useId();
 
   // Close the menu with Escape, and when the window grows past the breakpoint
@@ -79,6 +82,32 @@ export default function Navbar() {
 
   const close = () => setOpen(false);
 
+  const handleOpenUpload = () => {
+    setUploadSession((val) => val + 1);
+    setUploadOpen(true);
+    setOpen(false);
+  };
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      close();
+      const id = href.replace(/^#/, "");
+      if (id === "home" || !id) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+      window.history.pushState(null, "", href);
+    }
+  };
+
   return (
     <>
       {/* Dims the page behind the open menu; a tap on it closes the menu. */}
@@ -101,7 +130,11 @@ export default function Navbar() {
       <header className="navbar-wrapper">
         <nav className="navbar" aria-label="Main navigation">
           {/* Logo */}
-          <Link href="/" className="navbar__logo" onClick={close}>
+          <Link
+            href="#home"
+            className="navbar__logo"
+            onClick={(e) => handleNavClick(e, "#home")}
+          >
             <Image
               src="/logo-wordmark.png"
               alt="FlyFrame"
@@ -114,14 +147,23 @@ export default function Navbar() {
           {/* Navigation Links */}
           <div className="navbar__links">
             {navLinks.map((link) => (
-              <Link key={link.label} href={link.href}>
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+              >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* Right Button */}
-          <Link href="/upload" className="navbar__button">
+          {/* Right Button - opens Country Selection popup */}
+          <button
+            type="button"
+            className="navbar__button"
+            aria-haspopup="dialog"
+            onClick={handleOpenUpload}
+          >
             <span>Upload</span>
             <HugeiconsIcon
               icon={Upload01Icon}
@@ -129,7 +171,7 @@ export default function Navbar() {
               color="currentColor"
               strokeWidth={1.5}
             />
-          </Link>
+          </button>
 
           {/* Menu button, shown on small screens */}
           <button
@@ -173,7 +215,10 @@ export default function Navbar() {
               <ul className="navbar__menu-list">
                 {navLinks.map((link) => (
                   <motion.li key={link.label} variants={itemVariants}>
-                    <Link href={link.href} onClick={close}>
+                    <Link
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                    >
                       {link.label}
                     </Link>
                   </motion.li>
@@ -181,7 +226,12 @@ export default function Navbar() {
               </ul>
 
               <motion.div variants={itemVariants}>
-                <Link href="/upload" className="navbar__menu-cta" onClick={close}>
+                <button
+                  type="button"
+                  className="navbar__menu-cta"
+                  aria-haspopup="dialog"
+                  onClick={handleOpenUpload}
+                >
                   <span>Upload</span>
                   <HugeiconsIcon
                     icon={Upload01Icon}
@@ -189,12 +239,19 @@ export default function Navbar() {
                     color="currentColor"
                     strokeWidth={1.5}
                   />
-                </Link>
+                </button>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
       </header>
+
+      {/* Country & Document Selection Modal */}
+      <DocumentModal
+        key={uploadSession}
+        open={uploadOpen}
+        onClose={() => setUploadOpen(false)}
+      />
     </>
   );
 }

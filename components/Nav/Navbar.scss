@@ -79,6 +79,9 @@ $ink-900: #162637;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
 
     padding: 10px 24px;
     flex-shrink: 0;

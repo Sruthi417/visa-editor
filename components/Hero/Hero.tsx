@@ -5,13 +5,18 @@ import "./Hero.scss";
 
 export default function Hero() {
   return (
-    <section className="hero-bg">
+    <section className="hero-bg" id="home">
       <div className="hero">
         <div className="hero__content">
-          <h1 className="hero__title">Passport &amp; visa photos in seconds</h1>
+          <h1 className="hero__title">
+            Passport &amp; visa
+            <br className="hero__br" />
+            photos in seconds
+          </h1>
           <p className="hero__description">
-            Create passport and visa photos that match your destination&apos;s
-            requirements
+            Create passport and visa photos that
+            <br className="hero__br" />
+            match your destination&apos;s requirements
           </p>
           <GetStartedButton className="hero__button" />
         </div>
@@ -19,11 +24,10 @@ export default function Hero() {
         <div className="hero__visual">
           <Image
             className="hero__image"
-            src="/hero-sub.png"
-            alt="Passport photos of a woman, an older man and a baby, next to a passport"
-            width={1272}
-            height={1237}
-            sizes="(max-width: 900px) 80vw, 45vw"
+            src="/hero2.png"
+            alt="Passport and visa photo preview with before and after comparison"
+            width={1920}
+            height={1080}
             priority
           />
         </div>

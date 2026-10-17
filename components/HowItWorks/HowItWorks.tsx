@@ -48,7 +48,7 @@ const steps: Step[] = [
  */
 export default function HowItWorks() {
   return (
-    <section className="how" id="how-it-works">
+    <section className="how" id="process">
       <div className="how__inner">
         <div className="how__heading">
           <span className="how__eyebrow">How it works</span>
