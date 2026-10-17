@@ -153,26 +153,35 @@
 }
 
 // Responsive: everything below 1200px (desktop above is untouched).
-// Text block is always centered, the title is always two lines (nowrap),
-// and the image scales with the viewport. The image stays pinned to the
-// bottom like desktop, but its area is capped (image height + max gap) so
-// when there is too much free space the image rises up under the button.
+// The title is always two lines (nowrap) and the image scales with the
+// viewport. The image stays pinned to the bottom like desktop; the text block
+// fills the space between the navbar and the image and is centered in it,
+// both vertically and horizontally.
 @media (max-width: 1199px) {
   .hero {
     --hero-img-w: clamp(430px, calc(67vw + 216px), 1040px);
-    --hero-max-gap: clamp(24px, 6vh, 64px);
+    --hero-max-gap: clamp(8px, 2vh, 24px);
+    // Space under the photo, so it sits clear of the bottom edge and fade.
+    --hero-lift: clamp(36px, 8vh, 96px);
 
-    padding-top: clamp(104px, 15vh, 150px);
+    // Just clears the navbar; the text is centered in what is left.
+    padding-top: clamp(88px, 12vh, 110px);
     justify-content: flex-start;
 
     &__content {
+      flex: 1 0 auto;
       width: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       gap: clamp(12px, 2vh, 24px);
-      margin-bottom: clamp(8px, 2vh, 20px);
+      padding-block: clamp(12px, 2.5vh, 24px);
     }
 
     &__title {
-      font-size: clamp(24px, 7.6vw, 56px);
+      // Width-based, but also capped by the height so short landscape screens
+      // leave room for the photo.
+      font-size: clamp(24px, min(7.6vw, 6.4vh), 56px);
       line-height: 1.12;
       max-width: 100%;
       white-space: nowrap;
@@ -187,10 +196,14 @@
       font-size: clamp(16px, 2.2vw, 18px);
     }
 
+    // The photo area asks for the full image height (+ the max gap) and only
+    // shrinks when the screen is too short; the text block takes whatever
+    // space is left. The image then scales down proportionally.
     &__visual {
-      flex: 1 1 0;
-      max-height: calc(var(--hero-img-w) * 0.54 + var(--hero-max-gap));
-      margin-bottom: auto;
+      flex: 0 1 calc(var(--hero-img-w) * 0.54 + var(--hero-max-gap) + var(--hero-lift));
+      min-height: 0;
+      box-sizing: border-box;
+      padding-bottom: var(--hero-lift);
       overflow: visible;
     }
 
@@ -219,11 +232,5 @@
         height: 20px;
       }
     }
-  }
-}
-
-@media (max-width: 400px) {
-  .hero {
-    padding-top: clamp(130px, 20vh, 160px);
   }
 }
