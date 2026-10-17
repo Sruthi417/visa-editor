@@ -15,7 +15,7 @@ import DocumentModal from "../DocumentModal/DocumentModal";
 import "./Navbar.scss";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
+  { label: "Home", href: "/" },
   { label: "Process", href: "#process" },
   { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
