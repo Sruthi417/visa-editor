@@ -19,10 +19,6 @@ import {
   type PhotoSpec,
 } from "./specs";
 
-// Height of the Before and After pictures. The After frame keeps this height
-// and changes width with the document's proportions.
-const PREVIEW_HEIGHT = 250;
-
 const TYPES: { id: DocumentType; label: string }[] = [
   { id: "passport", label: "Passport" },
   { id: "visa", label: "Visa" },
@@ -63,7 +59,6 @@ export default function ChooseView({
   error,
 }: Props) {
   const crop = cropFor(spec);
-  const frameWidth = (PREVIEW_HEIGHT * spec.widthMm) / spec.heightMm;
   const [sampleCutout, setSampleCutout] = useState<string | null>(null);
 
   useEffect(() => {
@@ -207,19 +202,21 @@ export default function ChooseView({
 
 
           {/* Bottom upload button: Image 3 style */}
-          <button type="button" className="doc-modal__upload" onClick={onUpload}>
-            <span>Upload photo</span>
-            <HugeiconsIcon
-              icon={Upload01Icon}
-              size={20}
-              color="currentColor"
-              strokeWidth={1.5}
-            />
-          </button>
+          <div className="doc-modal__actions">
+            <button type="button" className="doc-modal__upload" onClick={onUpload}>
+              <span>Upload photo</span>
+              <HugeiconsIcon
+                icon={Upload01Icon}
+                size={20}
+                color="currentColor"
+                strokeWidth={1.5}
+              />
+            </button>
 
-          <p className="doc-modal__hint" role={error ? "alert" : undefined}>
-            {error ?? "JPG, PNG or WebP, up to 15 MB. Your photo stays on your device."}
-          </p>
+            <p className="doc-modal__hint" role={error ? "alert" : undefined}>
+              {error ?? "JPG, PNG or WebP, up to 15 MB. Your photo stays on your device."}
+            </p>
+          </div>
         </motion.div>
       </section>
 
@@ -234,13 +231,14 @@ export default function ChooseView({
           </p>
         </motion.div>
 
-        <motion.div className="doc-modal__previews" variants={panelVariants}>
+        <motion.div
+          className="doc-modal__previews"
+          variants={panelVariants}
+          style={{ ["--frame-ratio" as string]: spec.widthMm / spec.heightMm }}
+        >
           <figure className="doc-modal__preview">
             <figcaption>Before</figcaption>
-            <div
-              className="doc-modal__before"
-              style={{ height: PREVIEW_HEIGHT, width: PREVIEW_HEIGHT * 0.8 }}
-            >
+            <div className="doc-modal__before">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={SAMPLE_PHOTO.src} alt="Original portrait" />
             </div>
@@ -251,11 +249,7 @@ export default function ChooseView({
             <div className="doc-modal__after">
               <div
                 className="doc-modal__frame"
-                style={{
-                  height: PREVIEW_HEIGHT,
-                  width: frameWidth,
-                  backgroundColor: spec.backgroundColor,
-                }}
+                style={{ backgroundColor: spec.backgroundColor }}
               >
                 <div className="doc-modal__crop">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

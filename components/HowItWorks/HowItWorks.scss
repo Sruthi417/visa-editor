@@ -19,6 +19,7 @@ $card-pad: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
   background: white;
   padding: var(--section-py) var(--section-px);
   padding-bottom: 3rem;
+  padding-top: 12rem;
 
   &__inner {
     width: 100%;

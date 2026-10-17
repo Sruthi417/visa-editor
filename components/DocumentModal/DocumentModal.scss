@@ -80,14 +80,14 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+    grid-template-columns: clamp(300px, 36vw, 400px) minmax(0, 1fr);
     align-items: stretch;
     column-gap: 0;
   }
 
   &__left {
     min-height: 0;
-    padding: 32px 28px 28px;
+    padding: 32px 28px 0;
     overflow-y: auto;
     background: $sidebar;
     border-right: 1px solid $hairline;
@@ -105,9 +105,11 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   &__right {
     min-height: 0;
-    padding: 44px 56px 36px 44px;
+    padding: 44px clamp(24px, 4.6vw, 56px) 36px clamp(24px, 3.6vw, 44px);
     overflow-y: auto;
     background: #ffffff;
+    // Lets the previews size themselves from the width of this column.
+    container-type: inline-size;
 
     /* Hide scrollbar while preserving scroll functionality */
     scrollbar-width: none;
@@ -197,8 +199,17 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   // Document summary: flat header row + hairline spec rows
   &__summary {
     width: 100%;
-    // Space before the upload button that follows (kept off __upload itself).
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+  }
+
+  // Upload button + hint: pinned to the bottom of the sidebar so it is always
+  // visible, even when the specs are taller than the dialog.
+  &__actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    padding: 16px 0 24px;
+    background: linear-gradient(to bottom, rgba($sidebar, 0), $sidebar 16px);
   }
 
   &__doc-card {
@@ -484,13 +495,21 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     line-height: 1.4;
   }
 
+  // Before / After always sit side by side. --preview-h shrinks with the width
+  // of the right column (250px max, as before) so both always fit.
   &__previews {
+    --preview-gap: 32px;
+    --preview-h: clamp(
+      110px,
+      calc((100cqw - var(--preview-gap) - 48px) / 1.8),
+      250px
+    );
+
     margin-top: 32px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: flex-start;
-    column-gap: 32px;
-    row-gap: 32px;
+    column-gap: var(--preview-gap);
   }
 
   &__preview {
@@ -511,6 +530,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &__before {
+    width: calc(var(--preview-h) * 0.8);
+    height: var(--preview-h);
     overflow: hidden;
     border-radius: 8px;
     background: $surface-subtle;
@@ -534,6 +555,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   &__frame {
     position: relative;
     max-width: 100%;
+    height: var(--preview-h);
+    width: calc(var(--preview-h) * var(--frame-ratio, 1));
     margin-top: 1rem;
     outline: 1px dashed $ink-900;
     box-shadow: 0 10px 28px rgba(11, 27, 43, 0.12);
@@ -624,8 +647,33 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
-// Narrow screens: the dialog fills the viewport and the columns stack.
-@media (max-width: 900px) {
+// Short windows: tighten the sidebar so more of it fits.
+@media (max-height: 760px) {
+  .doc-modal {
+    &__left {
+      padding-top: 24px;
+    }
+
+    &__title {
+      margin-bottom: 12px;
+    }
+
+    &__details dl > div {
+      padding: 10px 0;
+    }
+
+    &__doc-header {
+      padding: 12px 0;
+    }
+
+    &__actions {
+      padding-bottom: 16px;
+    }
+  }
+}
+
+// Mobile: the dialog fills the viewport and the columns stack.
+@media (max-width: 767px) {
   .doc-modal {
     padding: 0;
 
@@ -649,24 +697,40 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     &__left {
       border-right: 0;
       border-bottom: 1px solid $hairline;
-      padding: 72px 20px 24px;
+      padding: 72px 20px 28px;
+    }
+
+    // The whole dialog scrolls here, so the button goes back in the flow.
+    &__actions {
+      position: static;
+      padding: 8px 0 0;
+      background: none;
+    }
+
+    &__summary {
+      margin-bottom: 20px;
     }
 
     &__right {
-      padding: 28px 20px 32px;
+      padding: 28px 20px 36px;
+    }
+
+    &__spec-title {
+      font-size: 20px;
+    }
+
+    &__previews {
+      --preview-gap: 16px;
+      margin-top: 28px;
+    }
+
+    &__note {
+      margin-top: 32px;
     }
 
     &__close {
       top: 14px;
       right: 14px;
-    }
-  }
-}
-
-@media (max-width: 520px) {
-  .doc-modal {
-    &__previews {
-      column-gap: 20px;
     }
   }
 }
