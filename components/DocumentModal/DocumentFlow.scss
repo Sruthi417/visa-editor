@@ -387,7 +387,7 @@ $red: #d63b3f;
   &__lead {
     max-width: 58ch;
     color: $ink-900;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
   }
 
@@ -422,7 +422,7 @@ $red: #d63b3f;
   &__check-label {
     color: $ink-900;
     font-family: var(--font-heading);
-    font-size: clamp(17px, 1.7vw, 18px);
+    font-size: clamp(17px, 1.7vw, 17px);
     font-weight: 500;
     letter-spacing: -0.015em;
   }

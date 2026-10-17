@@ -35,7 +35,7 @@ const plans = [
   {
     name: "Premium",
     icon: SparklesIcon,
-    price: "$16.99",
+    price: "$25.99",
     unit: "/ photo",
     tagline: "For ready-to-download photos",
     features: [
