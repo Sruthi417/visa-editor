@@ -37,7 +37,7 @@ $ink-900: #162637;
 
   // The FlyFrame wordmark, inset from the pill's rounded end.
   &__logo {
-    height: 46px;
+    height: 35px;
     margin-left: 12px;
     flex-shrink: 0;
 
@@ -47,7 +47,7 @@ $ink-900: #162637;
     img {
       display: block;
       width: auto;
-      height: 45px;
+      height: 24px;
       object-fit: contain;
     }
   }

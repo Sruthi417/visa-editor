@@ -39,10 +39,10 @@ export default function Footer() {
           <div className="footer__brand">
             <Link href="/" className="footer__logo">
               <Image
-                src="/images/logo/flyframe-logo.webp"
+                src="/images/logo/flyframe.webp"
                 alt="FlyFrame"
-                width={168}
-                height={56}
+                width={145}
+                height={36}
               />
             </Link>
 

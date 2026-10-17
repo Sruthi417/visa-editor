@@ -1,5 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  themeColor: "#2b97f0",
+};
 
 export const metadata: Metadata = {
   title: "FlyFrame | Passport & Visa Photo Maker Online",
