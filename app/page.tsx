@@ -14,7 +14,6 @@ export default function Page() {
       <Hero />
       <HowItWorks />
       <Features />
-
       <PhotoTips />
       <Pricing />
       <Review />
