@@ -18,7 +18,11 @@ export default function ComparePage({ data }: { data: Comparison }) {
     <CompareLayout
       hero={
         <CompareHero
-          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Compare", href: "/compare" }]}
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Compare", href: "/compare" },
+            { label: competitor.name },
+          ]}
           title={hero.title}
           intro={hero.intro}
           versus={{

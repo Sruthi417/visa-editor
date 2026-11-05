@@ -46,13 +46,13 @@
     "cards": [
       {
         "name": "FlyFrame",
-        "image": "/images/compare/contentcardstatic1.png",
+        "image": "/images/compare/staticomp.png",
         "paragraph": "FlyFrame is planned as a passport and visa photo editor for 100+ countries, built around precise, rule-locked editing, a live camera guide, a free photo checker and a phone handoff.",
         "text": "Rule-locked crop frame, live camera guide, free checker, desktop-to-phone handoff."
       },
       {
         "name": "Visafoto",
-        "image": "/images/compare/contentcardstatic.png",
+        "image": "/images/compare/comp1.png",
         "paragraph": "Visafoto is a live service that processes photos automatically and states a price, a refund promise and a long list of document types. On the pages we read, it describes automatic cropping and a \"Fix head tilt\" option.",
         "text": "Automatic processing, a stated price, a full-refund promise and many document types."
       }
@@ -415,8 +415,7 @@
     "title": "See how FlyFrame handles your photo",
     "text": "Upload a photo and check it against your country's rules.",
     "label": "Try FlyFrame",
-    "href": "/drop",
-    "image": "/images/compare/compare_try.png"
+    "href": "/drop"
   },
   "sources": {
     "title": "Sources",
