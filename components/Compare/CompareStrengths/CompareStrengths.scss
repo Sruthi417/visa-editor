@@ -1,15 +1,13 @@
 @use "../tokens" as *;
 
 .compare-strengths {
+  padding-block: 4rem;
+
   &__title {
-    margin-bottom: clamp(24px, 4vw, 36px);
-    color: $ink-900;
-    font-family: var(--font-heading);
-    font-size: clamp(32px, 4.4vw, 42px);
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.04em;
-    text-align: center;
+    @include section-heading;
+    margin-bottom: 35px;
+
+    font-size: 32px;
   }
 
   // One rounded container holds both columns; FlyFrame's sits inside it as a
@@ -17,7 +15,7 @@
   &__plans {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 24px;
+    padding: 28px;
     border: 1px solid $line;
     border-radius: 44px;
     background: #fafafa;
@@ -27,7 +25,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: clamp(24px, 4vw, 40px);
+    // Taller than wide, so the points keep to two lines.
+    padding: clamp(28px, 4.4vw, 48px) clamp(24px, 3vw, 34px);
     border: 1px dashed transparent;
     border-radius: 32px;
 
@@ -45,19 +44,27 @@
     border-radius: 14px;
     color: #ffffff;
     background:
-      radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 55%),
-      radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
+      radial-gradient(
+        circle at top left,
+        rgba(255, 255, 255, 0.4) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(255, 255, 255, 0.5) 0%,
+        transparent 55%
+      ),
       #2b97f0;
   }
 
   &__name {
-    margin-top: 24px;
-    padding-bottom: 24px;
+    margin-top: 28px;
+    padding-bottom: 30px;
     width: 100%;
     border-bottom: 1px solid $line;
     color: $ink-900;
     font-family: var(--font-heading);
-    font-size: clamp(24px, 3vw, 30px);
+    font-size: clamp(24px, 3vw, 28px);
     font-weight: 600;
     line-height: 1.15;
     letter-spacing: -0.03em;
@@ -65,10 +72,10 @@
 
   &__ticks {
     list-style: none;
-    margin-top: 24px;
+    margin-top: 32px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 28px;
 
     li {
       display: flex;
@@ -76,12 +83,12 @@
       gap: 10px;
       color: $ink-700;
       font-size: 15px;
-      line-height: 1.45;
+      line-height: 1.7;
     }
 
     svg {
       flex-shrink: 0;
-      margin-top: 2px;
+      margin-top: 4px;
       color: $blue-deep;
     }
   }

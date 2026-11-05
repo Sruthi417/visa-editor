@@ -15,7 +15,7 @@ export default function Page() {
       <HowItWorks />
       <Features />
       <PhotoTips />
-      <Pricing />
+      {/* <Pricing /> */}
       <Review />
       <Faq />
       <Footer />

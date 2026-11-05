@@ -1,120 +1,126 @@
 @use "../tokens" as *;
 
+// The light blue that marks FlyFrame's column, and a slightly deeper one for the
+// striped rows.
+$product-tint: #f2f9ff;
+$product-tint-stripe: #eaf4fd;
+$row-line: #eef1f3;
+$stripe: #fafafa;
+
 .compare-table {
   min-width: 0;
+
+  // The big title above the first table.
+  &__main-title {
+    @include section-heading;
+    margin-bottom: 0;
+    font-size: 32px;
+  }
 
   &__heading {
     @include section-heading;
   }
 
-  &__number {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    display: grid;
-    place-items: center;
-    border: 1px solid $line;
-    border-radius: 10px;
-    background: #ffffff;
-    color: $ink-700;
-    font-family: "Poppins", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0;
-  }
-
+  // Narrow enough that the description wraps to two lines.
   &__description {
     @include body-text;
+    max-width: 64ch;
     color: $ink-500;
   }
 
+  // A white card with a faint edge and shadow. It clips the striped rows to its
+  // rounded corners.
   &__wrap {
     margin-top: 20px;
-    padding: 12px;
-    border: 1px solid #eef1f3;
-    background: #fafafa;
+    overflow: hidden;
+    border: 1px solid $row-line;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 56, 128, 0.05);
     @include squircle(36px, 22px);
   }
 
   &__table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
     table-layout: fixed;
-    text-align: left;
+    text-align: center;
 
     th,
     td {
-      padding: 18px 20px;
-      vertical-align: top;
-      border-bottom: 1px solid $line;
+      padding: 24px 20px;
+      vertical-align: middle;
+      border-bottom: 1px solid $row-line;
     }
 
+    // "Feature" and the two brand names share one heading style.
     thead th {
-      padding-top: 14px;
-      padding-bottom: 14px;
+      padding-top: 22px;
+      padding-bottom: 20px;
       color: $ink-900;
       font-family: var(--font-heading);
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 600;
       letter-spacing: -0.01em;
     }
 
+    // The feature names, on the left.
+    th:nth-child(1) {
+      width: 32%;
+      padding-left: 34px;
+      text-align: left;
+    }
+
     tbody th {
-      color: $ink-900;
-      font-size: 15px;
-      font-weight: 500;
+      color: $ink-700;
+      font-size: 15.5px;
+      font-weight: 400;
       line-height: 1.45;
     }
 
     td {
-      color: $ink-700;
-      font-size: 14.5px;
+      font-size: 15.5px;
       line-height: 1.6;
     }
 
     tbody tr:last-child {
       th,
       td {
-        border-bottom-color: transparent;
+        border-bottom: 0;
       }
     }
 
-    th:nth-child(1) {
-      width: 24%;
+    tbody tr:nth-child(even) {
+      th,
+      td {
+        background: $stripe;
+      }
     }
 
-    // FlyFrame's column stands out as a white, dashed-edged card, like the
-    // featured plan on the pricing section.
+    // FlyFrame's column in light blue, the competitor's in softer grey text.
     th:nth-child(2),
     td:nth-child(2) {
-      background: #ffffff;
-      border-left: 1px dashed #d5dde2;
-      border-right: 1px dashed #d5dde2;
+      background: $product-tint;
+      color: $ink-900;
+      font-weight: 500;
     }
 
     thead th:nth-child(2) {
-      border-top: 1px dashed #d5dde2;
-      border-radius: 20px 20px 0 0;
+      font-weight: 600;
     }
 
-    tbody tr:last-child td:nth-child(2) {
-      border-bottom: 1px dashed #d5dde2;
-      border-radius: 0 0 20px 20px;
+    tbody tr:nth-child(even) td:nth-child(2) {
+      background: $product-tint-stripe;
     }
-  }
 
-  // A status chip with the text under it.
-  &__cell {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    td:nth-child(3) {
+      color: $ink-500;
+    }
   }
 
   &__value {
     display: block;
     word-break: break-word;
+    font-size: 15px;
 
     &--muted {
       color: $ink-500;
@@ -136,13 +142,16 @@
 @media (max-width: 820px) {
   .compare-table {
     &__wrap {
-      padding: 0;
+      overflow: visible;
       border: 0;
       background: none;
+      box-shadow: none;
       border-radius: 0;
     }
 
     &__table {
+      text-align: left;
+
       &,
       tbody,
       tr,
@@ -181,18 +190,20 @@
       // Same specificity as the desktop column width, which comes first.
       th:nth-child(1) {
         width: auto;
+        padding-left: 18px;
       }
 
       tbody th {
         padding-top: 16px;
-        background: #fafafa;
+        background: $stripe;
+        color: $ink-900;
         font-family: var(--font-heading);
         font-size: 16px;
         font-weight: 600;
       }
 
       td {
-        border-top: 1px solid $line;
+        border-top: 1px solid $row-line;
 
         &::before {
           content: attr(data-label);
@@ -206,14 +217,18 @@
         }
       }
 
-      // Reset the desktop column highlight and tint FlyFrame's block instead.
-      tbody tr:last-child td:nth-child(2),
-      td:nth-child(2) {
-        border-left: 0;
-        border-right: 0;
-        border-bottom: 0;
-        border-radius: 0;
-        background: #f6fbff;
+      // Keep the stripes off the stacked cards.
+      tbody tr:nth-child(even) th {
+        background: $stripe;
+      }
+
+      tbody tr:nth-child(even) td {
+        background: transparent;
+      }
+
+      td:nth-child(2),
+      tbody tr:nth-child(even) td:nth-child(2) {
+        background: $product-tint;
       }
     }
   }

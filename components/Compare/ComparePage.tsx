@@ -1,6 +1,6 @@
 import CompareCta from "./CompareCta/CompareCta";
 import CompareHero from "./CompareHero/CompareHero";
-import CompareHowToRead from "./CompareHowToRead/CompareHowToRead";
+
 import CompareJumpNav from "./CompareJumpNav/CompareJumpNav";
 import CompareLayout from "./CompareLayout/CompareLayout";
 import CompareSources from "./CompareSources/CompareSources";
@@ -32,14 +32,14 @@ export default function ComparePage({ data }: { data: Comparison }) {
       }
     >
       <CompareSummary summary={data.summary} />
-      <CompareHowToRead howToRead={data.howToRead} />
-      <CompareJumpNav items={data.groups} />
 
       {data.groups.map((group, index) => (
         <CompareTable
           key={group.id}
           group={group}
-          index={index}
+          // The main title and the jump links sit above the first table.
+          mainTitle={index === 0 ? data.features.title : undefined}
+          intro={index === 0 ? <CompareJumpNav items={data.groups} /> : undefined}
           productName={product.name}
           competitorName={competitor.name}
         />

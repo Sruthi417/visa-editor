@@ -31,8 +31,11 @@ export type ComparisonGroup = {
 
 export type SummaryCard = {
   name: string;
-  badge: string;
-  tone: "planned" | "live";
+  /** Image path under /public, shown at the top of the card. */
+  image: string;
+  /** The paragraph under the image. */
+  paragraph: string;
+  /** The short line in the small card at the bottom, under the name. */
   text: string;
 };
 
@@ -55,8 +58,10 @@ export type Comparison = {
   /** `logo` is a file name in public/images/compare, shown in the hero's brand card. */
   product: { name: string; status: ProductStatus; logo: string };
   competitor: { name: string; url: string; status: "live" | "planned"; logo: string };
-  summary: { title: string; paragraphs: string[]; cards: SummaryCard[] };
+  summary: { title: string; cards: [SummaryCard, SummaryCard] };
   howToRead: { title: string; items: { label: string; text: string }[] };
+  /** The main title above the first table. */
+  features: { title: string };
   groups: ComparisonGroup[];
   strengths: {
     title: string;

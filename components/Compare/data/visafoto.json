@@ -4,6 +4,8 @@
     "title": "FlyFrame vs Visafoto: Feature Comparison | FlyFrame",
     "description": "A side-by-side look at FlyFrame and Visafoto for passport and visa photos: countries, editing, checks, pricing, privacy and more, based on Visafoto's own public pages."
   },
+
+
   "hero": {
     "title": "flyFrame vs Visafoto",
     "intro": "Compare FlyFrame and Visafoto for passport and visa photos. Explore their features, photo requirements, verification, pricing, and key differences.",
@@ -14,157 +16,190 @@
       "Planned features are clearly labelled"
     ]
   },
+
+
   "hub": {
     "blurb": "Countries, editing, checks, pricing and privacy, side by side. Based on Visafoto's own public pages."
   },
+
+
   "checkedOn": "2026-11-04",
+
+
   "product": {
     "name": "FlyFrame",
     "status": "planned",
     "logo": "/images/compare/logo1.png"
   },
+
+
   "competitor": {
     "name": "Visafoto",
     "url": "https://visafoto.com",
     "status": "live",
     "logo": "/images/compare/logo2.png"
   },
+
+
   "summary": {
-    "title": "The short version",
-    "paragraphs": [
-      "FlyFrame is planned as a passport and visa photo editor for 100+ countries, built around precise, rule-locked editing, a live camera guide, a free photo checker and a phone handoff.",
-      "Visafoto is a live service that processes photos automatically and states a price, a refund promise and a long list of document types. On the pages we read, it describes automatic cropping and a \"Fix head tilt\" option."
-    ],
+    "title": "A Quick Glance",
     "cards": [
       {
         "name": "FlyFrame",
-        "badge": "Planned",
-        "tone": "planned",
+        "image": "/images/compare/contentcardstatic1.png",
+        "paragraph": "FlyFrame is planned as a passport and visa photo editor for 100+ countries, built around precise, rule-locked editing, a live camera guide, a free photo checker and a phone handoff.",
         "text": "Rule-locked crop frame, live camera guide, free checker, desktop-to-phone handoff."
       },
       {
         "name": "Visafoto",
-        "badge": "Live service",
-        "tone": "live",
+        "image": "/images/compare/contentcardstatic.png",
+        "paragraph": "Visafoto is a live service that processes photos automatically and states a price, a refund promise and a long list of document types. On the pages we read, it describes automatic cropping and a \"Fix head tilt\" option.",
         "text": "Automatic processing, a stated price, a full-refund promise and many document types."
       }
     ]
   },
-  "howToRead": {
-    "title": "How to read this page",
-    "items": [
-      {
-        "label": "FlyFrame",
-        "text": "Everything in this column is planned, not built. Items marked Planned come from our feature list, and the country count of 100+ is our target. Items still open say To be announced."
-      },
-      {
-        "label": "Visafoto",
-        "text": "Only what Visafoto's own public pages state, read on 4 November 2026. Quotes are shown in quotation marks."
-      },
-      {
-        "label": "Not stated",
-        "text": "We did not find it on the pages we checked. It does not mean the feature does not exist."
-      }
-    ]
+
+
+
+  
+  "features": {
+    "title": "Key Feature Comparison"
   },
+
   "groups": [
     {
       "id": "coverage",
       "title": "Coverage and trust",
-      "description": "Which documents are covered, and how clearly the rules are sourced.",
+      "description": "Which documents each tool covers, and how clearly the rules behind each country's photo requirements are sourced and dated.",
       "rows": [
         {
           "feature": "Countries and documents",
-          "flyframe": { "status": "planned", "text": "100+ countries, passport and visa" },
+          "flyframe": {
+            "status": "planned",
+            "text": "100+ countries, passport and visa"
+          },
           "competitor": {
             "status": "stated",
-            "text": "Many countries, including the US, Canada, UK, India, China, Australia and Saudi Arabia, plus generic 3x4 cm, 35x45 mm and 2x2 inch sizes. The total is not stated. It claims \"accurate data about all types of documents worldwide\""
+            "text": "Many countries; the total is not stated"
           }
         },
         {
-          "feature": "Official source and last-checked date on each country page",
-          "flyframe": { "status": "planned", "text": "Yes, shown on every country page" },
-          "competitor": { "status": "not-stated" }
+          "feature": "Official source and date",
+          "flyframe": {
+            "status": "planned",
+            "text": "Yes, on every country page"
+          },
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
           "feature": "Languages",
-          "flyframe": { "status": "tbd" },
-          "competitor": { "status": "stated", "text": "English, with an \"Other languages\" link. The list isn't given" }
+          "flyframe": {
+            "status": "tbd"
+          },
+          "competitor": {
+            "status": "stated",
+            "text": "English, plus an \"Other languages\" link"
+          }
         }
       ]
     },
     {
       "id": "editing",
       "title": "Editing and precision",
-      "description": "How much control you have over the crop, and how the tool keeps you inside the rules.",
+      "description": "How much control you have over the crop, and how each tool helps keep your photo inside the country's rules before you export it.",
       "rows": [
         {
           "feature": "Crop control",
           "flyframe": {
             "status": "planned",
-            "text": "A drag and zoom crop frame locked to the country's rules. It starts from the best automatic crop, so most users only confirm"
+            "text": "Drag and zoom frame, locked to country rules"
           },
           "competitor": {
             "status": "stated",
-            "text": "Automatic: it will \"scale and crop the image to the right dimensions\". User-controlled cropping is not stated"
+            "text": "Automatic; manual cropping not stated"
           }
         },
         {
-          "feature": "Guide lines on the crop",
+          "feature": "Guide lines",
           "flyframe": {
             "status": "planned",
-            "text": "Head top, chin, eye band, centre line and edge margin, drawn from the country's rules"
+            "text": "Head, chin, eye and margin guides"
           },
-          "competitor": { "status": "not-stated" }
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
-          "feature": "Real-time feedback while adjusting",
+          "feature": "Live feedback",
           "flyframe": {
             "status": "planned",
-            "text": "Green when in range, amber near the limit, red outside, with a short message such as \"head too small, zoom in a little\""
+            "text": "Green, amber or red as you adjust"
           },
-          "competitor": { "status": "not-stated" }
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
           "feature": "Hard limits",
           "flyframe": {
             "status": "planned",
-            "text": "Export is blocked when out of range. Zoom cannot drop the resolution below the minimum. No padding and no rotation. The frame cannot extend beyond the original image"
+            "text": "Export blocked when out of range"
           },
-          "competitor": { "status": "not-stated" }
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
-          "feature": "Fix detection errors by hand",
+          "feature": "Manual marker fixes",
           "flyframe": {
             "status": "planned",
-            "text": "The user can move the head-top and chin markers. The measurement then uses the adjusted position and records that it was manual"
+            "text": "Move the head-top and chin markers"
           },
-          "competitor": { "status": "not-stated" }
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
-          "feature": "Reset, undo, compare with original",
-          "flyframe": { "status": "planned", "text": "Yes" },
-          "competitor": { "status": "not-stated" }
+          "feature": "Reset, undo, compare",
+          "flyframe": {
+            "status": "planned",
+            "text": "Yes"
+          },
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
           "feature": "Head tilt correction",
-          "flyframe": { "status": "tbd" },
-          "competitor": { "status": "stated", "text": "Yes: a \"Fix head tilt\" option in the upload settings" }
+          "flyframe": {
+            "status": "tbd"
+          },
+          "competitor": {
+            "status": "stated",
+            "text": "Yes, a \"Fix head tilt\" option"
+          }
         },
         {
           "feature": "Background",
-          "flyframe": { "status": "tbd", "text": "Will follow the colour each country requires" },
+          "flyframe": {
+            "status": "tbd",
+            "text": "Follows each country's required colour"
+          },
           "competitor": {
             "status": "stated",
-            "text": "Keep the original, or choose natural off-white, pure white, two grays, two blues, red or yellow"
+            "text": "Original, white, off-white, grays, blues, red or yellow"
           }
         },
         {
           "feature": "Automatic improvements",
-          "flyframe": { "status": "tbd" },
+          "flyframe": {
+            "status": "tbd"
+          },
           "competitor": {
             "status": "stated",
-            "text": "For paid orders: automatic improvement of \"illumination and resolution\" and clothing extension"
+            "text": "Paid orders: lighting, resolution, clothing extension"
           }
         }
       ]
@@ -172,98 +207,121 @@
     {
       "id": "capture",
       "title": "Capture and checking",
-      "description": "Getting the photo in, and finding out whether it will pass before you pay.",
+      "description": "How the photo gets in, and how you find out whether it will pass the checks before you pay for the final file.",
       "rows": [
         {
           "feature": "Live camera capture",
           "flyframe": {
             "status": "planned",
-            "text": "Yes: an on-screen guide, a level indicator, and auto-capture when all checks pass"
+            "text": "Yes, with an on-screen guide and auto-capture"
           },
-          "competitor": {
-            "status": "not-stated",
-            "text": "Users are told to take a photo with a smartphone and upload it"
-          }
+          "competitor": { "status": "not-stated" }
         },
         {
-          "feature": "Free preview before payment",
-          "flyframe": { "status": "planned", "text": "Yes" },
+          "feature": "Free preview",
+          "flyframe": {
+            "status": "planned",
+            "text": "Yes"
+          },
           "competitor": {
             "status": "stated",
-            "text": "\"See the result before you pay\". Whether the preview is watermarked is not stated"
+            "text": "\"See the result before you pay\""
           }
         },
         {
           "feature": "Free photo checker",
           "flyframe": {
             "status": "planned",
-            "text": "Pass or fail report on size, head height, eye line, blur, lighting, shadows, glasses, expression and background. Payment is needed only for the processed file"
+            "text": "Pass or fail report before you pay"
           },
-          "competitor": {
-            "status": "not-stated",
-            "text": "For its main tool. Its footer links to a \"Free Green Card Lottery photo checker\", which the page doesn't describe"
-          }
+          "competitor": { "status": "not-stated" }
         },
         {
           "feature": "Desktop to phone handoff",
           "flyframe": {
             "status": "planned",
-            "text": "A QR code opens the camera on the phone and sends the photo back to the computer session"
+            "text": "QR code opens the phone camera"
           },
-          "competitor": { "status": "not-stated" }
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
           "feature": "Mobile-first design",
-          "flyframe": { "status": "planned", "text": "Yes" },
-          "competitor": { "status": "not-stated", "text": "The page is in English, with an \"Other languages\" link" }
+          "flyframe": {
+            "status": "planned",
+            "text": "Yes"
+          },
+          "competitor": {
+            "status": "not-stated"
+          }
         },
         {
           "feature": "Mobile app",
-          "flyframe": { "status": "tbd" },
-          "competitor": { "status": "not-stated" }
+          "flyframe": {
+            "status": "tbd"
+          },
+          "competitor": {
+            "status": "not-stated"
+          }
         }
       ]
     },
     {
       "id": "pricing",
       "title": "Pricing and guarantee",
-      "description": "What you pay, what you get, and what happens if a photo is rejected.",
+      "description": "What each tool charges, what the price includes, and what happens if a government office rejects the photo.",
       "rows": [
         {
           "feature": "Price",
-          "flyframe": { "status": "tbd", "text": "For the clean download" },
+          "flyframe": {
+            "status": "tbd"
+          },
           "competitor": {
             "status": "stated",
-            "text": "\"$9 US dollars for a digital picture that you can use multiple times\", per its cheap-passport-photos page. A printout costs extra"
+            "text": "$9 per digital photo; a printout costs extra"
           }
         },
         {
           "feature": "What the price includes",
-          "flyframe": { "status": "tbd", "text": "A digital photo, and the print-ready sheet if included" },
-          "competitor": { "status": "stated", "text": "Two versions at once: a digital one and one for 4x6 printing" }
+          "flyframe": {
+            "status": "tbd",
+            "text": "Digital photo, print sheet if included"
+          },
+          "competitor": {
+            "status": "stated",
+            "text": "Digital and 4x6 print versions"
+          }
         },
         {
           "feature": "Human check",
-          "flyframe": { "status": "planned", "text": "Optional add-on" },
+          "flyframe": {
+            "status": "planned",
+            "text": "Optional add-on"
+          },
           "competitor": {
-            "status": "not-stated",
-            "text": "A testimonial mentions brightness fixes arranged by email"
+            "status": "not-stated"
           }
         },
         {
           "feature": "Printing and postal",
-          "flyframe": { "status": "tbd", "text": "A print-ready sheet, and printed photos by post if we offer it" },
+          "flyframe": {
+            "status": "tbd",
+            "text": "Print-ready sheet; postal if offered"
+          },
           "competitor": {
             "status": "stated",
-            "text": "Printing at 4x6 inch size through services such as Walgreens, with mailing or pickup. A printout from Visafoto costs extra"
+            "text": "4x6 printing via partners such as Walgreens"
           }
         },
         {
           "feature": "Refund and guarantee",
-          "flyframe": { "status": "tbd" },
+          "flyframe": {
+            "status": "tbd"
+          },
           "competitor": {
             "status": "stated",
-            "text": "\"Refund 100% of your money\" if a government agency doesn't accept the photo. It cites a \"99.7% pass rate\" and rejections in \"much less than 1% of orders\""
+            "text": "100% refund if rejected; claims a 99.7% pass rate"
           }
         }
       ]
@@ -271,62 +329,85 @@
     {
       "id": "account",
       "title": "Account, files and privacy",
-      "description": "Sign-up, file limits, data handling and support.",
+      "description": "Whether you need to sign up, the file limits, how your data is handled, and how to reach support if something goes wrong.",
       "rows": [
         {
           "feature": "Account",
-          "flyframe": { "status": "tbd" },
-          "competitor": { "status": "stated", "text": "\"No registration required\"" }
+          "flyframe": {
+            "status": "tbd"
+          },
+          "competitor": {
+            "status": "stated",
+            "text": "No registration required"
+          }
         },
         {
           "feature": "Upload limits",
-          "flyframe": { "status": "tbd" },
-          "competitor": { "status": "stated", "text": "Images and PDFs up to 15 MB each" }
-        },
-        {
-          "feature": "File size for online submission",
-          "flyframe": { "status": "tbd" },
+          "flyframe": {
+            "status": "tbd"
+          },
           "competitor": {
             "status": "stated",
-            "text": "Adjusted to the required kilobyte size for internet submissions"
+            "text": "Images and PDFs up to 15 MB"
+          }
+        },
+        {
+          "feature": "Online submission size",
+          "flyframe": {
+            "status": "tbd"
+          },
+          "competitor": {
+            "status": "stated",
+            "text": "Resized to the required KB size"
           }
         },
         {
           "feature": "Privacy",
-          "flyframe": { "status": "planned", "text": "A set retention period, with a delete option" },
+          "flyframe": {
+            "status": "planned",
+            "text": "Set retention period, with delete option"
+          },
           "competitor": {
             "status": "stated",
-            "text": "Labelled \"Secure and private\", with a privacy policy. The retention period is not stated"
+            "text": "\"Secure and private\"; retention not stated"
           }
         },
         {
           "feature": "Support",
-          "flyframe": { "status": "tbd" },
-          "competitor": { "status": "stated", "text": "Email described as \"24/7 support\", plus a chat option" }
+          "flyframe": {
+            "status": "tbd"
+          },
+          "competitor": {
+            "status": "stated",
+            "text": "Email \"24/7 support\" and chat"
+          }
         }
       ]
     }
   ],
+
+
+  
   "strengths": {
-    "title": "Where each is stronger",
+    "title": "Where Each Is Stronger",
     "flyframe": {
-      "heading": "FlyFrame, if built as planned",
+      "heading": "FlyFrame",
       "points": [
-        "Precision editing: a rule-locked crop frame, guide lines, colour feedback and hard limits.",
-        "A live camera guide with auto-capture.",
-        "A free checker that you can try before you pay.",
-        "A phone handoff for people who apply on a laptop.",
-        "An official source and date on every country page."
+        "Rule-locked crop frame with guide lines, live colour feedback and hard export limits.",
+        "Live camera guide with a level indicator that auto-captures once every check passes.",
+        "Free photo checker reports pass or fail on size, head height, blur and lighting first.",
+        "QR code phone handoff, so laptop users can shoot on their phone and finish on desktop.",
+        "Official source and last-checked date shown on every country page."
       ]
     },
     "competitor": {
-      "heading": "Visafoto, today",
+      "heading": "Visafoto",
       "points": [
-        "It is live and states that it covers many document types.",
-        "It states a clear price ($9 per digital photo) and a full-refund promise.",
-        "No registration, and uploads of images and PDFs up to 15 MB.",
-        "A choice of background colours and a head tilt fix.",
-        "It states a 99.7% pass rate. We haven't verified that figure."
+        "Live today, with many countries and document types, including the US, UK, Canada and India.",
+        "Clear $9 price for a digital photo, and a full-refund promise if a photo is rejected.",
+        "No registration needed, and it accepts both images and PDFs up to 15 MB per file.",
+        "Many background colours, a head tilt fix, and automatic lighting fixes on paid orders.",
+        "States a 99.7% pass rate and rejections under 1% of orders, though we haven't verified it."
       ]
     }
   },
