@@ -415,7 +415,8 @@
     "title": "See how FlyFrame handles your photo",
     "text": "Upload a photo and check it against your country's rules.",
     "label": "Try FlyFrame",
-    "href": "/drop"
+    "href": "/drop",
+    "image": "/images/compare/compare_try.png"
   },
   "sources": {
     "title": "Sources",

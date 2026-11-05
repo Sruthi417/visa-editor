@@ -1,55 +1,82 @@
 @use "../tokens" as *;
 
+// A sky-blue banner with the text on the left and a photo flush to the right edge.
 .compare-cta {
-  padding: clamp(24px, 4vw, 40px);
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  background: linear-gradient(180deg, #e3f1fe 0%, #f3f9ff 100%);
+  align-items: stretch;
+  overflow: hidden;
+  background: linear-gradient(180deg, #5ba0ff 0%, #6eafff 45%, #bde6ff 100%);
   @include squircle(40px, 28px);
 
+  &__content {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: clamp(24px, 3vw, 36px) clamp(28px, 4vw, 52px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
   h2 {
-    color: $ink-900;
+    max-width: 16ch;
+    color: #ffffff;
     font-family: var(--font-heading);
-    font-size: clamp(24px, 3vw, 30px);
-    font-weight: 600;
-    line-height: 1.2;
+    font-size: clamp(26px, 3.2vw, 36px);
+    font-weight: 700;
+    line-height: 1.12;
     letter-spacing: -0.03em;
   }
 
   p {
-    margin-top: 8px;
-    color: $ink-500;
+    max-width: 38ch;
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.92);
     font-size: 16px;
     line-height: 1.5;
   }
 
   &__button {
-    flex-shrink: 0;
+    margin-top: 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 28px;
-    border-radius: 100px;
-    background: #131313;
+    gap: 10px;
+    padding: 16px 30px;
+    border-radius: 16px;
+    background: #000000;
     color: #ffffff;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
 
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(19, 19, 19, 0.15);
-    }
+    // &:hover {
+    //   transform: translateY(-2px);
+    //   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+    // }
 
     &:focus-visible {
-      outline: 2px solid $blue;
+      outline: 2px solid #ffffff;
       outline-offset: 3px;
+    }
+  }
+
+  // The photo fills the right side from top to bottom.
+  &__image {
+    position: relative;
+    flex: 0 0 38%;
+    max-width: 400px;
+
+    img {
+      object-fit: cover;
+      object-position: center 60%;
     }
   }
 }
@@ -57,6 +84,12 @@
 @media (max-width: 820px) {
   .compare-cta {
     flex-direction: column;
-    align-items: flex-start;
+
+    &__image {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: none;
+      height: 220px;
+    }
   }
 }

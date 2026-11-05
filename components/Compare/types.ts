@@ -68,7 +68,8 @@ export type Comparison = {
     flyframe: { heading: string; points: string[] };
     competitor: { heading: string; points: string[] };
   };
-  cta: { title: string; text: string; label: string; href: string };
+  /** `image` is an image path under /public, shown on the right of the banner. */
+  cta: { title: string; text: string; label: string; href: string; image: string };
   sources: {
     title: string;
     openedOn: string;
