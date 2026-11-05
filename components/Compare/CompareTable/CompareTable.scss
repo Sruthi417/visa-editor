@@ -1,0 +1,220 @@
+@use "../tokens" as *;
+
+.compare-table {
+  min-width: 0;
+
+  &__heading {
+    @include section-heading;
+  }
+
+  &__number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $line;
+    border-radius: 10px;
+    background: #ffffff;
+    color: $ink-700;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  &__description {
+    @include body-text;
+    color: $ink-500;
+  }
+
+  &__wrap {
+    margin-top: 20px;
+    padding: 12px;
+    border: 1px solid #eef1f3;
+    background: #fafafa;
+    @include squircle(36px, 22px);
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    text-align: left;
+
+    th,
+    td {
+      padding: 18px 20px;
+      vertical-align: top;
+      border-bottom: 1px solid $line;
+    }
+
+    thead th {
+      padding-top: 14px;
+      padding-bottom: 14px;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    tbody th {
+      color: $ink-900;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    td {
+      color: $ink-700;
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+
+    tbody tr:last-child {
+      th,
+      td {
+        border-bottom-color: transparent;
+      }
+    }
+
+    th:nth-child(1) {
+      width: 24%;
+    }
+
+    // FlyFrame's column stands out as a white, dashed-edged card, like the
+    // featured plan on the pricing section.
+    th:nth-child(2),
+    td:nth-child(2) {
+      background: #ffffff;
+      border-left: 1px dashed #d5dde2;
+      border-right: 1px dashed #d5dde2;
+    }
+
+    thead th:nth-child(2) {
+      border-top: 1px dashed #d5dde2;
+      border-radius: 20px 20px 0 0;
+    }
+
+    tbody tr:last-child td:nth-child(2) {
+      border-bottom: 1px dashed #d5dde2;
+      border-radius: 0 0 20px 20px;
+    }
+  }
+
+  // A status chip with the text under it.
+  &__cell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  &__value {
+    display: block;
+    word-break: break-word;
+
+    &--muted {
+      color: $ink-500;
+    }
+  }
+
+  // Visible to screen readers only.
+  &__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+// The table becomes one stacked card per feature.
+@media (max-width: 820px) {
+  .compare-table {
+    &__wrap {
+      padding: 0;
+      border: 0;
+      background: none;
+      border-radius: 0;
+    }
+
+    &__table {
+      &,
+      tbody,
+      tr,
+      th,
+      td {
+        display: block;
+      }
+
+      thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+      }
+
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      tr {
+        overflow: hidden;
+        border: 1px solid $line;
+        border-radius: 20px;
+        background: #ffffff;
+      }
+
+      th,
+      td {
+        padding: 14px 18px;
+        border-bottom: 0;
+      }
+
+      // Same specificity as the desktop column width, which comes first.
+      th:nth-child(1) {
+        width: auto;
+      }
+
+      tbody th {
+        padding-top: 16px;
+        background: #fafafa;
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      td {
+        border-top: 1px solid $line;
+
+        &::before {
+          content: attr(data-label);
+          display: block;
+          margin-bottom: 8px;
+          color: $ink-500;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+      }
+
+      // Reset the desktop column highlight and tint FlyFrame's block instead.
+      tbody tr:last-child td:nth-child(2),
+      td:nth-child(2) {
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-radius: 0;
+        background: #f6fbff;
+      }
+    }
+  }
+}

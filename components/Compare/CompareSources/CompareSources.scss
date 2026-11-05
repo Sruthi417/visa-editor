@@ -1,0 +1,44 @@
+@use "../tokens" as *;
+
+.compare-sources {
+  @include panel;
+
+  &__heading {
+    @include section-heading;
+  }
+
+  &__text {
+    @include body-text;
+
+    & + & {
+      margin-top: 12px;
+    }
+
+    &--muted {
+      color: $ink-500;
+    }
+  }
+
+  &__links {
+    list-style: none;
+    margin: 14px 0 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: $blue-text;
+      font-size: 15.5px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:focus-visible {
+        outline: 2px solid $blue;
+        outline-offset: 3px;
+      }
+    }
+  }
+}

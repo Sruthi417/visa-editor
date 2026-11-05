@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, type Variants } from "motion/react";
 
-import GetStartedButton from "../DocumentModal/GetStartedButton";
+import GetStartedButton from "../../DocumentModal/GetStartedButton";
 import "./Hero.scss";
 
 const revealFromBottom: Variants = {

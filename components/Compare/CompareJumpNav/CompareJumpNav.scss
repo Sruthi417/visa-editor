@@ -1,0 +1,41 @@
+@use "../tokens" as *;
+
+.compare-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 8px;
+    border: 1px solid $line;
+    border-radius: 100px;
+    background: #ffffff;
+    color: $ink-700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+
+    span {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid $line;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    &:hover {
+      border-color: $ink-900;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+}

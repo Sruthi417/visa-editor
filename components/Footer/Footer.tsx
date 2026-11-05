@@ -19,6 +19,7 @@ const columns = [
       { label: "Photo guide", href: "/#photo-tips" },
       { label: "Reviews", href: "/#reviews" },
       { label: "FAQ", href: "/#faq" },
+      { label: "Compare", href: "/compare" },
       { label: "Support", href: "/support" },
     ],
   },

@@ -1,11 +1,11 @@
-import Hero from "../components/Hero/Hero";
+import Hero from "@/components/landing/Hero/Hero";
 import Navbar from "../components/Nav/Navbar";
-import Features from "@/components/Features/Features";
-import HowItWorks from "@/components/HowItWorks/HowItWorks";
-import PhotoTips from "@/components/PhotoTips/PhotoTips";
-import Pricing from "@/components/Pricing/Pricing";
-import Faq from "@/components/Faq/Faq";
-import Review from "@/components/Review/Review";
+import Features from "@/components/landing/Features/Features";
+import HowItWorks from "@/components/landing/HowItWorks/HowItWorks";
+import PhotoTips from "@/components/landing/PhotoTips/PhotoTips";
+import Pricing from "@/components/landing/Pricing/Pricing";
+import Faq from "@/components/landing/Faq/Faq";
+import Review from "@/components/landing/Review/Review";
 import Footer from "@/components/Footer/Footer";
 export default function Page() {
   return (

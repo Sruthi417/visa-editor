@@ -1,0 +1,225 @@
+@use "../tokens" as *;
+
+// The same black as the navbar and hero buttons.
+$hero-ink: #131313;
+
+// The hero image, with black content on top.
+.compare-hero {
+  position: relative;
+  width: 100%;
+  padding: clamp(120px, 14vw, 150px) 0 clamp(88px, 10vw, 128px);
+  background-image: url("/images/compare/comparehero.png");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  color: $hero-ink;
+
+  // The clouds fade into the white page below.
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: clamp(70px, 9vw, 120px);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.35) 45%,
+      rgba(255, 255, 255, 0.8) 80%,
+      #ffffff 100%
+    );
+    pointer-events: none;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 var(--section-px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // Breadcrumb -----------------------------------------------------------------
+  &__crumbs {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 15px;
+    margin-top: clamp(28px, 4vw, 40px) ;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: $hero-ink;
+
+      & + li::before {
+        content: "/";
+        opacity: 0.5;
+      }
+    }
+
+    a {
+      color: rgba(19, 19, 19, 0.7);
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $hero-ink;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $hero-ink;
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  // The two brand cards with the VS image between them ------------------------
+  &__versus {
+    margin-top: clamp(28px, 4vw, 35px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 2vw, 24px);
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 26px 18px 14px;
+    border: 1px solid rgba(196, 195, 195, 0.7);
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 56, 128, 0.08);
+    color: $hero-ink;
+    font-family: var(--font-heading);
+    font-size: clamp(16px, 1.8vw, 18px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  &__logo {
+    flex-shrink: 0;
+    // Bigger than the 40px slot it sits in. The negative margin gives the extra
+    // size back, so the brand card keeps its height.
+    width: 40px;
+    height: 40px;
+    margin: -8px 0;
+    object-fit: contain;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    width: clamp(44px, 5vw, 70px);
+    height: auto;
+  }
+
+  // Title, intro ---------------------------------------------------------------
+  &__title {
+    margin-top: clamp(28px, 4vw, 35px);
+    font-family: var(--font-heading);
+    font-size: clamp(38px, 6.4vw, 56px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  &__intro {
+    max-width: 44ch;
+    margin-top: clamp(16px, 2vw, 24px);
+    font-size: clamp(15px, 1.6vw, 16px);
+    line-height: 1.4;
+  }
+
+  // Button, styled like the navbar's Upload button -----------------------------
+  &__cta {
+    margin-top: clamp(28px, 3.4vw, 30px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 24px;
+    border: 0;
+    border-radius: 22px;
+    // Charcoal that fades from a lighter top edge to near-black, with a thin
+    // highlight along the top. The stops are sampled from the design reference.
+    background: linear-gradient(
+      180deg,
+      #5c5f63 0%,
+      #404448 31%,
+      #2c3135 52%,
+      #23282d 66%,
+      #1e2328 100%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    white-space: nowrap;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    
+
+    &:focus-visible {
+      outline: 2px solid $hero-ink;
+      outline-offset: 3px;
+    }
+  }
+
+  // The checks under the button ------------------------------------------------
+  &__points {
+    list-style: none;
+    margin-top: clamp(24px, 3vw, 32px);
+    // Wide enough for two checks, so the third wraps onto its own centred row.
+    max-width: 720px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 25px clamp(16px, 2.4vw, 28px);
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .compare-hero {
+    &__brand {
+      gap: 10px;
+      padding: 8px 16px 8px 10px;
+      border-radius: 18px;
+    }
+
+    &__logo {
+      width: 42px;
+      height: 42px;
+      margin: -6px 0;
+    }
+  }
+}

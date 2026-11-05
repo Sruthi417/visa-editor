@@ -1,0 +1,65 @@
+// Colours and building blocks shared by every Compare section. Each section's
+// own .scss starts with `@use "../tokens" as *;`.
+$ink-900: #162637;
+$ink-700: #23374a;
+$ink-500: #647789;
+$line: #e3e9ed;
+$blue: #2b97f0;
+$blue-deep: #0087ca;
+// Darker blue for small text, so it stays readable on tinted backgrounds.
+$blue-text: #006aa3;
+
+@mixin squircle($radius, $fallback) {
+  border-radius: $fallback;
+
+  @supports (corner-shape: squircle) {
+    border-radius: $radius;
+    corner-shape: squircle;
+  }
+}
+
+// The grey rounded card used for the summary, tables and sources.
+@mixin panel {
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid #eef1f3;
+  background: #fafafa;
+  @include squircle(36px, 22px);
+}
+
+@mixin section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  color: $ink-900;
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+@mixin body-text {
+  color: $ink-700;
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+
+// A small white rounded tag, used for the date and the legend.
+@mixin pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid $line;
+  border-radius: 10px;
+  background: #ffffff;
+  color: $ink-700;
+  font-size: 13.5px;
+  font-weight: 500;
+
+  // Only the pill's own icon, not one inside a status chip.
+  > svg {
+    color: $blue-deep;
+  }
+}
