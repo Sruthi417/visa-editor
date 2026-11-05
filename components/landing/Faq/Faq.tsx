@@ -19,7 +19,9 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 };
 
-const faqs = [
+export type FaqItem = { q: string; a: string };
+
+const DEFAULT_FAQS: FaqItem[] = [
   {
     q: "What photo sizes do you support?",
     a: "We support the official passport and visa photo sizes for many countries, such as 35 × 45 mm and 2 × 2 inch. Pick your country and document type and the size is applied for you.",
@@ -46,7 +48,20 @@ const faqs = [
   },
 ];
 
-export default function Faq() {
+type FaqProps = {
+  eyebrow?: string;
+  title?: string;
+  sub?: string;
+  faqs?: FaqItem[];
+};
+
+/** The home page FAQ by default; pass props to reuse the same layout elsewhere. */
+export default function Faq({
+  eyebrow = "FAQ",
+  title = "Frequently asked questions.",
+  sub = "Everything you need to know about photo sizes, checks and getting your passport or visa photo accepted.",
+  faqs = DEFAULT_FAQS,
+}: FaqProps) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -60,16 +75,15 @@ export default function Faq() {
           viewport={{ once: true, amount: 0.4 }}
         >
           <motion.span className="faq__eyebrow" variants={item}>
-            FAQ
+            {eyebrow}
           </motion.span>
 
           <motion.h2 className="faq__title" variants={item}>
-            Frequently asked questions.
+            {title}
           </motion.h2>
 
           <motion.p className="faq__sub" variants={item}>
-            Everything you need to know about photo sizes, checks and getting
-            your passport or visa photo accepted.
+            {sub}
           </motion.p>
         </motion.div>
 

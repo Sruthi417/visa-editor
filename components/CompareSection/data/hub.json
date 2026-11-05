@@ -1,0 +1,42 @@
+{
+  "title": "Comparisons",
+  "cards": [
+    {
+      "slug": "visafoto",
+      "title": "FlyFrame vs Visafoto",
+      "image": "/images/compare/compare1.png",
+      "blurb": "Countries, editing, checks, pricing and privacy, side by side. Based on Visafoto's own public pages."
+    }
+  ],
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Questions about our comparisons.",
+    "sub": "How we build these pages, what the labels mean and how to read them fairly.",
+    "items": [
+      {
+        "q": "What should I look for when comparing online passport and visa photo editors?",
+        "a": "Look for country-specific photo requirements, cropping accuracy, background processing, face positioning checks, image quality validation, supported file formats, pricing, and privacy policies. A good tool should help ensure your photo meets the relevant specifications before downloading."
+      },
+      {
+        "q": "Are all online passport photo editors equally accurate?",
+        "a": "No. Different tools use different processing methods and validation criteria. Some primarily resize and crop images, while others also check facial positioning, head dimensions, background, lighting, and image quality. The level of verification can vary significantly."
+      },
+      {
+        "q": "Do passport and visa photo editors support the same countries?",
+        "a": "No. Country coverage differs between platforms. Some support a wide range of passport and visa specifications, while others focus on popular destinations. Always check whether the tool supports your specific country and document type."
+      },
+      {
+        "q": "Can online passport photo editors guarantee that my photo will be accepted?",
+        "a": "No. Even if a photo editor checks your image against official specifications, final acceptance depends on the issuing authority. Automated validation can reduce common errors, but it cannot guarantee approval."
+      },
+      {
+        "q": "Is there a difference between basic photo resizing and complete passport photo validation?",
+        "a": "Yes. Basic resizing adjusts image dimensions to the required format. Complete validation goes further by checking factors such as head size, face positioning, background, lighting, sharpness, and other applicable requirements."
+      },
+      {
+        "q": "How do I choose the best passport and visa photo editor?",
+        "a": "Choose a tool based on your destination country's requirements, validation capabilities, editing accuracy, supported document types, pricing, and privacy practices. Compare what each platform actually offers rather than relying only on its advertised features."
+      }
+    ]
+  }
+}

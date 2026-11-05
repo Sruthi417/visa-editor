@@ -1,0 +1,23 @@
+.compare-layout {
+  width: 100%;
+  background: #ffffff;
+
+  &__body {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: clamp(24px, 3vw, 40px) var(--section-px) var(--section-py);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 4vw, 48px);
+
+    // A full-width section follows, and it brings its own top padding.
+    &--before-section {
+      padding-bottom: 0;
+    }
+
+    &--wide {
+      max-width: 1320px;
+    }
+  }
+}

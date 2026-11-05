@@ -1,0 +1,113 @@
+@use "../../shared/tokens" as *;
+
+.compare-strengths {
+  padding-block: 4rem;
+
+  &__title {
+    @include section-heading;
+    margin-bottom: 35px;
+
+    font-size: 32px;
+  }
+
+  // One rounded container holds both columns; FlyFrame's sits inside it as a
+  // white card with a dashed edge, like the pricing section.
+  &__plans {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 28px;
+    border: 1px solid $line;
+    border-radius: 44px;
+    background: #fafafa;
+  }
+
+  &__plan {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    // Taller than wide, so the points keep to two lines.
+    padding: clamp(28px, 4.4vw, 48px) clamp(24px, 3vw, 34px);
+    border: 1px dashed transparent;
+    border-radius: 32px;
+
+    &--featured {
+      border-color: #d5dde2;
+      background: #ffffff;
+    }
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    color: #ffffff;
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(255, 255, 255, 0.4) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(255, 255, 255, 0.5) 0%,
+        transparent 55%
+      ),
+      #2b97f0;
+  }
+
+  &__name {
+    margin-top: 28px;
+    padding-bottom: 30px;
+    width: 100%;
+    border-bottom: 1px solid $line;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(24px, 3vw, 28px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+
+  &__ticks {
+    list-style: none;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: $ink-700;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 4px;
+      color: $blue-deep;
+    }
+  }
+}
+
+@media (max-width: 820px) {
+  .compare-strengths {
+    &__plans {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 14px;
+      border-radius: 32px;
+    }
+
+    &__plan {
+      border-radius: 24px;
+
+      &--featured {
+        order: -1;
+      }
+    }
+  }
+}

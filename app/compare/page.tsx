@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import CompareHub from "@/components/Compare/CompareHub";
+import CompareHub from "@/components/CompareSection/CompareHub/CompareHub";
 
 const title = "Compare FlyFrame with Other Photo Tools | FlyFrame";
 const description =

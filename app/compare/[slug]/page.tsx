@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import ComparePage from "@/components/Compare/ComparePage";
-import { getComparison, getComparisonSlugs } from "@/components/Compare/comparisons";
+import ComparePage from "@/components/CompareSection/Compare/ComparePage";
+import { getComparison, getComparisonSlugs } from "@/components/CompareSection/comparisons";
 
 type Props = { params: Promise<{ slug: string }> };
 

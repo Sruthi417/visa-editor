@@ -1,0 +1,57 @@
+@use "../../shared/tokens" as *;
+
+// Left edge lines up with the title above, since this sits in the same column.
+.compare-jump {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  // A light grey track holding a white pill and a plain arrow.
+  &__link {
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    border-radius: 100px;
+    background: #ececec;
+    color: $ink-900;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
+    }
+  }
+
+  &__pill {
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+    border-radius: 100px;
+    background: #ffffff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    margin-right: 14px;
+    color: $ink-900;
+    transition: transform 0.25s ease;
+  }
+
+  &__link:hover &__arrow {
+    transform: translateX(3px);
+  }
+}
