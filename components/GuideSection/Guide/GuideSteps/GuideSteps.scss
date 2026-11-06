@@ -1,177 +1,188 @@
 @use "../../shared/tokens" as *;
 
+// The same black as the navbar and the buttons.
+$ink: #131313;
+
 .guide-steps {
   &__title {
     margin-bottom: 28px;
-    color: $ink-900;
-    font-family: var(--font-heading);
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+    @include section-title;
+    font-size: 40px;
   }
 
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 48px;
   }
 }
 
-// One white card per step. With a photo it is two columns; without, one.
+// One large white card per step: the text on the left, the picture inset on the right.
+// The cards are sticky. Each one stops a little lower than the one before, so the next
+// step slides up over the last and the edges of the earlier steps stay visible above it.
 .guide-step {
   // Leaves room under the fixed navbar when a link jumps here.
   scroll-margin-top: 110px;
-  padding: clamp(22px, 3.4vw, 36px);
+  position: sticky;
+  top: calc(104px + var(--step-index, 0) * 14px);
+  // Every card is the same height, so a later card fully covers the one under it.
+  min-height: 620px;
+  padding: 14px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  gap: clamp(24px, 4vw, 48px);
-  align-items: center;
-  border: 1px solid #eef1f3;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+  gap: clamp(20px, 3vw, 40px);
+  border: 1px solid $line;
   background: #ffffff;
-  box-shadow: 0 10px 30px rgba(22, 38, 55, 0.06);
-  @include squircle(40px, 28px);
+  box-shadow: 0 -10px 40px rgba(22, 38, 55, 0.08);
+  @include squircle(64px, 36px);
 
-  &--flip {
-    grid-template-columns: 340px minmax(0, 1fr);
-
-    .guide-step__media {
-      order: -1;
-    }
+  &__body {
+    padding: clamp(18px, 2.4vw, 34px) 0 clamp(18px, 2.4vw, 34px) clamp(14px, 2.4vw, 34px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  &--text {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  &__number {
-    display: block;
-    margin-bottom: 8px;
-    color: $blue;
-    font-family: var(--font-heading);
-    font-size: 15px;
+  &__chip {
+    align-self: flex-start;
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    background: #e8f4fd;
+    color: $blue-text;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.04em;
+    text-transform: uppercase;
+    @include squircle(14px, 12px);
   }
 
   &__title {
-    color: $ink-900;
+    color: $ink;
     font-family: var(--font-heading);
-    font-size: clamp(24px, 2.6vw, 30px);
+    font-size: clamp(28px, 3.2vw, 40px);
     font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
   }
 
   &__group {
-    margin-top: 20px;
+    margin-top: 18px;
+
+    & + & {
+      margin-top: 16px;
+    }
   }
 
   &__label {
-    margin-bottom: 12px;
-    padding: 5px 12px;
-    display: inline-block;
-    border: 1px solid $line;
-    border-radius: 100px;
-    background: #fafafa;
-    color: $ink-700;
-    font-size: 13px;
-    font-weight: 500;
+    margin-bottom: 10px;
+    color: $ink;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   &__text {
-    max-width: 68ch;
     color: $ink-700;
-    font-size: 15.5px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.6;
   }
 
+  // A star in front of every point, in place of bullets.
   &__points {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 
     li {
-      position: relative;
-      padding-left: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
       color: $ink-700;
-      font-size: 15.5px;
-      line-height: 1.65;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0.72em;
-        left: 3px;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: $blue;
-      }
+      font-size: 15px;
+      line-height: 1.5;
     }
   }
 
-  // Text-only steps run their points in two columns, so the card stays short.
-  &--text &__points {
-    display: block;
-    column-count: 2;
-    column-gap: 40px;
-
-    li {
-      margin-bottom: 10px;
-      break-inside: avoid;
-    }
+  &__star {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: $blue;
   }
 
+  // The picture, inset in the card. It stretches to the card's full height.
   &__media {
+    position: relative;
     overflow: hidden;
-    border: 1px solid #eef1f3;
-    background: #ffffff;
-    aspect-ratio: 4 / 5;
-    @include squircle(30px, 22px);
+    background: #eef6fd;
+    @include squircle(52px, 28px);
 
     img {
-      display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 58%;
-      transition: transform 0.5s ease;
+      object-position: center 40%;
     }
+  }
 
-    &:hover img {
-      transform: scale(1.03);
-    }
+  // The tall photos with a lot of empty space round the faces: keep the faces large.
+  &__media--square img {
+    object-position: center 52%;
+  }
 
-    // Tall photos with empty space around the faces: a square crop keeps the faces large.
-    &--square {
-      aspect-ratio: 1 / 1;
+  // No photo: the sky picture, with the step number large in the corner.
+  &__media--sky {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #cfe8fb;
+    background-image: url("/images/guide/guid_need1.png");
+    background-size: cover;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+  }
 
-      img {
-        object-position: center 54%;
-      }
-    }
+  &__big-number {
+    padding: clamp(20px, 3vw, 36px);
+    color: rgba(19, 19, 19, 0.88);
+    font-family: var(--font-heading);
+    font-size: clamp(72px, 9vw, 120px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.05em;
   }
 }
 
-@media (max-width: 820px) {
+// On a short screen a tall card can't stick (its foot would be cut off), so they scroll normally.
+@media (max-height: 760px) {
+  .guide-step {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 900px) {
   .guide-steps__title {
-    font-size: 28px;
+    font-size: 32px;
   }
 
-  .guide-step,
-  .guide-step--flip {
+  .guide-step {
+    position: relative;
+    top: auto;
+    min-height: 0;
     grid-template-columns: minmax(0, 1fr);
+    @include squircle(44px, 28px);
 
-    // The photo goes under the text on a phone, never above it.
-    .guide-step__media {
-      order: 1;
-      max-width: 420px;
+    &__body {
+      padding: 18px 14px 6px;
     }
-  }
 
-  .guide-step--text .guide-step__points {
-    column-count: 1;
+    // The picture goes under the text on a phone.
+    &__media {
+      min-height: 320px;
+      @include squircle(36px, 22px);
+    }
   }
 }
