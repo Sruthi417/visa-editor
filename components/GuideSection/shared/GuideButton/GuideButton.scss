@@ -1,0 +1,59 @@
+@use "../tokens" as *;
+
+.guide-button {
+  padding: 16px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 22px;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  svg {
+    transition: transform 0.25s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(3px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $blue;
+    outline-offset: 3px;
+  }
+
+  // The charcoal gradient the hero and the navbar buttons use.
+  &--dark {
+    background: linear-gradient(
+      180deg,
+      #5c5f63 0%,
+      #404448 31%,
+      #2c3135 52%,
+      #23282d 66%,
+      #1e2328 100%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+  }
+
+  &--light {
+    background: #ffffff;
+    color: $ink-900;
+  }
+}

@@ -1,0 +1,29 @@
+// Colours and building blocks shared by every Guide section. Each section's own
+// .scss starts with `@use "../../shared/tokens" as *;` (from a section folder).
+$ink-900: #162637;
+$ink-700: #23374a;
+$ink-500: #647789;
+$line: #e3e9ed;
+$blue: #2b97f0;
+$blue-deep: #0087ca;
+// Darker blue for small text, so it stays readable on tinted backgrounds.
+$blue-text: #006aa3;
+
+@mixin squircle($radius, $fallback) {
+  border-radius: $fallback;
+
+  @supports (corner-shape: squircle) {
+    border-radius: $radius;
+    corner-shape: squircle;
+  }
+}
+
+// The heading above each section of a guide.
+@mixin section-title {
+  color: $ink-900;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}

@@ -1,0 +1,98 @@
+@use "../../shared/tokens" as *;
+
+.guide-mistakes {
+  &__title {
+    margin-bottom: 28px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+
+  &__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  // An odd last card takes the whole row instead of sitting alone.
+  &__card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  // Mistake on the left, an arrow, the fix on the right.
+  &__card {
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
+    border: 1px solid #eef1f3;
+    background: #fafafa;
+    @include squircle(30px, 22px);
+  }
+
+  &__label {
+    margin-bottom: 8px;
+    display: block;
+    color: $ink-500;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    &--fix {
+      color: $blue-text;
+    }
+  }
+
+  &__mistake,
+  &__fix {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  &__mistake {
+    color: $ink-700;
+  }
+
+  &__fix {
+    color: $ink-900;
+    font-weight: 500;
+  }
+
+  &__arrow {
+    margin-top: 26px;
+    color: $ink-500;
+  }
+}
+
+@media (max-width: 820px) {
+  .guide-mistakes {
+    &__title {
+      font-size: 28px;
+    }
+
+    &__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .guide-mistakes {
+    // Narrow phones: stack the fix under the mistake.
+    &__card {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    &__arrow {
+      margin-top: 0;
+      transform: rotate(90deg);
+    }
+  }
+}

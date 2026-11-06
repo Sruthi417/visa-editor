@@ -1,0 +1,231 @@
+{
+  "slug": "take-a-photo-at-home",
+  "breadcrumb": "Take a photo at home",
+  "seo": {
+    "title": "How to Take a Passport or Visa Photo at Home | FlyFrame",
+    "description": "Take a clean passport or visa photo at home with your phone: distance, straight pose, daylight, plain background, no glasses. Then bring it to the editor."
+  },
+
+  "checkedOn": "2026-11-06",
+
+  "hero": {
+    "title": "How to take a Passport & Visa Photo at Home",
+    "intro": "Start with a well-taken photo at home, and let our editor do the rest. Follow this guide to capture a photo that's ready for editing and meets your country's requirements.",
+    "image": {
+      "src": "/images/guide/guide_photo.png",
+      "alt": "A phone showing the guide, with a woman taking a photo of herself and a cross-to-tick bar below"
+    }
+  },
+
+ 
+
+  "needs": {
+    "id": "needs",
+    "title": "What you'll need",
+    "items": [
+      { "icon": "phone", "text": "A phone with a camera, ideally the rear camera, on a stand or tripod if you have one" },
+      { "icon": "wall", "text": "A plain wall with nothing on it" },
+      { "icon": "light", "text": "A window with daylight" },
+      { "icon": "helper", "text": "A helper, a timer, or something steady to prop the phone on" },
+      { "icon": "rules", "text": "Your country's photo requirements" }
+    ]
+  },
+
+  "steps": {
+    "id": "steps",
+    "title": "Take the photo in 7 steps",
+    "items": [
+      {
+        "id": "camera",
+        "number": "01",
+        "title": "Camera setup",
+        "image": "/images/photo-tips/photo-1.webp",
+        "alt": "Person standing in front of a phone on a tripod, 40 to 50 cm away",
+        "groups": [
+          {
+            "points": [
+              "Use your phone's rear camera whenever possible.",
+              "Keep the camera at eye level and level with the ground.",
+              "Place your phone on a stable stand or tripod. If you don't have one, ask a helper or use the timer.",
+              "Use the highest available camera resolution.",
+              "Avoid zooming in or using portrait mode.",
+              "Distance: for the rear camera, stand about 1 to 2 metres (4 to 6 feet) away. If you use the front camera, hold it about 40 to 50 cm (16 to 20 inches) from your face.",
+              "Leave space above your head and around your shoulders, and don't crop the photo yourself. The editor crops it to your country's size."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "background",
+        "number": "02",
+        "title": "Background",
+        "groups": [
+          {
+            "points": [
+              "Stand in front of a plain, uncluttered wall. Most countries ask for a plain background, often white, off-white or another light colour.",
+              "Choose a background that contrasts with your hair and clothing.",
+              "Stand a little away from the wall so your shadow doesn't fall on it.",
+              "Avoid patterned or textured walls, furniture and other objects in the background."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "lighting",
+        "number": "03",
+        "title": "Lighting",
+        "image": "/images/photo-tips/photo-2.webp",
+        "alt": "The same face with a shadow on one side and even light on the other",
+        "groups": [
+          {
+            "points": [
+              "Face a window or another soft light source, such as daylight.",
+              "Make sure your face is evenly lit, with no shadows on your face or in the background.",
+              "Avoid harsh sunlight, flash glare and strong shadows. Turn the flash off, and watch out for red eyes.",
+              "Do not use coloured lighting."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "face",
+        "number": "04",
+        "title": "Face and head position",
+        "image": "/images/photo-tips/photo-3.webp",
+        "frame": "square",
+        "alt": "A face looking straight at the camera next to a head turned to the side",
+        "groups": [
+          {
+            "label": "Head position",
+            "points": [
+              "Look directly at the camera.",
+              "Keep your head straight, not tilted or turned, and your shoulders level.",
+              "Make sure your entire head, including the top of your hair and your chin, is visible."
+            ]
+          },
+          {
+            "label": "Facial expression",
+            "points": [
+              "Keep a neutral expression with your mouth closed.",
+              "Keep both eyes open and clearly visible.",
+              "A broad smile with visible teeth is not accepted by default. We allow it only where your country's page says it is allowed for your document type.",
+              "Some countries allow a closed-mouth smile, and others ask for a neutral expression only. Check your country's page."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "clothing",
+        "number": "05",
+        "title": "Clothing and appearance",
+        "image": "/images/photo-tips/photo-4.webp",
+        "frame": "square",
+        "alt": "A face with no glasses next to the same face wearing glasses",
+        "groups": [
+          {
+            "points": [
+              "Wear simple clothing that contrasts with the background.",
+              "No headwear, unless it is for religious or medical reasons. Your whole face must still be visible. Some countries ask for a signed statement, so check your country's page.",
+              "No decorative hair accessories or fashion hats. Take off headphones too, so nothing covers or frames your face.",
+              "Eyes fully visible: keep your hair away from your face and eyes.",
+              "Take your glasses off if you can.",
+              "If you need to keep your glasses on, your eyes must be visible without any glare or reflections, the frames must not cover your eyes, and heavy frames should be avoided. If you can't remove them for medical reasons, your country may ask for a note from your doctor.",
+              "No sunglasses or tinted glasses.",
+              "Follow the selected country's rules for glasses and head coverings."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "quality",
+        "number": "06",
+        "title": "Photo quality",
+        "groups": [
+          {
+            "points": [
+              "Keep the camera focused on your face.",
+              "Avoid blurry or shaky photos. Use the timer or a helper.",
+              "Do not use beauty filters or skin-smoothing effects.",
+              "Upload the original photo instead of a screenshot or a compressed image, such as one sent through a chat app.",
+              "Take at least five photos, open each one at full size, and pick the sharpest, evenly lit one."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "country",
+        "number": "07",
+        "title": "Country specifications",
+        "groups": [
+          {
+            "text": "The steps above are the default rules, and they are a good starting point. Some countries differ from them. For example, countries can have their own rules on background colour, glasses, head coverings, whether any smile is allowed, how recent the photo must be, the photo size, and whether you need a digital file or a print. Before you shoot, check your country's official photo requirements and follow them. If your country's rules are different from the default rules above, your country's rules win."
+          }
+        ]
+      }
+    ]
+  },
+
+  "mistakes": {
+    "id": "mistakes",
+    "title": "Common mistakes",
+    "fixLabel": "Fix",
+    "mistakeLabel": "Mistake",
+    "rows": [
+      { "mistake": "Shadows on your face or the wall", "fix": "Face a window in daylight and stand away from the wall" },
+      { "mistake": "Glasses with glare, or a flash that is on", "fix": "Take your glasses off and turn the flash off" },
+      { "mistake": "Head tilted or turned", "fix": "Look straight into the camera with your head level" },
+      { "mistake": "A broad smile with visible teeth", "fix": "Keep a neutral expression with your mouth closed, unless your country's page says otherwise" },
+      { "mistake": "Filters, portrait mode or beauty mode", "fix": "Switch them off and use the original photo" }
+    ]
+  },
+
+  "note": {
+    "id": "passport-vs-visa",
+    "title": "Passport vs visa",
+    "text": "The steps above work for both. A visa photo can have a different size, a different background colour or a file-size limit for online uploads, so check the rule for your destination before you upload."
+  },
+
+  "check": {
+    "id": "check",
+    "title": "Check your photo",
+    "badge": "Planned",
+    "text": "We're building a free photo checker. You would upload your photo, choose your country, and get a pass or fail report on size, head height, eye line, blur, lighting, shadows, glasses, expression and background.",
+    "cta": { "label": "Open the editor" }
+  },
+
+  "faq": {
+    "id": "faq",
+    "eyebrow": "FAQ",
+    "title": "Photo-at-home questions.",
+    "sub": "Quick answers about taking your own passport or visa photo.",
+    "items": [
+      {
+        "q": "Can I take my own passport photo with a phone?",
+        "a": "In many cases, yes, but the rules depend on the country and on how you apply. Check your country's page before you shoot."
+      },
+      {
+        "q": "Can I use a selfie?",
+        "a": "You can use the front camera if you hold it about 40 to 50 cm from your face. A photo taken by a helper, or with the timer on a propped-up phone, is usually straighter and steadier."
+      },
+      {
+        "q": "Can I keep my glasses on?",
+        "a": "It depends on the country. The safest option is to take them off. Where they are allowed, there must be no glare, no tint, and nothing covering your eyes."
+      },
+      {
+        "q": "Can I smile?",
+        "a": "A broad smile with visible teeth is not accepted by default. Some countries allow a closed-mouth smile, and others ask for a neutral expression, so check your country's page."
+      },
+      {
+        "q": "Can I use filters or portrait mode?",
+        "a": "No. Don't use filters, beauty mode or editing apps, because the photo should show how you really look."
+      }
+    ]
+  },
+
+  "next": {
+    "id": "next",
+    "title": "Next step",
+    "text": "Take your photo, then open it in the editor to crop it to your country's size.",
+    "cta": { "label": "Edit my photo" }
+  }
+}

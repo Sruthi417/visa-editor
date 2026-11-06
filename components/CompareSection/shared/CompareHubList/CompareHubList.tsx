@@ -8,9 +8,12 @@ import "./CompareHubList.scss";
 export default function CompareHubList({
   title,
   cards,
+  basePath = "/compare",
 }: {
   title: string;
   cards: HubCard[];
+  /** Where each card links: `${basePath}/${card.slug}`. */
+  basePath?: string;
 }) {
   return (
     <Reveal className="compare-hub-list">
@@ -27,6 +30,7 @@ export default function CompareHubList({
                   width={1670}
                   height={942}
                   sizes="(max-width: 820px) 100vw, 520px"
+                  style={card.imagePosition ? { objectPosition: card.imagePosition } : undefined}
                 />
               </div>
 
@@ -35,7 +39,7 @@ export default function CompareHubList({
                 <p className="compare-hub-list__text">{card.blurb}</p>
               </div>
 
-              <Link href={`/compare/${card.slug}`} className="compare-hub-list__button">
+              <Link href={`${basePath}/${card.slug}`} className="compare-hub-list__button">
                 Read more
               </Link>
             </article>

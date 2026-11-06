@@ -1,0 +1,72 @@
+@use "../../shared/tokens" as *;
+
+.guide-needs {
+  &__title {
+    margin-bottom: 28px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+
+  &__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  &__card {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid #eef1f3;
+    background: #fafafa;
+    @include squircle(28px, 20px);
+
+    p {
+      color: $ink-700;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $line;
+    border-radius: 14px;
+    background: #ffffff;
+    color: $blue-deep;
+  }
+}
+
+@media (max-width: 1060px) {
+  .guide-needs__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .guide-needs {
+    &__title {
+      font-size: 28px;
+    }
+
+    &__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    // On a phone each card reads as one row: icon, then text.
+    &__card {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "title": "Passport and visa photo guides",
+    "intro": "Practical, step-by-step guides for taking a clean passport or visa photo before you edit it."
+  },
+  "title": "Guides",
+  "cards": [
+    {
+      "slug": "take-a-photo-at-home",
+      "title": "How to take a photo at home",
+      "image": "/images/photo-tips/photo-1.webp",
+      "imagePosition": "center 42%",
+      "blurb": "Set up your phone, light and pose to take a clean passport or visa photo at home."
+    }
+  ]
+}

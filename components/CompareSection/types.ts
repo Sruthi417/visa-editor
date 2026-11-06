@@ -46,6 +46,8 @@ export type HubCard = {
   title: string;
   /** Image path under /public. */
   image: string;
+  /** CSS object-position for the 16:9 card crop, such as "center 40%". Defaults to the centre. */
+  imagePosition?: string;
   blurb: string;
 };
 
