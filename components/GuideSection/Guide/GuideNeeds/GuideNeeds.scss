@@ -1,59 +1,103 @@
 @use "../../shared/tokens" as *;
 
+// The same black as the navbar and the buttons.
+$ink: #131313;
+
 .guide-needs {
   &__title {
     margin-bottom: 28px;
-    color: $ink-900;
-    font-family: var(--font-heading);
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+    padding-top: 4rem;
+    
+    @include section-title;
+    font-size: 40px;
   }
 
+  // One row of four small cards.
   &__grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
   }
 
+  // The white card, with room round the sky panel like the reference.
   &__card {
-    padding: 18px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    border: 1px solid #eef1f3;
-    background: #fafafa;
-    @include squircle(28px, 20px);
+    border: 1px solid $line;
+    background: #ffffff;
+    box-shadow: 0 14px 36px rgba(22, 38, 55, 0.06);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+    @include squircle(52px, 30px);
 
-    p {
-      color: $ink-700;
-      font-size: 15px;
-      line-height: 1.55;
-    }
+    // &:hover {
+    //   transform: translateY(-2px);
+    //   box-shadow: 0 18px 44px rgba(22, 38, 55, 0.1);
+    // }
   }
 
-  &__icon {
+  &__head {
+    padding: 6px 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__head-icon {
     flex-shrink: 0;
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
     display: grid;
     place-items: center;
-    border: 1px solid $line;
-    border-radius: 14px;
-    background: #ffffff;
+    background: #e8f4fd;
     color: $blue-deep;
+    @include squircle(11px, 10px);
+  }
+
+  &__label {
+    color: $ink;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  // The sky picture. It is square, so it is pinned to the bottom right, where the cloud is.
+  // The text sits at the top and the cloud is left free below it.
+  &__panel {
+    position: relative;
+    flex: 1;
+    // Short, so the whole card is close to a square.
+    min-height: 200px;
+    padding: 20px 18px 16px;
+    background-color: #cfe8fb;
+    background-image: url("/images/guide/guid_need1.png");
+    background-size: cover;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    @include squircle(40px, 24px);
+  }
+
+  &__text {
+    color: $ink;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
   }
 }
 
 @media (max-width: 1060px) {
   .guide-needs__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 560px) {
   .guide-needs {
     &__title {
       font-size: 28px;
@@ -63,10 +107,8 @@
       grid-template-columns: minmax(0, 1fr);
     }
 
-    // On a phone each card reads as one row: icon, then text.
-    &__card {
-      flex-direction: row;
-      align-items: center;
+    &__panel {
+      min-height: 220px;
     }
   }
 }

@@ -23,11 +23,10 @@
     "id": "needs",
     "title": "What you'll need",
     "items": [
-      { "icon": "phone", "text": "A phone with a camera, ideally the rear camera, on a stand or tripod if you have one" },
-      { "icon": "wall", "text": "A plain wall with nothing on it" },
-      { "icon": "light", "text": "A window with daylight" },
-      { "icon": "helper", "text": "A helper, a timer, or something steady to prop the phone on" },
-      { "icon": "rules", "text": "Your country's photo requirements" }
+      { "icon": "phone", "label": "Camera", "text": "A phone with a camera, ideally the rear camera, on a stand or tripod if you have one." },
+      { "icon": "wall", "label": "Wall", "text": "Try to choose a plain wall with no decorations or objects in the background." },
+      { "icon": "light", "label": "Light", "text": "Position yourself facing the window for soft, natural, even lighting." },
+      { "icon": "helper", "label": "Helper", "text": "A helper, a timer, or something steady to prop the phone on." }
     ]
   },
 

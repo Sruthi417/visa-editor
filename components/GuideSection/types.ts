@@ -18,7 +18,7 @@ export type Step = {
   groups: StepGroup[];
 };
 
-export type NeedIcon = "phone" | "wall" | "light" | "helper" | "rules";
+export type NeedIcon = "phone" | "wall" | "light" | "helper";
 
 /** One card on the /guide hub. Each guide has its own title, image and blurb. */
 export type HubCard = {
@@ -47,7 +47,12 @@ export type Guide = {
     image: { src: string; alt: string };
   };
   quickAnswer: { id: string; title: string; points: string[] };
-  needs: { id: string; title: string; items: { icon: NeedIcon; text: string }[] };
+  needs: {
+    id: string;
+    title: string;
+    /** Each item is one small card: an icon and short label on top, the text over the picture. */
+    items: { icon: NeedIcon; label: string; text: string }[];
+  };
   steps: { id: string; title: string; items: Step[] };
   mistakes: {
     id: string;
