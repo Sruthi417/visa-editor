@@ -1,14 +1,25 @@
 export type StepGroup = {
   /** A small heading above the points, such as "Head position". */
   label?: string;
+  /** Can use **bold** and [label](/guide/slug) links. */
   points?: string[];
-  /** A short paragraph, for a step that is prose rather than a list. */
+  /** A short paragraph, for a step that is prose rather than a list. Can use the same marks. */
   text?: string;
 };
 
+export type StepIcon =
+  | "camera"
+  | "background"
+  | "lighting"
+  | "face"
+  | "clothing"
+  | "quality"
+  | "country";
+
 export type Step = {
   id: string;
-  number: string;
+  /** The icon above the title. Also shown large on a step that has no photo. */
+  icon: StepIcon;
   title: string;
   /** Image path under /public. Steps without one are laid out as text only. */
   image?: string;

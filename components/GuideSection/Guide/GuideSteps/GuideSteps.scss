@@ -43,17 +43,44 @@ $ink: #131313;
     justify-content: center;
   }
 
-  &__chip {
+  // The step's icon, in a solid tile above the title.
+  &__icon {
     align-self: flex-start;
+    flex-shrink: 0;
     margin-bottom: 16px;
-    padding: 6px 14px;
-    background: #e8f4fd;
-    color: $blue-text;
-    font-size: 13px;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    background: $blue-deep;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.14);
+    color: #ffffff;
+    @include squircle(18px, 14px);
+  }
+
+  // The phrases to notice stand out in black. Links to other guides are blue and underlined.
+  &__body strong {
+    color: $ink;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    @include squircle(14px, 12px);
+  }
+
+  &__body a {
+    color: $blue-text;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 106, 163, 0.35);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue-text;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
   }
 
   &__title {
@@ -87,7 +114,7 @@ $ink: #131313;
     line-height: 1.6;
   }
 
-  // A star in front of every point, in place of bullets.
+  // A blue dot in front of every point, level with its first line.
   &__points {
     list-style: none;
     display: flex;
@@ -97,17 +124,21 @@ $ink: #131313;
     li {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 12px;
       color: $ink-700;
       font-size: 15px;
       line-height: 1.5;
-    }
-  }
 
-  &__star {
-    flex-shrink: 0;
-    margin-top: 2px;
-    color: $blue;
+      &::before {
+        content: "";
+        flex-shrink: 0;
+        width: 6px;
+        height: 6px;
+        margin-top: 0.55em;
+        border-radius: 50%;
+        background: $blue;
+      }
+    }
   }
 
   // The picture, inset in the card. It stretches to the card's full height.
@@ -132,7 +163,7 @@ $ink: #131313;
     object-position: center 52%;
   }
 
-  // No photo: the sky picture, with the step number large in the corner.
+  // No photo: the sky picture, with the step's icon large in the corner.
   &__media--sky {
     display: flex;
     align-items: flex-start;
@@ -144,19 +175,24 @@ $ink: #131313;
     background-repeat: no-repeat;
   }
 
-  &__big-number {
-    padding: clamp(20px, 3vw, 36px);
-    color: rgba(19, 19, 19, 0.88);
-    font-family: var(--font-heading);
-    font-size: clamp(72px, 9vw, 120px);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.05em;
+  &__big-icon {
+    margin: clamp(20px, 3vw, 36px);
+    width: 96px;
+    height: 96px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: $blue-deep;
+    @include squircle(34px, 24px);
   }
 }
 
-// On a short screen a tall card can't stick (its foot would be cut off), so they scroll normally.
-@media (max-height: 760px) {
+// The stack needs a screen tall enough to show a whole card, and wide enough that the longest
+// step fits the shared card height. Otherwise the cards scroll normally.
+@media (max-height: 760px), (max-width: 1160px) {
   .guide-step {
     position: relative;
     top: auto;

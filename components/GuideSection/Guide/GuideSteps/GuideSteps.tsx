@@ -1,22 +1,28 @@
 import Image from "next/image";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  BrickWallIcon,
+  Camera01Icon,
+  FaceIdIcon,
+  FocusPointIcon,
+  Globe02Icon,
+  Sun01Icon,
+  TShirtIcon,
+} from "@hugeicons/core-free-icons";
 
-import type { Guide, Step } from "../../types";
+import RichText from "../../shared/RichText/RichText";
+import type { Guide, Step, StepIcon } from "../../types";
 import "./GuideSteps.scss";
 
-/** The small star in front of every point. */
-function Star() {
-  return (
-    <svg className="guide-step__star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-      <path
-        d="M12 2.8l2.7 5.9 6.4.7-4.8 4.3 1.4 6.3L12 16.7 6.3 20l1.4-6.3L2.9 9.4l6.4-.7L12 2.8z"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+const ICONS: Record<StepIcon, typeof Camera01Icon> = {
+  camera: Camera01Icon,
+  background: BrickWallIcon,
+  lighting: Sun01Icon,
+  face: FaceIdIcon,
+  clothing: TShirtIcon,
+  quality: FocusPointIcon,
+  country: Globe02Icon,
+};
 
 /**
  * One step: a large white card with the text on the left and the picture inset on the right.
@@ -31,19 +37,26 @@ function StepCard({ step, index }: { step: Step; index: number }) {
       style={{ "--step-index": index } as React.CSSProperties}
     >
       <div className="guide-step__body">
-        <span className="guide-step__chip">Step {step.number}</span>
+        <span className="guide-step__icon" aria-hidden="true">
+          <HugeiconsIcon icon={ICONS[step.icon]} size={26} strokeWidth={1.7} />
+        </span>
         <h3 className="guide-step__title">{step.title}</h3>
 
         {step.groups.map((group, groupIndex) => (
           <div key={group.label ?? groupIndex} className="guide-step__group">
             {group.label && <p className="guide-step__label">{group.label}</p>}
-            {group.text && <p className="guide-step__text">{group.text}</p>}
+            {group.text && (
+              <p className="guide-step__text">
+                <RichText text={group.text} />
+              </p>
+            )}
             {group.points && (
               <ul className="guide-step__points">
                 {group.points.map((point) => (
                   <li key={point}>
-                    <Star />
-                    <span>{point}</span>
+                    <span>
+                      <RichText text={point} />
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -52,7 +65,7 @@ function StepCard({ step, index }: { step: Step; index: number }) {
         ))}
       </div>
 
-      {/* A step with no photo gets the sky picture and its number instead. */}
+      {/* A step with no photo gets the sky picture and its icon, large, instead. */}
       <div
         className={`guide-step__media${step.image ? "" : " guide-step__media--sky"}${step.frame === "square" ? " guide-step__media--square" : ""}`}
       >
@@ -65,8 +78,8 @@ function StepCard({ step, index }: { step: Step; index: number }) {
             sizes="(max-width: 820px) 100vw, 480px"
           />
         ) : (
-          <span className="guide-step__big-number" aria-hidden="true">
-            {step.number}
+          <span className="guide-step__big-icon" aria-hidden="true">
+            <HugeiconsIcon icon={ICONS[step.icon]} size={48} strokeWidth={1.5} />
           </span>
         )}
       </div>
