@@ -1,98 +1,158 @@
 @use "../../shared/tokens" as *;
 
+$row-line: #eef1f3;
+$stripe: #fafafa;
+
 .guide-mistakes {
   &__title {
     margin-bottom: 28px;
-    color: $ink-900;
-    font-family: var(--font-heading);
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+    @include section-title;
+    padding-top: 4rem;
+    font-size: 40px;
   }
 
-  &__grid {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+  // A white card with a faint edge and shadow. It clips the striped rows to its rounded corners.
+  &__wrap {
+    overflow: hidden;
+    border: 1px solid $row-line;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 56, 128, 0.05);
+    @include squircle(36px, 22px);
   }
 
-  // An odd last card takes the whole row instead of sitting alone.
-  &__card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
 
-  // Mistake on the left, an arrow, the fix on the right.
-  &__card {
-    padding: 20px 22px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: start;
-    gap: 16px;
-    border: 1px solid #eef1f3;
-    background: #fafafa;
-    @include squircle(30px, 22px);
-  }
-
-  &__label {
-    margin-bottom: 8px;
-    display: block;
-    color: $ink-500;
-    font-size: 12.5px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-
-    &--fix {
-      color: $blue-text;
+    th,
+    td {
+      padding: 22px 34px;
+      vertical-align: middle;
+      border-bottom: 1px solid $row-line;
     }
-  }
 
-  &__mistake,
-  &__fix {
-    font-size: 15px;
-    line-height: 1.55;
-  }
+    // The mistakes are short, so the fixes get the wider column.
+    th:first-child {
+      width: 42%;
+    }
 
-  &__mistake {
-    color: $ink-700;
-  }
+    thead th {
+      padding-top: 22px;
+      padding-bottom: 20px;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
 
-  &__fix {
-    color: $ink-900;
-    font-weight: 500;
-  }
+    tbody th,
+    td {
+      color: $ink-700;
+      font-size: 15.5px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
 
-  &__arrow {
-    margin-top: 26px;
-    color: $ink-500;
+    tbody tr:nth-child(even) {
+      th,
+      td {
+        background: $stripe;
+      }
+    }
+
+    tbody tr:last-child {
+      th,
+      td {
+        border-bottom: 0;
+      }
+    }
   }
 }
 
+// The table becomes one small card per mistake, with its fix underneath.
 @media (max-width: 820px) {
   .guide-mistakes {
     &__title {
-      font-size: 28px;
+      font-size: 32px;
     }
 
-    &__grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .guide-mistakes {
-    // Narrow phones: stack the fix under the mistake.
-    &__card {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 12px;
+    &__wrap {
+      overflow: visible;
+      border: 0;
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
     }
 
-    &__arrow {
-      margin-top: 0;
-      transform: rotate(90deg);
+    &__table {
+      &,
+      tbody,
+      tr,
+      th,
+      td {
+        display: block;
+      }
+
+      // Hidden on screen. Screen readers still get the column names.
+      thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+      }
+
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      tr {
+        overflow: hidden;
+        border: 1px solid $line;
+        border-radius: 20px;
+        background: #ffffff;
+      }
+
+      th,
+      td {
+        padding: 14px 18px;
+        border-bottom: 0;
+      }
+
+      th:first-child {
+        width: auto;
+      }
+
+      tbody th,
+      tbody tr:nth-child(even) th {
+        background: $stripe;
+        color: $ink-900;
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      td,
+      tbody tr:nth-child(even) td {
+        border-top: 1px solid $row-line;
+        background: transparent;
+      }
+
+      td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 8px;
+        color: $ink-500;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
     }
   }
 }

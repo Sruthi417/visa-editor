@@ -7,6 +7,7 @@ $ink: #131313;
   &__title {
     margin-bottom: 28px;
     @include section-title;
+    padding-top: 4rem;
     font-size: 40px;
   }
 
@@ -34,7 +35,14 @@ $ink: #131313;
   border: 1px solid $line;
   background: #ffffff;
   box-shadow: 0 -10px 40px rgba(22, 38, 55, 0.08);
+  transition: box-shadow 0.6s ease;
   @include squircle(64px, 36px);
+
+  // Only the top two cards of the pile keep a shadow. GuideStepsStack marks the rest. The shadow
+  // keeps its shape and only loses its colour, so it fades out without moving.
+  &[data-shadow-off] {
+    box-shadow: 0 -10px 40px rgba(22, 38, 55, 0);
+  }
 
   &__body {
     padding: clamp(18px, 2.4vw, 34px) 0 clamp(18px, 2.4vw, 34px) clamp(14px, 2.4vw, 34px);
@@ -86,7 +94,7 @@ $ink: #131313;
   &__title {
     color: $ink;
     font-family: var(--font-heading);
-    font-size: clamp(28px, 3.2vw, 40px);
+    font-size: clamp(28px, 3.2vw, 36px);
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: -0.035em;

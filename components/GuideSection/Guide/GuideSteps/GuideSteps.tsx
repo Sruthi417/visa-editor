@@ -12,6 +12,7 @@ import {
 
 import RichText from "../../shared/RichText/RichText";
 import type { Guide, Step, StepIcon } from "../../types";
+import GuideStepsStack from "./GuideStepsStack";
 import "./GuideSteps.scss";
 
 const ICONS: Record<StepIcon, typeof Camera01Icon> = {
@@ -93,11 +94,11 @@ export default function GuideSteps({ data }: { data: Guide["steps"] }) {
     <section id={data.id} className="guide-steps">
       <h2 className="guide-steps__title">{data.title}</h2>
 
-      <div className="guide-steps__list">
+      <GuideStepsStack>
         {data.items.map((step, index) => (
           <StepCard key={step.id} step={step} index={index} />
         ))}
-      </div>
+      </GuideStepsStack>
     </section>
   );
 }

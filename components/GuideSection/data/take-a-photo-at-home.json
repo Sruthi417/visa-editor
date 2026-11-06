@@ -32,7 +32,7 @@
 
   "steps": {
     "id": "steps",
-    "title": "Take the photo in 7 steps",
+    "title": "Points to be noted",
     "items": [
       {
         "id": "camera",
@@ -58,6 +58,9 @@
         "id": "background",
         "icon": "background",
         "title": "Background",
+        "image": "/images/photo-tips/photo-5.webp",
+        "frame": "square",
+        "alt": "A man in front of a plain wall, marked with a tick, next to the same man in front of a bookshelf and patterned wallpaper, marked with a cross",
         "groups": [
           {
             "points": [
@@ -107,8 +110,8 @@
             "points": [
               "Keep a [neutral expression](/guide/appearance-and-facial-expression) with your **mouth closed**.",
               "Keep **both eyes open** and clearly visible.",
-              "A [broad smile with visible teeth](/guide/can-you-smile-in-a-passport-photo) is **not accepted by default**. We allow it only where [your country's page](/guide/photo-requirements-by-country) says it is allowed for your document type.",
-              "Some countries allow a **closed-mouth smile**, and others ask for a **neutral expression only**. Check your country's page."
+              "A [broad smile with visible teeth](/guide/can-you-smile-in-a-passport-photo) is **not accepted by default**. We allow it only where [your country's page](/guide/photo-requirements-by-country) says it is allowed for your document type."
+              
             ]
           }
         ]
@@ -139,6 +142,9 @@
         "id": "quality",
         "icon": "quality",
         "title": "Photo quality",
+        "image": "/images/photo-tips/photo-6.webp",
+        "frame": "square",
+        "alt": "A sharp portrait marked with a tick next to the same portrait out of focus, marked with a cross",
         "groups": [
           {
             "points": [
@@ -155,6 +161,9 @@
         "id": "country",
         "icon": "country",
         "title": "Country specifications",
+        "image": "/images/photo-tips/photo-7.webp",
+        "frame": "square",
+        "alt": "Two photos of the same man shown to scale: a 35 x 45 mm rectangle next to a larger 2 x 2 inch square",
         "groups": [
           {
             "text": "The steps above are the default rules, and they are a good starting point. **Some countries differ from them.** For example, countries can have their own rules on background colour, glasses, head coverings, whether any smile is allowed, [how recent the photo must be](/guide/how-recent-should-a-passport-photo-be), the [photo size](/guide/passport-photo-sizes-by-country), and whether you need a [digital file or a print](/guide/digital-vs-printed-passport-photos). Before you shoot, check your country's [official photo requirements](/guide/photo-requirements-by-country) and follow them. If your country's rules are different from the default rules above, **your country's rules win**."
@@ -167,8 +176,8 @@
   "mistakes": {
     "id": "mistakes",
     "title": "Common mistakes",
-    "fixLabel": "Fix",
-    "mistakeLabel": "Mistake",
+    "fixLabel": "How to fix it",
+    "mistakeLabel": "Common mistakes",
     "rows": [
       { "mistake": "Shadows on your face or the wall", "fix": "Face a window in daylight and stand away from the wall" },
       { "mistake": "Glasses with glare, or a flash that is on", "fix": "Take your glasses off and turn the flash off" },
