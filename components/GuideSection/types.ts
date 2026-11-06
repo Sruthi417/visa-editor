@@ -72,8 +72,20 @@ export type Guide = {
     fixLabel: string;
     rows: { mistake: string; fix: string }[];
   };
-  note: { id: string; title: string; text: string };
-  check: { id: string; title: string; badge: string; text: string; cta: { label: string } };
+  note: {
+    id: string;
+    /** The section title, above the card. */
+    heading: string;
+    /** The title inside the card. */
+    title: string;
+    /** The picture inside the card. */
+    image: { src: string; alt: string };
+    /** The content beside the card. */
+    text: string;
+    /** The line after the text. Can use **bold** and [label](/guide/slug) links. */
+    more: string;
+  };
+  check: { id: string; title: string; text: string; cta: { label: string } };
   faq: {
     id: string;
     eyebrow: string;

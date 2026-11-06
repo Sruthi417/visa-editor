@@ -7,7 +7,6 @@ import GuideFaq from "./GuideFaq/GuideFaq";
 import GuideMistakes from "./GuideMistakes/GuideMistakes";
 import GuideNeeds from "./GuideNeeds/GuideNeeds";
 import GuideNote from "./GuideNote/GuideNote";
-
 import GuideSteps from "./GuideSteps/GuideSteps";
 import type { Guide } from "../types";
 

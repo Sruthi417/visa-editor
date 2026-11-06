@@ -1,50 +1,27 @@
 @use "../../shared/tokens" as *;
 
-// A charcoal panel, the one dark block on the page.
+// The title and text on the left, the button on the right.
 .guide-check {
-  padding: clamp(26px, 4vw, 44px);
+  padding-top: 4rem;
   display: flex;
-
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  background: linear-gradient(
-    180deg,
-    #3b3f43 0%,
-    #2c3135 45%,
-    #1e2328 100%
-  );
-  color: #ffffff;
-  @include squircle(40px, 28px);
+  gap: clamp(32px, 5vw, 72px);
 
   &__copy {
-    max-width: 62ch;
-  }
-
-  &__badge {
-    margin-bottom: 14px;
-    padding: 5px 12px;
-    display: inline-block;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: 100px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    font-weight: 500;
+    max-width: 68ch;
   }
 
   &__title {
-    font-family: var(--font-heading);
-    font-size: clamp(26px, 3vw, 32px);
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+    @include section-title;
+    font-size: 40px;
   }
 
   &__text {
-    margin-top: 12px;
-    color: rgba(255, 255, 255, 0.82);
+    margin-top: 14px;
+    color: $ink-700;
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 }
 
@@ -52,5 +29,10 @@
   .guide-check {
     flex-direction: column;
     align-items: flex-start;
+    gap: 24px;
+
+    &__title {
+      font-size: 32px;
+    }
   }
 }

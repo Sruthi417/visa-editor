@@ -189,15 +189,20 @@
 
   "note": {
     "id": "passport-vs-visa",
+    "heading": "Can One Photo Work for Both Visa & Passport?",
     "title": "Passport vs visa",
-    "text": "The steps above work for both. A visa photo can have a different size, a different background colour or a file-size limit for online uploads, so check the rule for your destination before you upload."
+    "image": {
+      "src": "/images/guide/p_v.png",
+      "alt": "A blue United States passport with boarding passes, a black bank card and a white model plane on a light blue surface"
+    },
+    "text": "Passport and visa photo requirements can vary depending on the country and application type. But you can easily adjust your photo to meet the required specifications using our Passport & Visa Photo Editor.",
+    "more": "Want to understand the differences and similarities? Read our [Passport vs Visa Photo Guide](/guide/passport-vs-visa-photos)."
   },
 
   "check": {
     "id": "check",
     "title": "Check your photo",
-    "badge": "Planned",
-    "text": "We're building a free photo checker. You would upload your photo, choose your country, and get a pass or fail report on size, head height, eye line, blur, lighting, shadows, glasses, expression and background.",
+    "text": "Want to know if your passport or visa photo is ready? Try our free Photo Checker. Upload your photo, select your country, and get an instant pass-or-fail report covering size, head position, lighting, shadows, blur, expression and background.",
     "cta": { "label": "Open the editor" }
   },
 
