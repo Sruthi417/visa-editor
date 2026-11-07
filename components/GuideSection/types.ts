@@ -31,6 +31,8 @@ export type Step = {
 
 export type NeedIcon = "phone" | "wall" | "light" | "helper";
 
+export type CheckStatIcon = "checks" | "countries" | "speed";
+
 /** One card on the /guide hub. Each guide has its own title, image and blurb. */
 export type HubCard = {
   /** Matches a guide's slug, so the card links to /guide/{slug}. */
@@ -61,13 +63,16 @@ export type Guide = {
   needs: {
     id: string;
     title: string;
+    /** The two-line subtitle under the title. */
+    sub: string;
     /** Each item is one small card: an icon and short label on top, the text over the picture. */
     items: { icon: NeedIcon; label: string; text: string }[];
   };
-  steps: { id: string; title: string; items: Step[] };
+  steps: { id: string; title: string; sub: string; items: Step[] };
   mistakes: {
     id: string;
     title: string;
+    sub: string;
     mistakeLabel: string;
     fixLabel: string;
     rows: { mistake: string; fix: string }[];
@@ -85,7 +90,24 @@ export type Guide = {
     /** The line after the text. Can use **bold** and [label](/guide/slug) links. */
     more: string;
   };
-  check: { id: string; title: string; text: string; cta: { label: string } };
+  check: {
+    id: string;
+    /** The section title, above the content. */
+    heading: string;
+    /** The small label on the picture. */
+    chip: string;
+    /** The title inside the card. */
+    title: string;
+    /** The short line inside the card. It fits on two lines. */
+    cardText: string;
+    /** The row of three facts in the card. */
+    stats: { icon: CheckStatIcon; value: string; label?: string }[];
+    /** The content beside the card. */
+    text: string;
+    /** The line after the text. Can use **bold** and [label](/guide/slug) links. */
+    more: string;
+    cta: { label: string };
+  };
   faq: {
     id: string;
     eyebrow: string;
@@ -93,5 +115,5 @@ export type Guide = {
     sub: string;
     items: { q: string; a: string }[];
   };
-  next: { id: string; title: string; text: string; cta: { label: string } };
+  next: { id: string; title: string; text: string; cta: { label: string; href: string } };
 };

@@ -13,25 +13,6 @@
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-
-  svg {
-    transition: transform 0.25s ease;
-  }
-
-  &:hover svg {
-    transform: translateX(3px);
-  }
 
   &:focus-visible {
     outline: 2px solid $blue;

@@ -25,6 +25,7 @@ export default function GuideNeeds({ data }: { data: Guide["needs"] }) {
   return (
     <section id={data.id} className="guide-needs">
       <h2 className="guide-needs__title">{data.title}</h2>
+      <p className="guide-needs__sub">{data.sub}</p>
 
       <ul className="guide-needs__grid">
         {data.items.map((item) => (

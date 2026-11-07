@@ -27,3 +27,18 @@ $blue-text: #006aa3;
   line-height: 1.15;
   letter-spacing: -0.03em;
 }
+
+// The line under a section heading. Narrow enough that it wraps to two even lines.
+@mixin section-sub {
+  max-width: 46ch;
+  margin-bottom: 28px;
+  color: $ink-500;
+  font-size: 16px;
+  line-height: 1.6;
+  text-wrap: balance;
+
+  // A touch smaller on a phone, so the line still fits on two lines.
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+}

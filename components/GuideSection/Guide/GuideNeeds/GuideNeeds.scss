@@ -5,11 +5,15 @@ $ink: #131313;
 
 .guide-needs {
   &__title {
-    margin-bottom: 28px;
+    margin-bottom: 10px;
     padding-top: 4rem;
-    
+
     @include section-title;
     font-size: 40px;
+  }
+
+  &__sub {
+    @include section-sub;
   }
 
   // One row of four small cards.

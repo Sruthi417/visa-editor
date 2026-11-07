@@ -93,6 +93,7 @@ export default function GuideSteps({ data }: { data: Guide["steps"] }) {
   return (
     <section id={data.id} className="guide-steps">
       <h2 className="guide-steps__title">{data.title}</h2>
+      <p className="guide-steps__sub">{data.sub}</p>
 
       <GuideStepsStack>
         {data.items.map((step, index) => (

@@ -39,9 +39,9 @@ export default function GuidePage({ data }: { data: Guide }) {
   
       <GuideNeeds data={data.needs} />
       <GuideSteps data={data.steps} />
+      <GuideCheck data={data.check} />
       <GuideMistakes data={data.mistakes} />
       <GuideNote data={data.note} />
-      <GuideCheck data={data.check} />
     </GuideLayout>
   );
 }

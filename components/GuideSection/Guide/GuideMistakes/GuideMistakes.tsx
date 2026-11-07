@@ -6,6 +6,7 @@ export default function GuideMistakes({ data }: { data: Guide["mistakes"] }) {
   return (
     <section id={data.id} className="guide-mistakes">
       <h2 className="guide-mistakes__title">{data.title}</h2>
+      <p className="guide-mistakes__sub">{data.sub}</p>
 
       <div className="guide-mistakes__wrap">
         <table className="guide-mistakes__table">

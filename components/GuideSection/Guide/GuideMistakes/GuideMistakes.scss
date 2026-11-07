@@ -5,10 +5,14 @@ $stripe: #fafafa;
 
 .guide-mistakes {
   &__title {
-    margin-bottom: 28px;
+    margin-bottom: 10px;
     @include section-title;
     padding-top: 4rem;
     font-size: 40px;
+  }
+
+  &__sub {
+    @include section-sub;
   }
 
   // A white card with a faint edge and shadow. It clips the striped rows to its rounded corners.
