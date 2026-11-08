@@ -40,12 +40,39 @@
 
   &__h3 {
     margin-top: 16px;
+    // Added to the page's 100px scroll-padding-top when a link jumps to it.
+    scroll-margin-top: 20px;
     color: $ink-900;
     font-family: var(--font-heading);
     font-size: clamp(20px, 2.2vw, 22px);
     font-weight: 600;
     line-height: 1.3;
     letter-spacing: -0.02em;
+  }
+
+  // A heading that opens a new part of the section, such as one factor: more room above,
+  // and an icon tile before the words.
+  &__h3--icon {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__h3-icon {
+    @include icon-tile(38px);
+  }
+
+  // A smaller heading inside one factor, such as the phone examples under Aperture.
+  &__h4 {
+    margin-top: 8px;
+    scroll-margin-top: 20px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
   }
 
   &__list {
@@ -81,5 +108,12 @@
     a {
       @include text-link;
     }
+  }
+
+  // How to sort the drawback in the point above: a second paragraph in the same point, set
+  // in the same type, so it reads on from the problem.
+  &__fix {
+    margin-top: 8px;
+    display: block;
   }
 }

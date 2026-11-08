@@ -32,8 +32,8 @@
         "href": "#at-a-glance"
       },
       {
-        "label": "How distance changes the look of a face",
-        "href": "#distance-and-your-face"
+        "label": "Rear vs front camera in detail",
+        "href": "#in-detail"
       },
       {
         "label": "The right distance and settings for each camera",
@@ -63,7 +63,7 @@
         },
         {
           "type": "paragraph",
-          "text": "The front camera, on the other hand, lets you see yourself on the screen while taking the picture. This makes positioning easier, especially when you're taking the photo yourself. However, holding the phone too close can [distort facial proportions](#distance-and-your-face)."
+          "text": "The front camera, on the other hand, lets you see yourself on the screen while taking the picture. This makes positioning easier, especially when you're taking the photo yourself. However, holding the phone too close can [distort facial proportions](#facial-distortion)."
         },
         { "type": "subheading", "text": "Getting the distance right" },
         {
@@ -188,50 +188,152 @@
           ],
           "rows": [
             [
-              "**Resolution**",
+              "Resolution",
               "Generally higher resolution",
               "Generally lower resolution"
             ],
             [
-              "**Aperture**",
+              "Aperture",
               "Wider lens opening allows more light into the camera",
               "Narrower lens opening allows comparatively less light in"
             ],
             [
-              "**Preview while shooting**",
+              "Preview while shooting",
               "The screen faces away from you, so you cannot directly preview yourself while capturing.",
               "You can see yourself on the screen and adjust your position before capturing."
             ],
 
             [
-              "**Facial distortion**",
+              "Facial distortion",
               "Shooting from a greater distance helps maintain natural facial proportions.",
               "Close-range selfies can make facial features appear distorted because of perspective."
             ],
              [
-              "**Typical shooting distance**",
+              "Typical shooting distance",
               "Easier to position 1–2 metres (4–6 feet) away using a helper or stand.",
               "Often used at arm's length (around 40–50 cm or 16–20 inches) for handheld selfies."
             ],
             [
-              "**Image detail**",
+              "Image detail",
               "Generally captures finer details, depending on the phone's sensor and lens.",
               "May capture less detail, depending on the phone's front-camera hardware."
             ],
             [
-              "**Self-capture convenience**",
+              "Self-capture convenience",
               "Requires additional setup to frame yourself without assistance.",
               "More convenient because you can see your face while positioning the phone."
             ]
            
           ]
+        }
+      ]
+    },
+
+    {
+      "id": "in-detail",
+      "title": "Rear camera vs front camera in detail",
+      "nav": "Rear vs front in detail",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The table above lists the differences. Here is what each one changes in the photo you upload, with the rear camera and with the front camera."
         },
         {
-          "type": "callout",
-          "icon": "info",
-          "text": "**Note:** These are general differences, not universal specifications. Both cameras can produce suitable passport and visa photos. Distance, lighting, focus and correct framing matter more than the camera position alone."
+          "type": "subheading",
+          "id": "resolution",
+          "icon": "resolution",
+          "text": "Resolution"
         },
-        { "type": "subheading", "text": "Examples of current phone cameras" },
+        {
+          "type": "paragraph",
+          "text": "Resolution decides how much detail your photo still holds once the editor crops it to [your country's size](/guide/passport-photo-sizes-by-country), and how far it can be enlarged or printed before it looks soft."
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Rear camera:** The photo starts with more pixels, so after it is cropped to a passport size your face keeps plenty of detail. Your hairline, eyebrows and the outline of your face stay crisp, even when the photo is printed.",
+            {
+              "text": "**Front camera:** The photo starts with fewer pixels. That is usually still enough for a passport-size photo, but there is less detail to spare once it is cropped, so any blur or grain shows more and the photo can look softer when printed.",
+              "fix": "You can still get a sharp, detailed photo with it. Set the camera to its highest resolution, use the 1x lens and give it soft, even light, and the photo will stay sharp after it is cropped."
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "label": "Rear camera",
+              "icon": "rear-camera",
+              "image": {
+                "src": "/images/blog/factors/resolution-rear.webp",
+                "alt": "Rear camera: a portrait with more pixels, smooth and sharp",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "label": "Front camera",
+              "icon": "front-camera",
+              "image": {
+                "src": "/images/blog/factors/resolution-front.webp",
+                "alt": "Front camera: the same portrait with fewer pixels, shown as visible blocks",
+                "width": 330,
+                "height": 412
+              }
+            }
+          ]
+        },
+        {
+          "type": "subheading",
+          "id": "aperture",
+          "icon": "lens",
+          "text": "Aperture"
+        },
+        {
+          "type": "paragraph",
+          "text": "The aperture decides how much light reaches the camera. In the photo, it shows in how bright and clean your face looks, especially indoors."
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Rear camera:** More light comes in, so the photo is brighter and cleaner, with even skin tones and little grain in the darker areas. The camera can also take the photo faster, so a small movement is less likely to blur it.",
+            {
+              "text": "**Front camera:** Less light comes in. In a dim room the photo can look darker or grainy, or the phone brightens it with processing that smooths away fine detail.",
+              "fix": "This is easy to make up for. Take the photo in daylight, facing a window or another [soft light source](/guide/lighting-for-passport-photos), and the camera will have plenty of light without needing to brighten the photo."
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "label": "Rear camera",
+              "icon": "rear-camera",
+              "image": {
+                "src": "/images/blog/factors/aperture-rear.webp",
+                "alt": "Rear camera: a bright, clean portrait taken with more light",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "label": "Front camera",
+              "icon": "front-camera",
+              "image": {
+                "src": "/images/blog/factors/aperture-front.webp",
+                "alt": "Front camera: the same portrait darker and grainier, taken with less light",
+                "width": 330,
+                "height": 412
+              }
+            }
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Examples of current phone cameras",
+          "level": 4,
+          "id": "phone-examples"
+        },
         {
           "type": "paragraph",
           "text": "These are the manufacturers' published specifications for two current phones. Specifications differ by model, so check yours in your phone's settings or on the manufacturer's page."
@@ -243,15 +345,24 @@
               "name": "iPhone 17",
               "url": "https://www.apple.com/iphone-17/specs/",
               "rows": [
-                { "label": "Main rear camera", "value": "48 MP, ƒ/1.6" },
-                { "label": "Front camera", "value": "18 MP, ƒ/1.9, autofocus" }
+                {
+                  "label": "Main rear camera",
+                  "value": "48 MP, ƒ/1.6"
+                },
+                {
+                  "label": "Front camera",
+                  "value": "18 MP, ƒ/1.9, autofocus"
+                }
               ]
             },
             {
               "name": "Pixel 10",
               "url": "https://store.google.com/product/pixel_10_specs",
               "rows": [
-                { "label": "Main rear camera", "value": "48 MP, ƒ/1.70" },
+                {
+                  "label": "Main rear camera",
+                  "value": "48 MP, ƒ/1.70"
+                },
                 {
                   "label": "Front camera",
                   "value": "10.5 MP, ƒ/2.2, autofocus"
@@ -263,22 +374,64 @@
         {
           "type": "paragraph",
           "text": "In both examples the rear camera has more megapixels and a wider aperture. A lower ƒ-number means a wider aperture, which lets in more light. Both front cameras here have autofocus, so a front camera can still give a sharp photo."
-        }
-      ]
-    },
-
-    {
-      "id": "distance-and-your-face",
-      "title": "How distance changes the look of a face",
-      "nav": "Distance and your face",
-      "blocks": [
+        },
         {
-          "type": "paragraph",
-          "text": "The distance between the camera and your face changes how your face looks in the photo. This is called **perspective distortion**. [Photography publications](https://petapixel.com/2018/05/23/perspective-distortion-or-why-lens-compression-doesnt-exist/) describe it as caused by the distance from the camera to the subject, and not by the lens alone: when a wide lens is moved close to a face, the face is distorted."
+          "type": "subheading",
+          "id": "preview",
+          "icon": "phone",
+          "text": "Preview while shooting"
         },
         {
           "type": "paragraph",
-          "text": "A study in JAMA Facial Plastic Surgery (Paskhover and Fried, 2018) compared a selfie taken about 12 inches (30 cm) from the face with a photo taken at 5 feet (1.5 m), described as a standard portrait distance. At 12 inches:"
+          "text": "The preview decides how well your face is placed in the photo: centred, straight, and with your whole head and shoulders in the frame."
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "text": "**Rear camera:** You can't see yourself while you shoot, so the first photos are often off-centre or too tight, with the top of your head or your shoulders cut off. It usually takes a helper or a few test shots to get the framing right.",
+              "fix": "A helper sorts this straight away. On your own, put the phone on a stand with the timer on, take a test photo and check it, then take the final one."
+            },
+            {
+              "text": "**Front camera:** You can see your face as you shoot, so it is easier to centre your head and leave space around it. If you look at the screen instead of the lens, though, your eyes can look slightly down in the photo.",
+              "fix": "Just look at the camera lens, the small circle at the top of the phone, while the photo is taken, and your eyes will look straight ahead."
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "label": "Rear camera",
+              "icon": "rear-camera",
+              "image": {
+                "src": "/images/blog/factors/framing-rear.webp",
+                "alt": "Rear camera, without a preview: a portrait off-centre with the top of the head cut off",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "label": "Front camera",
+              "icon": "front-camera",
+              "image": {
+                "src": "/images/blog/factors/framing-front.webp",
+                "alt": "Front camera, with a preview: the same portrait centred inside a face guide and framing corners",
+                "width": 330,
+                "height": 412
+              }
+            }
+          ]
+        },
+        {
+          "type": "subheading",
+          "id": "facial-distortion",
+          "icon": "face",
+          "text": "Facial distortion"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is the difference you are most likely to notice, because it changes the shape of your face in the photo. A study in JAMA Facial Plastic Surgery (Paskhover and Fried, 2018) compared a selfie taken about 12 inches (30 cm) from the face with a photo taken at 5 feet (1.5 m). At 12 inches:"
         },
         {
           "type": "stats",
@@ -296,26 +449,172 @@
           ]
         },
         {
-          "type": "split",
-          "imageSide": "right",
-          "aspect": "4/5",
-          "image": {
-            "src": "/images/guide/guide_photo.png",
-            "alt": "A phone screen showing a woman holding her phone at arm's length to take a selfie",
-            "width": 672,
-            "height": 808,
-            "fit": "contain"
-          },
-          "blocks": [
-            { "type": "paragraph", "text": "What this means for your photo:" },
+          "type": "list",
+          "items": [
+            "**Rear camera:** Taken from a metre or more away, your face keeps its natural proportions. Your nose, cheeks and ears look the way they do in person, so the photo looks like you.",
             {
-              "type": "list",
-              "items": [
-                "A photo taken from further away shows your face closer to how it really looks.",
-                "A front camera photo is taken from closer than a rear camera photo, so some distortion remains even at the recommended distance.",
-                "**Don't use the ultra-wide lens at close range.** A wide lens close to the face increases the effect.",
-                "**Keep the camera level with your face.** Pointing it up or down at an angle changes the shape of the face further."
-              ]
+              "text": "**Front camera:** Taken from arm's length, the parts of your face closest to the lens look larger. Your nose can look wider and your face rounder, while your ears look smaller or disappear behind your cheeks. Some of this remains even at the recommended 40 to 50 cm.",
+              "fix": "A few small changes keep your face looking natural. Hold the phone at the longer end of 40 to 50 cm, at eye level, with the 1x lens rather than the ultra-wide one. Propping it on a stand and stepping back, or switching to the rear camera, reduces the effect even more."
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "label": "Rear camera",
+              "icon": "rear-camera",
+              "image": {
+                "src": "/images/blog/factors/distortion-rear.webp",
+                "alt": "Rear camera: a portrait with natural facial proportions",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "label": "Front camera",
+              "icon": "front-camera",
+              "image": {
+                "src": "/images/blog/factors/distortion-front.webp",
+                "alt": "Front camera: an illustration of the same face taken too close, with the nose and the middle of the face enlarged",
+                "width": 330,
+                "height": 412
+              }
+            }
+          ]
+        },
+        {
+          "type": "subheading",
+          "id": "shooting-distance",
+          "icon": "ruler",
+          "text": "Typical shooting distance"
+        },
+        {
+          "type": "paragraph",
+          "text": "Distance decides how much of you is in the photo, and how much room the editor has to crop it to your country's head size and position. The exact distances are in [Which distance to use with each camera](#distance) below."
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Rear camera:** From 1–2 metres, your head and shoulders sit in the frame with space around them, so the editor can crop the photo without cutting anything off.",
+            {
+              "text": "**Front camera:** From arm's length, your face fills most of the frame. There is less space around your head, so your hair or chin can end up too close to the edge, and the editor has less room to crop.",
+              "fix": "Hold the phone a little further away, or prop it on a stand, and check on the screen that there is space above your head and around your shoulders. Leave the cropping to the editor."
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "label": "Rear camera",
+              "icon": "rear-camera",
+              "image": {
+                "src": "/images/blog/factors/distance-rear.webp",
+                "alt": "Rear camera: a head-and-shoulders portrait taken from further away, with space around the head",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "label": "Front camera",
+              "icon": "front-camera",
+              "image": {
+                "src": "/images/blog/factors/distance-front.webp",
+                "alt": "Front camera: the same face close up, filling the frame",
+                "width": 330,
+                "height": 412
+              }
+            }
+          ]
+        },
+        {
+          "type": "subheading",
+          "id": "image-detail",
+          "icon": "sharpness",
+          "text": "Image detail"
+        },
+        {
+          "type": "paragraph",
+          "text": "Detail is what makes the photo look sharp when you zoom in on your eyes, eyebrows and hair, and it is what a photo check looks at when it judges sharpness."
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Rear camera:** Fine details such as eyelashes, single hairs and the edges of your eyes come out clearly, so the photo stays sharp after it is cropped, resized or printed.",
+            {
+              "text": "**Front camera:** Fine details can look smoother or slightly smudged, because on many phones the front camera has smaller hardware and the phone smooths the photo more. In good light the difference is small; in dim light it shows more.",
+              "fix": "With a clean lens and good light, the front camera can still take a sharp photo. Tap to focus on your face, turn off beauty mode, then zoom in on the photo to check that your eyes are sharp."
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "label": "Rear camera",
+              "icon": "rear-camera",
+              "image": {
+                "src": "/images/blog/factors/detail-rear.webp",
+                "alt": "Rear camera: a close view of a woman's eyes and hair with fine detail",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "label": "Front camera",
+              "icon": "front-camera",
+              "image": {
+                "src": "/images/blog/factors/detail-front.webp",
+                "alt": "Front camera: the same close view with the fine detail softened",
+                "width": 330,
+                "height": 412
+              }
+            }
+          ]
+        },
+        {
+          "type": "subheading",
+          "id": "self-capture",
+          "icon": "front-camera",
+          "text": "Self-capture convenience"
+        },
+        {
+          "type": "paragraph",
+          "text": "How you hold the phone when you are on your own shows in how straight and steady the photo comes out."
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Rear camera:** It takes more setup, but once the phone is on a stand at eye level with [the timer on](/guide/take-a-passport-photo-alone), the photo comes out straight and steady.",
+            {
+              "text": "**Front camera:** It is quick to take on your own, but a phone held in your hand often tilts or moves slightly, which shows as a tilted head or a little blur.",
+              "fix": "Prop the phone on a stand, or against something steady at eye level, and use the timer, and the photo will come out straight and sharp."
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "label": "Rear camera",
+              "icon": "rear-camera",
+              "image": {
+                "src": "/images/blog/factors/steady-rear.webp",
+                "alt": "Rear camera, on a stand: a straight, sharp portrait",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "label": "Front camera",
+              "icon": "front-camera",
+              "image": {
+                "src": "/images/blog/factors/steady-front.webp",
+                "alt": "Front camera, held in the hand: the same portrait slightly tilted and blurred by movement",
+                "width": 330,
+                "height": 412
+              }
             }
           ]
         }
@@ -570,31 +869,20 @@
 
     {
       "id": "passport-vs-visa",
-      "title": "Passport vs visa note",
+      "title": "Can one photo work for both passport and visa?",
       "nav": "Passport vs visa",
       "blocks": [
         {
-          "type": "split",
-          "imageSide": "right",
-          "aspect": "1/1",
-          "image": {
-            "src": "/images/photo-tips/photo-7.webp",
-            "alt": "Two photos of the same man shown to scale: a 35 x 45 mm rectangle next to a larger 2 x 2 inch square",
-            "width": 1000,
-            "height": 1573,
-            "position": "center 51%"
-          },
-          "blocks": [
-            {
-              "type": "callout",
-              "icon": "passport",
-              "text": "**The camera advice is the same for both.** A visa photo can have a different size, background colour or file-size limit for online uploads, so check the rule for your destination on our [visa photo requirements by country](/guide/visa-photo-requirements-by-country) page."
-            },
-            {
-              "type": "paragraph",
-              "text": "To see where the two differ, read our [passport vs visa photo guide](/guide/passport-vs-visa-photos), or look up [passport photo sizes by country](/guide/passport-photo-sizes-by-country)."
-            }
-          ]
+          "type": "paragraph",
+          "text": "**The camera advice is the same for both.** Passport and visa photo requirements can vary depending on the country and application type: a visa photo can have a different size, background colour or file-size limit for online uploads. Check the rule for your destination on our [visa photo requirements by country](/guide/visa-photo-requirements-by-country) page."
+        },
+        {
+          "type": "paragraph",
+          "text": "You can easily adjust your photo to meet the required specifications using our [Passport & Visa Photo Editor](/drop)."
+        },
+        {
+          "type": "paragraph",
+          "text": "Want to understand the differences and similarities? Read our [Passport vs Visa Photo Guide](/guide/passport-vs-visa-photos)."
         }
       ]
     }

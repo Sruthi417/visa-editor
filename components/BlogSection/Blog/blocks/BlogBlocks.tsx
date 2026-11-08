@@ -1,7 +1,11 @@
+import { HugeiconsIcon } from "@hugeicons/react";
+
 import RichText from "../../shared/RichText/RichText";
+import { BLOG_ICONS } from "../../shared/blogIcons";
 import type { BlogBlock } from "../../types";
 import BlogCallout from "./BlogCallout/BlogCallout";
 import BlogChecklist from "./BlogChecklist/BlogChecklist";
+import BlogCompare from "./BlogCompare/BlogCompare";
 import BlogDistance from "./BlogDistance/BlogDistance";
 import BlogFigure from "./BlogFigure/BlogFigure";
 import BlogPairs from "./BlogPairs/BlogPairs";
@@ -26,19 +30,45 @@ export default function BlogBlocks({ blocks }: { blocks: BlogBlock[] }) {
               </p>
             );
           case "subheading":
+            if (block.level === 4) {
+              return (
+                <h4 key={index} id={block.id} className="blog-prose__h4">
+                  {block.text}
+                </h4>
+              );
+            }
             return (
-              <h3 key={index} className="blog-prose__h3">
+              <h3
+                key={index}
+                id={block.id}
+                className={`blog-prose__h3${block.icon ? " blog-prose__h3--icon" : ""}`}
+              >
+                {block.icon && (
+                  <span className="blog-prose__h3-icon" aria-hidden="true">
+                    <HugeiconsIcon icon={BLOG_ICONS[block.icon]} size={20} strokeWidth={1.7} />
+                  </span>
+                )}
                 {block.text}
               </h3>
             );
+          case "compare":
+            return <BlogCompare key={index} data={block} />;
           case "list":
             return (
               <ul key={index} className="blog-prose__list">
-                {block.items.map((item) => (
-                  <li key={item}>
-                    <RichText text={item} />
-                  </li>
-                ))}
+                {block.items.map((item) => {
+                  const point = typeof item === "string" ? { text: item } : item;
+                  return (
+                    <li key={point.text}>
+                      <RichText text={point.text} />
+                      {point.fix && (
+                        <span className="blog-prose__fix">
+                          <RichText text={point.fix} />
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             );
           case "tiles":

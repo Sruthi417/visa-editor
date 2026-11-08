@@ -88,32 +88,6 @@
     @include icon-tile(32px);
     border-radius: 10px;
   }
-
-  &__cell {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  // The red cross and the green tick, lined up with the first line of text.
-  &__mark {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    margin-top: 1px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    color: #ffffff;
-
-    &--cross {
-      background: $red;
-    }
-
-    &--tick {
-      background: $green;
-    }
-  }
 }
 
 // One small card per row, with the column name above each answer.

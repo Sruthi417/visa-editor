@@ -1,0 +1,71 @@
+@use "../../../shared/tokens" as *;
+
+// A white card with a faint edge, the pictures centred in it side by side.
+.blog-compare {
+  list-style: none;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 300px));
+  justify-content: center;
+  gap: 14px;
+  border: 1px solid $line-soft;
+  background: #ffffff;
+  @include squircle(28px, 18px);
+
+  &__item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid $line-soft;
+    @include squircle(22px, 14px);
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 330 / 412;
+    object-fit: cover;
+  }
+
+  // The label on the picture's top corner, the same white chip as the editor card's.
+  &__chip {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    padding: 5px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 100px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(22, 38, 55, 0.12);
+    color: $ink-900;
+    font-size: 12.5px;
+    font-weight: 500;
+
+    svg {
+      color: $blue-deep;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-compare {
+    padding: 10px;
+    gap: 8px;
+
+    &__chip {
+      top: 6px;
+      left: 6px;
+      padding: 4px 8px;
+      gap: 4px;
+      font-size: 11px;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}

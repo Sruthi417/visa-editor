@@ -45,15 +45,35 @@ export type BlogAspect = "16/9" | "3/2" | "4/3" | "1/1" | "4/5";
 
 export type ParagraphBlock = { type: "paragraph"; text: string };
 
-/** A smaller heading inside a section (an h3). */
-export type SubheadingBlock = { type: "subheading"; text: string };
+/**
+ * A smaller heading inside a section (an h3). With an `icon` it opens a new part of the
+ * section, such as one factor; with an `id` it can be linked to as /blog/{slug}#{id}.
+ */
+export type SubheadingBlock = {
+  type: "subheading";
+  text: string;
+  icon?: BlogIcon;
+  id?: string;
+  /** 4 is a smaller heading inside a part that already has a heading, such as one factor. */
+  level?: 3 | 4;
+};
 
-export type ListBlock = { type: "list"; items: string[] };
+/** Two or more pictures side by side, each with a small label on it, such as Rear / Front camera. */
+export type CompareBlock = {
+  type: "compare";
+  items: { label: string; icon?: BlogIcon; image: BlogImage }[];
+};
+
+/**
+ * A bulleted list. An item can be a plain string, or `{ text, fix }`: a point that names a
+ * drawback, with a second paragraph under it showing how to sort it.
+ */
+export type ListBlock = { type: "list"; items: (string | { text: string; fix?: string })[] };
 
 /** A row of small icon tiles that name the things a paragraph lists. */
 export type TilesBlock = { type: "tiles"; items: { icon: BlogIcon; label: string }[] };
 
-/** A table. `tone: "fix"` marks the first column with a cross and the second with a tick. */
+/** A table. `tone: "fix"` is a mistake / fix table: the mistakes column gets 44% of the width. */
 export type TableBlock = {
   type: "table";
   columns: { label: string; icon?: BlogIcon }[];
@@ -157,7 +177,8 @@ export type BlogBlock =
   | CalloutBlock
   | FigureBlock
   | SplitBlock
-  | PairsBlock;
+  | PairsBlock
+  | CompareBlock;
 
 /** One h2 section of the article, in order. */
 export type BlogSectionData = {

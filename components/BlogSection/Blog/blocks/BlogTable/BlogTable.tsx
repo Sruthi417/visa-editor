@@ -1,5 +1,4 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Cancel01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
 
 import RichText from "../../../shared/RichText/RichText";
 import { BLOG_ICONS } from "../../../shared/blogIcons";
@@ -8,7 +7,7 @@ import "./BlogTable.scss";
 
 /**
  * A table in a white card. The first cell of each row is its heading. On a phone each row
- * becomes its own small card. `tone: "fix"` marks mistakes with a cross and fixes with a tick.
+ * becomes its own small card. `tone: "fix"` is a mistake / fix table, with its own column widths.
  */
 export default function BlogTable({ data }: { data: TableBlock }) {
   const isFix = data.tone === "fix";
@@ -37,29 +36,11 @@ export default function BlogTable({ data }: { data: TableBlock }) {
           {data.rows.map((row) => (
             <tr key={row[0]}>
               <th scope="row">
-                <span className="blog-table__cell">
-                  {isFix && (
-                    <span className="blog-table__mark blog-table__mark--cross" aria-hidden="true">
-                      <HugeiconsIcon icon={Cancel01Icon} size={12} strokeWidth={3} />
-                    </span>
-                  )}
-                  <span>
-                    <RichText text={row[0]} />
-                  </span>
-                </span>
+                <RichText text={row[0]} />
               </th>
               {row.slice(1).map((cell, index) => (
                 <td key={index} data-label={rest[index]?.label ?? first.label}>
-                  <span className="blog-table__cell">
-                    {isFix && (
-                      <span className="blog-table__mark blog-table__mark--tick" aria-hidden="true">
-                        <HugeiconsIcon icon={Tick02Icon} size={12} strokeWidth={3} />
-                      </span>
-                    )}
-                    <span>
-                      <RichText text={cell} />
-                    </span>
-                  </span>
+                  <RichText text={cell} />
                 </td>
               ))}
             </tr>
