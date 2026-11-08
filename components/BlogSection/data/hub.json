@@ -1,0 +1,21 @@
+{
+  "hero": {
+    "title": "Passport and visa photo blog",
+    "intro": "Practical articles on taking your own passport or visa photo, from choosing a camera to getting the settings right."
+  },
+  "title": "Latest articles",
+  "cards": [
+    {
+      "slug": "rear-vs-front-camera",
+      "title": "Rear camera vs front camera for passport and visa photos",
+      "image": {
+        "src": "/images/photo-tips/photo-1.webp",
+        "alt": "A man standing side-on to a phone on a tripod, with the gap between his face and the phone marked",
+        "width": 1000,
+        "height": 1573,
+        "position": "center 46%"
+      },
+      "blurb": "Compare resolution, distance, distortion, framing and settings, with the distances and steps for each camera."
+    }
+  ]
+}

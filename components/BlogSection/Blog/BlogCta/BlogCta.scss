@@ -1,0 +1,44 @@
+@use "../../shared/tokens" as *;
+
+// A sky banner with the content centred on it.
+.blog-cta {
+  // Added to the page's 100px scroll-padding-top, so a jump lands 120px down, clear of the navbar.
+  scroll-margin-top: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(36px, 4.6vw, 56px) clamp(20px, 4vw, 52px);
+  overflow: hidden;
+  background-color: #46aefc;
+  background-image: url("/images/compare/comp_try_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  @include squircle(40px, 28px);
+
+  h2 {
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 3.4vw, 38px);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  // Narrow enough that the line wraps to two even lines.
+  p {
+    max-width: 30ch;
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 16.5px;
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  &__button {
+    margin-top: 24px;
+  }
+}

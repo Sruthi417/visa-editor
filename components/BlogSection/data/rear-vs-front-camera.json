@@ -1,0 +1,734 @@
+{
+  "slug": "rear-vs-front-camera",
+  "breadcrumb": "Rear vs front camera",
+  "category": "Camera and setup",
+  "seo": {
+    "title": "Rear Camera vs Front Camera for Passport and Visa Photos | FlyFrame",
+    "description": "Rear or front camera for a passport or visa photo? Compare resolution, distance, distortion, framing and settings, with the distances and steps for each."
+  },
+
+  "checkedOn": "2026-11-07",
+
+  "hero": {
+    "title": "Rear Camera vs Front Camera for Passport and Visa Photos",
+    "intro": "Both cameras on your phone can take a passport or visa photo, but they work differently. This guide is for anyone taking their own photo at home. It compares the two cameras, explains how distance changes the look of a face, and gives the settings and distances to use with each.",
+    "image": {
+      "src": "/images/blog/rear-vs-front-camera-hero-v2.png",
+      "alt": "Two portraits of the same woman: a rear camera photo, labelled sharper and clearer, and a front camera photo, labelled easier to frame your face",
+      "width": 1254,
+      "height": 1254
+    }
+  },
+
+  "covers": {
+    "title": "What this guide covers",
+    "items": [
+      {
+        "label": "What a passport or visa photo needs from the camera",
+        "href": "#camera-needs"
+      },
+      {
+        "label": "Rear and front cameras side by side",
+        "href": "#at-a-glance"
+      },
+      {
+        "label": "How distance changes the look of a face",
+        "href": "#distance-and-your-face"
+      },
+      {
+        "label": "The right distance and settings for each camera",
+        "href": "#distance"
+      },
+      {
+        "label": "Steps for taking the photo with each camera",
+        "href": "#rear-camera-steps"
+      },
+      { "label": "Mistakes to avoid, and a FAQ", "href": "#mistakes" }
+    ]
+  },
+
+  "sections": [
+    {
+      "id": "which-is-better",
+      "title": "Rear camera vs front camera: Which is better for passport and visa photos?",
+      "nav": "Which is better",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Both front and rear cameras can be used to take passport and visa photos, but each has its advantages. The rear camera generally offers better image quality, while the front camera makes it easier to frame yourself and check your position before capturing."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the rear camera had a higher resolution than the front camera. However, it doesn't provide a live preview of your face while shooting, so you may need someone to help, or [use a phone stand and timer](/guide/take-a-passport-photo-alone) to capture the photo."
+        },
+        {
+          "type": "paragraph",
+          "text": "The front camera, on the other hand, lets you see yourself on the screen while taking the picture. This makes positioning easier, especially when you're taking the photo yourself. However, holding the phone too close can [distort facial proportions](#distance-and-your-face)."
+        },
+        { "type": "subheading", "text": "Getting the distance right" },
+        {
+          "type": "paragraph",
+          "text": "**Distance matters more than which camera you choose.** When the camera is too close to your face, facial features can appear distorted, affecting how your face looks in the final image."
+        },
+        { "type": "paragraph", "text": "As a practical starting point:" },
+        {
+          "type": "list",
+          "items": [
+            "**Rear camera:** Position your phone approximately 1–2 metres (4–6 feet) away. Use a stand or ask someone to help you frame the shot.",
+            "**Front camera:** Hold your phone approximately 40–50 cm (16–20 inches) away, while keeping your face centred and avoiding extreme close-ups."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "With either camera, use the [standard 1x lens](#settings), turn off the flash, portrait mode and beauty filters, and keep the original photo without applying edits."
+        }
+      ]
+    },
+
+    {
+      "id": "camera-needs",
+      "title": "What a passport or visa photo needs from the camera",
+      "nav": "What the photo needs",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Now that you know which camera to use and how to position it, the next step is making sure the camera captures a photo with the right quality."
+        },
+        {
+          "type": "paragraph",
+          "text": "Regardless of whether you choose the front or rear camera, your passport or visa photo should be **sharp, clear and evenly lit**, with your **whole face visible and its natural proportions maintained**."
+        },
+        {
+          "type": "paragraph",
+          "text": "Focus on these three important aspects when capturing your photo:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Sharpness:** Your face should be clearly focused, without [blur, excessive noise or loss of detail](/guide/fix-a-blurry-passport-photo).",
+            "**Lighting:** Your face should be evenly illuminated, without [harsh shadows](/guide/avoid-shadows-in-passport-photos), glare or overexposure.",
+            "**Natural appearance:** Your facial features should remain true to life. Avoid [beauty filters, portrait effects](/guide/filters-and-portrait-mode) or digital enhancements that alter your appearance."
+          ]
+        },
+        {
+          "type": "pairs",
+          "items": [
+            {
+              "icon": "sharpness",
+              "label": "Sharpness",
+              "dont": {
+                "src": "/images/blog/camera-quality-dont-blur.webp",
+                "alt": "Don't: the same portrait out of focus and blurred",
+                "width": 330,
+                "height": 412
+              },
+              "do": {
+                "src": "/images/blog/camera-quality-do.webp",
+                "alt": "Do: a sharp, clearly focused portrait",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "icon": "light",
+              "label": "Lighting",
+              "dont": {
+                "src": "/images/blog/camera-quality-dont-shadow.webp",
+                "alt": "Don't: the same portrait with a harsh shadow over one side of the face and glare on the other",
+                "width": 330,
+                "height": 412
+              },
+              "do": {
+                "src": "/images/blog/camera-quality-do.webp",
+                "alt": "Do: a portrait with the face evenly lit",
+                "width": 330,
+                "height": 412
+              }
+            },
+            {
+              "icon": "face",
+              "label": "Natural appearance",
+              "dont": {
+                "src": "/images/blog/camera-quality-dont-filter.webp",
+                "alt": "Don't: the same portrait with a beauty filter that smooths the skin, tints it pink and slims the face",
+                "width": 330,
+                "height": 412
+              },
+              "do": {
+                "src": "/images/blog/camera-quality-do.webp",
+                "alt": "Do: a natural, unedited portrait",
+                "width": 330,
+                "height": 412
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "The camera you use helps determine the quality of the image, but how you position yourself, [the lighting around you](/guide/lighting-for-passport-photos) and the way you capture the photo matter just as much."
+        },
+        {
+          "type": "paragraph",
+          "text": "The goal is to produce a clear, natural-looking photograph that accurately represents your face and is suitable for your [passport or visa application](/guide/photo-requirements-by-country)."
+        }
+      ]
+    },
+
+    {
+      "id": "at-a-glance",
+      "title": "Rear camera vs front camera at a glance",
+      "nav": "At a glance",
+      "blocks": [
+        {
+          "type": "table",
+          "columns": [
+            { "label": "Factor" },
+            { "label": "Rear camera", "icon": "rear-camera" },
+            { "label": "Front camera", "icon": "front-camera" }
+          ],
+          "rows": [
+            [
+              "**Resolution**",
+              "Generally higher resolution",
+              "Generally lower resolution"
+            ],
+            [
+              "**Aperture**",
+              "Wider lens opening allows more light into the camera",
+              "Narrower lens opening allows comparatively less light in"
+            ],
+            [
+              "**Preview while shooting**",
+              "The screen faces away from you, so you cannot directly preview yourself while capturing.",
+              "You can see yourself on the screen and adjust your position before capturing."
+            ],
+
+            [
+              "**Facial distortion**",
+              "Shooting from a greater distance helps maintain natural facial proportions.",
+              "Close-range selfies can make facial features appear distorted because of perspective."
+            ],
+             [
+              "**Typical shooting distance**",
+              "Easier to position 1–2 metres (4–6 feet) away using a helper or stand.",
+              "Often used at arm's length (around 40–50 cm or 16–20 inches) for handheld selfies."
+            ],
+            [
+              "**Image detail**",
+              "Generally captures finer details, depending on the phone's sensor and lens.",
+              "May capture less detail, depending on the phone's front-camera hardware."
+            ],
+            [
+              "**Self-capture convenience**",
+              "Requires additional setup to frame yourself without assistance.",
+              "More convenient because you can see your face while positioning the phone."
+            ]
+           
+          ]
+        },
+        {
+          "type": "callout",
+          "icon": "info",
+          "text": "**Note:** These are general differences, not universal specifications. Both cameras can produce suitable passport and visa photos. Distance, lighting, focus and correct framing matter more than the camera position alone."
+        },
+        { "type": "subheading", "text": "Examples of current phone cameras" },
+        {
+          "type": "paragraph",
+          "text": "These are the manufacturers' published specifications for two current phones. Specifications differ by model, so check yours in your phone's settings or on the manufacturer's page."
+        },
+        {
+          "type": "specs",
+          "items": [
+            {
+              "name": "iPhone 17",
+              "url": "https://www.apple.com/iphone-17/specs/",
+              "rows": [
+                { "label": "Main rear camera", "value": "48 MP, ƒ/1.6" },
+                { "label": "Front camera", "value": "18 MP, ƒ/1.9, autofocus" }
+              ]
+            },
+            {
+              "name": "Pixel 10",
+              "url": "https://store.google.com/product/pixel_10_specs",
+              "rows": [
+                { "label": "Main rear camera", "value": "48 MP, ƒ/1.70" },
+                {
+                  "label": "Front camera",
+                  "value": "10.5 MP, ƒ/2.2, autofocus"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "In both examples the rear camera has more megapixels and a wider aperture. A lower ƒ-number means a wider aperture, which lets in more light. Both front cameras here have autofocus, so a front camera can still give a sharp photo."
+        }
+      ]
+    },
+
+    {
+      "id": "distance-and-your-face",
+      "title": "How distance changes the look of a face",
+      "nav": "Distance and your face",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The distance between the camera and your face changes how your face looks in the photo. This is called **perspective distortion**. [Photography publications](https://petapixel.com/2018/05/23/perspective-distortion-or-why-lens-compression-doesnt-exist/) describe it as caused by the distance from the camera to the subject, and not by the lens alone: when a wide lens is moved close to a face, the face is distorted."
+        },
+        {
+          "type": "paragraph",
+          "text": "A study in JAMA Facial Plastic Surgery (Paskhover and Fried, 2018) compared a selfie taken about 12 inches (30 cm) from the face with a photo taken at 5 feet (1.5 m), described as a standard portrait distance. At 12 inches:"
+        },
+        {
+          "type": "stats",
+          "items": [
+            {
+              "prefix": "About",
+              "value": "30%",
+              "label": "wider at the base of the nose"
+            },
+            {
+              "prefix": "About",
+              "value": "7%",
+              "label": "wider at the nose tip"
+            }
+          ]
+        },
+        {
+          "type": "split",
+          "imageSide": "right",
+          "aspect": "4/5",
+          "image": {
+            "src": "/images/guide/guide_photo.png",
+            "alt": "A phone screen showing a woman holding her phone at arm's length to take a selfie",
+            "width": 672,
+            "height": 808,
+            "fit": "contain"
+          },
+          "blocks": [
+            { "type": "paragraph", "text": "What this means for your photo:" },
+            {
+              "type": "list",
+              "items": [
+                "A photo taken from further away shows your face closer to how it really looks.",
+                "A front camera photo is taken from closer than a rear camera photo, so some distortion remains even at the recommended distance.",
+                "**Don't use the ultra-wide lens at close range.** A wide lens close to the face increases the effect.",
+                "**Keep the camera level with your face.** Pointing it up or down at an angle changes the shape of the face further."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "distance",
+      "title": "Which distance to use with each camera",
+      "nav": "Which distance",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "These [distances](/guide/camera-distance-for-passport-photos) are our guidance for getting a clean photo. They are not rules set by any country."
+        },
+        {
+          "type": "distance",
+          "image": {
+            "src": "/images/photo-tips/photo-1.webp",
+            "alt": "A man standing side-on to a phone on a tripod, with the gap between his face and the phone marked as 40 to 50 cm",
+            "width": 1000,
+            "height": 1573,
+            "position": "center 62%"
+          },
+          "items": [
+            {
+              "icon": "rear-camera",
+              "label": "Rear camera",
+              "value": "About 1 to 2 m",
+              "sub": "4 to 6 ft",
+              "text": "Use a stand, a tripod or a helper. Leave space above your head and around your shoulders."
+            },
+            {
+              "icon": "front-camera",
+              "label": "Front camera",
+              "value": "About 40 to 50 cm",
+              "sub": "16 to 20 in",
+              "text": "Keep your arm steady, or prop the phone on a stand. Hold the camera at the longer end of the range."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Whatever the distance, **don't zoom in** with the camera. Stand further back instead and leave space around your head and shoulders. You don't need to crop the photo yourself, because [the editor](/drop) crops it to [your country's size](/guide/passport-photo-sizes-by-country)."
+        }
+      ]
+    },
+
+    {
+      "id": "settings",
+      "title": "Settings for either camera",
+      "nav": "Camera settings",
+      "blocks": [
+        {
+          "type": "settings",
+          "rows": [
+            {
+              "icon": "lens",
+              "label": "Lens",
+              "value": "1x",
+              "text": "Use the standard 1x main lens, not ultra-wide and not telephoto"
+            },
+            {
+              "icon": "resolution",
+              "label": "Resolution",
+              "value": "Highest",
+              "text": "Choose the highest photo resolution available"
+            },
+            {
+              "icon": "flash",
+              "label": "Flash",
+              "state": "off",
+              "text": "It can cause glare on skin and [glasses](/guide/glasses-in-passport-photos), and [red eyes](/guide/red-eye-in-passport-photos)"
+            },
+            {
+              "icon": "portrait",
+              "label": "Portrait mode",
+              "state": "off",
+              "text": "It [changes how the image looks](/guide/filters-and-portrait-mode)"
+            },
+            {
+              "icon": "beauty",
+              "label": "Beauty and skin-smoothing effects",
+              "state": "off",
+              "text": "The photo should show how you really look"
+            },
+            {
+              "icon": "filters",
+              "label": "Filters and HDR effects",
+              "state": "off"
+            },
+            {
+              "icon": "grid",
+              "label": "Grid",
+              "state": "on",
+              "text": "So you can keep the camera level"
+            },
+            {
+              "icon": "timer",
+              "label": "Timer",
+              "state": "on",
+              "text": "For 3 to 10 seconds, so the phone doesn't shake when you press the button"
+            },
+            {
+              "icon": "focus",
+              "label": "Focus",
+              "value": "Tap face",
+              "text": "Tap on your face if the phone lets you, so the face is the sharpest part"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "rear-camera-steps",
+      "title": "How to take the photo with the rear camera",
+      "nav": "Rear camera steps",
+      "blocks": [
+        {
+          "type": "steps",
+          "imageSide": "right",
+          "image": {
+            "src": "/images/photo-tips/photo-5.webp",
+            "alt": "A man in front of a plain wall, marked with a tick, next to the same man in front of a bookshelf and patterned wallpaper, marked with a cross",
+            "width": 1000,
+            "height": 1573,
+            "position": "center 52%",
+            "zoom": 1.12
+          },
+          "items": [
+            "Open [your country's rules](/guide/photo-requirements-by-country) in our hub, so you know the size, background and expression rules.",
+            "Put the phone on a **stand or tripod**, or ask a helper to hold it, with the camera at your **eye level**.",
+            "Stand **about 1 to 2 metres** (4 to 6 feet) from the phone, in front of a [plain wall](/guide/passport-photo-background-rules), and a little away from the wall so there is [no shadow](/guide/avoid-shadows-in-passport-photos).",
+            "Face a **window** or another [soft light source](/guide/lighting-for-passport-photos), so your face is evenly lit.",
+            "Set the **timer**, look straight at the camera lens, keep your eyes open, your mouth closed, and your [expression neutral](/guide/appearance-and-facial-expression).",
+            "Take **at least five photos**, and open each one at full size to pick the sharpest."
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "front-camera-steps",
+      "title": "How to take the photo with the front camera",
+      "nav": "Front camera steps",
+      "blocks": [
+        {
+          "type": "steps",
+          "imageSide": "left",
+          "image": {
+            "src": "/images/photo-tips/photo-3.webp",
+            "alt": "A man looking straight at the camera, marked with a tick, next to the same man with his head turned to the side, marked with a cross",
+            "width": 1000,
+            "height": 1573,
+            "position": "center 52%",
+            "zoom": 1.12
+          },
+          "items": [
+            "Open [your country's rules](/guide/photo-requirements-by-country) in our hub, and turn off **beauty mode, portrait mode, filters and flash**.",
+            "Stand in front of a **plain wall**, a little away from it, and face a window or another soft light source.",
+            "Prop the phone on a stand if you can. If you hold it, hold it at **eye level** and **about 40 to 50 cm** (16 to 20 inches) from your face, with your arm as steady as possible.",
+            "**Look at the camera lens, not at the screen.** The lens is the small circle on the front of the phone.",
+            "Check on the screen that your [whole head](/guide/head-position-and-size) is in the frame, with space above it and around your shoulders.",
+            "Use the **timer**, keep your head level, eyes open, mouth closed, and expression neutral.",
+            "Take **at least five photos**, and open each one at full size to pick the sharpest."
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "after-the-photo",
+      "title": "After the photo: what to check",
+      "nav": "After the photo",
+      "blocks": [
+        {
+          "type": "checklist",
+          "image": {
+            "src": "/images/photo-tips/photo-6.webp",
+            "alt": "A sharp portrait of a man, marked with a tick, next to the same portrait out of focus, marked with a cross",
+            "width": 1000,
+            "height": 1573,
+            "position": "center 52%"
+          },
+          "items": [
+            {
+              "icon": "sharpness",
+              "label": "Sharpness",
+              "text": "Zoom in on your eyes. They should be in focus, not [blurry or grainy](/guide/fix-a-blurry-passport-photo)."
+            },
+            {
+              "icon": "light",
+              "label": "Light",
+              "text": "No [shadows](/guide/avoid-shadows-in-passport-photos) on your face or the wall, and no glare on your skin or glasses."
+            },
+            {
+              "icon": "face",
+              "label": "Shape",
+              "text": "Your face looks natural, with the nose not exaggerated. If it looks stretched, take the photo again from further away."
+            },
+            {
+              "icon": "level",
+              "label": "Position",
+              "text": "Your head and the camera are level, and your whole head is in the frame."
+            },
+            {
+              "icon": "file",
+              "label": "File",
+              "text": "You have the original photo, not a screenshot, and not a copy sent through a chat app, because [compressing a photo](/guide/passport-photo-file-size-and-format) removes detail."
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "mistakes",
+      "title": "Common mistakes",
+      "nav": "Common mistakes",
+      "blocks": [
+        {
+          "type": "table",
+          "tone": "fix",
+          "columns": [{ "label": "Mistake" }, { "label": "Fix" }],
+          "rows": [
+            [
+              "Holding the front camera very close to the face",
+              "Hold it at 40 to 50 cm, or use the rear camera and stand further back"
+            ],
+            [
+              "Looking at the screen instead of the lens",
+              "Look at the camera lens"
+            ],
+            ["Using the ultra-wide lens", "Use the standard 1x lens"],
+            [
+              "Portrait mode or beauty mode left on",
+              "Turn them off before shooting"
+            ],
+            [
+              "The camera tilted up or down",
+              "Hold the phone at eye level and use the grid to keep it level"
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "For the full list, read [why passport and visa photos get rejected](/guide/why-passport-photos-get-rejected)."
+        }
+      ]
+    },
+
+    {
+      "id": "passport-vs-visa",
+      "title": "Passport vs visa note",
+      "nav": "Passport vs visa",
+      "blocks": [
+        {
+          "type": "split",
+          "imageSide": "right",
+          "aspect": "1/1",
+          "image": {
+            "src": "/images/photo-tips/photo-7.webp",
+            "alt": "Two photos of the same man shown to scale: a 35 x 45 mm rectangle next to a larger 2 x 2 inch square",
+            "width": 1000,
+            "height": 1573,
+            "position": "center 51%"
+          },
+          "blocks": [
+            {
+              "type": "callout",
+              "icon": "passport",
+              "text": "**The camera advice is the same for both.** A visa photo can have a different size, background colour or file-size limit for online uploads, so check the rule for your destination on our [visa photo requirements by country](/guide/visa-photo-requirements-by-country) page."
+            },
+            {
+              "type": "paragraph",
+              "text": "To see where the two differ, read our [passport vs visa photo guide](/guide/passport-vs-visa-photos), or look up [passport photo sizes by country](/guide/passport-photo-sizes-by-country)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+
+  "related": {
+    "id": "related-reading",
+    "title": "Related reading",
+    "items": [
+      {
+        "icon": "guide",
+        "label": "How to take a passport or visa photo at home",
+        "href": "/guide/take-a-photo-at-home"
+      },
+      {
+        "icon": "ruler",
+        "label": "Camera distance for passport photos",
+        "href": "/guide/camera-distance-for-passport-photos"
+      },
+      {
+        "icon": "timer",
+        "label": "How to take a passport photo on your own",
+        "href": "/guide/take-a-passport-photo-alone"
+      },
+      {
+        "icon": "light",
+        "label": "Lighting for passport photos",
+        "href": "/guide/lighting-for-passport-photos"
+      },
+      {
+        "icon": "filters",
+        "label": "Filters and portrait mode in passport photos",
+        "href": "/guide/filters-and-portrait-mode"
+      },
+      {
+        "icon": "crop",
+        "label": "Passport photo sizes by country",
+        "href": "/guide/passport-photo-sizes-by-country"
+      }
+    ]
+  },
+
+  "editor": {
+    "chip": "Photo editor",
+    "title": "Edit your photo",
+    "text": "Upload the photo you just took, pick your country, and the editor crops it to the right size and background.",
+    "image": {
+      "src": "/images/how-it-works/step-2-fit.webp",
+      "alt": "A portrait inside crop guides, with an oval face outline and a 35 x 45 mm size label",
+      "width": 1143,
+      "height": 1376,
+      "position": "center 40%"
+    },
+    "cta": { "label": "Open the photo editor", "href": "/drop" },
+    "inlineAfter": "settings"
+  },
+
+  "check": {
+    "id": "check",
+    "title": "Check your photo",
+    "chip": "Free checker",
+    "text": "Upload your photo to our free photo checker, choose your country, and get a pass or fail report on size, head height, eye line, blur, lighting, shadows, glasses, expression and background. You pay only if you want the processed photo.",
+    "image": {
+      "src": "/images/guide/guide-check-photo.webp",
+      "alt": ""
+    },
+    "cta": { "label": "Check my photo" }
+  },
+
+  "faq": {
+    "id": "faq",
+    "eyebrow": "FAQ",
+    "title": "Rear and front camera questions",
+    "items": [
+      {
+        "q": "Which camera is better for a passport photo?",
+        "a": "No official guidance we reviewed requires a particular camera. What matters is that the photo meets your country's requirements. In the two phones we checked, the rear camera has a higher resolution, and it is shot from further away. The front camera lets you check your framing."
+      },
+      {
+        "q": "Can I use the front camera?",
+        "a": "Yes, if the photo meets your country's requirements. Hold the camera at about 40 to 50 cm, at eye level, look at the lens and turn off beauty mode, portrait mode and filters."
+      },
+      {
+        "q": "Why does my face look different in selfies?",
+        "a": "Because of the shooting distance. A study found that a selfie taken at about 12 inches made the base of the nose appear about 30 percent wider than a photo taken at 5 feet. Shooting from further away reduces this."
+      },
+      {
+        "q": "Does the number of megapixels matter?",
+        "a": "A higher-resolution original keeps more detail after the photo is cropped to your country's size. Choose the highest photo resolution on your phone, and upload the original file."
+      },
+      {
+        "q": "Should I ask someone to take the photo?",
+        "a": "Official passport guidance we reviewed mentions having another person take the photo. A helper makes it easier to use the rear camera at the right distance, but a stand or timer works too."
+      }
+    ]
+  },
+
+  "next": {
+    "id": "next",
+    "title": "Next step",
+    "text": "Take your photo, then check it for free before you apply.",
+    "cta": { "label": "Check my photo" }
+  },
+
+  "sources": {
+    "id": "sources",
+    "title": "Sources",
+    "items": [
+      {
+        "publisher": "Apple",
+        "label": "iPhone 17 Tech Specs",
+        "url": "https://www.apple.com/iphone-17/specs/"
+      },
+      {
+        "publisher": "Google",
+        "label": "Pixel 10 features and specs",
+        "url": "https://store.google.com/product/pixel_10_specs"
+      },
+      {
+        "publisher": "CBS News",
+        "label": "Selfies distort faces like a funhouse mirror, study finds",
+        "url": "https://www.cbsnews.com/news/selfies-distort-faces-30-percent-like-funhouse-mirror-study-finds/",
+        "note": "Reporting on Paskhover and Fried, JAMA Facial Plastic Surgery, 2018"
+      },
+      {
+        "publisher": "Futurity",
+        "label": "Why selfies make your nose look bigger",
+        "url": "https://www.futurity.org/faces-selfies-self-image-1694162/"
+      },
+      {
+        "publisher": "PetaPixel",
+        "label": "Perspective Distortion, Or: Why Lens Compression Doesn't Exist",
+        "url": "https://petapixel.com/2018/05/23/perspective-distortion-or-why-lens-compression-doesnt-exist/"
+      }
+    ]
+  }
+}

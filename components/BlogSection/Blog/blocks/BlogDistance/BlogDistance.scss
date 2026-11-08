@@ -1,0 +1,110 @@
+@use "../../../shared/tokens" as *;
+
+// The picture on the left, the two cards stacked on the right.
+.blog-distance {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 14px;
+
+  // The picture fills whatever height the two cards need. It is taken out of the flow,
+  // so the tall photo can't stretch the cards.
+  &__media {
+    order: -1;
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+    border: 1px solid $line-soft;
+    background: #ffffff;
+    @include squircle(32px, 20px);
+
+    img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--blog-img-pos, center);
+    }
+  }
+
+  &__cards {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__card {
+    flex: 1;
+    padding: 20px 22px;
+    @include card;
+    @include squircle(32px, 20px);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__icon {
+    @include icon-tile(38px);
+  }
+
+  &__label {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  &__value {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 3vw, 32px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  &__sub {
+    color: $blue-deep;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  &__text {
+    margin-top: 10px;
+    color: $ink-700;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+// The cards first, then a wide crop of the picture.
+@media (max-width: 720px) {
+  .blog-distance {
+    grid-template-columns: minmax(0, 1fr);
+
+    &__media {
+      order: 0;
+      min-height: 0;
+
+      img {
+        position: static;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-position: center 40%;
+      }
+    }
+  }
+}

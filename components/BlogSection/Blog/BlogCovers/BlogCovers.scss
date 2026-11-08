@@ -1,0 +1,106 @@
+@use "../../shared/tokens" as *;
+
+.blog-covers {
+  &__title {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 2.4vw, 26px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  &__list {
+    list-style: none;
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  // A grey row, like an FAQ question: number, label, arrow.
+  &__link {
+    height: 100%;
+    min-height: 64px;
+    padding: 12px 16px 12px 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid $line-soft;
+    background: $panel;
+    color: $ink-900;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+    @include squircle(26px, 18px);
+    transition:
+      transform 0.25s $ease,
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      border-color: $tint-line;
+      background: #ffffff;
+      box-shadow: 0 10px 24px rgba(0, 56, 128, 0.07);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $line;
+    border-radius: 11px;
+    background: #ffffff;
+    color: $blue-text;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  &__label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    color: $ink-500;
+    transition:
+      transform 0.25s $ease,
+      color 0.25s ease;
+  }
+
+  &__link:hover &__arrow {
+    transform: translateY(2px);
+    color: $blue-deep;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-covers__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-covers__link,
+  .blog-covers__arrow {
+    transition: none;
+  }
+
+  .blog-covers__link:hover,
+  .blog-covers__link:hover .blog-covers__arrow {
+    transform: none;
+  }
+}

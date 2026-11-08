@@ -1,0 +1,193 @@
+@use "../../../shared/tokens" as *;
+
+// A white card with a faint edge and shadow. It clips the rows to its rounded corners.
+.blog-table {
+  overflow: hidden;
+  @include card;
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
+
+    th,
+    td {
+      padding: 18px 22px;
+      vertical-align: top;
+      border-bottom: 1px solid $line-soft;
+    }
+
+    thead th {
+      padding-top: 16px;
+      padding-bottom: 16px;
+      background: $panel;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      vertical-align: middle;
+    }
+
+    tbody th {
+      color: $ink-900;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+
+      a {
+        @include text-link;
+      }
+    }
+
+    td {
+      color: $ink-700;
+      font-size: 15px;
+      line-height: 1.55;
+
+      a {
+        @include text-link;
+      }
+    }
+
+    tbody tr:last-child {
+      th,
+      td {
+        border-bottom: 0;
+      }
+    }
+
+    // A soft blue on the row under the pointer, so a long row is easy to follow.
+    tbody tr {
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: rgba($tint, 0.7);
+      }
+    }
+  }
+
+  // Three columns: the factor names are short, the two answers share the rest.
+  &--cols-3 &__table th:first-child {
+    width: 28%;
+  }
+
+  // Mistakes are short, so the fixes get the wider column.
+  &--fix &__table th:first-child {
+    width: 44%;
+  }
+
+  &__head {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__head-icon {
+    @include icon-tile(32px);
+    border-radius: 10px;
+  }
+
+  &__cell {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  // The red cross and the green tick, lined up with the first line of text.
+  &__mark {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+
+    &--cross {
+      background: $red;
+    }
+
+    &--tick {
+      background: $green;
+    }
+  }
+}
+
+// One small card per row, with the column name above each answer.
+@media (max-width: 720px) {
+  .blog-table {
+    overflow: visible;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    &__table {
+      &,
+      tbody,
+      tr,
+      th,
+      td {
+        display: block;
+      }
+
+      // Hidden on screen. Screen readers still get the column names.
+      thead {
+        @include sr-only;
+      }
+
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      tr {
+        overflow: hidden;
+        border: 1px solid $line;
+        border-radius: 20px;
+        background: #ffffff;
+      }
+
+      tbody tr:hover {
+        background: #ffffff;
+      }
+
+      th,
+      td {
+        padding: 14px 18px;
+        border-bottom: 0;
+      }
+
+      tbody th {
+        background: $panel;
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      td {
+        border-top: 1px solid $line-soft;
+
+        &::before {
+          content: attr(data-label);
+          display: block;
+          margin-bottom: 6px;
+          color: $ink-500;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    &--cols-3 &__table th:first-child,
+    &--fix &__table th:first-child {
+      width: auto;
+    }
+  }
+}

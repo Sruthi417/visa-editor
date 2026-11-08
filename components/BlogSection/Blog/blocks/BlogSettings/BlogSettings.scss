@@ -1,0 +1,136 @@
+@use "../../../shared/tokens" as *;
+
+// One white card, like a phone's settings screen: a row per setting with a hairline between.
+.blog-settings {
+  list-style: none;
+  overflow: hidden;
+  @include card;
+
+  &__row {
+    padding: 16px 22px 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background-color 0.2s ease;
+
+    & + & {
+      border-top: 1px solid $line-soft;
+    }
+
+    &:hover {
+      background: rgba($tint, 0.6);
+    }
+  }
+
+  &__icon {
+    @include icon-tile(40px);
+  }
+
+  &__text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__label {
+    color: $ink-900;
+    font-size: 15.5px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  &__note {
+    color: $ink-500;
+    font-size: 14px;
+    line-height: 1.5;
+
+    a {
+      @include text-link;
+    }
+  }
+
+  // The word and the switch picture.
+  &__switch {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__state {
+    min-width: 2.2em;
+    color: $ink-500;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  &__track {
+    position: relative;
+    width: 46px;
+    height: 28px;
+    border-radius: 100px;
+    background: $line;
+    box-shadow: inset 0 1px 2px rgba(22, 38, 55, 0.08);
+  }
+
+  &__knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(22, 38, 55, 0.22);
+  }
+
+  &__switch--on &__track {
+    background: $blue;
+  }
+
+  &__switch--on &__knob {
+    transform: translateX(18px);
+  }
+
+  &__switch--on &__state {
+    color: $blue-text;
+  }
+
+  // A value instead of a switch, such as "1x".
+  &__value {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    border: 1px solid $tint-line;
+    border-radius: 10px;
+    background: $tint;
+    color: $blue-text;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-settings {
+    &__row {
+      padding: 14px 14px 14px 12px;
+      gap: 12px;
+    }
+
+    &__icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    // Only the switch shows on a phone. Screen readers still get the word.
+    &__state {
+      @include sr-only;
+    }
+  }
+}

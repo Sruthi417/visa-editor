@@ -1,0 +1,79 @@
+@use "../../../shared/tokens" as *;
+
+.blog-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  &__media {
+    overflow: hidden;
+    border: 1px solid $line-soft;
+    background: #ffffff;
+    @include squircle(36px, 22px);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: var(--blog-img-pos, center);
+    }
+  }
+
+  &__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  &__item {
+    padding: 16px 18px 16px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1px solid $line-soft;
+    background: $panel;
+    @include squircle(28px, 18px);
+
+    // An odd item out at the end takes the full row.
+    &:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__icon {
+    @include icon-tile(38px);
+    border-color: $line;
+    background: #ffffff;
+  }
+
+  &__text {
+    padding-top: 2px;
+    color: $ink-700;
+    font-size: 15px;
+    line-height: 1.6;
+
+    strong {
+      color: $ink-900;
+      font-weight: 600;
+    }
+
+    a {
+      @include text-link;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-checklist {
+    &__list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__media img {
+      aspect-ratio: 4 / 3;
+    }
+  }
+}

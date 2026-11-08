@@ -1,0 +1,120 @@
+@use "../../shared/tokens" as *;
+
+// A white card: the photo being checked in a soft blue panel, the text and the button beside it.
+.blog-check {
+  // Added to the page's 100px scroll-padding-top, so a jump lands 120px down, clear of the navbar.
+  scroll-margin-top: 20px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+  border: 1px solid $line-soft;
+  background: #ffffff;
+  box-shadow: 0 14px 36px rgba(22, 38, 55, 0.08);
+  @include squircle(40px, 28px);
+
+  &__media {
+    position: relative;
+    height: 100%;
+    min-height: 240px;
+    padding: 30px 0;
+    display: grid;
+    place-items: center;
+    background: $tint;
+    @include squircle(32px, 20px);
+  }
+
+  &__chip {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    padding: 5px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 100px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(22, 38, 55, 0.1);
+    color: $ink-900;
+    font-size: 12px;
+    font-weight: 500;
+
+    // Filled in, as the icon is only an outline.
+    svg {
+      color: #f5a623;
+
+      path {
+        fill: currentColor;
+      }
+    }
+  }
+
+  // The picture, in a white frame. Its corners are clipped to the frame's rounded corners.
+  &__frame {
+    width: 168px;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(0, 60, 130, 0.14);
+    @include squircle(36px, 24px);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__body {
+    padding: 14px clamp(8px, 2vw, 24px) 14px 0;
+  }
+
+  &__title {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 3vw, 32px);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+  }
+
+  &__text {
+    margin-top: 12px;
+    color: $ink-700;
+    font-size: 15.5px;
+    line-height: 1.65;
+  }
+
+  &__button {
+    margin-top: 22px;
+  }
+}
+
+// The picture on top, then the text and a full-width button.
+@media (max-width: 640px) {
+  .blog-check {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+
+    &__media {
+      min-height: 0;
+      padding: 24px 0;
+    }
+
+    &__frame {
+      width: 150px;
+    }
+
+    &__body {
+      padding: 14px 8px 8px;
+    }
+
+    &__button {
+      width: 100%;
+    }
+  }
+}

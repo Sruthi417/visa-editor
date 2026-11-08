@@ -1,0 +1,39 @@
+// The text column is the wider one; the picture sits beside it at the top.
+.blog-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 36px);
+
+  &--image-left {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+  }
+
+  // The picture comes second in the markup, so this moves it to the left.
+  &--image-left &__media {
+    order: -1;
+  }
+
+  &__copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+// The text first, then the picture as a wide crop.
+@media (max-width: 720px) {
+  .blog-split,
+  .blog-split--image-left {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blog-split--image-left .blog-split__media {
+    order: 0;
+  }
+
+  .blog-split .blog-split__media img {
+    aspect-ratio: 4 / 3;
+  }
+}

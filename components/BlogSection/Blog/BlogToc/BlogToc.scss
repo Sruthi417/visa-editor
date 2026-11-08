@@ -1,0 +1,65 @@
+@use "../../shared/tokens" as *;
+
+// A plain list beside the post, with no box or heading.
+.blog-toc {
+  // The grey track and the blue mark are drawn the same way, as 2px bars from the same left
+  // edge, so the mark always sits exactly on top of the track at any zoom level.
+  &__list {
+    position: relative;
+    list-style: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 2px;
+      border-radius: 2px;
+      background: $line;
+    }
+  }
+
+  &__link {
+    position: relative;
+    padding: 7px 0 7px 18px;
+    display: block;
+    color: $ink-500;
+    font-size: 14px;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    // The current section's mark, laid over the track.
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 2px;
+      border-radius: 2px;
+      background: transparent;
+      transition: background-color 0.2s ease;
+    }
+
+    &:hover {
+      color: $ink-900;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    &--active {
+      color: $ink-900;
+      font-weight: 500;
+
+      &::before {
+        background: $blue;
+      }
+    }
+  }
+}

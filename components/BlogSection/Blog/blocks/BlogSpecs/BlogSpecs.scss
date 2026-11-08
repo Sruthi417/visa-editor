@@ -1,0 +1,98 @@
+@use "../../../shared/tokens" as *;
+
+.blog-specs {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+
+  &__card {
+    padding: 18px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    @include card;
+    @include squircle(32px, 20px);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__icon {
+    @include icon-tile(38px);
+  }
+
+  &__name {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  &__rows {
+    flex: 1;
+    margin-top: 14px;
+  }
+
+  &__row {
+    padding: 12px 0;
+    border-top: 1px solid $line-soft;
+
+    dt {
+      color: $ink-500;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    dd {
+      margin-top: 3px;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  // The underline draws in from the left on hover.
+  &__link {
+    align-self: flex-start;
+    margin-top: 4px;
+    padding-bottom: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    color: $blue-text;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-size 0.3s $ease;
+
+    &:hover {
+      background-size: 100% 1px;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue-text;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+  }
+
+  &__sr {
+    @include sr-only;
+  }
+}
+
+@media (max-width: 560px) {
+  .blog-specs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,107 @@
+@use "../../../shared/tokens" as *;
+
+// Three cards in a row while the column is wide enough; one per row below that. The
+// breakpoint follows the column, not the window, so it works beside the side columns too.
+// (The wrapper is the container; a container query can only restyle what is inside it.)
+.blog-pairs {
+  container-type: inline-size;
+
+  &__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  // A white card with a faint edge.
+  &__card {
+    padding: 14px 14px 22px;
+    border: 1px solid $line-soft;
+    background: #ffffff;
+    @include squircle(28px, 18px);
+  }
+
+  &__label {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  &__icon {
+    @include icon-tile(32px);
+    border-radius: 10px;
+  }
+
+  &__photos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  &__photo {
+    position: relative;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 330 / 412;
+      object-fit: cover;
+      border: 1px solid $line-soft;
+      box-shadow: 0 4px 12px rgba(0, 56, 128, 0.06);
+      @include squircle(18px, 14px);
+    }
+  }
+
+  // The cross or the tick, half over the foot of the photo.
+  &__mark {
+    position: absolute;
+    bottom: -11px;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    color: #ffffff;
+    transform: translateX(-50%);
+  }
+
+  &__photo--dont &__mark {
+    background: $red;
+  }
+
+  &__photo--do &__mark {
+    background: $green;
+  }
+}
+
+// A narrow column: one card per row, with the two photos at a readable size.
+@container (max-width: 620px) {
+  .blog-pairs__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blog-pairs__card {
+    padding: 14px 14px 24px;
+  }
+
+  .blog-pairs__photos {
+    grid-template-columns: repeat(2, minmax(0, 180px));
+  }
+}
+
+@supports not (container-type: inline-size) {
+  @media (max-width: 640px) {
+    .blog-pairs__list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}

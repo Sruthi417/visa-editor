@@ -1,0 +1,97 @@
+@use "../../shared/tokens" as *;
+
+.blog-reading {
+  // Added to the page's 100px scroll-padding-top, so a jump lands 120px down, clear of the navbar.
+  scroll-margin-top: 20px;
+
+  &__title {
+    margin-bottom: 18px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 3vw, 32px);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+  }
+
+  &__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  // A white card per guide. It lifts a little under the pointer.
+  &__link {
+    height: 100%;
+    min-height: 72px;
+    padding: 14px 18px 14px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid $line-soft;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 56, 128, 0.04);
+    color: $ink-900;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+    @include squircle(26px, 18px);
+    transition:
+      transform 0.25s $ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      border-color: $tint-line;
+      box-shadow: 0 12px 26px rgba(0, 56, 128, 0.09);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__icon {
+    @include icon-tile(42px);
+  }
+
+  &__label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    color: $ink-500;
+    transition:
+      transform 0.25s $ease,
+      color 0.25s ease;
+  }
+
+  &__link:hover &__arrow {
+    transform: translateX(3px);
+    color: $blue-deep;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-reading__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-reading__link,
+  .blog-reading__arrow {
+    transition: none;
+  }
+
+  .blog-reading__link:hover,
+  .blog-reading__link:hover .blog-reading__arrow {
+    transform: none;
+  }
+}

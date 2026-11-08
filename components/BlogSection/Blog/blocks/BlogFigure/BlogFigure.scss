@@ -1,0 +1,5 @@
+@use "../../../shared/tokens" as *;
+
+.blog-figure {
+  @include framed-picture;
+}

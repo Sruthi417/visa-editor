@@ -1,0 +1,20 @@
+// The post's sections, one under the other.
+.blog-article {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 6vw, 80px);
+
+  // The quick answer and the list under it belong together, so they sit 40px apart.
+  > .blog-quick + .blog-covers {
+    margin-top: calc(40px - clamp(56px, 6vw, 80px));
+  }
+}
+
+// "More articles" under the post, lined up with the content column.
+.blog-related {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 var(--section-px) var(--section-py);
+  border-top: 1px solid #eef1f3;
+}

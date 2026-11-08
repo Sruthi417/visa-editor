@@ -1,0 +1,116 @@
+@use "../../../shared/tokens" as *;
+
+.blog-steps {
+  // The steps take the wider share; the picture keeps a little under half the column.
+  &--media {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(20px, 3vw, 36px);
+  }
+
+  // The picture comes second in the markup, so this moves it to the left.
+  &--image-left {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  }
+
+  &--image-left &__media {
+    order: -1;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    position: relative;
+    padding-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    // The line that joins each number to the next one.
+    &:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      top: 40px;
+      bottom: 4px;
+      left: 17px;
+      width: 2px;
+      border-radius: 2px;
+      background: $line;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &__number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $tint-line;
+    background: $tint;
+    color: $blue-text;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    @include squircle(14px, 11px);
+  }
+
+  &__text {
+    padding-top: 5px;
+    @include body-text;
+    line-height: 1.65;
+
+    strong {
+      color: $ink-900;
+      font-weight: 600;
+    }
+
+    a {
+      @include text-link;
+    }
+  }
+
+  &__media {
+    position: sticky;
+    top: 120px;
+    overflow: hidden;
+    border: 1px solid $line-soft;
+    background: #ffffff;
+    @include squircle(32px, 20px);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      // Wide enough to crop away the empty space above and below the two portraits.
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: var(--blog-img-pos, center);
+      transform: scale(var(--blog-img-zoom, 1));
+    }
+  }
+}
+
+// The steps first, then a wide crop of the picture.
+@media (max-width: 720px) {
+  .blog-steps--media,
+  .blog-steps--image-left {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blog-steps--image-left .blog-steps__media {
+    order: 0;
+  }
+
+  .blog-steps__media {
+    position: static;
+  }
+}

@@ -1,0 +1,104 @@
+// The widest the page gets, padding included. The hub and the post share it.
+$page-max: 1480px;
+
+.blog-layout {
+  width: 100%;
+  background: #ffffff;
+
+  &__body {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(24px, 3vw, 40px) var(--section-px) var(--section-py);
+
+    // A full-width section follows, and it brings its own top padding.
+    &--before-section {
+      padding-bottom: 0;
+    }
+
+    &--wide {
+      max-width: $page-max;
+    }
+
+    // A post: "On this page" on the left, the article in the middle, the editor card on the right.
+    &--with-aside,
+    &--with-rail {
+      max-width: $page-max;
+      display: grid;
+      align-items: start;
+      gap: clamp(32px, 3.2vw, 52px);
+    }
+
+    &--with-aside {
+      grid-template-columns: 224px minmax(0, 1fr);
+    }
+
+    &--with-rail {
+      grid-template-columns: minmax(0, 1fr) 300px;
+    }
+
+    &--with-aside.blog-layout__body--with-rail {
+      grid-template-columns: 224px minmax(0, 1fr) 300px;
+    }
+  }
+
+  // Both side columns stay in view while the article scrolls. They clear the fixed navbar.
+  &__aside,
+  &__rail {
+    position: sticky;
+    top: 118px;
+  }
+
+  // A long contents list scrolls on its own on a short screen.
+  &__aside {
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    // Room for the focus ring on the links.
+    padding: 4px;
+    margin: -4px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__content {
+    min-width: 0;
+  }
+}
+
+// Not room for three columns: the article's own "What this guide covers" list stands in
+// for "On this page", and the editor card stays on the right.
+@media (max-width: 1199px) {
+  .blog-layout__body--with-aside.blog-layout__body--with-rail {
+    grid-template-columns: minmax(0, 1fr) 280px;
+  }
+
+  .blog-layout__body--with-aside:not(.blog-layout__body--with-rail) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blog-layout__aside {
+    display: none;
+  }
+}
+
+// One column. The editor card moves into the article (see BlogEditorCard), and the
+// lines are kept a comfortable length to read.
+@media (max-width: 1023px) {
+  .blog-layout__body--with-aside,
+  .blog-layout__body--with-rail {
+    display: block;
+  }
+
+  .blog-layout__rail {
+    display: none;
+  }
+
+  .blog-layout__body--with-aside .blog-layout__content,
+  .blog-layout__body--with-rail .blog-layout__content {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+}

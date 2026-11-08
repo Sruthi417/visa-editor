@@ -1,0 +1,46 @@
+@use "../../../shared/tokens" as *;
+
+.blog-tiles {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+
+  &__item {
+    padding: 14px 16px 14px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    @include card;
+    @include squircle(28px, 18px);
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  &__icon {
+    @include icon-tile(44px);
+  }
+}
+
+// Three narrow tiles: the icon goes above the label.
+@media (max-width: 560px) {
+  .blog-tiles {
+    gap: 8px;
+
+    &__item {
+      padding: 14px 8px;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    &__icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

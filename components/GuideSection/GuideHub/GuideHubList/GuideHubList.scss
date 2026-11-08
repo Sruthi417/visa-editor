@@ -1,8 +1,8 @@
 @use "../../shared/tokens" as *;
 
 .guide-hub-list {
-  // 4rem of space between the hero and the title.
-  padding-top: 4rem;
+  // The same space above the title as the Compare hub, so the cards show on the first screen.
+  padding-top: 1rem;
 
   &__title {
     @include section-title;

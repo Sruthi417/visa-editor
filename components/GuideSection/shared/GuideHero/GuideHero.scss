@@ -128,13 +128,51 @@ $ink: #131313;
     text-wrap: balance;
   }
 
-  // The hub has no picture and shorter words, so these narrow widths keep both on two lines.
+  // The hub (no picture) matches the Compare hub's hero: the same fade, spacing, title and
+  // intro. The title is narrowed to two lines and the intro widened to two. The Compare
+  // title fits on one line on a wider screen, so the bottom padding here gives back the
+  // extra line, and the hero ends where Compare's does, with the cards peeking in below.
+  &:not(&--media) {
+    padding: clamp(120px, 14vw, 150px) 0 clamp(56px, 6.25vw, 90px);
+
+    // On a phone both titles take two lines, so the padding is the Compare hub's again.
+    @media (max-width: 520px) {
+      padding-bottom: 88px;
+    }
+
+    &::after {
+      height: clamp(70px, 9vw, 120px);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 45%,
+        rgba(255, 255, 255, 0.8) 80%,
+        #ffffff 100%
+      );
+    }
+  }
+
+  &:not(&--media) &__crumbs {
+    margin-top: clamp(28px, 4vw, 40px);
+    margin-bottom: 0;
+  }
+
   &:not(&--media) &__title {
-    max-width: 17ch;
+    max-width: 18ch;
+    margin-top: clamp(28px, 4vw, 35px);
+    font-size: clamp(38px, 6.4vw, 56px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
   }
 
   &:not(&--media) &__intro {
-    width: min(460px, calc(100vw - 2 * var(--section-px)));
+    width: auto;
+    // Wide enough for two lines on a desktop screen.
+    max-width: 62ch;
+    margin-top: clamp(16px, 2vw, 24px);
+    font-size: clamp(15px, 1.6vw, 16px);
+    line-height: 1.4;
   }
 
   // The phone picture: its height follows the screen height ---------------------------
