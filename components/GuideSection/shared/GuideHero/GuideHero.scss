@@ -128,6 +128,15 @@ $ink: #131313;
     text-wrap: balance;
   }
 
+  // The hub has no picture and shorter words, so these narrow widths keep both on two lines.
+  &:not(&--media) &__title {
+    max-width: 17ch;
+  }
+
+  &:not(&--media) &__intro {
+    width: min(460px, calc(100vw - 2 * var(--section-px)));
+  }
+
   // The phone picture: its height follows the screen height ---------------------------
   &__image {
     width: auto;

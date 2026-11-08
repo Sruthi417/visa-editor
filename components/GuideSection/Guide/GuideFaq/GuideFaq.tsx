@@ -11,11 +11,11 @@ import "./GuideFaq.scss";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Questions on the left, an accordion on the right. One answer is open at a time. */
-export default function GuideFaq({ data }: { data: Guide["faq"] }) {
+export default function GuideFaq({ data, wide = false }: { data: Guide["faq"]; wide?: boolean }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="guide-faq" id={data.id}>
+    <section className={`guide-faq${wide ? " guide-faq--wide" : ""}`} id={data.id}>
       <div className="guide-faq__grid">
         <div className="guide-faq__intro">
           <span className="guide-faq__eyebrow">{data.eyebrow}</span>

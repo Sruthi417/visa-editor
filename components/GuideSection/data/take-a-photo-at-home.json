@@ -208,11 +208,6 @@
     "chip": "Free tool",
     "title": "Check your photo",
     "cardText": "Upload your photo, select your country and get an instant pass-or-fail report.",
-    "stats": [
-      { "icon": "checks", "value": "7", "label": "checks" },
-      { "icon": "countries", "value": "100+", "label": "countries" },
-      { "icon": "speed", "value": "Instant" }
-    ],
     "text": "Want to know if your passport or visa photo is ready? Try our free Photo Checker. Upload your photo, select your country, and get an instant pass-or-fail report covering size, head position, lighting, shadows, blur, expression and background. If anything fails, you'll see what to fix before you apply.",
     "more": "Want to see the rules it checks against? Read our [Passport Photo Requirements by Country](/guide/photo-requirements-by-country) guide.",
     "cta": { "label": "Upload a photo" }

@@ -8,9 +8,36 @@
     {
       "slug": "take-a-photo-at-home",
       "title": "How to take a photo at home",
-      "image": "/images/photo-tips/photo-1.webp",
-      "imagePosition": "center 42%",
+      "image": "/images/guide/guide-hub-1.png",
       "blurb": "Set up your phone, light and pose to take a clean passport or visa photo at home."
     }
-  ]
+  ],
+  "faq": {
+    "id": "faq",
+    "eyebrow": "FAQ",
+    "title": "Photo guide questions.",
+    "sub": "Quick answers about using these guides to take your own photo.",
+    "items": [
+      {
+        "q": "Can I take a passport or visa photo at home?",
+        "a": "In many cases, yes, but the rules depend on the country and on how you apply. Check your country's official photo requirements before you shoot."
+      },
+      {
+        "q": "What do I need to get started?",
+        "a": "A phone with a camera, a plain wall, a window with daylight, and a helper, a timer or something steady to prop the phone on."
+      },
+      {
+        "q": "Do these guides work for both passport and visa photos?",
+        "a": "Yes. The steps work for both, but the size, background colour and file limits can differ by country and application type, so check the rule for your destination."
+      },
+      {
+        "q": "What if my country's rules are different?",
+        "a": "Your country's rules win. The guides cover the default rules, which are a good starting point, so always check your country's official requirements before you shoot."
+      },
+      {
+        "q": "What do I do after I take the photo?",
+        "a": "Pick the sharpest, evenly lit photo and open it in the editor to crop it to your country's size. Upload the original photo, not a screenshot or a compressed copy."
+      }
+    ]
+  }
 }

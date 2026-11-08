@@ -31,8 +31,6 @@ export type Step = {
 
 export type NeedIcon = "phone" | "wall" | "light" | "helper";
 
-export type CheckStatIcon = "checks" | "countries" | "speed";
-
 /** One card on the /guide hub. Each guide has its own title, image and blurb. */
 export type HubCard = {
   /** Matches a guide's slug, so the card links to /guide/{slug}. */
@@ -100,8 +98,6 @@ export type Guide = {
     title: string;
     /** The short line inside the card. It fits on two lines. */
     cardText: string;
-    /** The row of three facts in the card. */
-    stats: { icon: CheckStatIcon; value: string; label?: string }[];
     /** The content beside the card. */
     text: string;
     /** The line after the text. Can use **bold** and [label](/guide/slug) links. */

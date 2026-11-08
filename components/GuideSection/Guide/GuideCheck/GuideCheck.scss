@@ -1,7 +1,7 @@
 @use "../../shared/tokens" as *;
 
-// A white card: the photo being checked in a soft panel, then the title, a short line,
-// a row of facts and a full-width button.
+// A white card: the photo being checked in a soft panel, then the title, a short line
+// and a full-width button.
 .guide-check {
   padding: 12px;
   border: 1px solid #eef1f3;
@@ -82,48 +82,8 @@
     line-height: 1.5;
   }
 
-  // Three facts, split by thin lines.
-  &__stats {
-    list-style: none;
-    margin-top: 12px;
-    padding: 9px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid $line;
-    border-bottom: 1px solid $line;
-
-    li {
-      padding: 0 7px;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      color: $ink-500;
-      font-size: 12px;
-      white-space: nowrap;
-
-      &:first-child {
-        padding-left: 0;
-      }
-
-      &:last-child {
-        padding-right: 0;
-      }
-
-      & + li {
-        border-left: 1px solid $line;
-      }
-    }
-
-    strong {
-      color: $ink-900;
-      font-size: 13px;
-      font-weight: 600;
-    }
-  }
-
   &__action {
-    margin-top: 12px;
+    margin-top: 16px;
 
     .guide-button {
       width: 100%;

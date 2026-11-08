@@ -26,12 +26,7 @@
     border: 1px solid #eef1f3;
     background: #ffffff;
     box-shadow: 0 10px 30px rgba(22, 38, 55, 0.08);
-    transition: transform 0.25s ease;
     @include squircle(36px, 26px);
-
-    &:hover {
-      transform: translateY(-2px);
-    }
   }
 
   // Every card photo is cropped to the same 16:9 frame; `imagePosition` picks the focus.
@@ -45,12 +40,7 @@
       height: auto;
       aspect-ratio: 16 / 9;
       object-fit: cover;
-      transition: transform 0.5s ease;
     }
-  }
-
-  &__card:hover &__media img {
-    transform: scale(1.03);
   }
 
   &__body {
@@ -101,11 +91,6 @@
     font-size: 17px;
     font-weight: 500;
     text-decoration: none;
-    transition: transform 0.25s ease;
-
-    &:active {
-      transform: translateY(1px);
-    }
 
     &:focus-visible {
       outline: 2px solid $blue;
