@@ -171,8 +171,9 @@ $hero-ink: #131313;
     text-wrap: balance;
   }
 
+  // The hub: wide enough for the subtitle to sit on two even lines.
   &:not(&--post) &__intro {
-    max-width: 46ch;
+    max-width: 64ch;
   }
 
   // Facts-checked date and reading time --------------------------------------------

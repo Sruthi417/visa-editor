@@ -16,8 +16,9 @@ $page-max: 1480px;
       padding-bottom: 0;
     }
 
+    // The hub: the same width as the Guide and Compare hubs, so the cards are the same size.
     &--wide {
-      max-width: $page-max;
+      max-width: 1320px;
     }
 
     // A post: "On this page" on the left, the article in the middle, the editor card on the right.

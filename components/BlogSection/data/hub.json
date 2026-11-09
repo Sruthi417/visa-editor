@@ -9,13 +9,40 @@
       "slug": "rear-vs-front-camera",
       "title": "Rear camera vs front camera for passport and visa photos",
       "image": {
-        "src": "/images/photo-tips/photo-1.webp",
-        "alt": "A man standing side-on to a phone on a tripod, with the gap between his face and the phone marked",
-        "width": 1000,
-        "height": 1573,
-        "position": "center 46%"
+        "src": "/images/blog/rear-vs-front-camera-thumb.webp",
+        "alt": "Rear camera vs front camera for passport and visa photos: the back of a phone next to a phone showing a selfie, with a passport, a visa and a man thinking it over",
+        "width": 1670,
+        "height": 941
       },
       "blurb": "Compare resolution, distance, distortion, framing and settings, with the distances and steps for each camera."
     }
-  ]
+  ],
+  "faq": {
+    "id": "faq",
+    "eyebrow": "FAQ",
+    "title": "Photo blog questions.",
+    "sub": "Quick answers about these articles and how to use them for your own photo.",
+    "items": [
+      {
+        "q": "What does the blog cover?",
+        "a": "Practical articles on taking your own passport or visa photo at home, such as which phone camera to use, how far to stand, which settings to turn on or off, and what to check before you apply."
+      },
+      {
+        "q": "How is the blog different from the photo guides?",
+        "a": "The guides walk you through taking a photo from start to finish. Each blog article goes deeper into one topic, such as rear and front cameras, and explains how it changes the photo you upload."
+      },
+      {
+        "q": "Are the facts in each article checked?",
+        "a": "Yes. Each article shows the date its facts were checked near the top. Photo rules can change, so always check your country's official requirements before you apply."
+      },
+      {
+        "q": "Does the advice work for both passport and visa photos?",
+        "a": "Yes. The camera and photo advice is the same for both, but the size, background colour and file limits can differ by country and application type, so check the rule for your destination."
+      },
+      {
+        "q": "What do I do after I take the photo?",
+        "a": "Pick the sharpest, evenly lit photo and open it in the editor to crop it to your country's size. Upload the original photo, not a screenshot or a compressed copy."
+      }
+    ]
+  }
 }
