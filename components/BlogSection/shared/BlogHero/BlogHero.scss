@@ -263,20 +263,34 @@ $hero-ink: #131313;
   }
 }
 
-// One column: the text first, then the picture below it.
+// One column: the text first, then the picture below it. With the picture underneath, the
+// text is centred, as on the Compare page.
 @media (max-width: 900px) {
   .blog-hero--split {
     .blog-hero__inner {
       grid-template-columns: minmax(0, 1fr);
       gap: 12px;
+      text-align: center;
+    }
+
+    .blog-hero__copy {
+      align-items: center;
+    }
+
+    .blog-hero__crumbs,
+    .blog-hero__versus,
+    .blog-hero__meta {
+      justify-content: center;
     }
 
     .blog-hero__title {
       max-width: 20ch;
+      text-wrap: balance;
     }
 
     .blog-hero__intro {
       max-width: 62ch;
+      text-wrap: balance;
     }
 
     .blog-hero__media {
@@ -289,15 +303,16 @@ $hero-ink: #131313;
   }
 }
 
-// Smaller pills on a phone, so the date and the reading time share one row.
+// Smaller pills on a phone, so the date and the reading time share one row. On a very narrow
+// phone they wrap, centred.
 @media (max-width: 480px) {
   .blog-hero__meta {
-    gap: 6px;
+    gap: 5px;
 
     li {
-      padding: 6px 9px;
+      padding: 6px 8px;
       gap: 5px;
-      font-size: 12px;
+      font-size: 11.5px;
     }
 
     svg {
