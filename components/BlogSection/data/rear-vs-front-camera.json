@@ -13,7 +13,7 @@
     "title": "Rear Camera vs Front Camera for Passport and Visa Photos",
     "intro": "Both cameras on your phone can take a passport or visa photo, but they work differently. This guide is for anyone taking their own photo at home. It compares the two cameras, explains how distance changes the look of a face, and gives the settings and distances to use with each.",
     "image": {
-      "src": "/images/blog/rear-vs-front-camera-hero-v2.png",
+      "src": "/images/blog/rear-vs-front-camera-hero-v3.png",
       "alt": "Two portraits of the same woman: a rear camera photo, labelled sharper and clearer, and a front camera photo, labelled easier to frame your face",
       "width": 1254,
       "height": 1254
@@ -117,13 +117,13 @@
               "icon": "sharpness",
               "label": "Sharpness",
               "dont": {
-                "src": "/images/blog/camera-quality-dont-blur.webp",
+                "src": "/images/blog/camera-quality-dont-blur-blue.webp",
                 "alt": "Don't: the same portrait out of focus and blurred",
                 "width": 330,
                 "height": 412
               },
               "do": {
-                "src": "/images/blog/camera-quality-do.webp",
+                "src": "/images/blog/camera-quality-do-blue.webp",
                 "alt": "Do: a sharp, clearly focused portrait",
                 "width": 330,
                 "height": 412
@@ -133,13 +133,13 @@
               "icon": "light",
               "label": "Lighting",
               "dont": {
-                "src": "/images/blog/camera-quality-dont-shadow.webp",
+                "src": "/images/blog/camera-quality-dont-shadow-blue.webp",
                 "alt": "Don't: the same portrait with a harsh shadow over one side of the face and glare on the other",
                 "width": 330,
                 "height": 412
               },
               "do": {
-                "src": "/images/blog/camera-quality-do.webp",
+                "src": "/images/blog/camera-quality-do-blue.webp",
                 "alt": "Do: a portrait with the face evenly lit",
                 "width": 330,
                 "height": 412
@@ -149,13 +149,13 @@
               "icon": "face",
               "label": "Natural appearance",
               "dont": {
-                "src": "/images/blog/camera-quality-dont-filter.webp",
+                "src": "/images/blog/camera-quality-dont-filter-blue.webp",
                 "alt": "Don't: the same portrait with a beauty filter that smooths the skin, tints it pink and slims the face",
                 "width": 330,
                 "height": 412
               },
               "do": {
-                "src": "/images/blog/camera-quality-do.webp",
+                "src": "/images/blog/camera-quality-do-blue.webp",
                 "alt": "Do: a natural, unedited portrait",
                 "width": 330,
                 "height": 412
@@ -265,7 +265,7 @@
               "label": "Rear camera",
               "icon": "rear-camera",
               "image": {
-                "src": "/images/blog/factors/resolution-rear.webp",
+                "src": "/images/blog/factors/resolution-rear-blue.webp",
                 "alt": "Rear camera: a portrait with more pixels, smooth and sharp",
                 "width": 330,
                 "height": 412
@@ -275,7 +275,7 @@
               "label": "Front camera",
               "icon": "front-camera",
               "image": {
-                "src": "/images/blog/factors/resolution-front.webp",
+                "src": "/images/blog/factors/resolution-front-blue.webp",
                 "alt": "Front camera: the same portrait with fewer pixels, shown as visible blocks",
                 "width": 330,
                 "height": 412
@@ -310,7 +310,7 @@
               "label": "Rear camera",
               "icon": "rear-camera",
               "image": {
-                "src": "/images/blog/factors/aperture-rear.webp",
+                "src": "/images/blog/factors/aperture-rear-blue.webp",
                 "alt": "Rear camera: a bright, clean portrait taken with more light",
                 "width": 330,
                 "height": 412
@@ -320,7 +320,7 @@
               "label": "Front camera",
               "icon": "front-camera",
               "image": {
-                "src": "/images/blog/factors/aperture-front.webp",
+                "src": "/images/blog/factors/aperture-front-blue.webp",
                 "alt": "Front camera: the same portrait darker and grainier, taken with less light",
                 "width": 330,
                 "height": 412
@@ -405,7 +405,7 @@
               "label": "Rear camera",
               "icon": "rear-camera",
               "image": {
-                "src": "/images/blog/factors/framing-rear.webp",
+                "src": "/images/blog/factors/framing-rear-blue.webp",
                 "alt": "Rear camera, without a preview: a portrait off-centre with the top of the head cut off",
                 "width": 330,
                 "height": 412
@@ -415,7 +415,7 @@
               "label": "Front camera",
               "icon": "front-camera",
               "image": {
-                "src": "/images/blog/factors/framing-front.webp",
+                "src": "/images/blog/factors/framing-front-blue.webp",
                 "alt": "Front camera, with a preview: the same portrait centred inside a face guide and framing corners",
                 "width": 330,
                 "height": 412
@@ -465,7 +465,7 @@
               "label": "Rear camera",
               "icon": "rear-camera",
               "image": {
-                "src": "/images/blog/factors/distortion-rear.webp",
+                "src": "/images/blog/factors/distortion-rear-blue.webp",
                 "alt": "Rear camera: a portrait with natural facial proportions",
                 "width": 330,
                 "height": 412
@@ -475,7 +475,7 @@
               "label": "Front camera",
               "icon": "front-camera",
               "image": {
-                "src": "/images/blog/factors/distortion-front.webp",
+                "src": "/images/blog/factors/distortion-front-blue.webp",
                 "alt": "Front camera: an illustration of the same face taken too close, with the nose and the middle of the face enlarged",
                 "width": 330,
                 "height": 412
@@ -510,7 +510,7 @@
               "label": "Rear camera",
               "icon": "rear-camera",
               "image": {
-                "src": "/images/blog/factors/distance-rear.webp",
+                "src": "/images/blog/factors/distance-rear-blue.webp",
                 "alt": "Rear camera: a head-and-shoulders portrait taken from further away, with space around the head",
                 "width": 330,
                 "height": 412
@@ -520,7 +520,7 @@
               "label": "Front camera",
               "icon": "front-camera",
               "image": {
-                "src": "/images/blog/factors/distance-front.webp",
+                "src": "/images/blog/factors/distance-front-blue.webp",
                 "alt": "Front camera: the same face close up, filling the frame",
                 "width": 330,
                 "height": 412
@@ -555,8 +555,8 @@
               "label": "Rear camera",
               "icon": "rear-camera",
               "image": {
-                "src": "/images/blog/factors/detail-rear.webp",
-                "alt": "Rear camera: a close view of a woman's eyes and hair with fine detail",
+                "src": "/images/blog/factors/detail-close-rear.webp",
+                "alt": "Rear camera: a close view of the woman's face with fine detail in her eyelashes, eyebrows and hair",
                 "width": 330,
                 "height": 412
               }
@@ -565,8 +565,8 @@
               "label": "Front camera",
               "icon": "front-camera",
               "image": {
-                "src": "/images/blog/factors/detail-front.webp",
-                "alt": "Front camera: the same close view with the fine detail softened",
+                "src": "/images/blog/factors/detail-close-front.webp",
+                "alt": "Front camera: the same close view with the fine detail in her eyelashes, eyebrows and hair smoothed away",
                 "width": 330,
                 "height": 412
               }
@@ -600,7 +600,7 @@
               "label": "Rear camera",
               "icon": "rear-camera",
               "image": {
-                "src": "/images/blog/factors/steady-rear.webp",
+                "src": "/images/blog/factors/steady-rear-blue.webp",
                 "alt": "Rear camera, on a stand: a straight, sharp portrait",
                 "width": 330,
                 "height": 412
@@ -610,7 +610,7 @@
               "label": "Front camera",
               "icon": "front-camera",
               "image": {
-                "src": "/images/blog/factors/steady-front.webp",
+                "src": "/images/blog/factors/steady-front-blue.webp",
                 "alt": "Front camera, held in the hand: the same portrait slightly tilted and blurred by movement",
                 "width": 330,
                 "height": 412
@@ -639,6 +639,26 @@
             "height": 1573,
             "position": "center 62%"
           },
+          "slides": [
+            {
+              "label": "Rear camera",
+              "image": {
+                "src": "/images/blog/distance-rear-camera-v2.webp",
+                "alt": "Rear camera: a woman standing side-on to a phone on a tripod 1 to 2 metres (4 to 6 feet) away",
+                "width": 1152,
+                "height": 819
+              }
+            },
+            {
+              "label": "Front camera",
+              "image": {
+                "src": "/images/blog/distance-front-camera-v2.webp",
+                "alt": "Front camera: the same woman with the phone on a tripod 40 to 50 cm (16 to 20 inches) away",
+                "width": 1152,
+                "height": 819
+              }
+            }
+          ],
           "items": [
             {
               "icon": "rear-camera",
@@ -737,13 +757,12 @@
         {
           "type": "steps",
           "imageSide": "right",
+          "aspect": "auto",
           "image": {
-            "src": "/images/photo-tips/photo-5.webp",
-            "alt": "A man in front of a plain wall, marked with a tick, next to the same man in front of a bookshelf and patterned wallpaper, marked with a cross",
-            "width": 1000,
-            "height": 1573,
-            "position": "center 52%",
-            "zoom": 1.12
+            "src": "/images/blog/rear-camera-helper.webp",
+            "alt": "A helper photographing a woman against a light blue wall with a phone's rear camera. Marked with a tick: the phone close enough that her head and shoulders fill the screen. Marked with a cross: the phone too far away, so she looks small on the screen.",
+            "width": 1681,
+            "height": 778
           },
           "items": [
             "Open [your country's rules](/guide/photo-requirements-by-country) in our hub, so you know the size, background and expression rules.",
@@ -765,13 +784,12 @@
         {
           "type": "steps",
           "imageSide": "left",
+          "aspect": "auto",
           "image": {
-            "src": "/images/photo-tips/photo-3.webp",
-            "alt": "A man looking straight at the camera, marked with a tick, next to the same man with his head turned to the side, marked with a cross",
-            "width": 1000,
-            "height": 1573,
-            "position": "center 52%",
-            "zoom": 1.12
+            "src": "/images/blog/front-camera-selfie.webp",
+            "alt": "A woman taking a selfie against a light blue wall. Marked with a tick: the phone at eye level and at arm's length, so her face looks natural. Marked with a cross: the phone held close and below her face, so her chin and nose look larger.",
+            "width": 1681,
+            "height": 782
           },
           "items": [
             "Open [your country's rules](/guide/photo-requirements-by-country) in our hub, and turn off **beauty mode, portrait mode, filters and flash**.",
@@ -794,11 +812,10 @@
         {
           "type": "checklist",
           "image": {
-            "src": "/images/photo-tips/photo-6.webp",
-            "alt": "A sharp portrait of a man, marked with a tick, next to the same portrait out of focus, marked with a cross",
-            "width": 1000,
-            "height": 1573,
-            "position": "center 52%"
+            "src": "/images/blog/after-the-photo-checks.webp",
+            "alt": "Eight photos of the same woman on a light blue background. One is sharp, evenly lit and well framed, marked with a tick. The others are marked with a cross for common problems: blur, a shadow behind the head, glare on glasses, the camera too close or too far away, and low resolution.",
+            "width": 1091,
+            "height": 629
           },
           "items": [
             {
@@ -892,35 +909,32 @@
     "id": "related-reading",
     "title": "Related reading",
     "items": [
+      { "guide": "take-a-photo-at-home" },
       {
-        "icon": "guide",
-        "label": "How to take a passport or visa photo at home",
-        "href": "/guide/take-a-photo-at-home"
+        "kind": "guide",
+        "title": "Camera distance for passport photos",
+        "href": "/guide/camera-distance-for-passport-photos",
+        "blurb": "How far to stand from the camera, so your face keeps its natural shape and fits the frame.",
+        "image": {
+          "src": "/images/photo-tips/photo-1.webp",
+          "alt": "A man standing side-on to a phone on a tripod, with the distance between them marked",
+          "width": 1000,
+          "height": 1573,
+          "position": "center 58%"
+        }
       },
       {
-        "icon": "ruler",
-        "label": "Camera distance for passport photos",
-        "href": "/guide/camera-distance-for-passport-photos"
-      },
-      {
-        "icon": "timer",
-        "label": "How to take a passport photo on your own",
-        "href": "/guide/take-a-passport-photo-alone"
-      },
-      {
-        "icon": "light",
-        "label": "Lighting for passport photos",
-        "href": "/guide/lighting-for-passport-photos"
-      },
-      {
-        "icon": "filters",
-        "label": "Filters and portrait mode in passport photos",
-        "href": "/guide/filters-and-portrait-mode"
-      },
-      {
-        "icon": "crop",
-        "label": "Passport photo sizes by country",
-        "href": "/guide/passport-photo-sizes-by-country"
+        "kind": "guide",
+        "title": "How to take a passport photo on your own",
+        "href": "/guide/take-a-passport-photo-alone",
+        "blurb": "Use a stand, the timer and a test shot to take a straight, steady photo without a helper.",
+        "image": {
+          "src": "/images/guide/guide_photo.png",
+          "alt": "A phone screen showing a woman taking a photo of herself",
+          "width": 672,
+          "height": 808,
+          "position": "center 42%"
+        }
       }
     ]
   },
@@ -930,11 +944,10 @@
     "title": "Edit your photo",
     "text": "Upload the photo you just took, pick your country, and the editor crops it to the right size and background.",
     "image": {
-      "src": "/images/how-it-works/step-2-fit.webp",
-      "alt": "A portrait inside crop guides, with an oval face outline and a 35 x 45 mm size label",
-      "width": 1143,
-      "height": 1376,
-      "position": "center 40%"
+      "src": "/images/guide/guide-check-photo.webp",
+      "alt": "A portrait being processed, with a scan line across the face and the background being removed",
+      "width": 579,
+      "height": 579
     },
     "cta": { "label": "Open the photo editor", "href": "/drop" },
     "inlineAfter": "settings"
@@ -945,10 +958,6 @@
     "title": "Check your photo",
     "chip": "Free checker",
     "text": "Upload your photo to our free photo checker, choose your country, and get a pass or fail report on size, head height, eye line, blur, lighting, shadows, glasses, expression and background. You pay only if you want the processed photo.",
-    "image": {
-      "src": "/images/guide/guide-check-photo.webp",
-      "alt": ""
-    },
     "cta": { "label": "Check my photo" }
   },
 
@@ -976,46 +985,6 @@
       {
         "q": "Should I ask someone to take the photo?",
         "a": "Official passport guidance we reviewed mentions having another person take the photo. A helper makes it easier to use the rear camera at the right distance, but a stand or timer works too."
-      }
-    ]
-  },
-
-  "next": {
-    "id": "next",
-    "title": "Next step",
-    "text": "Take your photo, then check it for free before you apply.",
-    "cta": { "label": "Check my photo" }
-  },
-
-  "sources": {
-    "id": "sources",
-    "title": "Sources",
-    "items": [
-      {
-        "publisher": "Apple",
-        "label": "iPhone 17 Tech Specs",
-        "url": "https://www.apple.com/iphone-17/specs/"
-      },
-      {
-        "publisher": "Google",
-        "label": "Pixel 10 features and specs",
-        "url": "https://store.google.com/product/pixel_10_specs"
-      },
-      {
-        "publisher": "CBS News",
-        "label": "Selfies distort faces like a funhouse mirror, study finds",
-        "url": "https://www.cbsnews.com/news/selfies-distort-faces-30-percent-like-funhouse-mirror-study-finds/",
-        "note": "Reporting on Paskhover and Fried, JAMA Facial Plastic Surgery, 2018"
-      },
-      {
-        "publisher": "Futurity",
-        "label": "Why selfies make your nose look bigger",
-        "url": "https://www.futurity.org/faces-selfies-self-image-1694162/"
-      },
-      {
-        "publisher": "PetaPixel",
-        "label": "Perspective Distortion, Or: Why Lens Compression Doesn't Exist",
-        "url": "https://petapixel.com/2018/05/23/perspective-distortion-or-why-lens-compression-doesnt-exist/"
       }
     ]
   }

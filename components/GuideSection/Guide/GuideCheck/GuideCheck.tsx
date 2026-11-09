@@ -2,6 +2,7 @@ import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { StarIcon } from "@hugeicons/core-free-icons";
 
+import { checkerPicture } from "../../../checkerPicture";
 import GuideButton from "../../shared/GuideButton/GuideButton";
 import GuideSplit from "../../shared/GuideSplit/GuideSplit";
 import type { Guide } from "../../types";
@@ -9,6 +10,9 @@ import "./GuideCheck.scss";
 
 /** The photo checker: a small card with the button on the left, the title and content on the right. */
 export default function GuideCheck({ data }: { data: Guide["check"] }) {
+  // The same picture as the Blog's checker card.
+  const picture = checkerPicture();
+
   return (
     <GuideSplit id={data.id} heading={data.heading} text={data.text} more={data.more} narrow>
       <div className="guide-check">
@@ -19,8 +23,12 @@ export default function GuideCheck({ data }: { data: Guide["check"] }) {
           </span>
 
           {/* Only a picture of the idea, so it is hidden from screen readers. */}
-          <div className="guide-check__frame" aria-hidden="true">
-            <Image src="/images/guide/guide-check-photo.webp" alt="" width={579} height={579} sizes="190px" />
+          <div
+            className="guide-check__frame"
+            aria-hidden="true"
+            style={{ aspectRatio: `${picture.width} / ${picture.height}` }}
+          >
+            <Image src={picture.src} alt="" width={picture.width} height={picture.height} sizes="190px" />
           </div>
         </div>
 

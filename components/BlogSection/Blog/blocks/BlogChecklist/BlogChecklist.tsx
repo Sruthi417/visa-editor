@@ -6,7 +6,10 @@ import { BLOG_ICONS } from "../../../shared/blogIcons";
 import type { ChecklistBlock } from "../../../types";
 import "./BlogChecklist.scss";
 
-/** A wide picture, then a grid of things to check, each with an icon and a bold label. */
+/**
+ * A wide picture, then a card for each thing to check: an icon, a title and a short text.
+ * Three cards to a row; a shorter last row is centred.
+ */
 export default function BlogChecklist({ data }: { data: ChecklistBlock }) {
   const { image } = data;
 
@@ -31,8 +34,9 @@ export default function BlogChecklist({ data }: { data: ChecklistBlock }) {
             <span className="blog-checklist__icon" aria-hidden="true">
               <HugeiconsIcon icon={BLOG_ICONS[item.icon]} size={20} strokeWidth={1.7} />
             </span>
+            <h3 className="blog-checklist__title">{item.label}</h3>
             <p className="blog-checklist__text">
-              <strong>{item.label}:</strong> <RichText text={item.text} />
+              <RichText text={item.text} />
             </p>
           </li>
         ))}

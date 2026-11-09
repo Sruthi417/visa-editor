@@ -1,6 +1,8 @@
 @use "../../../shared/tokens" as *;
 
 .blog-checklist {
+  // The card rows follow the column's width, not the window's.
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -11,54 +13,58 @@
     background: #ffffff;
     @include squircle(36px, 22px);
 
+    // The picture keeps its own shape, so a grid of photos is never cropped.
     img {
       display: block;
       width: 100%;
       height: auto;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      object-position: var(--blog-img-pos, center);
     }
   }
 
+  // Three cards to a row. They keep a third of the width each, so a shorter last row
+  // (two cards) is centred rather than stretched.
   &__list {
+    --gap: 12px;
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap);
   }
 
+  // A white card: the icon tile, the title, then the text.
   &__item {
-    padding: 16px 18px 16px 16px;
+    flex: 0 0 calc((100% - 2 * var(--gap)) / 3);
+    min-width: 0;
+    padding: 18px 18px 20px;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
     border: 1px solid $line-soft;
-    background: $panel;
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 56, 128, 0.05);
     @include squircle(28px, 18px);
-
-    // An odd item out at the end takes the full row.
-    &:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-    }
   }
 
   &__icon {
-    @include icon-tile(38px);
-    border-color: $line;
-    background: #ffffff;
+    @include icon-tile(40px);
+  }
+
+  &__title {
+    margin-top: 14px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
   }
 
   &__text {
-    padding-top: 2px;
-    color: $ink-700;
-    font-size: 15px;
-    line-height: 1.6;
-
-    strong {
-      color: $ink-900;
-      font-weight: 600;
-    }
+    margin-top: 6px;
+    color: $ink-500;
+    font-size: 14.5px;
+    line-height: 1.55;
 
     a {
       @include text-link;
@@ -66,14 +72,16 @@
   }
 }
 
-@media (max-width: 640px) {
-  .blog-checklist {
-    &__list {
-      grid-template-columns: minmax(0, 1fr);
-    }
+// A narrower column: two cards to a row, the last one centred.
+@container (max-width: 560px) {
+  .blog-checklist__item {
+    flex-basis: calc((100% - var(--gap)) / 2);
+  }
+}
 
-    &__media img {
-      aspect-ratio: 4 / 3;
-    }
+// A phone: one card to a row.
+@container (max-width: 380px) {
+  .blog-checklist__item {
+    flex-basis: 100%;
   }
 }

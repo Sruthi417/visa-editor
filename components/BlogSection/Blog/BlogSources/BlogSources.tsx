@@ -5,7 +5,7 @@ import type { Blog } from "../../types";
 import "./BlogSources.scss";
 
 /** The numbered list of sources at the end of the post. Each one opens in a new tab. */
-export default function BlogSources({ data }: { data: Blog["sources"] }) {
+export default function BlogSources({ data }: { data: NonNullable<Blog["sources"]> }) {
   return (
     <section id={data.id} className="blog-sources">
       <h2 className="blog-sources__title">{data.title}</h2>

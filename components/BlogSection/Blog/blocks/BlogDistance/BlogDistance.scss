@@ -90,7 +90,41 @@
   }
 }
 
-// The cards first, then a wide crop of the picture.
+// With the slider: the pictures on the left and the two cards stacked on the right, as with
+// a single picture. The picture box is exactly as tall as the two cards and the gap between
+// them; the pictures stand at its foot, with the pictures' own blue above them.
+.blog-distance--slides {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: stretch;
+  // Room for the slider's dots, which hang just below the picture box.
+  margin-bottom: 30px;
+}
+
+.blog-distance__slider {
+  order: -1;
+  min-width: 0;
+
+  .blog-slider__frame {
+    background: #d7e7f8;
+  }
+}
+
+// The cards first, then the pictures at their own shape.
+@media (max-width: 720px) {
+  .blog-distance--slides {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .blog-distance__slider {
+    order: 0;
+
+    .blog-slider__frame {
+      height: auto;
+      aspect-ratio: 1152 / 819;
+    }
+  }
+}
+
 @media (max-width: 720px) {
   .blog-distance {
     grid-template-columns: minmax(0, 1fr);

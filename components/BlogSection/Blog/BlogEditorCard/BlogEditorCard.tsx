@@ -27,7 +27,10 @@ export default function BlogEditorCard({ data, variant }: Props) {
           {data.chip}
         </span>
 
-        <div className="blog-editor__frame">
+        <div
+          className="blog-editor__frame"
+          style={{ aspectRatio: `${image.width} / ${image.height}` }}
+        >
           <Image
             src={image.src}
             alt={image.alt}

@@ -33,8 +33,8 @@ export default function BlogPage({ data }: { data: Blog }) {
     { id: data.related.id, label: data.related.title },
     { id: data.check.id, label: data.check.title },
     { id: data.faq.id, label: data.faq.eyebrow },
-    { id: data.next.id, label: data.next.title },
-    { id: data.sources.id, label: data.sources.title },
+    ...(data.next ? [{ id: data.next.id, label: data.next.title }] : []),
+    ...(data.sources ? [{ id: data.sources.id, label: data.sources.title }] : []),
   ];
 
   // Up to three other posts, never the one being shown.
@@ -89,8 +89,8 @@ export default function BlogPage({ data }: { data: Blog }) {
         <BlogRelatedReading data={data.related} />
         <BlogCheck data={data.check} />
         <BlogFaq data={data.faq} />
-        <BlogCta data={data.next} />
-        <BlogSources data={data.sources} />
+        {data.next && <BlogCta data={data.next} />}
+        {data.sources && <BlogSources data={data.sources} />}
       </article>
     </BlogLayout>
   );

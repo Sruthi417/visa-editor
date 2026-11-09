@@ -15,7 +15,7 @@ export default function BlogJsonLd({ data }: { data: Blog }) {
       dateModified: data.checkedOn,
       author: { "@type": "Organization", name: "FlyFrame" },
       publisher: { "@type": "Organization", name: "FlyFrame" },
-      citation: data.sources.items.map((source) => source.url),
+      ...(data.sources ? { citation: data.sources.items.map((source) => source.url) } : {}),
     },
     {
       "@type": "FAQPage",

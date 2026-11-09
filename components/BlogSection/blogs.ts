@@ -49,8 +49,9 @@ const NOT_READ = new Set([
   "aspect",
   "fit",
   "zoom",
-  // The editor card is a call to action beside the post, not part of the reading.
+  // The editor card and the related cards point elsewhere; they aren't part of the reading.
   "editor",
+  "related",
 ]);
 
 function countWords(value: unknown): number {

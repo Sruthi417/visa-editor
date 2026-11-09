@@ -14,84 +14,161 @@
     letter-spacing: -0.03em;
   }
 
-  &__list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+  // The number of cards to a row follows the column's width, not the window's.
+  &__wrap {
+    container-type: inline-size;
   }
 
-  // A white card per guide. It lifts a little under the pointer.
-  &__link {
-    height: 100%;
-    min-height: 72px;
-    padding: 14px 18px 14px 14px;
-    display: flex;
-    align-items: center;
+  &__grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
+
+    li {
+      min-width: 0;
+    }
+  }
+
+  // The same card as the Guide and Blog hubs: white, soft shadow, photo, label, title, two
+  // lines of text and a charcoal button. The whole card is the link and lifts on hover.
+  &__card {
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
     border: 1px solid $line-soft;
     background: #ffffff;
-    box-shadow: 0 6px 18px rgba(0, 56, 128, 0.04);
-    color: $ink-900;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.4;
+    box-shadow: 0 10px 30px rgba(22, 38, 55, 0.08);
+    color: inherit;
     text-decoration: none;
-    @include squircle(26px, 18px);
+    @include squircle(30px, 22px);
     transition:
-      transform 0.25s $ease,
-      border-color 0.25s ease,
-      box-shadow 0.25s ease;
+      transform 0.3s $ease,
+      box-shadow 0.3s $ease;
 
     &:hover {
       transform: translateY(-2px);
-      border-color: $tint-line;
-      box-shadow: 0 12px 26px rgba(0, 56, 128, 0.09);
+      box-shadow: 0 18px 40px rgba(22, 38, 55, 0.12);
     }
 
     &:focus-visible {
       outline: 2px solid $blue;
-      outline-offset: 2px;
+      outline-offset: 3px;
     }
   }
 
-  &__icon {
-    @include icon-tile(42px);
+  &__media {
+    overflow: hidden;
+    background: #ffffff;
+    @include squircle(22px, 16px);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: var(--blog-img-pos, center);
+      transition: transform 0.6s $ease;
+    }
   }
 
-  &__label {
+  &__card:hover &__media img {
+    transform: scale(1.03);
+  }
+
+  &__body {
     flex: 1;
-    min-width: 0;
+    padding: 14px 6px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  &__arrow {
-    flex-shrink: 0;
+  &__kind {
+    padding: 4px 10px;
+    border: 1px solid $tint-line;
+    border-radius: 8px;
+    background: $tint;
+    color: $blue-text;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__name {
+    margin-top: 10px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  // Two lines at most, then an ellipsis.
+  &__text {
+    display: -webkit-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     color: $ink-500;
-    transition:
-      transform 0.25s $ease,
-      color 0.25s ease;
+    font-size: 14px;
+    line-height: 1.55;
   }
 
-  &__link:hover &__arrow {
+  // Charcoal, like the hub buttons. It sits at the foot of the card, so the buttons line up.
+  &__button {
+    width: 100%;
+    margin-top: auto;
+    padding: 12px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 16px;
+    font-size: 14.5px;
+    font-weight: 500;
+    @include charcoal-button;
+
+    svg {
+      transition: transform 0.25s $ease;
+    }
+  }
+
+  &__card:hover &__button svg {
     transform: translateX(3px);
-    color: $blue-deep;
   }
 }
 
-@media (max-width: 640px) {
-  .blog-reading__list {
+// A narrower column: two cards to a row.
+@container (max-width: 600px) {
+  .blog-reading__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// A phone: one card to a row.
+@container (max-width: 400px) {
+  .blog-reading__grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blog-reading__link,
-  .blog-reading__arrow {
+  .blog-reading__card,
+  .blog-reading__media img,
+  .blog-reading__button svg {
     transition: none;
   }
 
-  .blog-reading__link:hover,
-  .blog-reading__link:hover .blog-reading__arrow {
+  .blog-reading__card:hover,
+  .blog-reading__card:hover .blog-reading__media img,
+  .blog-reading__card:hover .blog-reading__button svg {
     transform: none;
   }
 }

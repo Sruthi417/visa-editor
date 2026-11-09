@@ -33,7 +33,11 @@ export default function BlogSteps({ data }: { data: StepsBlock }) {
             height={image.height}
             sizes="(max-width: 720px) 100vw, 360px"
             style={
-              { "--blog-img-pos": image.position, "--blog-img-zoom": image.zoom } as React.CSSProperties
+              {
+                "--blog-img-pos": image.position,
+                "--blog-img-zoom": image.zoom,
+                "--blog-aspect": data.aspect?.replace("/", " / "),
+              } as React.CSSProperties
             }
           />
         </div>

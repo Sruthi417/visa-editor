@@ -1,0 +1,186 @@
+@use "../../../shared/tokens" as *;
+
+.blog-slider {
+  // A white card that clips the pictures to its rounded corners.
+  &__frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid $line-soft;
+    background: #ffffff;
+    @include squircle(32px, 20px);
+  }
+
+  // The pictures sit in a row; the track snaps to one at a time and hides its scrollbar.
+  &__track {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+
+    // Each picture keeps its own shape (set from its size), so nothing is cropped.
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  // Round white buttons over the picture's sides. They step up under the pointer and press
+  // in on click.
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $line;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(22, 38, 55, 0.12);
+    color: $ink-900;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+      transform 0.25s $ease,
+      box-shadow 0.25s $ease,
+      opacity 0.2s ease;
+
+    &--prev {
+      left: 10px;
+    }
+
+    &--next {
+      right: 10px;
+    }
+
+    &:hover:not(:disabled) {
+      transform: translateY(calc(-50% - 2px));
+      box-shadow: 0 10px 22px rgba(22, 38, 55, 0.16);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(-50%) scale(0.94);
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
+    }
+  }
+
+  // A dot for each picture; the current one stretches into a blue pill. Each button is
+  // taller than its dot, so it is easy to tap.
+  &__dots {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  &__dot {
+    width: 28px;
+    height: 24px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 100px;
+      background: $line;
+      transition:
+        width 0.25s $ease,
+        background-color 0.25s ease;
+    }
+
+    &:hover::before {
+      background: $ink-500;
+    }
+
+    &--active::before,
+    &--active:hover::before {
+      width: 24px;
+      background: $blue;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 1px;
+      border-radius: 8px;
+    }
+  }
+
+  &__status {
+    @include sr-only;
+  }
+
+  // Fill mode: the box is as tall as its parent, the pictures stand at its foot, and any room
+  // above them shows the frame's background. The pictures are taken out of the flow, so they
+  // never make the box taller.
+  &--fill {
+    position: relative;
+    height: 100%;
+  }
+
+  &--fill &__frame {
+    height: 100%;
+  }
+
+  &--fill &__track,
+  &--fill &__slide {
+    height: 100%;
+  }
+
+  &--fill &__slide {
+    position: relative;
+  }
+
+  &--fill &__slide img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  &--fill &__dots {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-slider__arrow,
+  .blog-slider__dot::before {
+    transition: none;
+  }
+
+  .blog-slider__arrow:hover:not(:disabled),
+  .blog-slider__arrow:active:not(:disabled) {
+    transform: translateY(-50%);
+  }
+}

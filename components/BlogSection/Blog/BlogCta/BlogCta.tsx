@@ -3,7 +3,7 @@ import type { Blog } from "../../types";
 import "./BlogCta.scss";
 
 /** The next step: a sky banner with its content centred, the same as the Guide and Compare banners. */
-export default function BlogCta({ data }: { data: Blog["next"] }) {
+export default function BlogCta({ data }: { data: NonNullable<Blog["next"]> }) {
   return (
     <section id={data.id} className="blog-cta">
       <h2>{data.title}</h2>

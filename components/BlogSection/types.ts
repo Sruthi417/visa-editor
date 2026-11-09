@@ -37,8 +37,8 @@ export type BlogImage = {
   zoom?: number;
 };
 
-/** The frame shape a picture is cropped to. */
-export type BlogAspect = "16/9" | "3/2" | "4/3" | "1/1" | "4/5";
+/** The frame shape a picture is cropped to. `auto` keeps the picture's own shape, uncropped. */
+export type BlogAspect = "16/9" | "3/2" | "4/3" | "1/1" | "4/5" | "auto";
 
 // The blocks a section is built from. Each `type` has its own component in Blog/blocks.
 // Any text can use **bold** and [label](/path) links; a link starting with http opens in a new tab.
@@ -102,6 +102,11 @@ export type StatsBlock = {
 export type DistanceBlock = {
   type: "distance";
   image: BlogImage;
+  /**
+   * Pictures shown one at a time in place of `image`, with arrows and dots. They replace it
+   * only once every one of their files is in /public, so the page never shows a broken picture.
+   */
+  slides?: { label: string; image: BlogImage }[];
   items: { icon: BlogIcon; label: string; value: string; sub: string; text: string }[];
 };
 
@@ -124,6 +129,8 @@ export type StepsBlock = {
   image?: BlogImage;
   /** Which side the picture sits on, on a wide screen. Defaults to the right. */
   imageSide?: "left" | "right";
+  /** The frame shape the picture is cropped to. Defaults to 4/3; `auto` keeps its own shape. */
+  aspect?: BlogAspect;
 };
 
 /** Things to check, each with an icon and a bold label. An optional wide picture sits above. */
@@ -190,6 +197,16 @@ export type BlogSectionData = {
   blocks: BlogBlock[];
 };
 
+/**
+ * One "Related reading" card. `{ "guide": slug }` or `{ "blog": slug }` takes the card from
+ * that hub, so it matches the hub exactly. For a page that isn't in a hub yet, the card is
+ * written out in full.
+ */
+export type RelatedCard =
+  | { guide: string }
+  | { blog: string }
+  | { kind: "guide" | "blog"; title: string; href: string; blurb: string; image: BlogImage };
+
 /** One side of the "versus" pair in the hero. */
 export type VersusSide = { icon: BlogIcon; label: string; text: string };
 
@@ -228,11 +245,11 @@ export type Blog = {
   /** "What this guide covers": each item links to a section with `#id`. */
   covers: { title: string; items: { label: string; href: string }[] };
   sections: BlogSectionData[];
-  /** "Related reading": cards that link to other guides and posts. */
+  /** "Related reading": hub-style cards for other guides and blog posts. */
   related: {
     id: string;
     title: string;
-    items: { icon: BlogIcon; label: string; href: string }[];
+    items: RelatedCard[];
   };
   /**
    * The card that sends readers to the photo editor. It sits in the right column on a wide
@@ -252,7 +269,7 @@ export type Blog = {
     /** The small label on the picture. */
     chip: string;
     text: string;
-    image: { src: string; alt: string };
+    // The picture is shared with the Guide's checker card: see components/checkerPicture.ts.
     cta: { label: string };
   };
   faq: {
@@ -261,8 +278,10 @@ export type Blog = {
     title: string;
     items: { q: string; a: string }[];
   };
-  next: { id: string; title: string; text: string; cta: { label: string } };
-  sources: {
+  /** An optional sky banner near the end of the post, with one button. */
+  next?: { id: string; title: string; text: string; cta: { label: string } };
+  /** An optional numbered list of sources at the end of the post. */
+  sources?: {
     id: string;
     title: string;
     items: { publisher: string; label: string; url: string; note?: string }[];

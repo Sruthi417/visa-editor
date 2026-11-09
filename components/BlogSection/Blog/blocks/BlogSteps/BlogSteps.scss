@@ -90,8 +90,9 @@
       display: block;
       width: 100%;
       height: auto;
-      // Wide enough to crop away the empty space above and below the two portraits.
-      aspect-ratio: 4 / 3;
+      // Wide enough to crop away the empty space above and below the two portraits. The data
+      // can set another shape, or `auto` to keep the picture's own.
+      aspect-ratio: var(--blog-aspect, 4 / 3);
       object-fit: cover;
       object-position: var(--blog-img-pos, center);
       transform: scale(var(--blog-img-zoom, 1));
