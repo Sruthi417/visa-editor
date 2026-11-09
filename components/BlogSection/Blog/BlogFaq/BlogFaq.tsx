@@ -4,6 +4,7 @@ import { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Add01Icon } from "@hugeicons/core-free-icons";
 
+import { twoLineTitle } from "../../shared/twoLineTitle";
 import type { Blog } from "../../types";
 import "./BlogFaq.scss";
 
@@ -17,7 +18,9 @@ export default function BlogFaq({ data }: { data: Blog["faq"] }) {
   return (
     <section id={data.id} className="blog-faq">
       <span className="blog-faq__eyebrow">{data.eyebrow}</span>
-      <h2 className="blog-faq__title">{data.title}</h2>
+      <h2 className="blog-faq__title" style={twoLineTitle(data.title)}>
+        {data.title}
+      </h2>
 
       <div className="blog-faq__list">
         {data.items.map((item, index) => {

@@ -687,6 +687,7 @@
       "id": "settings",
       "title": "Settings for either camera",
       "nav": "Camera settings",
+      "titleWrap": "one-line",
       "blocks": [
         {
           "type": "settings",
@@ -753,6 +754,7 @@
       "id": "rear-camera-steps",
       "title": "How to take the photo with the rear camera",
       "nav": "Rear camera steps",
+      "titleWrap": "long-first",
       "blocks": [
         {
           "type": "steps",
@@ -780,6 +782,7 @@
       "id": "front-camera-steps",
       "title": "How to take the photo with the front camera",
       "nav": "Front camera steps",
+      "titleWrap": "long-first",
       "blocks": [
         {
           "type": "steps",
@@ -808,6 +811,7 @@
       "id": "after-the-photo",
       "title": "After the photo: what to check",
       "nav": "After the photo",
+      "titleWrap": "one-line",
       "blocks": [
         {
           "type": "checklist",

@@ -1,3 +1,5 @@
+import type { TitleWrap } from "./shared/twoLineTitle";
+
 /** The icon names a blog's JSON can use. shared/blogIcons.ts maps each one to its icon. */
 export type BlogIcon =
   | "rear-camera"
@@ -194,6 +196,11 @@ export type BlogSectionData = {
   title: string;
   /** The short label in the "On this page" list. */
   nav: string;
+  /**
+   * How the title wraps: two even lines by default; "one-line", or "long-first" for two lines
+   * with the first one longer.
+   */
+  titleWrap?: TitleWrap;
   blocks: BlogBlock[];
 };
 

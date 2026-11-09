@@ -4,7 +4,8 @@
   // Added to the page's 100px scroll-padding-top, so a jump lands 120px down, clear of the navbar.
   scroll-margin-top: 20px;
 
-  // One line where it fits; a longer title wraps to two even lines.
+  // Two even lines: the component sets a width from the title's length (see twoLineTitle).
+  // A short title stays on one line.
   &__title {
     margin-bottom: 18px;
     color: $ink-900;
