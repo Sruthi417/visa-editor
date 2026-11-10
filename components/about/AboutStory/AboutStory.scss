@@ -47,23 +47,178 @@
     }
   }
 
-  // The site's light blue picture ground, the phone standing at its foot.
+  // A light blue watercolour ground, the picture centred on it.
   &__media {
     min-height: 420px;
-    padding: 32px 32px 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    padding: clamp(20px, 3vw, 32px);
+    display: grid;
+    place-items: center;
     overflow: hidden;
     border: 1px solid $tint-line;
-    background: linear-gradient(160deg, #eaf5ff 0%, #d7ecfd 100%);
+    background: #c4e3f7 url("/images/about/story-wash.webp") center / cover no-repeat;
     @include squircle(40px, 30px);
+  }
+}
+
+// The picture: a finished photo in a white mount, its crown and chin lines drawn on it, and the
+// four rules from the copy as labels round it, each over the mount's edge. Sizes are in cqw.
+.ab-sart {
+  position: relative;
+  width: min(100%, 440px);
+  aspect-ratio: 1 / 1.04;
+  container-type: inline-size;
+  color: $ink-900;
+
+  &__mount {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 66cqw;
+    padding: 2.2cqw;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 5cqw;
+    background: #ffffff;
+    transform: translate(-50%, -50%);
+  }
+
+  // A 2 × 2 in photo is square.
+  &__photo {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid $line;
+    border-radius: 3cqw;
 
     img {
       display: block;
-      width: min(100%, 340px);
-      height: auto;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 12%;
     }
+  }
+
+  // Crown and chin, and the head height between them on the right.
+  &__guide {
+    position: absolute;
+    right: 0;
+    left: 0;
+    border-top: 0.45cqw dashed $blue;
+
+    &--crown {
+      top: 7%;
+    }
+
+    &--chin {
+      top: 66%;
+    }
+  }
+
+  &__bracket {
+    position: absolute;
+    top: 7%;
+    right: 6%;
+    height: 59%;
+    border-left: 0.5cqw solid $blue;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: -1.8cqw;
+      width: 3.1cqw;
+      border-top: 0.5cqw solid $blue;
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+  }
+
+  // Met: a blue tick on the mount's corner.
+  &__badge {
+    position: absolute;
+    top: -2.4cqw;
+    right: -2.4cqw;
+    width: 7.4cqw;
+    height: 7.4cqw;
+    display: grid;
+    place-items: center;
+    border: 0.8cqw solid #ffffff;
+    border-radius: 50%;
+    background: $blue;
+    color: #ffffff;
+
+    svg {
+      width: 55%;
+      height: 55%;
+    }
+  }
+
+  // A rule: a white pill with the site's light blue icon tile.
+  &__rule {
+    position: absolute;
+    z-index: 1;
+    padding: 1.4cqw 3cqw 1.4cqw 1.4cqw;
+    display: inline-flex;
+    align-items: center;
+    gap: 1.8cqw;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 99px;
+    background: #ffffff;
+    font-size: max(11px, 3.2cqw);
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+
+    &--size {
+      top: 11cqw;
+      left: 1cqw;
+    }
+
+    &--head {
+      top: 42cqw;
+      right: 0;
+    }
+
+    &--bg {
+      top: 70cqw;
+      left: 0;
+    }
+
+    &--file {
+      right: 3cqw;
+      bottom: 9cqw;
+    }
+  }
+
+  &__rule-icon {
+    width: 6cqw;
+    height: 5.6cqw;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 0.3cqw solid #bfe0f8;
+    border-radius: 1.6cqw;
+    background: #e6f4fe;
+    color: $blue-deep;
+
+    svg {
+      width: 60%;
+      height: 60%;
+    }
+  }
+
+  &__swatch {
+    width: 55%;
+    height: 55%;
+    border: 1px solid #cfd8e0;
+    border-radius: 50%;
   }
 }
 

@@ -1,7 +1,8 @@
 @use "../tokens" as *;
 
-// White linked cards: an icon tile, a title, a line and an arrow in the corner. Three on the
-// first row and two centred under them, as in the Tools section.
+// Four linked cards in two rows, as in the reference: a small label, a picture, and a light blue
+// folder with a tab on its left, holding the page's name, a rule and a line. Handwritten notes sit
+// beside the outer edges on wide screens.
 .ab-explore {
   width: 100%;
   // Space above only: the next section brings its own, so gaps stay one step tall.
@@ -19,42 +20,40 @@
   }
 
   &__grid {
-    margin-top: clamp(40px, 6vw, 56px);
+    max-width: 820px;
+    margin: clamp(40px, 6vw, 56px) auto 0;
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
   }
 
   &__item {
+    position: relative;
     display: flex;
-    grid-column: span 2;
-
-    &:nth-child(4) {
-      grid-column: 2 / span 2;
-    }
   }
 
-  // Under the pointer the edge turns light blue and the arrow steps along; no lift or shadow,
-  // like the tool cards.
+  // Card -------------------------------------------------------------------------------------------
   &__card {
-    position: relative;
+    // One folder colour and ink for every card: the site's light blue.
+    --folder: #e7f3fd;
+    --ink: #0a7fd0;
     width: 100%;
-    padding: 26px 26px 28px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
+    border: 1px solid $line;
+    border-radius: 26px;
+    background: #ffffff;
     color: inherit;
     text-decoration: none;
-    transition: border-color 0.25s ease;
-    @include card;
+    transition: border-color 0.2s ease;
 
     &:hover {
-      border-color: $tint-line;
+      border-color: #cfdbe5;
 
       .ab-explore__arrow {
-        background: $tint;
-        color: $blue-deep;
-        transform: translateX(2px);
+        background: #ffffff;
       }
     }
 
@@ -64,71 +63,264 @@
     }
   }
 
-  &__icon {
-    @include icon-tile(50px, 44px);
-  }
-
-  &__title {
-    margin-top: 20px;
-    color: $ink-900;
-    font-family: var(--font-heading);
-    font-size: 19px;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-  }
-
-  &__text {
-    max-width: 32ch;
-    margin-top: 8px;
+  &__kicker {
+    padding: 2px 4px;
     color: $ink-500;
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 14px;
   }
 
-  &__arrow {
+  // The picture sits to the right, its foot over the folder's lower step.
+  &__art {
+    position: relative;
+    z-index: 2;
+    height: 150px;
+    margin-bottom: -28px;
+    pointer-events: none;
+  }
+
+  // A photo in a white mount, a hairline round it.
+  &__mount {
     position: absolute;
-    top: 26px;
-    right: 26px;
+    padding: 5px;
+    border: 1px solid $line;
+    border-radius: 16px;
+    background: #ffffff;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 11px;
+    }
+
+    &--start {
+      top: 4px;
+      right: 22px;
+      width: 190px;
+    }
+
+    &--guide {
+      top: 8px;
+      right: 18px;
+      width: 196px;
+    }
+
+    // The two blog pictures, overlapping like notes on a desk.
+    &--back {
+      top: 2px;
+      right: 128px;
+      width: 168px;
+    }
+
+    &--front {
+      top: 40px;
+      right: 14px;
+      width: 188px;
+    }
+  }
+
+  // A round badge on a photo's corner, as the call badge in the reference.
+  &__badge {
+    position: absolute;
+    top: -12px;
+    left: -12px;
     width: 34px;
     height: 34px;
     display: grid;
     place-items: center;
+    border: 3px solid #ffffff;
     border-radius: 50%;
-    background: $panel;
+    background: $blue;
+    color: #ffffff;
+  }
+
+  // Three glossy app tiles in a row, in three blues.
+  &__tiles {
+    position: absolute;
+    top: 28px;
+    right: 18px;
+    display: flex;
+    gap: 12px;
+  }
+
+  &__tile {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border-radius: 22px;
+    color: #ffffff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    &--1 {
+      background: linear-gradient(145deg, #8fd0fb, #3a9be8);
+    }
+
+    &--2 {
+      background: linear-gradient(145deg, #63bdf8, #1d7fd8);
+    }
+
+    &--3 {
+      background: linear-gradient(145deg, #4f9df5, #1a5fc4);
+    }
+  }
+
+  // Folder -----------------------------------------------------------------------------------------
+  // A tab on the left, then a soft step down to the panel's top edge.
+  &__folder {
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+    padding: 22px 20px 20px;
+    flex: 1;
+    border-radius: 0 18px 18px 18px;
+    background: var(--folder);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      height: 30px;
+      background: var(--folder);
+    }
+
+    &::before {
+      left: 0;
+      width: 46%;
+      border-radius: 18px 0 0 0;
+    }
+
+    // The step: filled under a curve from the tab's top down to the panel.
+    &::after {
+      left: calc(46% - 1px);
+      width: 56px;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 30' preserveAspectRatio='none'%3E%3Cpath d='M0 0 C 26 0 30 30 56 30 L0 30 Z'/%3E%3C/svg%3E")
+        center / 100% 100% no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 30' preserveAspectRatio='none'%3E%3Cpath d='M0 0 C 26 0 30 30 56 30 L0 30 Z'/%3E%3C/svg%3E")
+        center / 100% 100% no-repeat;
+    }
+  }
+
+  &__title-row {
+    padding-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid rgba(22, 38, 55, 0.1);
+  }
+
+  &__title {
+    color: var(--ink);
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  &__arrow {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--ink);
+    transition: background-color 0.2s ease;
+  }
+
+  &__text {
+    max-width: 32ch;
+    margin-top: 14px;
     color: $ink-500;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.25s $ease;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  // Notes ------------------------------------------------------------------------------------------
+  // Beside the outer edge of each card, in a greyish black, the arrow pointing at the card.
+  &__note {
+    position: absolute;
+    color: #4a5561;
+    top: 64px;
+    width: 120px;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 21px;
+    line-height: 1.05;
+  }
+
+  &__note-arrow {
+    width: 34px;
+    height: 14px;
+  }
+
+  // Left column: the note on the left, its arrow pointing right.
+  &__item--1 &__note,
+  &__item--3 &__note {
+    right: calc(100% + 26px);
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  // Right column: the note on the right, its arrow turned to point left.
+  &__item--2 &__note,
+  &__item--4 &__note {
+    left: calc(100% + 26px);
+    align-items: flex-start;
+
+    .ab-explore__note-arrow {
+      transform: scaleX(-1);
+    }
+  }
+
+}
+
+// The notes need room beside the cards.
+@media (min-width: 1180px) {
+  .ab-explore__note {
+    display: flex;
   }
 }
 
-// Two to a row, the fifth centred.
-@media (max-width: 1000px) {
-  .ab-explore {
-    &__grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    &__item:nth-child(4) {
-      grid-column: span 2;
-    }
-
-    &__item:nth-child(5) {
-      grid-column: 2 / span 2;
-    }
-  }
-}
-
-@media (max-width: 620px) {
+@media (max-width: 720px) {
   .ab-explore {
     &__grid {
       grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .ab-explore {
+    &__mount {
+      &--start,
+      &--guide {
+        width: 168px;
+      }
+
+      &--back {
+        right: 108px;
+        width: 150px;
+      }
+
+      &--front {
+        width: 170px;
+      }
     }
 
-    &__item:nth-child(n) {
-      grid-column: auto;
+    &__tile {
+      width: 62px;
+      height: 62px;
+      border-radius: 19px;
+    }
+
+    &__title {
+      font-size: 22px;
     }
   }
 }

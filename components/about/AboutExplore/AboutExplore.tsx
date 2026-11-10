@@ -1,51 +1,140 @@
+import Image from "next/image";
 import Link from "next/link";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { Caveat } from "next/font/google";
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 import {
-  ArrowLeftRightIcon,
   ArrowRight01Icon,
   BookOpen01Icon,
-  MagicWand01Icon,
-  News01Icon,
+  CropIcon,
+  PrinterIcon,
+  ScanFaceIcon,
   Upload01Icon,
 } from "@hugeicons/core-free-icons";
 
 import "./AboutExplore.scss";
 
-// The rest of the site, one card each.
-const PAGES = [
+// The handwriting for the notes beside the cards, loaded for this section only.
+const hand = Caveat({ subsets: ["latin"], weight: "500", display: "swap" });
+
+type Page = {
+  href: string;
+  kicker: string;
+  title: string;
+  text: string;
+  note: string;
+  art: React.ReactNode;
+};
+
+/** A photo in a white mount, with an optional round badge on its corner. */
+function Mounted({
+  src,
+  width,
+  height,
+  className,
+  badge,
+}: {
+  src: string;
+  width: number;
+  height: number;
+  className: string;
+  badge?: IconSvgElement;
+}) {
+  return (
+    <span className={`ab-explore__mount ${className}`}>
+      <Image src={src} alt="" width={width} height={height} sizes="220px" />
+      {badge && (
+        <span className="ab-explore__badge">
+          <HugeiconsIcon icon={badge} size={16} strokeWidth={2} />
+        </span>
+      )}
+    </span>
+  );
+}
+
+/** A glossy blue app tile with a white icon. */
+function Tile({ icon, className }: { icon: IconSvgElement; className: string }) {
+  return (
+    <span className={`ab-explore__tile ${className}`}>
+      <HugeiconsIcon icon={icon} size={30} strokeWidth={1.8} />
+    </span>
+  );
+}
+
+// The rest of the site, one card each, as in the reference: a small label, a picture, and a
+// blue folder with the page's name.
+const PAGES: Page[] = [
   {
     href: "/get-started",
-    icon: Upload01Icon,
+    kicker: "Start here",
     title: "Get started",
     text: "Choose your document and country, then upload your photo.",
+    note: "start with any photo",
+    art: (
+      <Mounted
+        src="/images/get-started/step-snapshot.webp"
+        width={452}
+        height={362}
+        className="ab-explore__mount--start"
+        badge={Upload01Icon}
+      />
+    ),
   },
   {
     href: "/features",
-    icon: MagicWand01Icon,
+    kicker: "The editor",
     title: "Features",
     text: "Everything the editor does, from live capture to prints at your door.",
+    note: "every tool in one place",
+    art: (
+      <span className="ab-explore__tiles">
+        <Tile icon={ScanFaceIcon} className="ab-explore__tile--1" />
+        <Tile icon={CropIcon} className="ab-explore__tile--2" />
+        <Tile icon={PrinterIcon} className="ab-explore__tile--3" />
+      </span>
+    ),
   },
   {
     href: "/guide",
-    icon: BookOpen01Icon,
+    kicker: "Learn",
     title: "Photo guides",
     text: "Set up your phone, light and pose to take the photo at home.",
+    note: "set up in minutes",
+    art: (
+      <Mounted
+        src="/images/get-started/prep-phone.webp"
+        width={640}
+        height={480}
+        className="ab-explore__mount--guide"
+        badge={BookOpen01Icon}
+      />
+    ),
   },
   {
     href: "/blog",
-    icon: News01Icon,
+    kicker: "Read",
     title: "Blog",
     text: "Articles on cameras, photo sizes and the rules behind them.",
-  },
-  {
-    href: "/compare",
-    icon: ArrowLeftRightIcon,
-    title: "Compare",
-    text: "How FlyFrame compares with other photo tools, feature by feature.",
+    note: "tips and photo rules",
+    art: (
+      <span className="ab-explore__notes">
+        <Mounted
+          src="/images/blog/after-the-photo-checks.webp"
+          width={1091}
+          height={629}
+          className="ab-explore__mount--back"
+        />
+        <Mounted
+          src="/images/blog/rear-vs-front-camera-thumb.webp"
+          width={1670}
+          height={941}
+          className="ab-explore__mount--front"
+        />
+      </span>
+    ),
   },
 ];
 
-/** Linked cards to the rest of the site: three, then two centred. */
+/** Four linked cards in two rows, each with a picture over a coloured folder, and notes beside. */
 export default function AboutExplore() {
   return (
     <section className="ab-explore" id="explore">
@@ -57,18 +146,36 @@ export default function AboutExplore() {
         </header>
 
         <ul className="ab-explore__grid">
-          {PAGES.map((page) => (
-            <li key={page.href} className="ab-explore__item">
+          {PAGES.map((page, index) => (
+            <li key={page.href} className={`ab-explore__item ab-explore__item--${index + 1}`}>
               <Link href={page.href} className="ab-explore__card">
-                <span className="ab-explore__icon" aria-hidden="true">
-                  <HugeiconsIcon icon={page.icon} size={22} strokeWidth={1.8} />
+                <span className="ab-explore__kicker">{page.kicker}</span>
+                <span className="ab-explore__art" aria-hidden="true">
+                  {page.art}
                 </span>
-                <h3 className="ab-explore__title">{page.title}</h3>
-                <p className="ab-explore__text">{page.text}</p>
-                <span className="ab-explore__arrow" aria-hidden="true">
-                  <HugeiconsIcon icon={ArrowRight01Icon} size={18} strokeWidth={2} />
-                </span>
+                <div className="ab-explore__folder">
+                  <div className="ab-explore__title-row">
+                    <h3 className="ab-explore__title">{page.title}</h3>
+                    <span className="ab-explore__arrow" aria-hidden="true">
+                      <HugeiconsIcon icon={ArrowRight01Icon} size={16} strokeWidth={2.2} />
+                    </span>
+                  </div>
+                  <p className="ab-explore__text">{page.text}</p>
+                </div>
               </Link>
+              <span className={`ab-explore__note ${hand.className}`} aria-hidden="true">
+                {page.note}
+                <svg className="ab-explore__note-arrow" viewBox="0 0 40 16">
+                  <path
+                    d="M2 10 C 12 2, 26 2, 36 8 M30 3 L36 8 L29 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </li>
           ))}
         </ul>

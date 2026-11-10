@@ -9,6 +9,7 @@ import AboutHero from "@/components/about/AboutHero/AboutHero";
 import AboutNumbers from "@/components/about/AboutNumbers/AboutNumbers";
 import AboutStory from "@/components/about/AboutStory/AboutStory";
 import AboutValues from "@/components/about/AboutValues/AboutValues";
+import Work from "@/components/features/Work/Work";
 import { COUNTRY_COUNT } from "@/components/features/featureData";
 
 const title = "About FlyFrame: Passport and Visa Photos Made at Home";
@@ -29,6 +30,8 @@ export default function AboutPage() {
         <AboutHero />
         <AboutStory />
         <AboutNumbers />
+        {/* The Features page's How it works, the six steps the editor runs. */}
+        <Work />
         <AboutValues />
         <AboutExplore />
         <AboutFaq />

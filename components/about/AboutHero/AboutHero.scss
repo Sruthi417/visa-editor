@@ -1,14 +1,15 @@
 @use "../tokens" as *;
 
-// The landing hero's sky: a label, the headline, a line and two buttons, centred, with the
-// finished photos rising from the foot of the screen.
+// The landing hero's sky: the headline and a line, centred, with the photo report dashboard
+// rising from the foot of the screen in a glass frame. The hero is one screen tall and
+// its foot cuts the dashboard off, so the dashboard ends where the hero does.
 .ab-hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  min-height: max(100svh, 720px);
-  // Clears the fixed navbar, with room above the label.
-  padding: clamp(130px, 17vh, 170px) var(--section-px) 0;
+  height: 100vh;
+  height: max(100svh, 660px);
+  // Clears the fixed navbar, with generous room above the headline.
+  padding: clamp(150px, 21vh, 200px) var(--section-px) 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,31 +32,20 @@
     pointer-events: none;
   }
 
+  // On a tall screen the spare room goes above the words, never under the dashboard; when room is
+  // short, the auto margin is nothing and the words stay clear of the navbar.
   &__content {
     position: relative;
     z-index: 3;
+    margin-top: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  // A glass label.
-  &__pill {
-    padding: 8px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 100px;
-    background: rgba(255, 255, 255, 0.22);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
   &__title {
     max-width: 18ch;
-    margin-top: 22px;
     color: #ffffff;
     font-family: var(--font-heading);
     font-size: clamp(36px, min(4.6vw, 7vh), 60px);
@@ -74,78 +64,493 @@
     text-wrap: balance;
   }
 
-  &__actions {
-    margin-top: 28px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+  // The room left under the words, down to the hero's foot: the dashboard's top shows in it and
+  // the rest is cut off. It keeps to 470px on tall screens, so the cut always falls inside the
+  // dashboard, never under it.
+  &__window {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1080px;
+    flex: 0 1 470px;
+    min-height: 240px;
+    margin-top: clamp(36px, 5.5vh, 56px);
+    overflow: hidden;
+  }
+}
+
+// The dashboard ----------------------------------------------------------------------------------
+// A white app window in a glass frame: the sidebar, then the photo report: three figures, the
+// light across the face and the finished photo. Only its top shows; the hero cuts the rest.
+
+.ab-dash {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.26);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  @include squircle(32px, 26px);
+
+  &__app {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    overflow: hidden;
+    border-radius: 22px;
+    background: #ffffff;
+    color: $ink-900;
+    text-align: left;
   }
 
-  // The site's black button, still under the pointer like the other heroes' buttons.
-  &__primary {
-    @include pill-button;
-    padding: 5px 6px 5px 24px;
-    gap: 14px;
-    text-decoration: none;
-    transition: none;
+  // The sidebar ---------------------------------------------------------------------------------
+  &__side {
+    padding: 20px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-right: 1px solid $line-soft;
+  }
 
-    &:hover,
-    &:active {
-      transform: none;
-      box-shadow: none;
+  &__logo {
+    width: 110px;
+    height: auto;
+    margin: 2px 10px 14px;
+  }
+
+  &__group {
+    margin: 12px 10px 6px;
+    color: #8a9aa9;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  &__nav {
+    padding: 9px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    color: $ink-500;
+    font-size: 13.5px;
+    font-weight: 500;
+
+    &.is-on {
+      background: $tint;
+      color: $ink-900;
+      font-weight: 600;
+
+      svg {
+        color: $blue-deep;
+      }
+    }
+  }
+
+  // The report ----------------------------------------------------------------------------------
+  &__main {
+    min-width: 0;
+    padding: 18px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #fbfcfd;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__title {
+    margin-right: 4px;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  &__doc {
+    padding: 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid $line;
+    border-radius: 99px;
+    background: #ffffff;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    svg {
+      color: $ink-500;
+    }
+  }
+
+  &__flag {
+    width: 18px;
+    height: 13px;
+    flex-shrink: 0;
+    border-radius: 3px;
+    background-size: cover;
+    box-shadow: 0 0 0 1px rgba(22, 38, 55, 0.08);
+  }
+
+  &__search {
+    width: 220px;
+    margin-left: auto;
+    padding: 8px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid $line;
+    border-radius: 99px;
+    background: #ffffff;
+    color: #8a9aa9;
+    font-size: 13px;
+  }
+
+  &__icon-button {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid $line;
+    border-radius: 50%;
+    background: #ffffff;
+    color: $ink-700;
+  }
+
+  &__card {
+    padding: 16px 18px;
+    border: 1px solid $line;
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  // Three figures, each with its tinted icon tile.
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__stat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: $ink-500;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+
+  &__tile {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+
+    &--green {
+      background: #e8f7ee;
+      color: $green;
     }
 
-    .hero__button-text {
+    &--blue {
+      background: #e6f4fe;
+      color: $blue-deep;
+    }
+
+    &--amber {
+      background: #fdf3e3;
+      color: #c27803;
+    }
+  }
+
+  &__value {
+    font-family: var(--font-heading);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+
+    small {
+      color: $ink-500;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  &__foot {
+    color: $ink-500;
+    font-size: 12.5px;
+  }
+
+  // The light chart and the photo, side by side, the same height.
+  &__lower {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  &__chart {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__card-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    svg {
+      color: $blue-deep;
+    }
+  }
+
+  &__pass {
+    padding: 5px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 99px;
+    background: #e8f7ee;
+    color: #15803d;
+    font-size: 12.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  // Bars of brightness, left to right, over quarter lines; the even range is shaded.
+  &__plot {
+    position: relative;
+    height: 132px;
+    padding: 0 2px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    border-bottom: 1px solid $line;
+    background-image: linear-gradient(
+      to top,
+      transparent calc(25% - 1px),
+      $line-soft calc(25% - 1px) 25%,
+      transparent 25% calc(50% - 1px),
+      $line-soft calc(50% - 1px) 50%,
+      transparent 50% calc(75% - 1px),
+      $line-soft calc(75% - 1px) 75%,
+      transparent 75%
+    );
+  }
+
+  // The even range, 75 to 95 per cent, drawn over the bars so both its edges show.
+  &__band {
+    position: absolute;
+    z-index: 1;
+    top: 5%;
+    right: 0;
+    bottom: 75%;
+    left: 0;
+    border-top: 1px dashed rgba(255, 255, 255, 0.95);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow:
+      0 -1px 0 rgba(0, 135, 202, 0.35),
+      0 1px 0 rgba(0, 135, 202, 0.35);
+  }
+
+  &__bar {
+    position: relative;
+    flex: 1;
+    border-radius: 6px 6px 2px 2px;
+    background: linear-gradient(to top, #8fcbf6, $blue);
+  }
+
+  &__axis {
+    display: flex;
+    justify-content: space-between;
+    color: #8a9aa9;
+    font-size: 12px;
+  }
+
+  // The finished photo, its size, and what to do with it.
+  &__photo {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto auto;
+    column-gap: 14px;
+    row-gap: 8px;
+
+    .ab-dash__card-title {
+      grid-column: 1 / -1;
+      margin-bottom: 4px;
+    }
+  }
+
+  &__shot {
+    position: relative;
+    grid-row: 2 / 5;
+    align-self: start;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid $line;
+    border-radius: 12px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 12%;
+    }
+  }
+
+  &__file {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    b {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__meta {
+    color: $ink-500;
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  &__button {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid $line;
+    border-radius: 99px;
+    background: #ffffff;
+    color: $ink-900;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &--dark {
+      border-color: $black;
+      background: $black;
+      color: #ffffff;
+    }
+  }
+}
+
+// No sidebar on tablets.
+@media (max-width: 960px) {
+  .ab-dash__app {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ab-dash__side {
+    display: none;
+  }
+}
+
+// Phones: the title, the document and the three figures, then the light chart and the photo.
+@media (max-width: 640px) {
+  .ab-dash {
+    padding: 6px;
+
+    &__app {
+      border-radius: 18px;
+    }
+
+    &__main {
+      padding: 14px 12px 14px;
+      gap: 12px;
+    }
+
+    &__search,
+    &__icon-button {
+      display: none;
+    }
+
+    &__title {
       font-size: 16px;
     }
 
-    .hero__button-icon {
-      width: 40px;
-      height: 40px;
-    }
-  }
-
-  // A glass button beside it.
-  &__secondary {
-    padding: 0 24px;
-    display: inline-flex;
-    align-items: center;
-    min-height: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 100px;
-    background: rgba(255, 255, 255, 0.24);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.34);
+    &__doc {
+      margin-left: auto;
+      font-size: 12px;
     }
 
-    &:focus-visible {
-      outline: 2px solid #ffffff;
-      outline-offset: 3px;
+    &__stats {
+      gap: 8px;
     }
-  }
 
-  // The finished photos, their lower edge running under the fade.
-  &__picture {
-    position: relative;
-    z-index: 1;
-    width: min(540px, 86vw);
-    margin-top: clamp(28px, 5vh, 48px);
-    margin-bottom: clamp(-160px, -14vh, -80px);
+    &__card {
+      padding: 12px;
+      border-radius: 14px;
+    }
 
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-      filter: drop-shadow(0 24px 40px rgba(0, 60, 130, 0.22));
+    &__stat {
+      gap: 6px;
+    }
+
+    &__stat-head {
+      font-size: 11.5px;
+      line-height: 1.25;
+    }
+
+    &__tile {
+      display: none;
+    }
+
+    &__value {
+      font-size: 21px;
+
+      small {
+        font-size: 13px;
+      }
+    }
+
+    &__foot {
+      display: none;
+    }
+
+    &__lower {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__plot {
+      height: 96px;
+      gap: 5px;
     }
   }
 }
@@ -155,20 +560,44 @@
     &__sub {
       font-size: 16px;
     }
+  }
+}
 
-    &__actions {
-      width: 100%;
-      flex-direction: column;
+// Phones: the whole dashboard shows, nothing cut. The sky stops part way down it (--overlap above
+// the hero's foot) and its lower part sits on the white page. The sky is a layer of its own here,
+// so the hero itself can be white under it.
+@media (max-width: 640px) {
+  .ab-hero {
+    --overlap: 240px;
+    height: auto;
+    background: #ffffff;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: var(--overlap);
+      left: 0;
+      background: url("/images/hero/hero-background.webp") center bottom / cover no-repeat;
+      pointer-events: none;
     }
 
-    &__primary,
-    &__secondary {
-      width: 100%;
-      justify-content: center;
+    // The sky's fade to white, where the sky stops.
+    &::after {
+      bottom: var(--overlap);
     }
+  }
 
-    &__primary {
-      justify-content: space-between;
-    }
+  .ab-hero__window {
+    flex: none;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  // The glass frame tinted a little, so its edge still shows where it crosses onto the white.
+  .ab-dash {
+    border-color: rgba(196, 224, 248, 0.95);
+    background: rgba(214, 234, 252, 0.4);
   }
 }
