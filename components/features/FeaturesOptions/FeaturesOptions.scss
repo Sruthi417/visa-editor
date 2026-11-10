@@ -52,8 +52,8 @@
     padding: 22px;
     display: flex;
     flex-direction: column;
+    // White, with the card's faint edge.
     @include card;
-    background: $panel;
   }
 
   &__card-head {
@@ -67,21 +67,14 @@
     @include icon-tile(48px, 44px);
   }
 
+  // The "Photo" and "Extra" badges, both light blue.
   &__kind {
     padding: 4px 10px;
     border-radius: 100px;
+    background: $tint;
+    color: #006aa3;
     font-size: 12px;
     font-weight: 600;
-
-    &--photo {
-      background: $tint;
-      color: #006aa3;
-    }
-
-    &--extra {
-      background: #fff7e6;
-      color: #8a5a00;
-    }
   }
 
   &__title {

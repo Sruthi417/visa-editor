@@ -1,15 +1,18 @@
-import GetStartedButton from "../../DocumentModal/GetStartedButton";
+import CompareCta from "../../CompareSection/Compare/CompareCta/CompareCta";
 import "./FeaturesCta.scss";
 
-/** The last call to action: a sky banner with the upload button. */
+/** The last call to action: the compare page's sky banner, with this page's words. */
 export default function FeaturesCta() {
   return (
     <section className="fcta" id="start">
-      <div className="fcta__panel">
-        <h2>Make your passport or visa photo now</h2>
-        <p>Upload a photo, pick your country and see your checks in seconds.</p>
-        <GetStartedButton className="fcta__button">Upload a photo</GetStartedButton>
-      </div>
+      <CompareCta
+        cta={{
+          title: "Make your passport or visa photo now",
+          text: "Upload a photo, pick your country and see your checks.",
+          label: "Upload a photo",
+          href: "/drop",
+        }}
+      />
     </section>
   );
 }

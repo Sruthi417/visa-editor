@@ -1,7 +1,6 @@
 import "./Work.scss";
 
-// The same steps as FeaturesPipeline: upload, then the editor's own processing steps
-// (see DocumentModal/processPhoto.ts).
+// Upload, then the editor's own processing steps (see DocumentModal/processPhoto.ts).
 const STEPS = [
   {
     title: "Upload your photo",

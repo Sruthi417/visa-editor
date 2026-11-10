@@ -67,7 +67,7 @@ export default function FeaturesOptions() {
                   <span className="foptions__icon" aria-hidden="true">
                     <HugeiconsIcon icon={option.icon} size={22} strokeWidth={1.8} />
                   </span>
-                  <span className={`foptions__kind foptions__kind--${option.kind.toLowerCase()}`}>
+                  <span className="foptions__kind">
                     {option.kind}
                   </span>
                 </div>

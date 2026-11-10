@@ -123,6 +123,14 @@
     @include pill-button;
     padding: 5px 6px 5px 22px;
     gap: 14px;
+    // No lift, press or shadow under the pointer: the button stays still.
+    transition: none;
+
+    &:hover,
+    &:active {
+      transform: none;
+      box-shadow: none;
+    }
 
     .hero__button-text {
       font-size: 16px;

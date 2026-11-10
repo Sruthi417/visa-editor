@@ -1,18 +1,19 @@
-import { HugeiconsIcon } from "@hugeicons/react";
-import { InformationCircleIcon } from "@hugeicons/core-free-icons";
+import Link from "next/link";
 
 import {
   COUNTRY_COUNT,
-  CROP_ONLY,
   SPEC_COUNT,
   flagClass,
-  listJoin,
   photoSpecs,
   sizeText,
   type CountrySpecs,
   type PhotoSpec,
 } from "../featureData";
 import "./FeaturesCountries.scss";
+
+// The country requirements hub, with every country's full photo rules. A placeholder until the
+// hub is built.
+const COUNTRY_HUB = "#";
 
 function Size({ spec }: { spec?: PhotoSpec }) {
   if (!spec) {
@@ -100,12 +101,12 @@ export default function FeaturesCountries() {
         </div>
 
         <p className="fcountries__note">
-          <HugeiconsIcon icon={InformationCircleIcon} size={18} strokeWidth={1.8} />
-          <span>
-            <strong>Crop only:</strong> {listJoin(CROP_ONLY)} don&apos;t allow an edited background,
-            so the editor only crops these photos. Rules change, so check the official source
-            before you apply.
-          </span>
+          These are the photo sizes. Every country&apos;s full dimensions, including head height,
+          margins and file limits, are on its own page:{" "}
+          <Link href={COUNTRY_HUB} className="fcountries__link">
+            see all country requirements
+          </Link>
+          .
         </p>
       </div>
     </section>
