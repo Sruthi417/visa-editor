@@ -478,7 +478,7 @@ $art-line: #cfe2f1;
 
   // Each label hangs half over its card's edge.
   &__chip--rules {
-    top: -3.6cqw;
+    top: -4.6cqw;
     right: -6cqw;
   }
 
@@ -728,9 +728,10 @@ $art-line: #cfe2f1;
     }
   }
 
+  // On the photo's corner, clear of the title.
   &__chip--free {
-    top: -3.6cqw;
-    right: -4cqw;
+    top: -4.6cqw;
+    left: -4cqw;
   }
 }
 

@@ -98,7 +98,7 @@
   width: 100%;
   max-width: 480px;
   justify-self: end;
-  padding: 24px 24px 20px;
+  padding: 20px 22px 18px;
   border: 1px solid rgba(255, 255, 255, 0.8);
   background: #ffffff;
   box-shadow: 0 24px 60px rgba(0, 70, 150, 0.18);
@@ -164,7 +164,7 @@
   }
 
   &__spec {
-    padding: 11px 0;
+    padding: 9px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -186,14 +186,6 @@
     }
   }
 
-  &__swatch {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-    border: 1px solid #cfd8df;
-    border-radius: 50%;
-  }
-
   &__notice {
     margin-top: 14px;
     padding: 10px 12px;
@@ -204,14 +196,14 @@
     line-height: 1.5;
   }
 
-  // The site's black upload button under the drop zone. It stays still under the pointer, as
-  // the Features hero button does.
+  // The site's black upload button under the drop zone, text only. It stays still under the
+  // pointer, as the Features hero button does.
   &__button {
     width: 100%;
-    margin-top: 12px;
+    min-height: 48px;
+    margin-top: 10px;
     @include pill-button;
-    padding: 12px 6px 12px 26px;
-    gap: 14px;
+    padding: 10px 24px;
     transition: none;
 
     &:hover,
@@ -227,11 +219,6 @@
 
     .hero__button-text {
       font-size: 16px;
-    }
-
-    .hero__button-icon {
-      width: 30px;
-      height: 30px;
     }
   }
 
@@ -250,28 +237,29 @@
   }
 
   &__small {
-    margin-top: 12px;
+    margin-top: 10px;
     color: $ink-500;
     font-size: 12.5px;
     text-align: center;
   }
 }
 
-// The drop zone: a dashed light blue box with the upload icon. It deepens under the pointer and
-// turns solid blue while a photo is held over it.
+// The drop zone: a dashed light blue outline on the panel's white, no fill, the upload icon
+// beside the words to keep it short. Its outline deepens under the pointer, and it turns solid
+// blue while a photo is held over it.
 .start-drop {
   width: 100%;
-  margin-top: 20px;
-  padding: 20px 16px;
+  margin-top: 14px;
+  padding: 22px 16px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
   border: 1.5px dashed #9fcff3;
-  background: #f7fbff;
+  background: transparent;
   color: inherit;
   font-family: inherit;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
   transition:
     border-color 0.2s ease,
@@ -280,7 +268,6 @@
 
   &:hover {
     border-color: $blue;
-    background: $tint;
 
     .start-drop__browse {
       text-decoration-color: currentColor;
@@ -295,7 +282,6 @@
   &.is-dragging {
     border-style: solid;
     border-color: $blue;
-    background: #e6f3fe;
 
     .start-drop__icon {
       background: $blue;
@@ -304,8 +290,9 @@
   }
 
   &__icon {
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
     display: grid;
     place-items: center;
     border-radius: 50%;
@@ -376,7 +363,7 @@
   }
 
   .start-panel {
-    padding: 20px 18px 18px;
+    padding: 18px 16px 16px;
 
     &__head {
       flex-wrap: wrap;

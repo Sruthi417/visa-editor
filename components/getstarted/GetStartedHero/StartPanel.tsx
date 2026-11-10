@@ -46,11 +46,9 @@ export default function StartPanel() {
   const entry = countries.find((item) => item.code === code) ?? countries[0];
   const spec = entry[type]!;
 
+  // Just the size and the file; the editor handles head height and background itself.
   const rows = [
     { label: "Photo size", value: sizeText(spec) },
-    ...(spec.headMm
-      ? [{ label: "Head height", value: `${spec.headMm[0]}–${spec.headMm[1]} mm` }]
-      : []),
     { label: "File", value: `${spec.format}, ${kbLabel(spec.fileKb[0])} – ${kbLabel(spec.fileKb[1])}` },
   ];
 
@@ -135,13 +133,6 @@ export default function StartPanel() {
             <dd>{row.value}</dd>
           </div>
         ))}
-        <div className="start-panel__spec">
-          <dt>Background</dt>
-          <dd>
-            <span className="start-panel__swatch" style={{ background: spec.backgroundColor }} />
-            {spec.background}
-          </dd>
-        </div>
       </dl>
 
       {entry.cropOnly && (
@@ -175,7 +166,7 @@ export default function StartPanel() {
           </span>
         </span>
       </button>
-      {/* The same file chooser, as the site's black upload button. */}
+      {/* The same file chooser, as the site's black button, text only. */}
       <button
         type="button"
         className="start-panel__button"
@@ -183,9 +174,6 @@ export default function StartPanel() {
         onClick={() => inputRef.current?.click()}
       >
         <span className="hero__button-text">Upload a photo</span>
-        <span className="hero__button-icon" aria-hidden="true">
-          <HugeiconsIcon icon={Upload01Icon} size={17} color="#131313" strokeWidth={2.2} />
-        </span>
       </button>
       <input
         ref={inputRef}
