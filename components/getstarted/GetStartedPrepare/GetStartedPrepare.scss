@@ -32,11 +32,12 @@
     @include card;
   }
 
+  // The pictures share one light blue ground, 4:3.
   &__media {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
-    border: 1px solid $line-soft;
-    background: #ffffff;
+    border: 1px solid $tint-line;
+    background: #bce6fd;
     @include squircle(26px, 20px);
 
     img {

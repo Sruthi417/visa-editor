@@ -49,10 +49,7 @@ function CountryTable({ rows, part }: { rows: CountrySpecs[]; part: string }) {
               <th scope="row">
                 <span className="fcountries__country">
                   <span className={`fcountries__flag ${flagClass(entry.code)}`} aria-hidden="true" />
-                  <span className="fcountries__name">
-                    {entry.country}
-                    {entry.cropOnly && <span className="fcountries__badge">Crop only</span>}
-                  </span>
+                  <span className="fcountries__name">{entry.country}</span>
                 </span>
               </th>
               <td>

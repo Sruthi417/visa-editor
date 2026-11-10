@@ -1,7 +1,13 @@
 @use "../tokens" as *;
 
-// The heading and a numbered list on the left; the before and after on a light blue panel on
-// the right.
+// The heading centred on top. Under it, the steps on the left, each number in a black circle
+// joined to the next by a dashed line, and the before and after on a light blue panel exactly as
+// tall as the steps.
+
+// The dashed line between the numbers. A whole pixel, so the dashes stay crisp.
+$rail: #b9c6d1;
+$num-size: 34px;
+
 .gs-steps {
   width: 100%;
   // Space above only: the next section brings its own, so gaps stay one step tall.
@@ -12,51 +18,72 @@
     width: 100%;
     max-width: 1080px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    align-items: center;
-    gap: clamp(32px, 5vw, 72px);
   }
 
   &__head {
-    @include section-head(left);
+    @include section-head(center);
+  }
+
+  // The steps and the picture. The picture's row is as tall as the steps, and it stretches to it.
+  &__body {
+    margin-top: clamp(40px, 6vw, 60px);
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: stretch;
+    gap: clamp(32px, 5vw, 72px);
   }
 
   &__list {
-    margin-top: 32px;
     list-style: none;
     display: flex;
     flex-direction: column;
   }
 
   &__step {
-    padding: 18px 0;
+    position: relative;
+    padding-bottom: 30px;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 16px;
-    border-top: 1px solid $line-soft;
+    gap: 18px;
 
     &:last-child {
-      border-bottom: 1px solid $line-soft;
+      padding-bottom: 0;
+    }
+
+    // From under this number down to the next one.
+    &:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      top: calc(#{$num-size} + 8px);
+      bottom: 8px;
+      left: calc(#{$num-size} / 2);
+      border-left: 1px dashed $rail;
+      transform: translateX(-50%);
     }
   }
 
-  // The step number in a small light blue circle.
+  // The number in a black circle, like the site's black buttons.
   &__num {
-    width: 32px;
-    height: 32px;
+    position: relative;
+    z-index: 1;
+    width: $num-size;
+    height: $num-size;
     display: grid;
     place-items: center;
-    border: 1px solid $tint-line;
     border-radius: 50%;
-    background: $tint;
-    color: $blue-deep;
+    background: $black;
+    box-shadow: 0 4px 10px rgba(19, 19, 19, 0.18);
+    color: #ffffff;
     font-family: var(--font-heading);
     font-size: 14px;
     font-weight: 700;
   }
 
   &__title {
+    // Centred on the number beside it.
+    min-height: $num-size;
+    display: flex;
+    align-items: center;
     color: $ink-900;
     font-family: var(--font-heading);
     font-size: 18px;
@@ -66,18 +93,18 @@
   }
 
   &__text {
-    margin-top: 4px;
+    margin-top: 2px;
     color: $ink-500;
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
-  // The site's light blue picture ground, the transparent before and after on it.
+  // The site's light blue picture ground, the transparent before and after centred on it.
   &__media {
+    min-height: 280px;
     padding: clamp(16px, 2.4vw, 28px);
     display: grid;
     place-items: center;
-    aspect-ratio: 5 / 4;
     border: 1px solid $tint-line;
     background: linear-gradient(160deg, #eaf5ff 0%, #d7ecfd 100%);
     @include squircle(40px, 30px);
@@ -90,14 +117,33 @@
   }
 }
 
+// One column: the steps, then the picture.
 @media (max-width: 900px) {
   .gs-steps {
-    &__wrap {
+    &__body {
       grid-template-columns: minmax(0, 1fr);
     }
 
     &__media {
+      min-height: 0;
       aspect-ratio: 4 / 3;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .gs-steps {
+    &__step {
+      padding-bottom: 24px;
+      gap: 14px;
+    }
+
+    &__title {
+      font-size: 16.5px;
+    }
+
+    &__text {
+      font-size: 14.5px;
     }
   }
 }

@@ -1,0 +1,481 @@
+@use "../tokens" as *;
+
+// The landing page's feature rows: an icon tile, a title, a line and a tick list on one side, a
+// square sky picture on the other, swapping sides each row.
+.gs-feat {
+  width: 100%;
+  // Space above only: the next section brings its own, so gaps stay one step tall.
+  padding: var(--section-py) var(--section-px) 0;
+  overflow: hidden;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  &__head {
+    @include section-head(center);
+  }
+
+  &__rows {
+    margin-top: clamp(2.75rem, 1rem + 6vw, 6rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(80px, 10vw, 120px);
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+
+    &--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__icon {
+    margin-bottom: 24px;
+    @include icon-tile(54px, 48px);
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 4.2vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+
+  &__text {
+    margin-bottom: 32px;
+    color: $ink-500;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: $ink-900;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: $blue-deep;
+    }
+  }
+
+  // The picture: a square with large rounded corners. The drawn pictures size themselves from
+  // its width.
+  &__media {
+    position: relative;
+    flex: 1;
+    max-width: 450px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 32px;
+    container-type: inline-size;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1100px) {
+  .gs-feat__row {
+    gap: 30px;
+  }
+}
+
+// One column: text, then its picture.
+@media (max-width: 992px) {
+  .gs-feat {
+    &__row,
+    &__row--reverse {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    &__content {
+      max-width: 650px;
+    }
+
+    &__media {
+      width: 100%;
+      max-width: 550px;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .gs-feat__rows {
+    gap: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gs-feat__media {
+    border-radius: 26px;
+  }
+}
+
+// The drawn pictures ----------------------------------------------------------------------------
+// White cards over the sky, as in the landing pictures. Every size is in cqw, a hundredth of the
+// picture's width.
+
+$card-shadow:
+  0 0 0 0.5cqw rgba(255, 255, 255, 0.55),
+  0 2.6cqw 7cqw rgba(24, 92, 150, 0.22);
+$pass: #16a34a;
+
+.gfart {
+  position: absolute;
+  inset: 0;
+  font-size: 3cqw;
+
+  &__ground,
+  &__photo {
+    object-fit: cover;
+  }
+
+  // A white mount around a photo, centred.
+  &__frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 1.6cqw;
+    border-radius: 4.4cqw;
+    background: #ffffff;
+    box-shadow: $card-shadow;
+    transform: translate(-50%, -50%);
+
+    &--analysis {
+      width: 44cqw;
+    }
+
+    // A little left of centre, to leave room for the measurement.
+    &--crop {
+      width: 42cqw;
+      transform: translate(-56%, -52%);
+    }
+  }
+
+  &__shot {
+    position: relative;
+    aspect-ratio: 486 / 546;
+    overflow: hidden;
+    border-radius: 3cqw;
+    background: #ffffff;
+  }
+
+  // A white pill with a small icon tile.
+  &__chip {
+    position: absolute;
+    z-index: 3;
+    padding: 1.2cqw 2.6cqw 1.2cqw 1.2cqw;
+    display: inline-flex;
+    align-items: center;
+    gap: 1.6cqw;
+    border-radius: 99px;
+    background: #ffffff;
+    box-shadow: $card-shadow;
+    color: $ink-900;
+    font-size: 2.9cqw;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  // The landing page's light blue icon tile, in miniature: a darker edge underneath.
+  &__chip-icon {
+    width: 5.2cqw;
+    height: 4.8cqw;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 0.3cqw solid #bfe0f8;
+    border-radius: 1.4cqw;
+    background: #e6f4fe;
+    box-shadow: 0 0.5cqw 0 #a9d3f1;
+    color: $blue-deep;
+
+    svg {
+      width: 62%;
+      height: 62%;
+    }
+  }
+
+  // The tick on the chosen country in the list.
+  &__check {
+    width: 3.8cqw;
+    height: 3.8cqw;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: $pass;
+    color: #ffffff;
+
+    svg {
+      width: 62%;
+      height: 62%;
+    }
+  }
+
+  // 1. Analysis ------------------------------------------------------------------------------
+  &__oval {
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    width: 54%;
+    height: 61%;
+    border: 0.5cqw dashed $blue;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+
+  // A scan line glowing across the eyes.
+  &__scan {
+    position: absolute;
+    top: 40%;
+    right: 0;
+    left: 0;
+    height: 0.5cqw;
+    background: linear-gradient(90deg, transparent, $blue 20%, $blue 80%, transparent);
+    box-shadow: 0 0 2.4cqw 0.8cqw rgba(43, 151, 240, 0.32);
+  }
+
+  &__chip--bg {
+    top: 17cqw;
+    left: 6cqw;
+  }
+
+  &__chip--face {
+    top: 47cqw;
+    right: 5cqw;
+  }
+
+  &__chip--sharp {
+    bottom: 15cqw;
+    left: 9cqw;
+  }
+
+  // 2. Crop ----------------------------------------------------------------------------------
+  // The guide lines over the photo: head top, chin, the eye band and the centre line.
+  &__line {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 0.45cqw;
+    background: $blue;
+
+    &--top {
+      top: 4%;
+    }
+
+    &--chin {
+      top: 69%;
+    }
+  }
+
+  &__band {
+    position: absolute;
+    top: 35%;
+    right: 0;
+    left: 0;
+    height: 9%;
+    border-top: 0.3cqw dashed rgba(43, 151, 240, 0.7);
+    border-bottom: 0.3cqw dashed rgba(43, 151, 240, 0.7);
+    background: rgba(43, 151, 240, 0.14);
+  }
+
+  &__centre {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 0.3cqw dashed rgba(43, 151, 240, 0.6);
+  }
+
+  // The head height, measured from the head-top line to the chin line beside the photo.
+  &__measure {
+    position: absolute;
+    // The frame's padding, plus 4% and 69% of the photo's height (38.8cqw wide, 486 by 546).
+    top: calc(1.6cqw + 38.8cqw * 546 / 486 * 0.04);
+    right: -8cqw;
+    width: 3.2cqw;
+    height: calc(38.8cqw * 546 / 486 * 0.65);
+    border-top: 0.45cqw solid #ffffff;
+    border-bottom: 0.45cqw solid #ffffff;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 0.45cqw;
+      background: #ffffff;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__measure-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0.8cqw 1.8cqw;
+    border-radius: 99px;
+    background: #ffffff;
+    box-shadow: $card-shadow;
+    color: $blue-deep;
+    font-size: 2.7cqw;
+    font-weight: 700;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+  }
+
+  &__chip--head {
+    bottom: 10cqw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  // 3. Countries -----------------------------------------------------------------------------
+  &__card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 4.4cqw;
+    background: #ffffff;
+    box-shadow: $card-shadow;
+
+    &--countries {
+      width: 62cqw;
+      padding: 3.2cqw 3cqw 2.4cqw;
+      display: flex;
+      flex-direction: column;
+      transform: translate(-50%, -46%);
+    }
+
+    // A 4 × 6 in sheet, landscape, two rows of four photos.
+    &--sheet {
+      width: 66cqw;
+      aspect-ratio: 6 / 4;
+      padding: 2.6cqw;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 1.6cqw;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__card-label {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 3.3cqw;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  &__search {
+    margin: 2cqw 0 1.2cqw;
+    padding: 1.6cqw 2.4cqw;
+    display: flex;
+    align-items: center;
+    gap: 1.4cqw;
+    border: 1px solid $line;
+    border-radius: 2.4cqw;
+    color: $ink-500;
+    font-size: 2.6cqw;
+
+    svg {
+      width: 3cqw;
+      height: 3cqw;
+    }
+  }
+
+  &__country {
+    padding: 1.8cqw 2cqw;
+    display: flex;
+    align-items: center;
+    gap: 2cqw;
+    border: 1px solid transparent;
+    border-radius: 2.4cqw;
+    font-size: 2.8cqw;
+
+    &.is-on {
+      border-color: $tint-line;
+      background: $tint;
+    }
+  }
+
+  &__flag {
+    width: 4.4cqw;
+    height: 3.3cqw;
+    flex-shrink: 0;
+    border-radius: 0.8cqw;
+    background-size: cover;
+    box-shadow: 0 0 0 1px rgba(22, 38, 55, 0.08);
+  }
+
+  &__country-name {
+    flex: 1;
+    color: $ink-900;
+    font-weight: 600;
+  }
+
+  &__country-size {
+    color: $ink-500;
+    white-space: nowrap;
+  }
+
+  &__chip--specs {
+    top: 9cqw;
+    right: 7cqw;
+  }
+
+  // 4. Prints --------------------------------------------------------------------------------
+  &__print {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.8cqw;
+  }
+
+  &__chip--sheet {
+    top: 12cqw;
+    left: 50%;
+    color: $ink-700;
+    font-weight: 600;
+    transform: translateX(-50%);
+  }
+
+  &__chip--deliver {
+    bottom: 12cqw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

@@ -3,43 +3,31 @@ import Link from "next/link";
 
 import "./GetStartedPrepare.scss";
 
-// What to have ready, with the photo guide's own pictures. Each picture is framed on its subject.
+// What to have ready, each pictured with the same woman on the same light blue (640 x 480).
 const NEEDS = [
   {
     title: "A phone with a camera",
     text: "The rear camera gives the sharpest photo. Stand 1–2 m away, or hold it 40–50 cm away for a selfie.",
-    image: "/images/photo-tips/photo-1.webp",
-    alt: "A man standing in front of a phone on a tripod, measured 16 to 20 inches away",
-    width: 1000,
-    height: 1573,
-    position: "50% 58%",
+    image: "/images/get-started/need-phone.webp",
+    alt: "A woman standing 16 to 20 inches, 40 to 50 cm, from a phone on a tripod",
   },
   {
     title: "A plain, light wall",
     text: "Stand in front of a plain white or light wall, with nothing behind you.",
-    image: "/images/photo-tips/photo-5.webp",
-    alt: "The same portrait in front of a plain wall, marked correct, and a bookshelf, marked wrong",
-    width: 1000,
-    height: 1573,
-    position: "50% 50%",
+    image: "/images/get-started/need-wall-v2.webp",
+    alt: "A woman facing the camera in front of a plain light wall",
   },
   {
     title: "Daylight from a window",
     text: "Face a window for soft, even light, with no shadows on your face or the wall.",
-    image: "/images/photo-tips/photo-2.webp",
-    alt: "A face half in shadow, marked wrong, and half evenly lit, marked correct",
-    width: 1001,
-    height: 1570,
-    position: "50% 46%",
+    image: "/images/get-started/need-light-v2.webp",
+    alt: "Her photo half in shadow, marked wrong, beside the same photo evenly lit, marked correct",
   },
   {
     title: "A helper or a timer",
     text: "Ask someone to take the photo, or prop the phone up and use the timer.",
-    image: "/images/get-started/need-helper.webp",
-    alt: "A helper holding a phone to photograph a woman against a plain wall, marked correct",
-    width: 826,
-    height: 778,
-    position: "50% 50%",
+    image: "/images/get-started/need-helper-v3.webp",
+    alt: "A helper holding a phone to photograph her against a plain wall, marked correct",
   },
 ];
 
@@ -61,10 +49,9 @@ export default function GetStartedPrepare() {
                 <Image
                   src={need.image}
                   alt={need.alt}
-                  width={need.width}
-                  height={need.height}
+                  width={640}
+                  height={480}
                   sizes="(max-width: 1000px) 46vw, 260px"
-                  style={{ objectPosition: need.position }}
                 />
               </div>
               <h3 className="gs-prep__title">{need.title}</h3>

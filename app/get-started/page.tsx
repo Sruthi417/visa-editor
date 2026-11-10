@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Nav/Navbar";
+import FeaturesTool from "@/components/features/FeaturesTool/FeaturesTool";
 import GetStartedCountries from "@/components/getstarted/GetStartedCountries/GetStartedCountries";
 import GetStartedCta from "@/components/getstarted/GetStartedCta/GetStartedCta";
 import GetStartedFaq from "@/components/getstarted/GetStartedFaq/GetStartedFaq";
+import GetStartedFeatures from "@/components/getstarted/GetStartedFeatures/GetStartedFeatures";
 import GetStartedHero from "@/components/getstarted/GetStartedHero/GetStartedHero";
 import GetStartedPrepare from "@/components/getstarted/GetStartedPrepare/GetStartedPrepare";
 import GetStartedSteps from "@/components/getstarted/GetStartedSteps/GetStartedSteps";
@@ -28,6 +30,9 @@ export default function GetStartedPage() {
         <GetStartedHero />
         <GetStartedPrepare />
         <GetStartedSteps />
+        <GetStartedFeatures />
+        {/* The Features page's tools section, as it is there. */}
+        <FeaturesTool />
         <GetStartedCountries />
         <GetStartedFaq />
         <GetStartedCta />

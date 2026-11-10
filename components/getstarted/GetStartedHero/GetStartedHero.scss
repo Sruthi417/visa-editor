@@ -37,9 +37,10 @@
     max-width: 1080px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    // The panel takes up to 480px; the text has the rest.
+    grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
     align-items: center;
-    gap: clamp(32px, 5vw, 72px);
+    gap: clamp(32px, 4.2vw, 60px);
   }
 
   &__copy {
@@ -90,33 +91,12 @@
     }
   }
 
-  // The guide link, in the guide pages' link style, white on the sky.
-  &__link {
-    margin-top: 26px;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.5);
-    text-underline-offset: 4px;
-    transition: text-decoration-color 0.2s ease;
-
-    &:hover {
-      text-decoration-color: currentColor;
-    }
-
-    &:focus-visible {
-      outline: 2px solid #ffffff;
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
-  }
 }
 
 // The start panel ----------------------------------------------------------------------------
 .start-panel {
   width: 100%;
-  max-width: 440px;
+  max-width: 480px;
   justify-self: end;
   padding: 24px 24px 20px;
   border: 1px solid rgba(255, 255, 255, 0.8);
@@ -224,20 +204,48 @@
     line-height: 1.5;
   }
 
+  // The site's black upload button under the drop zone. It stays still under the pointer, as
+  // the Features hero button does.
   &__button {
     width: 100%;
-    margin-top: 20px;
-    justify-content: space-between;
+    margin-top: 12px;
     @include pill-button;
-    padding: 6px 6px 6px 26px;
+    padding: 12px 6px 12px 26px;
+    gap: 14px;
+    transition: none;
+
+    &:hover,
+    &:active {
+      transform: none;
+      box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
+    }
 
     .hero__button-text {
       font-size: 16px;
     }
 
     .hero__button-icon {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__error {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: $red;
+    font-size: 13px;
+    font-weight: 500;
+
+    svg {
+      flex-shrink: 0;
     }
   }
 
@@ -246,6 +254,104 @@
     color: $ink-500;
     font-size: 12.5px;
     text-align: center;
+  }
+}
+
+// The drop zone: a dashed light blue box with the upload icon. It deepens under the pointer and
+// turns solid blue while a photo is held over it.
+.start-drop {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px dashed #9fcff3;
+  background: #f7fbff;
+  color: inherit;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+  @include squircle(24px, 18px);
+
+  &:hover {
+    border-color: $blue;
+    background: $tint;
+
+    .start-drop__browse {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid $blue;
+    outline-offset: 3px;
+  }
+
+  &.is-dragging {
+    border-style: solid;
+    border-color: $blue;
+    background: #e6f3fe;
+
+    .start-drop__icon {
+      background: $blue;
+      color: #ffffff;
+    }
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 0 1px $tint-line, 0 4px 12px rgba(0, 135, 202, 0.12);
+    color: $blue-deep;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  &__title {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  &__sub {
+    color: $ink-500;
+    font-size: 13.5px;
+  }
+
+  // Reads as a link, in the guide pages' link style; the whole zone is the button.
+  &__browse {
+    color: #006aa3;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 106, 163, 0.35);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .start-drop,
+  .start-drop__icon,
+  .start-drop__browse {
+    transition: none;
   }
 }
 

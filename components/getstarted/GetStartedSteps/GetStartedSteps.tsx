@@ -22,17 +22,21 @@ const STEPS = [
   },
 ];
 
-/** The four steps on the left, a before and after on the right. */
+/** The heading centred on top; the four steps on the left and a before and after beside them. */
 export default function GetStartedSteps() {
   return (
     <section className="gs-steps" id="steps">
       <div className="gs-steps__wrap">
-        <div className="gs-steps__copy">
-          <header className="gs-steps__head">
-            <span>How it works</span>
-            <h2>Four steps from upload to your photo</h2>
-          </header>
+        <header className="gs-steps__head">
+          <span>How it works</span>
+          <h2>Four steps from upload to your photo</h2>
+          <p>
+            Choose your document, upload a photo and the editor does the rest. You see the finished
+            photo before you pay.
+          </p>
+        </header>
 
+        <div className="gs-steps__body">
           <ol className="gs-steps__list">
             {STEPS.map((step, index) => (
               <li key={step.title} className="gs-steps__step">
@@ -46,16 +50,16 @@ export default function GetStartedSteps() {
               </li>
             ))}
           </ol>
-        </div>
 
-        <div className="gs-steps__media">
-          <Image
-            src="/images/hero/hero-1.webp"
-            alt="A photo with a busy background and a loose crop, then the same photo on plain white with the correct crop"
-            width={1669}
-            height={942}
-            sizes="(max-width: 900px) 100vw, 540px"
-          />
+          <div className="gs-steps__media">
+            <Image
+              src="/images/hero/hero-1.webp"
+              alt="A photo with a busy background and a loose crop, then the same photo on plain white with the correct crop"
+              width={1669}
+              height={942}
+              sizes="(max-width: 900px) 100vw, 540px"
+            />
+          </div>
         </div>
       </div>
     </section>

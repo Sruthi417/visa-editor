@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { COUNTRY_COUNT, SPEC_COUNT } from "../../features/featureData";
 import StartPanel from "./StartPanel";
 import "./GetStartedHero.scss";
@@ -21,10 +19,6 @@ export default function GetStartedHero() {
             <li>{COUNTRY_COUNT} countries and Schengen</li>
             <li>Free preview</li>
           </ul>
-
-          <Link href="/guide/take-a-photo-at-home" className="gs-hero__link">
-            How to take the photo at home
-          </Link>
         </div>
 
         <StartPanel />
