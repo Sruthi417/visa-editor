@@ -9,7 +9,9 @@ import FeaturesHero from "@/components/features/FeaturesHero/FeaturesHero";
 import FeaturesOptions from "@/components/features/FeaturesOptions/FeaturesOptions";
 import FeaturesPipeline from "@/components/features/FeaturesPipeline/FeaturesPipeline";
 import FeaturesPrivacy from "@/components/features/FeaturesPrivacy/FeaturesPrivacy";
+import FeaturesShowcase from "@/components/features/FeaturesShowcase/FeaturesShowcase";
 import FeaturesTools from "@/components/features/FeaturesTools/FeaturesTools";
+import Work from "@/components/features/Work/Work";
 import { COUNTRY_COUNT, SPEC_COUNT } from "@/components/features/featureData";
 
 const title = "Passport & Visa Photo Editor Features | FlyFrame";
@@ -28,7 +30,9 @@ export default function FeaturesPage() {
       <Navbar />
       <main>
         <FeaturesHero />
-        <FeaturesPipeline />
+        <FeaturesShowcase />
+        {/* <FeaturesPipeline /> */}
+        <Work />
         <FeaturesCountries />
         <FeaturesTools />
         <FeaturesPrivacy />

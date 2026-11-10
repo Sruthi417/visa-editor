@@ -1,0 +1,524 @@
+@use "../tokens" as *;
+
+// The landing page's feature rows: text on one side, a square sky picture on the other, swapping
+// sides each row. Under the text, the feature's details fold away as an accordion.
+
+// Closed accordion titles: quieter than the text, darkening when open or under the pointer.
+$item-quiet: #8796a5;
+
+.fshow {
+  width: 100%;
+  // Space above only: the next section brings its own, so gaps stay one step tall.
+  padding: var(--section-py) var(--section-px) 0;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  &__head {
+    @include section-head(center);
+  }
+
+  &__rows {
+    margin-top: clamp(48px, 7vw, 96px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(80px, 10vw, 120px);
+  }
+
+  // Top-aligned, so opening a detail grows the text downward and the picture stays put.
+  &__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 80px;
+
+    &--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    max-width: 500px;
+  }
+
+  &__icon {
+    margin-bottom: 24px;
+    @include icon-tile(54px, 48px);
+  }
+
+  &__title {
+    margin-bottom: 14px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 4.2vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  &__text {
+    color: $ink-500;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  // The accordion ---------------------------------------------------------------------------
+  &__acc {
+    margin-top: 26px;
+  }
+
+  // Beside the picture, the accordion keeps the height it has with its longest answer open.
+  @media (min-width: 993px) {
+    &__acc {
+      min-height: var(--acc-full, 0px);
+    }
+  }
+
+  &__item {
+    border-bottom: 1px solid $line-soft;
+  }
+
+  &__item-head {
+    margin: 0;
+    font: inherit;
+  }
+
+  &__trigger {
+    width: 100%;
+    padding: 17px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 0;
+    background: none;
+    color: $item-quiet;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $ink-700;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+  }
+
+  &__chevron {
+    flex-shrink: 0;
+    display: flex;
+    transition: transform 0.3s $ease;
+  }
+
+  // Folds by animating the row height from 0fr to 1fr, so the text is always in the page.
+  &__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s $ease;
+  }
+
+  &__panel-inner {
+    min-height: 0;
+    overflow: hidden;
+
+    p {
+      padding: 0 36px 18px 2px;
+      color: $ink-500;
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+  }
+
+  &__item--open {
+    .fshow__trigger {
+      color: $ink-900;
+    }
+
+    .fshow__chevron {
+      transform: rotate(180deg);
+    }
+
+    .fshow__panel {
+      grid-template-rows: 1fr;
+    }
+
+    .fshow__panel-inner p {
+      opacity: 1;
+      transition-delay: 0.08s;
+    }
+  }
+
+  // The picture, as on the landing page, with large rounded corners. Every picture is the same
+  // size: as tall as the tallest feature's text (--media-h, from ShowcaseRows), each text column
+  // held at its tallest by its accordion (--acc-full).
+  &__media {
+    position: relative;
+    flex: 1;
+    max-width: 500px;
+    height: var(--media-h, 560px);
+    min-height: 440px;
+    overflow: hidden;
+    border-radius: 32px;
+  }
+
+  &__img {
+    object-fit: cover;
+  }
+
+  // The drawn pictures size themselves from this box's width.
+  &__art {
+    position: absolute;
+    inset: 0;
+    container-type: inline-size;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fshow {
+    &__chevron,
+    &__panel,
+    &__panel-inner p {
+      transition: none;
+    }
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1100px) {
+  .fshow__row {
+    gap: 40px;
+  }
+}
+
+// One column: text, then its picture.
+@media (max-width: 992px) {
+  .fshow {
+    &__row,
+    &__row--reverse {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    &__content {
+      max-width: 650px;
+    }
+
+    // Below the text it's a square again.
+    &__media {
+      width: 100%;
+      max-width: 550px;
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .fshow__rows {
+    gap: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fshow {
+    &__trigger {
+      font-size: 15px;
+    }
+
+    &__media {
+      border-radius: 26px;
+    }
+  }
+}
+
+// The drawn pictures ----------------------------------------------------------------------------
+// White cards over the sky, as in the landing pictures. Every size is in cqw, a hundredth of the
+// picture's width.
+
+$card-shadow:
+  0 0 0 0.5cqw rgba(255, 255, 255, 0.55),
+  0 2.6cqw 7cqw rgba(24, 92, 150, 0.22);
+$pass: #16a34a;
+
+.fsart {
+  position: absolute;
+  inset: 0;
+  font-size: 3cqw;
+
+  &__sky {
+    object-fit: cover;
+  }
+
+  // The cards sit in a square in the middle; the sky fills the rest of a taller picture.
+  &__stage {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    aspect-ratio: 1 / 1;
+    transform: translateY(-50%);
+  }
+
+  &__photo {
+    object-fit: cover;
+  }
+
+  // A phone: a white body around a rounded screen.
+  &__phone {
+    position: absolute;
+    top: 11cqw;
+    left: 50%;
+    width: 44cqw;
+    height: 78cqw;
+    padding: 1.8cqw;
+    border-radius: 7.5cqw;
+    background: #ffffff;
+    box-shadow: $card-shadow;
+    transform: translateX(-50%);
+  }
+
+  &__screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 5.8cqw;
+    background: #ffffff;
+  }
+
+  // A pill of a level: two lines either side of a dot, green when straight.
+  &__level {
+    position: absolute;
+    top: 3.6cqw;
+    left: 50%;
+    z-index: 2;
+    padding: 1.2cqw 2.2cqw;
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0.6cqw 2cqw rgba(22, 38, 55, 0.12);
+    transform: translateX(-50%);
+  }
+
+  &__level-line {
+    width: 5cqw;
+    height: 0.5cqw;
+    border-radius: 1cqw;
+    background: $pass;
+  }
+
+  &__level-dot {
+    width: 2.2cqw;
+    height: 2.2cqw;
+    border-radius: 50%;
+    background: $pass;
+    box-shadow: 0 0 0 0.8cqw rgba(22, 163, 74, 0.18);
+  }
+
+  // The face guide, over the face in the photo.
+  &__oval {
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    z-index: 1;
+    width: 62%;
+    height: 50%;
+    border: 0.55cqw dashed $pass;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__status {
+    position: absolute;
+    bottom: 17cqw;
+    left: 50%;
+    z-index: 2;
+    padding: 1cqw 2.6cqw;
+    border-radius: 99px;
+    background: rgba(19, 19, 19, 0.72);
+    color: #ffffff;
+    font-size: 2.6cqw;
+    font-weight: 500;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  // The shutter, its ring filling as it counts down to the automatic shot.
+  &__shutter {
+    position: absolute;
+    bottom: 3.6cqw;
+    left: 50%;
+    z-index: 2;
+    width: 12cqw;
+    height: 12cqw;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0 58%, transparent 59%);
+    transform: translateX(-50%);
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+  }
+
+  &__shutter-track,
+  &__shutter-fill {
+    fill: none;
+    stroke-width: 3.4;
+  }
+
+  &__shutter-track {
+    stroke: rgba(255, 255, 255, 0.9);
+  }
+
+  &__shutter-fill {
+    stroke: $pass;
+    stroke-linecap: round;
+    stroke-dasharray: 68 100;
+  }
+
+  // A white pill with a green tick.
+  &__chip {
+    position: absolute;
+    z-index: 3;
+    padding: 1.4cqw 2.6cqw 1.4cqw 1.6cqw;
+    display: inline-flex;
+    align-items: center;
+    gap: 1.4cqw;
+    border-radius: 99px;
+    background: #ffffff;
+    box-shadow: $card-shadow;
+    color: $ink-900;
+    font-size: 2.9cqw;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  &__tick {
+    width: 3.8cqw;
+    height: 3.8cqw;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: $pass;
+    color: #ffffff;
+
+    svg {
+      width: 62%;
+      height: 62%;
+    }
+  }
+
+  &__chip--face {
+    top: 30cqw;
+    left: 5cqw;
+  }
+
+  &__chip--level {
+    top: 58cqw;
+    right: 5cqw;
+  }
+
+  // The handoff: a browser window with the QR code, the phone in front of it.
+  &__window {
+    position: absolute;
+    top: 17cqw;
+    left: 8cqw;
+    width: 60cqw;
+    overflow: hidden;
+    border-radius: 4.4cqw;
+    background: #ffffff;
+    box-shadow: $card-shadow;
+  }
+
+  &__window-bar {
+    padding: 2.4cqw 3cqw;
+    display: flex;
+    gap: 1.2cqw;
+    border-bottom: 1px solid $line-soft;
+    background: $panel;
+
+    i {
+      width: 1.8cqw;
+      height: 1.8cqw;
+      border-radius: 50%;
+      background: #d9e1e7;
+    }
+  }
+
+  &__window-body {
+    padding: 4.4cqw 4cqw 5.4cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    strong {
+      margin-top: 3.4cqw;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 3.4cqw;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    span {
+      max-width: 34cqw;
+      margin-top: 1.2cqw;
+      color: $ink-500;
+      font-size: 2.5cqw;
+      line-height: 1.45;
+    }
+  }
+
+  &__qr {
+    width: 24cqw;
+    height: 24cqw;
+    padding: 1.2cqw;
+    border: 1px solid $line;
+    border-radius: 2.4cqw;
+    fill: $ink-900;
+  }
+
+  &__phone--small {
+    top: auto;
+    bottom: 10cqw;
+    left: auto;
+    right: 9cqw;
+    width: 27cqw;
+    height: 50cqw;
+    padding: 1.2cqw;
+    border-radius: 5cqw;
+    transform: none;
+
+    .fsart__screen {
+      border-radius: 3.8cqw;
+    }
+  }
+
+  &__chip--sent {
+    right: 6cqw;
+    bottom: 63cqw;
+  }
+}

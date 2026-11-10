@@ -1,0 +1,211 @@
+@use "../tokens" as *;
+
+// The winding line: darker than the card edges so it reads as a path.
+$line-mark: #bccad6;
+
+// The heading on the left. On the right, one line winds down through the steps: each step's dot
+// sits on alternate sides, and the line runs down from a dot, turns across the column and comes
+// down into the next one.
+.work {
+  width: 100%;
+  // Space above only: the next section brings its own, so gaps stay one step tall.
+  padding: var(--section-py) var(--section-px) 0;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: clamp(32px, 5vw, 72px);
+  }
+
+  // Stays in view while the steps scroll past it.
+  &__head {
+    position: sticky;
+    top: 120px;
+    @include section-head(left);
+  }
+
+  &__steps {
+    // The line's width, the turn's radius, and the space above each title. The width stays a
+    // whole pixel: a fractional border is rounded differently from the offset that joins the two
+    // halves of each crossing, which leaves a small step in the middle.
+    --line: 1px;
+    --turn: 26px;
+    --pad-top: 46px;
+
+    list-style: none;
+    // Room for the dots, which sit half outside the column.
+    padding: 0 12px;
+  }
+
+  &__step {
+    // The dot sits on the middle of the title's first line (24px tall). Set here, not on the
+    // list, so the first step's smaller top space moves its dot too.
+    --dot-y: calc(var(--pad-top) + 12px);
+
+    position: relative;
+    padding: var(--pad-top) 12% 30px 44px;
+
+    &:first-child {
+      --pad-top: 0px;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    // From the top of the step down into the dot, turning in from the middle of the column.
+    &::before,
+    // From the dot down to the bottom of the step, turning across to the middle of the column.
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: calc(50% - 1px);
+      border: 0 solid $line-mark;
+      pointer-events: none;
+    }
+
+    &::before {
+      // Starts on the previous step's bottom edge so the two halves meet on one line.
+      top: calc(var(--line) * -1);
+      height: calc(var(--dot-y) + var(--line));
+      border-top-width: var(--line);
+      border-left-width: var(--line);
+      border-top-left-radius: var(--turn);
+    }
+
+    &::after {
+      top: var(--dot-y);
+      bottom: 0;
+      border-left-width: var(--line);
+      border-bottom-width: var(--line);
+      border-bottom-left-radius: var(--turn);
+    }
+
+    &:first-child::before,
+    &:last-child::after {
+      content: none;
+    }
+
+    // Every second step mirrors: the dot and text on the right, the turns on the right.
+    &:nth-child(even) {
+      padding-right: 44px;
+      padding-left: 12%;
+      text-align: right;
+
+      &::before,
+      &::after {
+        left: calc(50% - 1px);
+        right: 0;
+        border-left-width: 0;
+        border-right-width: var(--line);
+      }
+
+      &::before {
+        border-top-left-radius: 0;
+        border-top-right-radius: var(--turn);
+      }
+
+      &::after {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: var(--turn);
+      }
+
+      .work__dot {
+        left: auto;
+        right: calc(var(--line) / 2);
+        transform: translate(50%, -50%);
+      }
+
+      // Narrower, so the two lines come out close in length like the steps on the left, rather
+      // than a full line over a word or two.
+      .work__text {
+        max-width: 34ch;
+        margin-left: auto;
+      }
+    }
+  }
+
+  &__dot {
+    position: absolute;
+    z-index: 1;
+    top: var(--dot-y);
+    left: calc(var(--line) / 2);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: $blue;
+    box-shadow: 0 0 0 5px rgba(43, 151, 240, 0.14);
+    transform: translate(-50%, -50%);
+  }
+
+  &__title {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  // The step number before the title, in the title's own type so they read as one line.
+  &__num {
+    font-family: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__text {
+    max-width: 40ch;
+    margin-top: 8px;
+    color: $ink-500;
+    font-size: 15px;
+    line-height: 1.6;
+    // Lines of about equal length, so the right edges of the two lines nearly line up too.
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 900px) {
+  .work {
+    &__wrap {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__head {
+      position: static;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .work {
+    &__steps {
+      --turn: 20px;
+      --pad-top: 40px;
+    }
+
+    // Steps on the left use the full width on a phone, so their text stays on two lines.
+    &__step {
+      padding-right: 0;
+      padding-left: 34px;
+
+      &:nth-child(even) {
+        padding-right: 34px;
+        padding-left: 6%;
+      }
+    }
+
+    &__title {
+      font-size: 17px;
+    }
+
+    &__text {
+      font-size: 14.5px;
+    }
+  }
+}
