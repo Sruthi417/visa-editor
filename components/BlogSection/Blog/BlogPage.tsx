@@ -28,17 +28,23 @@ export default function BlogPage({ data }: { data: Blog }) {
 
   // The "On this page" list: every section with an id, in the order it appears.
   const contents = [
-    ...(data.quickAnswer ? [{ id: data.quickAnswer.id, label: data.quickAnswer.title }] : []),
+    ...(data.quickAnswer
+      ? [{ id: data.quickAnswer.id, label: data.quickAnswer.title }]
+      : []),
     ...data.sections.map((section) => ({ id: section.id, label: section.nav })),
     { id: data.related.id, label: data.related.title },
     { id: data.check.id, label: data.check.title },
     { id: data.faq.id, label: data.faq.eyebrow },
     ...(data.next ? [{ id: data.next.id, label: data.next.title }] : []),
-    ...(data.sources ? [{ id: data.sources.id, label: data.sources.title }] : []),
+    ...(data.sources
+      ? [{ id: data.sources.id, label: data.sources.title }]
+      : []),
   ];
 
   // Up to three other posts, never the one being shown.
-  const others = (hub.cards as BlogHubCard[]).filter((card) => card.slug !== data.slug).slice(0, 3);
+  const others = (hub.cards as BlogHubCard[])
+    .filter((card) => card.slug !== data.slug)
+    .slice(0, 3);
 
   return (
     <BlogLayout
@@ -54,7 +60,10 @@ export default function BlogPage({ data }: { data: Blog }) {
           image={hero.image}
           versus={hero.versus}
           meta={[
-            { icon: "calendar", label: `Facts checked ${formatDate(data.checkedOn)}` },
+            {
+              icon: "calendar",
+              label: `Facts checked ${formatDate(data.checkedOn)}`,
+            },
             { icon: "clock", label: `${readingMinutes(data)} min read` },
           ]}
         />
@@ -87,8 +96,9 @@ export default function BlogPage({ data }: { data: Blog }) {
         ))}
 
         <BlogRelatedReading data={data.related} />
-        <BlogCheck data={data.check} />
+
         <BlogFaq data={data.faq} />
+        <BlogCheck data={data.check} />
         {data.next && <BlogCta data={data.next} />}
         {data.sources && <BlogSources data={data.sources} />}
       </article>

@@ -1,0 +1,56 @@
+@use "../tokens" as *;
+
+// A sky banner across the content column, its content centred.
+.fcta {
+  width: 100%;
+  max-width: calc(1080px + 2 * var(--section-px));
+  margin: 0 auto;
+  padding: 0 var(--section-px) var(--section-py);
+  background: #ffffff;
+
+  &__panel {
+    padding: clamp(44px, 6vw, 72px) clamp(20px, 4vw, 52px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    background-color: #46aefc;
+    background-image: url("/images/features/feature-background.webp");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    @include squircle(44px, 30px);
+
+    h2 {
+      max-width: 18ch;
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 3.6vw, 42px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    p {
+      max-width: 34ch;
+      margin-top: 14px;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 17px;
+      line-height: 1.5;
+      text-wrap: balance;
+    }
+  }
+
+  &__button {
+    margin-top: 28px;
+    @include pill-button;
+  }
+}
+
+@media (max-width: 480px) {
+  .fcta__button {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

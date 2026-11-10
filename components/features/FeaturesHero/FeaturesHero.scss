@@ -1,0 +1,480 @@
+@use "../tokens" as *;
+
+// The landing hero's sky, with white type: a label, the headline, an upload bar, then three
+// frosted glass cards rising from the foot of the screen.
+.fhero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: max(100svh, 720px);
+  // Clears the fixed navbar, with room above the headline.
+  padding: clamp(150px, 21vh, 196px) var(--section-px) 0;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background-image: url("/images/hero/hero-background.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  // The cards fade into the white page below.
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    height: clamp(70px, 11vh, 130px);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.65) 55%,
+      #ffffff 100%
+    );
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // The headline: two lines, the camera in the first and the globe in the second ---------------
+  &__title {
+    margin-top: clamp(8px, 2vh, 20px);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(32px, min(4.6vw, 7.2vh), 64px);
+    font-weight: 600;
+    line-height: 1.16;
+    letter-spacing: -0.035em;
+  }
+
+  // Each line on its own row. The site sets Poppins on every element, so the lines take the
+  // headline's font back explicitly.
+  &__line {
+    display: block;
+    font-family: inherit;
+    text-wrap: balance;
+  }
+
+  // An app-style tile sitting on the line like a word: a white 3D icon on a dark, rounded
+  // square with a soft sheen at the top and a shadow beneath.
+  &__tile {
+    position: relative;
+    // A little taller than the capital letters beside it.
+    width: 0.86em;
+    height: 0.86em;
+    margin: 0 0.04em;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 0.21em;
+    background: linear-gradient(165deg, #2b2c30 0%, #141518 55%, #0b0c0e 100%);
+    box-shadow:
+      0 0.08em 0.2em rgba(0, 25, 70, 0.32),
+      inset 0 0.015em 0 rgba(255, 255, 255, 0.16);
+    // Centred on the capital letters beside it.
+    vertical-align: -0.07em;
+
+    @supports (corner-shape: squircle) {
+      border-radius: 0.32em;
+      corner-shape: squircle;
+    }
+
+    img {
+      position: absolute;
+      height: auto;
+      filter: drop-shadow(0 0.03em 0.05em rgba(0, 0, 0, 0.55));
+    }
+
+    // The globe rises from the tile's foot like a horizon, the airplane flying over it.
+    &--globe img {
+      bottom: 0;
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
+    }
+  }
+
+  // The upload bar: a glass pill with the black upload button inside ---------------------------
+  // A glass ring around the upload button.
+  &__bar {
+    margin-top: clamp(22px, 3.6vh, 36px);
+    padding: 6px;
+    display: inline-flex;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.24);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 14px 40px rgba(0, 70, 150, 0.18);
+  }
+
+  &__button {
+    flex-shrink: 0;
+    @include pill-button;
+    padding: 5px 6px 5px 22px;
+    gap: 14px;
+
+    .hero__button-text {
+      font-size: 16px;
+    }
+
+    .hero__button-icon {
+      width: 38px;
+      height: 38px;
+
+      svg {
+        width: 19px;
+        height: 19px;
+      }
+    }
+  }
+
+  // The three glass cards ----------------------------------------------------------------------
+  &__cards {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    width: 100%;
+    max-width: 1040px;
+    min-height: 300px;
+    margin-top: clamp(32px, 6vh, 64px);
+    // Reaches past the foot of the hero, so the cards run off the bottom edge under the fade.
+    margin-bottom: calc(-1 * clamp(56px, 9vh, 96px));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: clamp(14px, 2vw, 26px);
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    // The side cards start lower than the middle one.
+    &--side {
+      padding-top: clamp(28px, 6vh, 56px);
+    }
+
+    // Each column's last card stretches down to the foot of the row.
+    > .fhero__card:last-child {
+      flex: 1;
+    }
+  }
+
+  &__card {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 44px rgba(0, 60, 140, 0.16);
+    text-align: left;
+
+    &--small {
+      padding: 12px 14px;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      border-radius: 18px;
+    }
+
+    &--main {
+      padding: 18px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+    }
+  }
+
+  &__muted {
+    color: $ink-500;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__small-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+
+    strong {
+      overflow: hidden;
+      color: $ink-900;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__flag {
+    flex-shrink: 0;
+    width: 30px;
+    height: 22px;
+    border-radius: 5px;
+    background-size: cover;
+    box-shadow: 0 0 0 1px rgba(22, 38, 55, 0.08);
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    overflow: hidden;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(22, 38, 55, 0.15);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      transform: scale(1.5);
+    }
+  }
+
+  &__chip {
+    flex-shrink: 0;
+    padding: 4px 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 100px;
+    font-size: 11.5px;
+    font-weight: 600;
+
+    &--blue {
+      background: $tint;
+      color: #006aa3;
+    }
+
+    &--green {
+      background: #e8f7ee;
+      color: $green;
+    }
+  }
+
+  &__big {
+    margin-top: 4px;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 2.2vw, 28px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  &__sub {
+    margin-top: 2px;
+    color: $ink-500;
+    font-size: 13px;
+  }
+
+  &__minis {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__mini {
+    padding: 6px 10px 6px 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid $line-soft;
+    border-radius: 100px;
+    background: #ffffff;
+    color: $ink-700;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__mini-icon {
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: $tint;
+    color: $blue-deep;
+  }
+
+  &__swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #d3dbe1;
+    border-radius: 50%;
+  }
+
+  // The middle card --------------------------------------------------------------------------
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__head-icon {
+    @include icon-tile(40px, 36px);
+    border-radius: 11px;
+    box-shadow: 0 3px 0 #a9d3f1;
+  }
+
+  &__result {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .fhero__big {
+      margin-top: 0;
+    }
+  }
+
+  &__field-label {
+    margin-top: 14px;
+  }
+
+  &__field {
+    margin-top: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid $line-soft;
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  &__photo {
+    position: relative;
+    flex-shrink: 0;
+    width: 104px;
+    overflow: hidden;
+    border: 1px solid $line;
+    border-radius: 10px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      transform: scale(1.22) translateY(6%);
+    }
+  }
+
+  // The crown and chin guide lines, as in the editor's crop frame.
+  &__guide {
+    position: absolute;
+    right: 8%;
+    left: 8%;
+    height: 0;
+    border-top: 1.5px dashed rgba(0, 135, 202, 0.75);
+
+    &--crown {
+      top: 14%;
+    }
+
+    &--chin {
+      top: 70%;
+    }
+  }
+
+  &__ticks {
+    min-width: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: $ink-700;
+      font-size: 12.5px;
+      font-weight: 500;
+    }
+
+    svg {
+      flex-shrink: 0;
+      padding: 2px;
+      border-radius: 50%;
+      background: $green;
+      color: #ffffff;
+    }
+  }
+}
+
+// A tablet: the cards a little smaller.
+@media (max-width: 1024px) {
+  .fhero {
+    &__card {
+      padding: 14px;
+    }
+
+    &__photo {
+      width: 88px;
+    }
+
+    &__minis {
+      gap: 6px;
+    }
+  }
+}
+
+// Narrower: only the middle card, centred.
+@media (max-width: 760px) {
+  .fhero {
+    &__cards {
+      max-width: 360px;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__col--side {
+      display: none;
+    }
+  }
+}
+
+// A phone: the two lines flow together and balance, so no picture is left alone on a line;
+// the glass ring and the button run the full width.
+@media (max-width: 560px) {
+  .fhero {
+    padding-top: 140px;
+
+    &__title {
+      text-wrap: balance;
+    }
+
+    &__line {
+      display: inline;
+    }
+
+    &__bar {
+      width: 100%;
+    }
+
+    &__button {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}

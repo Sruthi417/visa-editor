@@ -1,0 +1,323 @@
+@use "../tokens" as *;
+
+// The landing page's feature rows: copy on one side, the visual on the other, swapping sides.
+.ftools {
+  width: 100%;
+  // Space above only: the next section brings its own, so gaps stay one step tall.
+  padding: var(--section-py) var(--section-px) 0;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  &__head {
+    @include section-head(center);
+  }
+
+  &__rows {
+    margin-top: clamp(48px, 7vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(72px, 9vw, 110px);
+  }
+
+  &__row {
+    scroll-margin-top: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(32px, 6vw, 80px);
+
+    &--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__copy {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__icon {
+    @include icon-tile;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 3.4vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  &__text {
+    margin-bottom: 28px;
+    color: $ink-500;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: $ink-900;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: $blue-deep;
+    }
+  }
+
+  &__visual {
+    flex: 1;
+    max-width: 450px;
+    min-width: 0;
+  }
+
+  // The crop picture at its own shape, so its corner marks and size label stay in view.
+  &__picture {
+    overflow: hidden;
+    border-radius: 32px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  // The background demo -----------------------------------------------------------------------
+  &__demo {
+    padding: 12px;
+    @include card;
+    box-shadow: 0 14px 36px rgba(22, 38, 55, 0.08);
+  }
+
+  &__stage {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border-radius: 24px;
+    background: #ffffff;
+    transition: background-color 0.35s ease;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+  }
+
+  // The chosen colour's name and who asks for it, then a row of colour circles.
+  &__picker {
+    margin-top: 12px;
+    padding: 4px 6px 2px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 14px;
+  }
+
+  &__readout {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+
+    strong {
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    span {
+      color: $ink-500;
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+  }
+
+  &__swatches {
+    display: flex;
+    gap: 6px;
+  }
+
+  // A colour circle per background. The chosen one has a blue ring.
+  &__swatch {
+    width: 34px;
+    height: 34px;
+    padding: 4px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $line;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s $ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      border-color: #bfe0f8;
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.94);
+    }
+
+    &[aria-pressed="true"] {
+      border-color: $blue;
+      box-shadow: 0 0 0 3px rgba(43, 151, 240, 0.18);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__dot {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #cfd8df;
+    border-radius: 50%;
+
+    // The original photo's own colours, in a small gradient.
+    &--original {
+      background: linear-gradient(135deg, #8fb3c9 0%, #4f7a6d 55%, #c08b5c 100%);
+    }
+  }
+
+  // The checks card ---------------------------------------------------------------------------
+  &__checks {
+    padding: 22px;
+    @include card;
+    box-shadow: 0 14px 36px rgba(22, 38, 55, 0.08);
+  }
+
+  &__checks-head {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-radius: 18px;
+    background: #f1faf4;
+
+    strong {
+      display: block;
+      color: $ink-900;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  &__checks-sub {
+    color: $ink-500;
+    font-size: 13.5px;
+  }
+
+  &__pass {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: $green;
+    color: #ffffff;
+  }
+
+  &__checks-list {
+    list-style: none;
+    margin-top: 8px;
+
+    li {
+      padding: 12px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: $ink-900;
+      font-size: 15px;
+
+      & + li {
+        border-top: 1px solid $line-soft;
+      }
+    }
+  }
+
+  &__status {
+    flex-shrink: 0;
+    padding: 4px 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 100px;
+    background: #f1faf4;
+    color: $green;
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+}
+
+// One column: the copy first, then the visual.
+@media (max-width: 992px) {
+  .ftools {
+    &__row,
+    &__row--reverse {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 36px;
+    }
+
+    &__copy {
+      max-width: 650px;
+    }
+
+    &__visual {
+      width: 100%;
+      max-width: 520px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ftools__stage,
+  .ftools__swatch {
+    transition: none;
+  }
+
+  .ftools__swatch:hover,
+  .ftools__swatch:active {
+    transform: none;
+  }
+}
