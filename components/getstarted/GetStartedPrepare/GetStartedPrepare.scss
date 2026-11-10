@@ -1,0 +1,125 @@
+@use "../tokens" as *;
+
+// Four white cards, each a square picture with its title and line under it.
+.gs-prep {
+  width: 100%;
+  // Space above only: the next section brings its own, so gaps stay one step tall.
+  padding: var(--section-py) var(--section-px) 0;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  &__head {
+    @include section-head(center);
+  }
+
+  &__grid {
+    margin-top: clamp(40px, 6vw, 56px);
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  &__card {
+    padding: 10px 10px 22px;
+    display: flex;
+    flex-direction: column;
+    @include card;
+  }
+
+  &__media {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid $line-soft;
+    background: #ffffff;
+    @include squircle(26px, 20px);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__title {
+    margin: 18px 8px 0;
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  &__text {
+    margin: 8px 8px 0;
+    color: $ink-500;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  // Links on to the guide and the camera article, in the guide pages' link style.
+  &__more {
+    margin-top: 28px;
+    color: $ink-500;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: center;
+    text-wrap: balance;
+
+    a {
+      color: #006aa3;
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-color: rgba(0, 106, 163, 0.35);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s ease;
+
+      &:hover {
+        text-decoration-color: currentColor;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #006aa3;
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .gs-prep__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// Still two to a row on a phone, smaller, so the four fit on one screen.
+@media (max-width: 560px) {
+  .gs-prep {
+    &__grid {
+      gap: 10px;
+    }
+
+    &__card {
+      padding: 8px 8px 16px;
+    }
+
+    &__title {
+      margin: 12px 4px 0;
+      font-size: 15.5px;
+    }
+
+    &__text {
+      margin: 6px 4px 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  }
+}

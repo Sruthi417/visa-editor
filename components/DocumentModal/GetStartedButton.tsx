@@ -6,14 +6,22 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Upload01Icon } from "@hugeicons/core-free-icons";
 
 import DocumentModal from "./DocumentModal";
+import type { DocumentType } from "./specs";
 
-/** The hero's call to action: opens the "Choose a document" window. */
+/**
+ * The hero's call to action: opens the "Choose a document" window, on a given document and
+ * country when the page passes them.
+ */
 export default function GetStartedButton({
   className,
   children,
+  type,
+  code,
 }: {
   className?: string;
   children?: React.ReactNode;
+  type?: DocumentType;
+  code?: string;
 }) {
   const [open, setOpen] = useState(false);
   // A new key each time it opens, so the window always starts from the
@@ -43,7 +51,13 @@ export default function GetStartedButton({
         </span>
       </button>
 
-      <DocumentModal key={session} open={open} onClose={close} />
+      <DocumentModal
+        key={session}
+        open={open}
+        onClose={close}
+        initialType={type}
+        initialCode={code}
+      />
     </>
   );
 }

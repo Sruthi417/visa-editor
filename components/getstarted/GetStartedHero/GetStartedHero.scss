@@ -1,0 +1,279 @@
+@use "../tokens" as *;
+
+// The landing hero's sky with white type on the left, and a white start panel on the right.
+.gs-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: max(100svh, 700px);
+  // Clears the fixed navbar.
+  padding: clamp(120px, 15vh, 150px) var(--section-px) clamp(56px, 8vh, 88px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  // The plainer of the two sky pictures: clouds only along the foot, so the white text stays on
+  // clear blue.
+  background-image: url("/images/hero/hero-background-alt.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  // The sky fades into the white page below.
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: clamp(60px, 9vh, 110px);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+    pointer-events: none;
+  }
+
+  &__wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  // Two lines on a wide screen.
+  &__title {
+    max-width: 17ch;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(36px, min(4.2vw, 7vh), 56px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  &__sub {
+    max-width: 40ch;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 17.5px;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  // Three facts as glass pills.
+  &__facts {
+    margin-top: 26px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    li {
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.22);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  // The guide link, in the guide pages' link style, white on the sky.
+  &__link {
+    margin-top: 26px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s ease;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+  }
+}
+
+// The start panel ----------------------------------------------------------------------------
+.start-panel {
+  width: 100%;
+  max-width: 440px;
+  justify-self: end;
+  padding: 24px 24px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: #ffffff;
+  box-shadow: 0 24px 60px rgba(0, 70, 150, 0.18);
+  @include squircle(34px, 26px);
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__label {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  // Passport or visa, as a segmented switch.
+  &__toggle {
+    padding: 3px;
+    display: inline-flex;
+    border-radius: 100px;
+    background: $panel;
+    box-shadow: inset 0 0 0 1px $line-soft;
+  }
+
+  &__type {
+    padding: 7px 14px;
+    border: 0;
+    border-radius: 100px;
+    background: transparent;
+    color: $ink-500;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    &:hover {
+      color: $ink-900;
+    }
+
+    &.is-on {
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(22, 38, 55, 0.14);
+      color: $ink-900;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  // The chosen photo's rules, a label and value on each row.
+  &__specs {
+    margin-top: 4px;
+  }
+
+  &__spec {
+    padding: 11px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid $line-soft;
+    font-size: 14px;
+
+    dt {
+      color: $ink-500;
+    }
+
+    dd {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: $ink-900;
+      font-weight: 600;
+      text-align: right;
+    }
+  }
+
+  &__swatch {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    border: 1px solid #cfd8df;
+    border-radius: 50%;
+  }
+
+  &__notice {
+    margin-top: 14px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fdf6e7;
+    color: #7a5200;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  &__button {
+    width: 100%;
+    margin-top: 20px;
+    justify-content: space-between;
+    @include pill-button;
+    padding: 6px 6px 6px 26px;
+
+    .hero__button-text {
+      font-size: 16px;
+    }
+
+    .hero__button-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &__small {
+    margin-top: 12px;
+    color: $ink-500;
+    font-size: 12.5px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .gs-hero {
+    min-height: 0;
+
+    &__wrap {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .start-panel {
+    max-width: none;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .gs-hero__sub {
+    font-size: 16px;
+  }
+
+  .start-panel {
+    padding: 20px 18px 18px;
+
+    &__head {
+      flex-wrap: wrap;
+    }
+  }
+}

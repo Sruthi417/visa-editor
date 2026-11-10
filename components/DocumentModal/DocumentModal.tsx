@@ -52,11 +52,20 @@ type Props = {
   onClose: () => void;
   /** A photo that was already dropped or chosen before the window opened. */
   initialFile?: File | null;
+  /** The document and country to start on, when the page already knows them. */
+  initialType?: DocumentType;
+  initialCode?: string;
 };
 
-export default function DocumentModal({ open, onClose, initialFile = null }: Props) {
-  const [type, setType] = useState<DocumentType>("passport");
-  const [code, setCode] = useState("US");
+export default function DocumentModal({
+  open,
+  onClose,
+  initialFile = null,
+  initialType = "passport",
+  initialCode = "US",
+}: Props) {
+  const [type, setType] = useState<DocumentType>(initialType);
+  const [code, setCode] = useState(initialCode);
   const [view, setView] = useState<View>("choose");
   const [error, setError] = useState<string | null>(null);
   // A photo that arrived with the window; it is used when "Continue" is pressed.

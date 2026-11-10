@@ -1,0 +1,8 @@
+// The banner itself is the compare page's (CompareCta). This only sets it in the content column.
+.gs-cta {
+  width: 100%;
+  max-width: calc(1080px + 2 * var(--section-px));
+  margin: 0 auto;
+  padding: 0 var(--section-px) var(--section-py);
+  background: #ffffff;
+}

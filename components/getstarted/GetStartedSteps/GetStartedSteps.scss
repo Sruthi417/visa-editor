@@ -1,0 +1,103 @@
+@use "../tokens" as *;
+
+// The heading and a numbered list on the left; the before and after on a light blue panel on
+// the right.
+.gs-steps {
+  width: 100%;
+  // Space above only: the next section brings its own, so gaps stay one step tall.
+  padding: var(--section-py) var(--section-px) 0;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+  }
+
+  &__head {
+    @include section-head(left);
+  }
+
+  &__list {
+    margin-top: 32px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__step {
+    padding: 18px 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px;
+    border-top: 1px solid $line-soft;
+
+    &:last-child {
+      border-bottom: 1px solid $line-soft;
+    }
+  }
+
+  // The step number in a small light blue circle.
+  &__num {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $tint-line;
+    border-radius: 50%;
+    background: $tint;
+    color: $blue-deep;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  &__title {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  &__text {
+    margin-top: 4px;
+    color: $ink-500;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  // The site's light blue picture ground, the transparent before and after on it.
+  &__media {
+    padding: clamp(16px, 2.4vw, 28px);
+    display: grid;
+    place-items: center;
+    aspect-ratio: 5 / 4;
+    border: 1px solid $tint-line;
+    background: linear-gradient(160deg, #eaf5ff 0%, #d7ecfd 100%);
+    @include squircle(40px, 30px);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .gs-steps {
+    &__wrap {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__media {
+      aspect-ratio: 4 / 3;
+    }
+  }
+}
