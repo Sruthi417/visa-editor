@@ -54,8 +54,12 @@ export default function FeaturesPipeline() {
         </header>
 
         <ol className="fpipe__grid">
-          {STEPS.map((step) => (
+          {STEPS.map((step, index) => (
             <li key={step.title} className="fpipe__card">
+              {/* The list already numbers the steps for screen readers. */}
+              <span className="fpipe__num" aria-hidden="true">
+                {index + 1}.
+              </span>
               <div className="fpipe__art" aria-hidden="true">
                 {step.art}
               </div>
