@@ -1,0 +1,174 @@
+@use "../tokens" as *;
+
+// The landing hero's sky: a label, the headline, a line and two buttons, centred, with the
+// finished photos rising from the foot of the screen.
+.ab-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: max(100svh, 720px);
+  // Clears the fixed navbar, with room above the label.
+  padding: clamp(130px, 17vh, 170px) var(--section-px) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background-image: url("/images/hero/hero-background.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  // The picture fades into the white page below.
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    height: clamp(60px, 10vh, 120px);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  // A glass label.
+  &__pill {
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.22);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  &__title {
+    max-width: 18ch;
+    margin-top: 22px;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(36px, min(4.6vw, 7vh), 60px);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  &__sub {
+    max-width: 46ch;
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 17.5px;
+    line-height: 1.55;
+    text-wrap: balance;
+  }
+
+  &__actions {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  // The site's black button, still under the pointer like the other heroes' buttons.
+  &__primary {
+    @include pill-button;
+    padding: 5px 6px 5px 24px;
+    gap: 14px;
+    text-decoration: none;
+    transition: none;
+
+    &:hover,
+    &:active {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .hero__button-text {
+      font-size: 16px;
+    }
+
+    .hero__button-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  // A glass button beside it.
+  &__secondary {
+    padding: 0 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.24);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.34);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 3px;
+    }
+  }
+
+  // The finished photos, their lower edge running under the fade.
+  &__picture {
+    position: relative;
+    z-index: 1;
+    width: min(540px, 86vw);
+    margin-top: clamp(28px, 5vh, 48px);
+    margin-bottom: clamp(-160px, -14vh, -80px);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 24px 40px rgba(0, 60, 130, 0.22));
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .ab-hero {
+    &__sub {
+      font-size: 16px;
+    }
+
+    &__actions {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    &__primary,
+    &__secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    &__primary {
+      justify-content: space-between;
+    }
+  }
+}

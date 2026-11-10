@@ -1,0 +1,3 @@
+// The About page uses the Features page's palette and building blocks, which are the landing
+// page's. Each section's own .scss starts with `@use "../tokens" as *;`.
+@forward "../features/tokens";

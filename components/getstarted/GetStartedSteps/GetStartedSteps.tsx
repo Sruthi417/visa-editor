@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import StepsBody from "./StepsBody";
 import "./GetStartedSteps.scss";
 
 // The editor's own flow, from choosing the document to the finished photo.
@@ -22,7 +21,7 @@ const STEPS = [
   },
 ];
 
-/** The heading centred on top; the four steps on the left and a before and after beside them. */
+/** The heading centred on top; the four steps on the left and a picture of each beside them. */
 export default function GetStartedSteps() {
   return (
     <section className="gs-steps" id="steps">
@@ -36,31 +35,7 @@ export default function GetStartedSteps() {
           </p>
         </header>
 
-        <div className="gs-steps__body">
-          <ol className="gs-steps__list">
-            {STEPS.map((step, index) => (
-              <li key={step.title} className="gs-steps__step">
-                <span className="gs-steps__num" aria-hidden="true">
-                  {index + 1}
-                </span>
-                <div>
-                  <h3 className="gs-steps__title">{step.title}</h3>
-                  <p className="gs-steps__text">{step.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <div className="gs-steps__media">
-            <Image
-              src="/images/hero/hero-1.webp"
-              alt="A photo with a busy background and a loose crop, then the same photo on plain white with the correct crop"
-              width={1669}
-              height={942}
-              sizes="(max-width: 900px) 100vw, 540px"
-            />
-          </div>
-        </div>
+        <StepsBody steps={STEPS} />
       </div>
     </section>
   );

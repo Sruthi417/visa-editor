@@ -1,0 +1,65 @@
+@use "../tokens" as *;
+
+// Four large numbers in white cells on a light blue band, each with its line under it.
+.ab-numbers {
+  width: 100%;
+  // Close under "Why FlyFrame", which it belongs to.
+  padding: clamp(40px, 5vw, 64px) var(--section-px) 0;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  &__grid {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    border: 1px solid $tint-line;
+    background: $tint;
+    @include squircle(36px, 28px);
+  }
+
+  // The number reads first, its line under it; the markup keeps the label first for screen
+  // readers, so the order is set here.
+  &__stat {
+    padding: 30px 24px 26px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 8px;
+    background: #ffffff;
+    @include squircle(28px, 22px);
+  }
+
+  &__value {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: clamp(40px, 4.6vw, 56px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  &__label {
+    max-width: 18ch;
+    color: $ink-500;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 900px) {
+  .ab-numbers__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .ab-numbers__stat {
+    padding: 22px 16px 18px;
+  }
+}

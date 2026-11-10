@@ -1,0 +1,80 @@
+@use "../tokens" as *;
+
+// The heading and three short paragraphs on the left; the phone on a light blue panel on the
+// right, as tall as the text.
+.ab-story {
+  width: 100%;
+  // Space above only: the next section brings its own, so gaps stay one step tall.
+  padding: var(--section-py) var(--section-px) 0;
+  background: #ffffff;
+
+  &__wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: stretch;
+    gap: clamp(32px, 5vw, 72px);
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  // Two lines for the title, wider than the other section titles.
+  &__head {
+    @include section-head(left);
+
+    h2 {
+      max-width: 22ch;
+    }
+  }
+
+  &__text {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    p {
+      max-width: 52ch;
+      color: $ink-500;
+      font-size: 16.5px;
+      line-height: 1.7;
+    }
+  }
+
+  // The site's light blue picture ground, the phone standing at its foot.
+  &__media {
+    min-height: 420px;
+    padding: 32px 32px 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid $tint-line;
+    background: linear-gradient(160deg, #eaf5ff 0%, #d7ecfd 100%);
+    @include squircle(40px, 30px);
+
+    img {
+      display: block;
+      width: min(100%, 340px);
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .ab-story {
+    &__wrap {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__media {
+      min-height: 0;
+    }
+  }
+}

@@ -1,12 +1,14 @@
 @use "../tokens" as *;
 
 // The heading centred on top. Under it, the steps on the left, each number in a black circle
-// joined to the next by a dashed line, and the before and after on a light blue panel exactly as
-// tall as the steps.
+// joined to the next by a dashed line, and beside them a picture of each step on blue grid paper,
+// exactly as tall as the steps, with arrows and dots under the picture.
 
 // The dashed line between the numbers. A whole pixel, so the dashes stay crisp.
 $rail: #b9c6d1;
 $num-size: 34px;
+// The pictures' shape, width over height.
+$stage-ratio: 1.46;
 
 .gs-steps {
   width: 100%;
@@ -24,7 +26,7 @@ $num-size: 34px;
     @include section-head(center);
   }
 
-  // The steps and the picture. The picture's row is as tall as the steps, and it stretches to it.
+  // The steps and the pictures. The pictures' row is as tall as the steps, and stretches to it.
   &__body {
     margin-top: clamp(40px, 6vw, 60px);
     display: grid;
@@ -77,6 +79,14 @@ $num-size: 34px;
     font-family: var(--font-heading);
     font-size: 14px;
     font-weight: 700;
+    transition: box-shadow 0.35s $ease;
+  }
+
+  // The step whose picture is showing: a light blue ring round its number.
+  &__step.is-on &__num {
+    box-shadow:
+      0 0 0 5px #d3e9fb,
+      0 4px 10px rgba(19, 19, 19, 0.18);
   }
 
   &__title {
@@ -98,36 +108,646 @@ $num-size: 34px;
     font-size: 15px;
     line-height: 1.6;
   }
+}
 
-  // The site's light blue picture ground, the transparent before and after centred on it.
-  &__media {
-    min-height: 280px;
-    padding: clamp(16px, 2.4vw, 28px);
+// The pictures ---------------------------------------------------------------------------------
+// The grid paper panel: the pictures fill what the arrows and dots leave of it.
+
+.gs-slider {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  // How much larger than their stage the pictures are drawn. The labels hang off their cards,
+  // not the stage's edges, so the pictures can fill the room round them.
+  --art-k: 1.18;
+  padding: clamp(12px, 1.6vw, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  border: 1px solid $tint-line;
+  background: #ffffff url("/images/get-started/steps-grid.webp") center / cover no-repeat;
+  @include squircle(40px, 30px);
+
+  // Sized by the panel, not by the pictures, so every picture gets the same room.
+  &__view {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    container-type: size;
+  }
+
+  // The pictures sit on top of each other. The one showing fades in from a touch smaller; the
+  // one leaving fades out the same way.
+  &__slide {
+    grid-area: 1 / 1;
     display: grid;
     place-items: center;
-    border: 1px solid $tint-line;
-    background: linear-gradient(160deg, #eaf5ff 0%, #d7ecfd 100%);
-    @include squircle(40px, 30px);
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.965);
+    transition:
+      opacity 0.6s $ease,
+      transform 0.6s $ease,
+      visibility 0s linear 0.6s;
 
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
+    &.is-on {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity 0.6s $ease,
+        transform 0.6s $ease,
+        visibility 0s;
+    }
+  }
+
+  // As large as fits the room, in the pictures' own shape.
+  &__stage {
+    position: relative;
+    width: min(100cqw, calc(100cqh * #{$stage-ratio}));
+    aspect-ratio: $stage-ratio;
+  }
+
+  // Previous, the four dots, next: one white pill under the picture.
+  &__controls {
+    align-self: center;
+    flex-shrink: 0;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 99px;
+    background: #ffffff;
+    box-shadow:
+      0 0 0 1px rgba(22, 38, 55, 0.06),
+      0 6px 18px rgba(24, 92, 150, 0.2);
+  }
+
+  &__arrow {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: $panel;
+    color: $ink-900;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    &:hover {
+      background: $tint;
+      color: $blue-deep;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__dots {
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  // The dot of the picture showing grows into a black bar.
+  &__dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 99px;
+    background: #c6d3de;
+    cursor: pointer;
+    transition:
+      width 0.35s $ease,
+      background-color 0.35s ease;
+
+    // A larger target than the dot.
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -10px -4px;
+    }
+
+    &:hover {
+      background: #9fb3c4;
+    }
+
+    &.is-on {
+      width: 22px;
+      background: $ink-900;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 3px;
     }
   }
 }
 
-// One column: the steps, then the picture.
-@media (max-width: 900px) {
-  .gs-steps {
-    &__body {
-      grid-template-columns: minmax(0, 1fr);
+@media (prefers-reduced-motion: reduce) {
+  .gs-slider__slide,
+  .gs-slider__slide.is-on {
+    transform: none;
+    transition: none;
+  }
+}
+
+// The drawn pictures: flat white app cards over the grid paper, each with a thin light blue
+// outline and no shadow. Every size is in cqw, a hundredth of the picture's width.
+
+$art-line: #cfe2f1;
+
+// Centred on its stage and --art-k times its size, so everything in it, sized in cqw of this box,
+// grows by the same amount.
+.gsart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% * var(--art-k, 1));
+  height: calc(100% * var(--art-k, 1));
+  transform: translate(-50%, -50%);
+  container-type: inline-size;
+  color: $ink-900;
+  font-size: 3cqw;
+  line-height: 1.2;
+
+  // Every photo fills its box; the box sets the shape.
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 4cqw;
+    background: #ffffff;
+    border: 1px solid $art-line;
+  }
+
+  &__label {
+    color: $ink-900;
+    font-family: var(--font-heading);
+    font-size: 3.4cqw;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  // A white pill with a small icon tile.
+  &__chip {
+    position: absolute;
+    z-index: 3;
+    padding: 1.2cqw 2.6cqw 1.2cqw 1.2cqw;
+    display: inline-flex;
+    align-items: center;
+    gap: 1.6cqw;
+    border-radius: 99px;
+    background: #ffffff;
+    border: 1px solid $art-line;
+    color: $ink-900;
+    font-size: 2.9cqw;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  // The landing page's light blue icon tile, in miniature: a darker edge underneath.
+  &__chip-icon {
+    width: 5.2cqw;
+    height: 4.8cqw;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 0.3cqw solid #bfe0f8;
+    border-radius: 1.4cqw;
+    background: #e6f4fe;
+    box-shadow: 0 0.5cqw 0 #a9d3f1;
+    color: $blue-deep;
+
+    svg {
+      width: 62%;
+      height: 62%;
+    }
+  }
+
+  // A tick or a cross on a photo's corner.
+  &__badge {
+    position: absolute;
+    z-index: 2;
+    top: -1.8cqw;
+    left: -1.8cqw;
+    width: 6cqw;
+    height: 6cqw;
+    display: grid;
+    place-items: center;
+    border: 0.6cqw solid #ffffff;
+    border-radius: 50%;
+    background: $green;
+    color: #ffffff;
+
+    svg {
+      width: 58%;
+      height: 58%;
     }
 
-    &__media {
-      min-height: 0;
-      aspect-ratio: 4 / 3;
+    &--bad {
+      background: $red;
     }
+  }
+
+  // 1. The start panel -------------------------------------------------------------------------
+  &__card--doc {
+    width: 63cqw;
+    padding: 3.4cqw 3.4cqw 2.4cqw;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2cqw;
+    transform: translate(-50%, -48%);
+  }
+
+  &__doc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2cqw;
+  }
+
+  &__toggle {
+    flex-shrink: 0;
+    padding: 0.5cqw;
+    display: flex;
+    border: 1px solid $line;
+    border-radius: 99px;
+    background: $panel;
+    color: $ink-500;
+    font-size: 2.5cqw;
+    font-weight: 600;
+
+    span {
+      padding: 0.9cqw 2.2cqw;
+      border-radius: 99px;
+    }
+
+    .is-on {
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px $line;
+      color: $ink-900;
+    }
+  }
+
+  &__field {
+    padding: 1.8cqw 2.2cqw;
+    display: flex;
+    align-items: center;
+    gap: 1.8cqw;
+    border: 1px solid $line;
+    border-radius: 2.4cqw;
+    font-size: 2.9cqw;
+    font-weight: 600;
+
+    svg {
+      width: 3cqw;
+      height: 3cqw;
+      color: $ink-500;
+    }
+  }
+
+  &__field-name {
+    flex: 1;
+  }
+
+  &__flag {
+    width: 4.4cqw;
+    height: 3.3cqw;
+    flex-shrink: 0;
+    border-radius: 0.8cqw;
+    background-size: cover;
+    box-shadow: 0 0 0 1px rgba(22, 38, 55, 0.08);
+  }
+
+  &__rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__row {
+    padding: 1.4cqw 0.4cqw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $ink-500;
+    font-size: 2.7cqw;
+
+    & + & {
+      border-top: 1px solid $line-soft;
+    }
+
+    b {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2cqw;
+      color: $ink-900;
+      font-weight: 600;
+    }
+  }
+
+  // A round colour dot, so a white one does not read as a checkbox.
+  &__swatch {
+    width: 2.8cqw;
+    height: 2.8cqw;
+    border: 1px solid #cfd8e0;
+    border-radius: 50%;
+    box-shadow: inset 0 -0.3cqw 0.6cqw rgba(22, 38, 55, 0.08);
+  }
+
+  // Each label hangs half over its card's edge.
+  &__chip--rules {
+    top: -3.6cqw;
+    right: -6cqw;
+  }
+
+  // 2. The drop zone, taking her snapshot ------------------------------------------------------
+  &__card--upload {
+    width: 60cqw;
+    padding: 2.6cqw;
+    transform: translate(-50%, -52%);
+  }
+
+  // The drop zone as it looks while a photo is held over it: solid blue.
+  &__drop {
+    position: relative;
+    height: 42cqw;
+    padding-bottom: 3.4cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.4cqw;
+    border: 0.45cqw solid $blue;
+    border-radius: 3cqw;
+    background: $tint;
+    text-align: center;
+  }
+
+  &__drop-icon {
+    width: 6.6cqw;
+    height: 6cqw;
+    display: grid;
+    place-items: center;
+    border: 0.3cqw solid #bfe0f8;
+    border-radius: 1.8cqw;
+    background: #ffffff;
+    box-shadow: 0 0.5cqw 0 #a9d3f1;
+    color: $blue-deep;
+
+    svg {
+      width: 55%;
+      height: 55%;
+    }
+  }
+
+  &__drop-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6cqw;
+
+    b {
+      font-family: var(--font-heading);
+      font-size: 3.3cqw;
+      font-weight: 600;
+    }
+
+    span {
+      color: $ink-500;
+      font-size: 2.5cqw;
+    }
+  }
+
+  // The snapshot, held over the zone, a little right of centre, the pointer on its corner.
+  &__drag {
+    position: absolute;
+    top: 5.6cqw;
+    left: 50%;
+    width: 22cqw;
+    transform: translateX(-42%);
+  }
+
+  &__drag-photo {
+    position: relative;
+    display: block;
+    aspect-ratio: 452 / 362;
+    overflow: hidden;
+    border: 0.9cqw solid #ffffff;
+    border-radius: 2.2cqw;
+    outline: 1px solid $art-line;
+  }
+
+  &__cursor {
+    position: absolute;
+    right: -2.4cqw;
+    bottom: -3.6cqw;
+    width: 5.4cqw;
+    height: 5.4cqw;
+  }
+
+  &__chip--device {
+    bottom: -3.6cqw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  // 3. Before and after ------------------------------------------------------------------------
+  &__pair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: 2.6cqw;
+    transform: translate(-50%, -50%);
+  }
+
+  &__frame {
+    position: relative;
+    flex-shrink: 0;
+    padding: 1.2cqw;
+    border-radius: 3.4cqw;
+    background: #ffffff;
+    border: 1px solid $art-line;
+
+    &--before {
+      width: 29cqw;
+    }
+
+    &--after {
+      width: 33cqw;
+    }
+  }
+
+  &__shot {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 2.4cqw;
+
+    &--before {
+      aspect-ratio: 452 / 362;
+    }
+
+    // A 2 × 2 in photo is square. A hairline shows the white photo's edge on the white mount.
+    &--after {
+      aspect-ratio: 1 / 1;
+      background: #ffffff;
+
+      img {
+        object-position: 50% 12%;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid $line;
+        border-radius: inherit;
+      }
+    }
+  }
+
+  &__next {
+    width: 7cqw;
+    height: 7cqw;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid $art-line;
+    color: $blue-deep;
+
+    svg {
+      width: 55%;
+      height: 55%;
+    }
+  }
+
+  // Over the finished photo's top edge, clear of its tick, and over its foot.
+  &__chip--crop {
+    top: -3.6cqw;
+    right: -1.2cqw;
+  }
+
+  &__chip--checks {
+    bottom: -3.6cqw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  // 4. The finished photo ---------------------------------------------------------------------
+  &__card--ready {
+    width: 72cqw;
+    padding: 3cqw;
+    display: flex;
+    align-items: center;
+    gap: 3.4cqw;
+    transform: translate(-50%, -48%);
+  }
+
+  &__ready-photo {
+    position: relative;
+    width: 27cqw;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid $line;
+    border-radius: 2.4cqw;
+
+    img {
+      object-position: 50% 12%;
+    }
+  }
+
+  &__ready-body {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1cqw;
+  }
+
+  &__meta {
+    color: $ink-500;
+    font-size: 2.6cqw;
+    white-space: nowrap;
+  }
+
+  &__buttons {
+    margin-top: 1.8cqw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2cqw;
+  }
+
+  &__button {
+    padding: 1.5cqw 2.4cqw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2cqw;
+    border: 1px solid $line;
+    border-radius: 99px;
+    color: $ink-900;
+    font-size: 2.6cqw;
+    font-weight: 600;
+    white-space: nowrap;
+
+    svg {
+      width: 3cqw;
+      height: 3cqw;
+    }
+
+    &--dark {
+      border-color: $black;
+      background: $black;
+      color: #ffffff;
+    }
+  }
+
+  &__chip--free {
+    top: -3.6cqw;
+    right: -4cqw;
+  }
+}
+
+// One column: the steps, then the pictures, in a panel of their own height.
+@media (max-width: 900px) {
+  .gs-steps__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gs-slider {
+    aspect-ratio: 6 / 5;
+  }
+}
+
+@media (max-width: 560px) {
+  .gs-slider {
+    aspect-ratio: 1.06;
   }
 }
 
@@ -145,5 +765,10 @@ $num-size: 34px;
     &__text {
       font-size: 14.5px;
     }
+  }
+
+  .gs-slider__arrow {
+    width: 32px;
+    height: 32px;
   }
 }
