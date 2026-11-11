@@ -17,7 +17,7 @@ $blue: #1f6fe5;
   max-height: 100dvh;
   position: relative;
   overflow: hidden;
-  background-image: url("/images/hero/hero-background.webp");
+  background-image: url("/images/hero/hero-background-alt.webp");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -67,7 +67,7 @@ $blue: #1f6fe5;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-top: 5rem;
+    padding-top: 6rem;
     // justify-content: center;
     height: calc(100% + var(--hero-pb) * 0.6);
     text-align: left;
@@ -182,20 +182,25 @@ $blue: #1f6fe5;
   // Measured as a box so the stage can fit both its width and its height.
   container-type: size;
   display: grid;
-  place-items: center;
+  // Against the right edge, so the space right of the window matches the
+  // space left of the copy.
+  place-items: center end;
 
+  // The stage is the window itself (464 × 577 units): 72.5% of the column's
+  // width, or less when the column is short.
   &__stage {
-    --u: calc(100cqw / 640);
+    --u: calc(100cqw / 464);
     position: relative;
-    width: min(100cqw, calc(100cqh * 640 / 620));
-    aspect-ratio: 640 / 620;
+    width: min(72.5cqw, calc(100cqh * 464 / 577));
+    aspect-ratio: 464 / 577;
     container: hero-art / inline-size;
   }
 
+  // A soft glow behind the window, centred on it.
   &__halo {
     position: absolute;
-    left: u(-20);
-    top: u(-30);
+    left: u(-108);
+    top: u(-52);
     width: u(680);
     height: u(680);
     border-radius: 50%;
@@ -442,6 +447,7 @@ $blue: #1f6fe5;
     // Stacked, the copy just takes the height it needs.
     &__content {
       height: auto;
+      padding-top: 0;
     }
 
     &__title {
@@ -452,6 +458,11 @@ $blue: #1f6fe5;
       font-size: clamp(16px, 2.9vw, 21px);
       max-width: 34em;
     }
+  }
+
+  // One column: the window sits centred under the copy.
+  .hero-art {
+    place-items: center;
   }
 }
 
@@ -481,10 +492,8 @@ $blue: #1f6fe5;
     }
   }
 
-  // Let the stage run a little past the column so the window stays a good size;
-  // only its empty margins and the soft glow leave the screen.
+  // Phones: the window takes most of the width.
   .hero-art__stage {
-    width: min(118cqw, calc(100cqh * 640 / 620));
-    margin-inline: calc((100cqw - min(118cqw, calc(100cqh * 640 / 620))) / 2);
+    width: min(86cqw, calc(100cqh * 464 / 577));
   }
 }

@@ -19,8 +19,8 @@ const BEFORE_SRC = "/images/hero-section/girl-before.webp";
 const AFTER_SRC = "/images/hero-section/girl-after.webp";
 
 /**
- * Everything is placed on a 640 × 620 stage that scales as one piece, so the
- * numbers below are stage units, not pixels.
+ * Everything is placed on a 464 × 577 stage (the window itself) that scales as
+ * one piece, so the numbers below are stage units, not pixels.
  */
 type Spot = { x: number; y: number; w?: number; h?: number; r?: number; z?: number };
 
@@ -269,7 +269,7 @@ export default function HeroArt() {
         <motion.div
           ref={windowRef}
           className="hero-art__item hero-art__window"
-          style={spot({ x: 88, y: 22, w: 464, h: 577, z: 2 })}
+          style={spot({ x: 0, y: 0, w: 464, h: 577, z: 2 })}
           variants={rise(0.25)}
         >
           <div className="hero-art__recess">
