@@ -51,31 +51,36 @@ $blue: #1f6fe5;
   max-width: 1280px;
   height: 100%;
   margin: 0 auto;
-  // Top clears the fixed navbar.
-  padding: clamp(104px, 14vh, 136px) var(--section-px) var(--hero-pb);
+  // Top clears the fixed navbar with room to spare, for the copy and the window alike.
+  padding: clamp(124px, 17vh, 168px) var(--section-px) var(--hero-pb);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   grid-template-rows: minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   column-gap: clamp(24px, 3.5vw, 56px);
   position: relative;
   z-index: 4;
 
+  // The same box as the art beside it, with the copy centred in it, so the copy
+  // and the window share one middle line.
   &__content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-top: 5rem;
+    // justify-content: center;
+    height: calc(100% + var(--hero-pb) * 0.6);
     text-align: left;
-    gap: clamp(14px, 2vh, 22px);
+    gap: clamp(16px, 2.4vh, 26px);
     min-width: 0;
-    // Sits above the middle so the copy stays on clear sky, off the clouds.
-    margin-bottom: clamp(0px, 20vh, 220px);
-    text-shadow: 0 2px 24px rgba(16, 76, 160, 0.28);
+    text-shadow:
+      0 1px 3px rgba(16, 76, 160, 0.25),
+      0 2px 24px rgba(16, 76, 160, 0.32);
   }
 
   &__title {
     font-family: var(--font-heading);
-    font-size: clamp(34px, min(3.9vw, 7vh), 56px);
+    font-size: clamp(36px, min(4.45vw, 8vh), 72px);
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.025em;
@@ -84,8 +89,8 @@ $blue: #1f6fe5;
   }
 
   &__description {
-    max-width: 520px;
-    font-size: clamp(15px, 1.3vw, 19px);
+    max-width: 560px;
+    font-size: clamp(16px, 1.45vw, 21px);
     line-height: 1.5;
     color: #ffffff;
     opacity: 0.95;
@@ -96,9 +101,9 @@ $blue: #1f6fe5;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
-    padding: 7px 8px 7px 32px;
-    margin-top: clamp(4px, 1vh, 10px);
+    gap: 20px;
+    padding: 9px 10px 9px 36px;
+    margin-top: clamp(6px, 1.2vh, 12px);
     border: 0;
     border-radius: 100px;
     cursor: pointer;
@@ -131,14 +136,14 @@ $blue: #1f6fe5;
     // The label and icon come from GetStartedButton, which shares the Hero's names.
     .hero__button-text {
       color: #ffffff;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 400;
       letter-spacing: -0.01em;
     }
 
     .hero__button-icon {
-      width: 44px;
-      height: 44px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: #ffffff;
       display: flex;
@@ -146,6 +151,11 @@ $blue: #1f6fe5;
       justify-content: center;
       flex-shrink: 0;
       transition: transform 0.25s ease;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
 
     &:hover .hero__button-icon {
@@ -163,7 +173,7 @@ $blue: #1f6fe5;
 }
 
 // ---------------------------------------------------------------------------
-// The art: the before / after photo through an airplane window, a plane lapping it
+// The art: the before / after photo through an airplane window
 // ---------------------------------------------------------------------------
 
 .hero-art {
@@ -177,15 +187,15 @@ $blue: #1f6fe5;
   &__stage {
     --u: calc(100cqw / 640);
     position: relative;
-    width: min(100cqw, calc(100cqh * 640 / 660));
-    aspect-ratio: 640 / 660;
+    width: min(100cqw, calc(100cqh * 640 / 620));
+    aspect-ratio: 640 / 620;
     container: hero-art / inline-size;
   }
 
   &__halo {
     position: absolute;
     left: u(-20);
-    top: u(-20);
+    top: u(-30);
     width: u(680);
     height: u(680);
     border-radius: 50%;
@@ -197,12 +207,6 @@ $blue: #1f6fe5;
     );
     pointer-events: none;
     z-index: 0;
-  }
-
-  &__watch {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
   }
 
   // Anything placed on the stage: position, size and tilt come from spot().
@@ -412,36 +416,6 @@ $blue: #1f6fe5;
     }
   }
 
-  // The orbit: its back half sits under the window, its front half over it.
-  &__orbit {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    pointer-events: none;
-
-    &--back {
-      z-index: 1;
-    }
-
-    &--front {
-      z-index: 4;
-    }
-  }
-
-  &__orbit-line {
-    fill: none;
-    stroke: #ffffff;
-    stroke-width: 3.4;
-    stroke-linecap: round;
-    stroke-dasharray: 10 11;
-    opacity: 0.7;
-
-    .hero-art__orbit--back & {
-      opacity: 0.45;
-    }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -463,18 +437,19 @@ $blue: #1f6fe5;
     grid-template-rows: auto minmax(0, 1fr);
     align-items: stretch;
     row-gap: clamp(20px, 3.5vh, 40px);
-    padding-top: clamp(96px, 13vh, 132px);
+    padding-top: clamp(108px, 14vh, 144px);
 
+    // Stacked, the copy just takes the height it needs.
     &__content {
-      margin-bottom: 0;
+      height: auto;
     }
 
     &__title {
-      font-size: clamp(30px, min(8.4vw, 6vh), 56px);
+      font-size: clamp(32px, min(9vw, 6.4vh), 60px);
     }
 
     &__description {
-      font-size: clamp(15px, 2.6vw, 19px);
+      font-size: clamp(16px, 2.9vw, 21px);
       max-width: 34em;
     }
   }
@@ -487,25 +462,29 @@ $blue: #1f6fe5;
     }
 
     &__button {
-      padding: 6px 7px 6px 26px;
+      padding: 7px 8px 7px 28px;
       gap: 16px;
 
+      .hero__button-text {
+        font-size: 18px;
+      }
+
       .hero__button-icon {
-        width: 40px;
-        height: 40px;
+        width: 46px;
+        height: 46px;
 
         svg {
-          width: 20px;
-          height: 20px;
+          width: 22px;
+          height: 22px;
         }
       }
     }
   }
 
-  // Let the art run a little past the column so the window stays a good size;
-  // only the far ends of the orbit leave the screen.
+  // Let the stage run a little past the column so the window stays a good size;
+  // only its empty margins and the soft glow leave the screen.
   .hero-art__stage {
-    width: min(118cqw, calc(100cqh * 640 / 660));
-    margin-inline: calc((100cqw - min(118cqw, calc(100cqh * 640 / 660))) / 2);
+    width: min(118cqw, calc(100cqh * 640 / 620));
+    margin-inline: calc((100cqw - min(118cqw, calc(100cqh * 640 / 620))) / 2);
   }
 }

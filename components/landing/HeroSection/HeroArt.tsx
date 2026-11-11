@@ -19,7 +19,7 @@ const BEFORE_SRC = "/images/hero-section/girl-before.webp";
 const AFTER_SRC = "/images/hero-section/girl-after.webp";
 
 /**
- * Everything is placed on a 640 × 660 stage that scales as one piece, so the
+ * Everything is placed on a 640 × 620 stage that scales as one piece, so the
  * numbers below are stage units, not pixels.
  */
 type Spot = { x: number; y: number; w?: number; h?: number; r?: number; z?: number };
@@ -52,10 +52,14 @@ const fadeIn = (delay: number): Variants => ({
 
 const clamp = (value: number) => Math.min(100, Math.max(0, value));
 
+// How long the divider stays where it was left before gliding back to the middle.
+const RETURN_AFTER_MS = 5000;
+
 /**
  * The photo as taken on the left of the divider and as FlyFrame returns it on
  * the right. Drag anywhere on the photo, or use the arrow keys on the handle.
- * Once `ready` (the blind is up) it sweeps once to show it can be dragged.
+ * Once `ready` (the blind is up) it sweeps once to show it can be dragged;
+ * after a drag it returns to the middle by itself.
  */
 function Compare({ ready }: { ready: boolean }) {
   const areaRef = useRef<HTMLDivElement>(null);
@@ -65,6 +69,8 @@ function Compare({ ready }: { ready: boolean }) {
   const left = useTransform(position, (value) => `${value}%`);
   const reduceMotion = useReducedMotion();
   const hint = useRef<ReturnType<typeof animate> | null>(null);
+  const glide = useRef<ReturnType<typeof animate> | null>(null);
+  const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touched = useRef(false);
 
   useMotionValueEvent(position, "change", (value) => {
@@ -82,9 +88,31 @@ function Compare({ ready }: { ready: boolean }) {
     return () => hint.current?.stop();
   }, [ready, reduceMotion, position]);
 
+  useEffect(
+    () => () => {
+      if (settle.current) clearTimeout(settle.current);
+      glide.current?.stop();
+    },
+    [],
+  );
+
   const takeOver = () => {
     touched.current = true;
     hint.current?.stop();
+    glide.current?.stop();
+    if (settle.current) clearTimeout(settle.current);
+  };
+
+  // Left somewhere off the middle, the divider glides back after a quiet spell.
+  const settleLater = () => {
+    if (settle.current) clearTimeout(settle.current);
+    settle.current = setTimeout(() => {
+      glide.current = animate(
+        position,
+        50,
+        reduceMotion ? { duration: 0 } : { duration: 0.9, ease: [0.4, 0, 0.2, 1] },
+      );
+    }, RETURN_AFTER_MS);
   };
 
   const moveTo = (clientX: number) => {
@@ -106,6 +134,8 @@ function Compare({ ready }: { ready: boolean }) {
       onPointerMove={(event) => {
         if (event.currentTarget.hasPointerCapture(event.pointerId)) moveTo(event.clientX);
       }}
+      onPointerUp={settleLater}
+      onPointerCancel={settleLater}
     >
       <div className="hero-art__pane">
         <Image
@@ -163,6 +193,7 @@ function Compare({ ready }: { ready: boolean }) {
             event.preventDefault();
             takeOver();
             position.set(clamp(next));
+            settleLater();
           }}
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={18} strokeWidth={2.4} color="currentColor" />
@@ -194,122 +225,10 @@ function Plane() {
   );
 }
 
-// The plane's orbit round the window: a tilted ellipse whose top half runs
-// behind the window and whose bottom half runs in front of its lower frame.
-const ORBIT = { cx: 320, cy: 528, rx: 316, ry: 88, tilt: -9 };
-const PLANE_SCALE = 1.5;
-const LAP_SECONDS = 11;
-// Where the plane rests when motion is reduced: in front, to the right.
-const RESTING_ANGLE = Math.PI * 0.3;
-
-function OrbitLayer({
-  side,
-  planeRef,
-  headingRef,
-}: {
-  side: "back" | "front";
-  planeRef: React.RefObject<SVGGElement | null>;
-  headingRef: React.RefObject<SVGGElement | null>;
-}) {
-  const { cx, cy, rx, ry, tilt } = ORBIT;
-  // Clockwise from the left end over the top (back), or from the right end under the bottom (front).
-  const arc =
-    side === "back" ? `M ${-rx} 0 A ${rx} ${ry} 0 0 1 ${rx} 0` : `M ${rx} 0 A ${rx} ${ry} 0 0 1 ${-rx} 0`;
-
-  return (
-    <motion.svg
-      className={`hero-art__orbit hero-art__orbit--${side}`}
-      viewBox="0 0 640 660"
-      variants={fadeIn(side === "back" ? 0.7 : 0.8)}
-      aria-hidden="true"
-    >
-      {side === "front" && (
-        <defs>
-          <filter id="hero-art-plane-shadow" x="-60%" y="-60%" width="220%" height="220%">
-            <feDropShadow dx="0" dy="7" stdDeviation="3.5" floodColor="#0b3a75" floodOpacity="0.3" />
-          </filter>
-        </defs>
-      )}
-      <g transform={`translate(${cx} ${cy}) rotate(${tilt})`}>
-        <path className="hero-art__orbit-line" d={arc} />
-        <g ref={planeRef} opacity="0" filter="url(#hero-art-plane-shadow)">
-          <g ref={headingRef}>
-            <Plane />
-          </g>
-        </g>
-      </g>
-    </motion.svg>
-  );
-}
-
-/** The two orbit layers and the plane that laps round the window. */
-function Orbit() {
-  const watchRef = useRef<HTMLSpanElement>(null);
-  const backPlane = useRef<SVGGElement>(null);
-  const backHeading = useRef<SVGGElement>(null);
-  const frontPlane = useRef<SVGGElement>(null);
-  const frontHeading = useRef<SVGGElement>(null);
-  const reduceMotion = useReducedMotion();
-  const inView = useInView(watchRef, { amount: 0.1 });
-  const angle = useRef(Math.PI * 0.75);
-
-  useEffect(() => {
-    const planes = [
-      { plane: backPlane.current, heading: backHeading.current, front: false },
-      { plane: frontPlane.current, heading: frontHeading.current, front: true },
-    ];
-    const { rx, ry } = ORBIT;
-
-    const place = (theta: number) => {
-      // The angle runs backwards, so the plane crosses the front left to right.
-      const x = rx * Math.cos(theta);
-      const y = ry * Math.sin(theta);
-      const heading = (Math.atan2(-ry * Math.cos(theta), rx * Math.sin(theta)) * 180) / Math.PI;
-      const depth = Math.sin(theta); // -1 behind the window, 1 in front of it
-      const scale = PLANE_SCALE * (0.72 + 0.22 * (depth + 1));
-      for (const { plane, heading: turn, front } of planes) {
-        if (!plane || !turn) continue;
-        plane.setAttribute("transform", `translate(${x} ${y})`);
-        turn.setAttribute("transform", `rotate(${heading}) scale(${scale})`);
-        const onThisSide = front === (depth > 0);
-        plane.style.opacity = onThisSide ? (front ? "1" : "0.85") : "0";
-      }
-    };
-
-    if (reduceMotion) {
-      place(RESTING_ANGLE);
-      return;
-    }
-
-    place(angle.current);
-    if (!inView) return;
-
-    const start = angle.current;
-    const lap = animate(0, 1, {
-      duration: LAP_SECONDS,
-      ease: "linear",
-      repeat: Infinity,
-      onUpdate: (progress) => {
-        angle.current = start - progress * Math.PI * 2;
-        place(angle.current);
-      },
-    });
-    return () => lap.stop();
-  }, [reduceMotion, inView]);
-
-  return (
-    <>
-      <span ref={watchRef} className="hero-art__watch" aria-hidden="true" />
-      <OrbitLayer side="back" planeRef={backPlane} headingRef={backHeading} />
-      <OrbitLayer side="front" planeRef={frontPlane} headingRef={frontHeading} />
-    </>
-  );
-}
-
 /**
  * The hero's picture: the before / after photo seen through an airplane
  * window. The blind starts down, slides up, and then the photo shows it can be
- * dragged; a plane laps round the window throughout.
+ * dragged.
  */
 export default function HeroArt() {
   const windowRef = useRef<HTMLDivElement>(null);
@@ -346,13 +265,11 @@ export default function HeroArt() {
       <motion.div className="hero-art__stage" initial="hidden" animate="visible">
         <motion.span className="hero-art__halo" variants={fadeIn(0.1)} aria-hidden="true" />
 
-        <Orbit />
-
         {/* Moulded surround, a recessed step, then the glass; the blind's lip rides on top. */}
         <motion.div
           ref={windowRef}
           className="hero-art__item hero-art__window"
-          style={spot({ x: 88, y: 26, w: 464, h: 577, z: 2 })}
+          style={spot({ x: 88, y: 22, w: 464, h: 577, z: 2 })}
           variants={rise(0.25)}
         >
           <div className="hero-art__recess">
