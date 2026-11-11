@@ -1,0 +1,545 @@
+// The landing hero with the copy on the left and the before / after art on the right.
+// Same sky, fade and copy as the centred Hero.
+
+// The art is drawn on a 640 × 620 stage; `u(n)` is n stage units at the
+// stage's current size, so the whole picture scales as one piece.
+@function u($n) {
+  @return calc(#{$n} * var(--u));
+}
+
+$blue: #1f6fe5;
+
+.hero-section-bg {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  background-image: url("/images/hero/hero-background.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: clamp(90px, 15vh, 180px);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.08) 20%,
+      rgba(255, 255, 255, 0.35) 45%,
+      rgba(255, 255, 255, 0.7) 70%,
+      rgba(255, 255, 255, 0.95) 90%,
+      #ffffff 100%
+    );
+    pointer-events: none;
+    z-index: 3;
+  }
+}
+
+.hero-section {
+  width: 100%;
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  // Top clears the fixed navbar; bottom keeps the art above the white fade.
+  padding: clamp(104px, 14vh, 136px) var(--section-px) clamp(40px, 9vh, 104px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  grid-template-rows: minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(24px, 3.5vw, 56px);
+  position: relative;
+  z-index: 4;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: clamp(14px, 2vh, 22px);
+    min-width: 0;
+    // Sits above the middle so the copy stays on clear sky, off the clouds.
+    margin-bottom: clamp(0px, 20vh, 220px);
+    text-shadow: 0 2px 24px rgba(16, 76, 160, 0.28);
+  }
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: clamp(34px, min(3.9vw, 7vh), 56px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    text-wrap: balance;
+  }
+
+  &__description {
+    max-width: 520px;
+    font-size: clamp(15px, 1.3vw, 19px);
+    line-height: 1.5;
+    color: #ffffff;
+    opacity: 0.95;
+    font-weight: 400;
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 7px 8px 7px 32px;
+    margin-top: clamp(4px, 1vh, 10px);
+    border: 0;
+    border-radius: 100px;
+    cursor: pointer;
+    background: #131313;
+    color: #ffffff;
+    text-decoration: none;
+    text-shadow: none;
+    white-space: nowrap;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background-color 0.25s ease;
+
+    &:hover {
+      background: #000000;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(10, 40, 90, 0.28);
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: none;
+    }
+
+    &:focus-visible {
+      outline: 3px solid #ffffff;
+      outline-offset: 3px;
+    }
+
+    // The label and icon come from GetStartedButton, which shares the Hero's names.
+    .hero__button-text {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .hero__button-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover .hero__button-icon {
+      transform: translateY(-2px);
+    }
+  }
+
+  &__visual {
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The art: the before / after photo in an airplane window, a plane lapping it
+// ---------------------------------------------------------------------------
+
+.hero-art {
+  width: 100%;
+  height: 100%;
+  // Measured as a box so the stage can fit both its width and its height.
+  container-type: size;
+  display: grid;
+  place-items: center;
+
+  &__stage {
+    --u: calc(100cqw / 640);
+    position: relative;
+    width: min(100cqw, calc(100cqh * 640 / 620));
+    aspect-ratio: 640 / 620;
+    container: hero-art / inline-size;
+  }
+
+  &__halo {
+    position: absolute;
+    left: u(-10);
+    top: u(-30);
+    width: u(660);
+    height: u(660);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.2) 40%,
+      rgba(255, 255, 255, 0) 68%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__watch {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  &__group {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  // Anything placed on the stage: position, size and tilt come from spot().
+  &__item {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(var(--y) * var(--u));
+    width: calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    rotate: var(--r, 0deg);
+    z-index: var(--z, 1);
+  }
+
+  // The window: a thick, rounded moulding with a recessed step round the pane.
+  &__window {
+    padding: u(17);
+    border-radius: u(110);
+    background:
+      radial-gradient(120% 90% at 30% 18%, #ffffff 0%, rgba(255, 255, 255, 0) 55%),
+      linear-gradient(160deg, #f7f9fc 0%, #e6ebf2 55%, #cfd8e4 100%);
+    box-shadow:
+      0 u(24) u(46) rgba(10, 58, 117, 0.32),
+      0 u(5) u(12) rgba(10, 58, 117, 0.16),
+      inset 0 u(3) u(3) rgba(255, 255, 255, 0.95),
+      inset 0 u(-6) u(12) rgba(10, 58, 117, 0.14),
+      inset 0 0 0 u(1) rgba(10, 40, 90, 0.08);
+  }
+
+  &__pane {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: u(94);
+    overflow: hidden;
+    isolation: isolate;
+    background: #ffffff;
+    // The step between the moulding and the glass.
+    box-shadow:
+      0 0 0 u(4) #e9eef5,
+      0 0 0 u(5) #c9d3e0,
+      0 u(-2) u(6) u(4) rgba(10, 40, 90, 0.12);
+
+    // The pane's inner edge, so the white photo never melts into the white frame.
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow:
+        inset 0 u(6) u(12) rgba(10, 40, 90, 0.26),
+        inset 0 0 0 u(1.5) rgba(10, 40, 90, 0.16);
+      pointer-events: none;
+      z-index: 3;
+    }
+  }
+
+  // The window blind, pulled down a little.
+  &__shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: u(15);
+    background: linear-gradient(180deg, #f1f4f9 0%, #d8e0eb 100%);
+    box-shadow: 0 u(2) u(5) rgba(10, 40, 90, 0.18);
+    pointer-events: none;
+    z-index: 2;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: u(3);
+      width: u(30);
+      height: u(4);
+      translate: -50% 0;
+      border-radius: 99px;
+      background: #bfcbda;
+    }
+  }
+
+  // The draggable comparison: the glass plus the knob that rides over it.
+  &__compare {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: ew-resize;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  &__shot {
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  &__after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  &__divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 2;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: max(2px, u(3));
+      translate: -50% 0;
+      background: #ffffff;
+      box-shadow: 0 0 u(10) rgba(10, 40, 90, 0.35);
+    }
+  }
+
+  &__knob {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 4;
+  }
+
+  // Low on the photo, so it never covers the face.
+  &__handle {
+    position: absolute;
+    top: 88%;
+    left: 0;
+    translate: -50% -50%;
+    width: max(32px, u(40));
+    height: max(32px, u(40));
+    border-radius: 50%;
+    background: #ffffff;
+    color: #131313;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 u(8) u(20) rgba(10, 40, 90, 0.32);
+    cursor: grab;
+    transition: scale 0.2s ease;
+
+    svg {
+      width: 38%;
+      height: 38%;
+      margin: 0 -6%;
+    }
+
+    &:hover {
+      scale: 1.06;
+    }
+
+    &:active {
+      cursor: grabbing;
+      scale: 0.96;
+    }
+
+    &:focus-visible {
+      outline: 3px solid $blue;
+      outline-offset: 3px;
+    }
+  }
+
+  // The orbit: its back half sits under the windows, its front half over them.
+  &__orbit {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+
+    &--back {
+      z-index: 1;
+    }
+
+    &--front {
+      z-index: 4;
+    }
+  }
+
+  &__orbit-line {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3.4;
+    stroke-linecap: round;
+    stroke-dasharray: 10 11;
+    opacity: 0.7;
+
+    .hero-art__orbit--back & {
+      opacity: 0.45;
+    }
+  }
+
+  &__tag {
+    padding: u(2) u(20) u(8);
+    border-radius: u(18);
+    font-size: u(40);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    background: linear-gradient(180deg, #ffffff 0%, #e6f0ff 100%);
+    box-shadow:
+      0 u(12) u(24) rgba(10, 58, 117, 0.2),
+      inset 0 u(-2) 0 rgba(31, 111, 229, 0.12);
+
+    &--before {
+      color: #173a7a;
+    }
+
+    &--after {
+      color: $blue;
+    }
+  }
+
+  &__burst {
+    color: #ffffff;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 3.4;
+      stroke-linecap: round;
+    }
+  }
+
+  // A slow bob on the labels, each on its own beat.
+  &__float {
+    animation: hero-art-float 6s ease-in-out infinite;
+    animation-delay: calc(var(--delay, 0s) * -1);
+  }
+}
+
+@keyframes hero-art-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 calc(-6 * var(--u));
+  }
+}
+
+// A small stage (phones): the labels move in towards the windows.
+@container hero-art (max-width: 460px) {
+  .hero-art__burst {
+    display: none;
+  }
+
+  .hero-art__tag--before {
+    margin-left: calc(24 * var(--u));
+  }
+
+  .hero-art__tag--after {
+    margin-left: calc(-16 * var(--u));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-art__float {
+    animation: none;
+  }
+
+  .hero-art__handle {
+    transition: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------------------------
+
+// Narrow and upright screens: the copy on top, the art filling the rest.
+@media (max-width: 899px) and (orientation: portrait) {
+  .hero-section {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: stretch;
+    row-gap: clamp(20px, 3.5vh, 40px);
+    padding-top: clamp(96px, 13vh, 132px);
+    padding-bottom: clamp(32px, 7vh, 80px);
+
+    &__content {
+      margin-bottom: 0;
+    }
+
+    &__title {
+      font-size: clamp(30px, min(8.4vw, 6vh), 56px);
+    }
+
+    &__description {
+      font-size: clamp(15px, 2.6vw, 19px);
+      max-width: 34em;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    &__br {
+      display: none;
+    }
+
+    &__button {
+      padding: 6px 7px 6px 26px;
+      gap: 16px;
+
+      .hero__button-icon {
+        width: 40px;
+        height: 40px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  // Let the art run a little past the column so the window stays a good size;
+  // only the far ends of the orbit leave the screen.
+  .hero-art__stage {
+    width: min(118cqw, calc(100cqh * 640 / 620));
+    margin-inline: calc((100cqw - min(118cqw, calc(100cqh * 640 / 620))) / 2);
+  }
+}

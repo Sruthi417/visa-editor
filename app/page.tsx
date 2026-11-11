@@ -1,4 +1,5 @@
-import Hero from "@/components/landing/Hero/Hero";
+// import Hero from "@/components/landing/Hero/Hero";
+import HeroSection from "@/components/landing/HeroSection/HeroSection";
 import Navbar from "../components/Nav/Navbar";
 import Features from "@/components/landing/Features/Features";
 import HowItWorks from "@/components/landing/HowItWorks/HowItWorks";
@@ -11,7 +12,8 @@ export default function Page() {
   return (
     <div className="main-layout">
       <Navbar />
-      <Hero />
+      {/* <Hero /> */}
+      <HeroSection />
       <HowItWorks />
       <Features />
       <PhotoTips />
