@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Caveat } from "next/font/google";
 import {
   animate,
   motion,
@@ -16,17 +15,16 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 
-// The handwriting for the "Before" and "After" labels.
-const hand = Caveat({ subsets: ["latin"], weight: "700", display: "swap" });
+const BEFORE_SRC = "/images/hero-section/girl-before.webp";
+const AFTER_SRC = "/images/hero-section/girl-after.webp";
 
 /**
- * Everything is placed on a 640 × 620 stage that scales as one piece, so the
- * numbers below are stage units, not pixels. A spot's x / y is its top-left
- * corner; it tilts round its centre.
+ * Everything is placed on a 640 × 660 stage that scales as one piece, so the
+ * numbers below are stage units, not pixels.
  */
-type Spot = { x: number; y: number; w?: number; h?: number; r?: number; z?: number; delay?: number };
+type Spot = { x: number; y: number; w?: number; h?: number; r?: number; z?: number };
 
-function spot({ x, y, w, h, r = 0, z = 1, delay = 0 }: Spot) {
+function spot({ x, y, w, h, r = 0, z = 1 }: Spot) {
   return {
     "--x": x,
     "--y": y,
@@ -34,51 +32,8 @@ function spot({ x, y, w, h, r = 0, z = 1, delay = 0 }: Spot) {
     ...(h === undefined ? {} : { "--h": h }),
     "--r": `${r}deg`,
     "--z": z,
-    "--delay": `${delay}s`,
   } as React.CSSProperties;
 }
-
-type PhotoWindow = {
-  name: string;
-  before: string;
-  after: string;
-  beforeAlt: string;
-  afterAlt: string;
-  at: Spot & { r: number };
-  /** When its one-time "you can drag this" sweep starts, in seconds. */
-  hint: number;
-};
-
-// One window on top, two below leaning out, like three photos dropped on a table.
-const WINDOWS: PhotoWindow[] = [
-  {
-    name: "baby",
-    before: "/images/hero-section/window-baby-before.webp",
-    after: "/images/hero-section/window-baby-after.webp",
-    beforeAlt: "A baby photographed at home in front of a shelf and a window",
-    afterAlt: "The same baby as a passport photo on a plain white background",
-    at: { x: 205, y: 20, w: 230, h: 300, r: -2, z: 3 },
-    hint: 1.4,
-  },
-  {
-    name: "girl",
-    before: "/images/hero-section/window-girl-before.webp",
-    after: "/images/hero-section/window-girl-after.webp",
-    beforeAlt: "A young woman photographed outdoors with a lake behind her",
-    afterAlt: "The same young woman as a passport photo on a plain white background",
-    at: { x: 70, y: 282, w: 230, h: 300, r: -16, z: 2 },
-    hint: 2.2,
-  },
-  {
-    name: "grandfather",
-    before: "/images/hero-section/window-grandfather-before.webp",
-    after: "/images/hero-section/window-grandfather-after.webp",
-    beforeAlt: "A grandfather photographed in a garden",
-    afterAlt: "The same grandfather as a passport photo on a plain white background",
-    at: { x: 342, y: 278, w: 230, h: 300, r: 13, z: 2 },
-    hint: 3,
-  },
-];
 
 const rise = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 28, scale: 0.97 },
@@ -98,17 +53,17 @@ const fadeIn = (delay: number): Variants => ({
 const clamp = (value: number) => Math.min(100, Math.max(0, value));
 
 /**
- * The photo as uploaded on the left of the divider and as FlyFrame returns it
- * on the right. Drag anywhere on the photo, or use the arrow keys on the handle.
+ * The photo as taken on the left of the divider and as FlyFrame returns it on
+ * the right. Drag anywhere on the photo, or use the arrow keys on the handle.
+ * Once `ready` (the blind is up) it sweeps once to show it can be dragged.
  */
-function Compare({ photo: w }: { photo: PhotoWindow }) {
+function Compare({ ready }: { ready: boolean }) {
   const areaRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<HTMLDivElement>(null);
   const position = useMotionValue(50);
   const clip = useTransform(position, (value) => `inset(0 0 0 ${value}%)`);
   const left = useTransform(position, (value) => `${value}%`);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(areaRef, { once: true, amount: 0.5 });
   const hint = useRef<ReturnType<typeof animate> | null>(null);
   const touched = useRef(false);
 
@@ -116,33 +71,26 @@ function Compare({ photo: w }: { photo: PhotoWindow }) {
     handleRef.current?.setAttribute("aria-valuenow", String(Math.round(value)));
   });
 
-  // One slow sweep when it first shows, so it's clear the photo can be dragged.
   useEffect(() => {
-    if (!inView || reduceMotion || touched.current) return;
+    if (!ready || reduceMotion || touched.current) return;
     hint.current = animate(position, [50, 26, 74, 50], {
       duration: 3,
-      delay: w.hint,
+      delay: 0.35,
       ease: "easeInOut",
       times: [0, 0.3, 0.75, 1],
     });
     return () => hint.current?.stop();
-  }, [inView, reduceMotion, position, w.hint]);
+  }, [ready, reduceMotion, position]);
 
   const takeOver = () => {
     touched.current = true;
     hint.current?.stop();
   };
 
-  // The window is tilted, so turn the pointer back into the photo's own frame.
-  const moveTo = (clientX: number, clientY: number) => {
-    const area = areaRef.current;
-    if (!area || area.offsetWidth === 0) return;
-    const box = area.getBoundingClientRect();
-    const dx = clientX - (box.left + box.width / 2);
-    const dy = clientY - (box.top + box.height / 2);
-    const tilt = (w.at.r * Math.PI) / 180;
-    const along = dx * Math.cos(tilt) + dy * Math.sin(tilt);
-    position.set(clamp(50 + (along / area.offsetWidth) * 100));
+  const moveTo = (clientX: number) => {
+    const box = areaRef.current?.getBoundingClientRect();
+    if (!box || box.width === 0) return;
+    position.set(clamp(((clientX - box.left) / box.width) * 100));
   };
 
   return (
@@ -153,35 +101,44 @@ function Compare({ photo: w }: { photo: PhotoWindow }) {
         takeOver();
         event.currentTarget.setPointerCapture(event.pointerId);
         // A touch may turn into a page scroll, so only a mouse jumps on press.
-        if (event.pointerType === "mouse") moveTo(event.clientX, event.clientY);
+        if (event.pointerType === "mouse") moveTo(event.clientX);
       }}
       onPointerMove={(event) => {
-        if (event.currentTarget.hasPointerCapture(event.pointerId)) moveTo(event.clientX, event.clientY);
+        if (event.currentTarget.hasPointerCapture(event.pointerId)) moveTo(event.clientX);
       }}
     >
       <div className="hero-art__pane">
         <Image
           className="hero-art__shot"
-          src={w.before}
-          alt={w.beforeAlt}
+          src={BEFORE_SRC}
+          alt="The original photo, taken at home in front of a beige wall"
           fill
-          sizes="(max-width: 899px) 40vw, 220px"
+          sizes="(max-width: 899px) 70vw, 400px"
           loading="eager"
           draggable={false}
         />
         <motion.div className="hero-art__after" style={{ clipPath: clip }}>
           <Image
             className="hero-art__shot"
-            src={w.after}
-            alt={w.afterAlt}
+            src={AFTER_SRC}
+            alt="The same photo as a passport photo on a plain white background"
             fill
-            sizes="(max-width: 899px) 40vw, 220px"
+            sizes="(max-width: 899px) 70vw, 400px"
             loading="eager"
+            fetchPriority="high"
             draggable={false}
           />
         </motion.div>
         <motion.span className="hero-art__divider" style={{ left }} aria-hidden="true" />
-        <span className="hero-art__shade" aria-hidden="true" />
+
+        {/* The window blind: down when the page opens, then slides up into the frame. */}
+        <span className="hero-art__shutter" aria-hidden="true">
+          <svg className="hero-art__shutter-mark" viewBox="-24 -24 48 48">
+            <g transform="rotate(-90)">
+              <Plane />
+            </g>
+          </svg>
+        </span>
       </div>
 
       {/* Outside the rounded glass, so the knob is never clipped at the corners. */}
@@ -191,7 +148,7 @@ function Compare({ photo: w }: { photo: PhotoWindow }) {
           className="hero-art__handle"
           role="slider"
           tabIndex={0}
-          aria-label={`Compare the ${w.name}'s original photo and passport photo`}
+          aria-label="Compare the original and the passport photo"
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={50}
@@ -208,8 +165,8 @@ function Compare({ photo: w }: { photo: PhotoWindow }) {
             position.set(clamp(next));
           }}
         >
-          <HugeiconsIcon icon={ArrowLeft01Icon} size={16} strokeWidth={2.4} color="currentColor" />
-          <HugeiconsIcon icon={ArrowRight01Icon} size={16} strokeWidth={2.4} color="currentColor" />
+          <HugeiconsIcon icon={ArrowLeft01Icon} size={18} strokeWidth={2.4} color="currentColor" />
+          <HugeiconsIcon icon={ArrowRight01Icon} size={18} strokeWidth={2.4} color="currentColor" />
         </div>
       </motion.div>
     </div>
@@ -237,11 +194,11 @@ function Plane() {
   );
 }
 
-// The plane's orbit round the windows: a tilted ellipse whose top half runs
-// behind them and whose bottom half runs in front, below the faces.
-const ORBIT = { cx: 320, cy: 478, rx: 330, ry: 96, tilt: -8 };
-const PLANE_SCALE = 1.3;
-const LAP_SECONDS = 12;
+// The plane's orbit round the window: a tilted ellipse whose top half runs
+// behind the window and whose bottom half runs in front of its lower frame.
+const ORBIT = { cx: 320, cy: 528, rx: 316, ry: 88, tilt: -9 };
+const PLANE_SCALE = 1.5;
+const LAP_SECONDS = 11;
 // Where the plane rests when motion is reduced: in front, to the right.
 const RESTING_ANGLE = Math.PI * 0.3;
 
@@ -262,7 +219,7 @@ function OrbitLayer({
   return (
     <motion.svg
       className={`hero-art__orbit hero-art__orbit--${side}`}
-      viewBox="0 0 640 620"
+      viewBox="0 0 640 660"
       variants={fadeIn(side === "back" ? 0.7 : 0.8)}
       aria-hidden="true"
     >
@@ -285,7 +242,7 @@ function OrbitLayer({
   );
 }
 
-/** The two orbit layers and the plane that laps round the windows. */
+/** The two orbit layers and the plane that laps round the window. */
 function Orbit() {
   const watchRef = useRef<HTMLSpanElement>(null);
   const backPlane = useRef<SVGGElement>(null);
@@ -308,7 +265,7 @@ function Orbit() {
       const x = rx * Math.cos(theta);
       const y = ry * Math.sin(theta);
       const heading = (Math.atan2(-ry * Math.cos(theta), rx * Math.sin(theta)) * 180) / Math.PI;
-      const depth = Math.sin(theta); // -1 behind the windows, 1 in front of them
+      const depth = Math.sin(theta); // -1 behind the window, 1 in front of it
       const scale = PLANE_SCALE * (0.72 + 0.22 * (depth + 1));
       for (const { plane, heading: turn, front } of planes) {
         if (!plane || !turn) continue;
@@ -349,22 +306,41 @@ function Orbit() {
   );
 }
 
-/** Three short strokes, like a sketched "pop" beside a label. */
-function Burst({ at }: { at: Spot }) {
-  return (
-    <span className="hero-art__item hero-art__burst hero-art__float" style={spot(at)} aria-hidden="true">
-      <svg viewBox="0 0 40 40">
-        <path d="M22 4 L20 14 M34 10 L27 17 M38 26 L28 25" />
-      </svg>
-    </span>
-  );
-}
-
 /**
- * The hero's picture: three before / after photos framed as airplane windows,
- * with a plane lapping round them.
+ * The hero's picture: the before / after photo seen through an airplane
+ * window. The blind starts down, slides up, and then the photo shows it can be
+ * dragged; a plane laps round the window throughout.
  */
 export default function HeroArt() {
+  const windowRef = useRef<HTMLDivElement>(null);
+  const open = useMotionValue(0); // 0: blind down, 1: blind up
+  const reduceMotion = useReducedMotion();
+  const inView = useInView(windowRef, { once: true, amount: 0.4 });
+  const [raised, setRaised] = useState(false);
+  // The photo may show it can be dragged once the blind is up (or never came down).
+  const ready = raised || reduceMotion === true;
+
+  useMotionValueEvent(open, "change", (value) => {
+    windowRef.current?.style.setProperty("--open", String(value));
+  });
+
+  useEffect(() => {
+    if (reduceMotion) {
+      open.jump(1);
+      windowRef.current?.style.setProperty("--open", "1");
+      return;
+    }
+    if (!inView) return;
+    // Wait for the window to arrive, then raise the blind.
+    const raise = animate(open, 1, {
+      delay: 1,
+      duration: 1.4,
+      ease: [0.65, 0, 0.25, 1],
+      onComplete: () => setRaised(true),
+    });
+    return () => raise.stop();
+  }, [inView, reduceMotion, open]);
+
   return (
     <div className="hero-art">
       <motion.div className="hero-art__stage" initial="hidden" animate="visible">
@@ -372,33 +348,17 @@ export default function HeroArt() {
 
         <Orbit />
 
-        {WINDOWS.map((w, index) => (
-          <motion.div
-            key={w.name}
-            className="hero-art__item hero-art__window"
-            style={spot(w.at)}
-            variants={rise(0.2 + index * 0.15)}
-          >
-            <Compare photo={w} />
-          </motion.div>
-        ))}
-
-        <motion.div className="hero-art__group" variants={rise(0.7)} aria-hidden="true">
-          <span
-            className={`hero-art__item hero-art__tag hero-art__tag--before hero-art__float ${hand.className}`}
-            style={spot({ x: 44, y: 118, r: -9, z: 5, delay: 0.4 })}
-          >
-            Before
-          </span>
-          <Burst at={{ x: 14, y: 96, w: 34, r: -90, z: 5, delay: 0.4 }} />
-
-          <span
-            className={`hero-art__item hero-art__tag hero-art__tag--after hero-art__float ${hand.className}`}
-            style={spot({ x: 470, y: 100, r: 7, z: 5, delay: 1.1 })}
-          >
-            After
-          </span>
-          <Burst at={{ x: 578, y: 76, w: 34, r: 0, z: 5, delay: 1.1 }} />
+        {/* Moulded surround, a recessed step, then the glass; the blind's lip rides on top. */}
+        <motion.div
+          ref={windowRef}
+          className="hero-art__item hero-art__window"
+          style={spot({ x: 88, y: 26, w: 464, h: 577, z: 2 })}
+          variants={rise(0.25)}
+        >
+          <div className="hero-art__recess">
+            <Compare ready={ready} />
+          </div>
+          <span className="hero-art__lip" aria-hidden="true" />
         </motion.div>
       </motion.div>
     </div>

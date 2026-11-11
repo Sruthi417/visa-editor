@@ -1,7 +1,7 @@
 // The landing hero with the copy on the left and the before / after art on the right.
 // Same sky, fade and copy as the centred Hero.
 
-// The art is drawn on a 640 × 620 stage; `u(n)` is n stage units at the
+// The art is drawn on a 640 × 660 stage; `u(n)` is n stage units at the
 // stage's current size, so the whole picture scales as one piece.
 @function u($n) {
   @return calc(#{$n} * var(--u));
@@ -44,12 +44,15 @@ $blue: #1f6fe5;
 }
 
 .hero-section {
+  // Bottom space; the art may reach a little way into it.
+  --hero-pb: clamp(40px, 9vh, 104px);
+
   width: 100%;
   max-width: 1280px;
   height: 100%;
   margin: 0 auto;
-  // Top clears the fixed navbar; bottom keeps the art above the white fade.
-  padding: clamp(104px, 14vh, 136px) var(--section-px) clamp(40px, 9vh, 104px);
+  // Top clears the fixed navbar.
+  padding: clamp(104px, 14vh, 136px) var(--section-px) var(--hero-pb);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   grid-template-rows: minmax(0, 1fr);
@@ -150,15 +153,17 @@ $blue: #1f6fe5;
     }
   }
 
+  // Runs a little into the bottom space, so the window can be as big as possible.
   &__visual {
-    height: 100%;
+    align-self: start;
+    height: calc(100% + var(--hero-pb) * 0.6);
     min-height: 0;
     min-width: 0;
   }
 }
 
 // ---------------------------------------------------------------------------
-// The art: the before / after photo in an airplane window, a plane lapping it
+// The art: the before / after photo through an airplane window, a plane lapping it
 // ---------------------------------------------------------------------------
 
 .hero-art {
@@ -172,17 +177,17 @@ $blue: #1f6fe5;
   &__stage {
     --u: calc(100cqw / 640);
     position: relative;
-    width: min(100cqw, calc(100cqh * 640 / 620));
-    aspect-ratio: 640 / 620;
+    width: min(100cqw, calc(100cqh * 640 / 660));
+    aspect-ratio: 640 / 660;
     container: hero-art / inline-size;
   }
 
   &__halo {
     position: absolute;
-    left: u(-10);
-    top: u(-30);
-    width: u(660);
-    height: u(660);
+    left: u(-20);
+    top: u(-20);
+    width: u(680);
+    height: u(680);
     border-radius: 50%;
     background: radial-gradient(
       circle,
@@ -200,13 +205,6 @@ $blue: #1f6fe5;
     pointer-events: none;
   }
 
-  &__group {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-  }
-
   // Anything placed on the stage: position, size and tilt come from spot().
   &__item {
     position: absolute;
@@ -218,72 +216,61 @@ $blue: #1f6fe5;
     z-index: var(--z, 1);
   }
 
-  // The window: a thick, rounded moulding with a recessed step round the pane.
+  // The moulded surround: soft-cornered plastic, the same thickness all round,
+  // lit from the top left. `--open` (0 to 1) is how far the blind is raised.
   &__window {
-    padding: u(17);
-    border-radius: u(110);
+    --open: 0;
+
+    padding: u(30);
+    border-radius: u(146);
     background:
-      radial-gradient(120% 90% at 30% 18%, #ffffff 0%, rgba(255, 255, 255, 0) 55%),
-      linear-gradient(160deg, #f7f9fc 0%, #e6ebf2 55%, #cfd8e4 100%);
+      radial-gradient(70% 40% at 34% 8%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%),
+      linear-gradient(180deg, #eef0f2 0%, #e1e4e8 50%, #d0d4d9 100%);
     box-shadow:
-      0 u(24) u(46) rgba(10, 58, 117, 0.32),
-      0 u(5) u(12) rgba(10, 58, 117, 0.16),
-      inset 0 u(3) u(3) rgba(255, 255, 255, 0.95),
-      inset 0 u(-6) u(12) rgba(10, 58, 117, 0.14),
-      inset 0 0 0 u(1) rgba(10, 40, 90, 0.08);
+      0 u(26) u(50) rgba(10, 40, 90, 0.3),
+      0 u(5) u(12) rgba(10, 40, 90, 0.16),
+      // The rounded outer edge falling away into shadow.
+      inset 0 0 u(16) u(1) rgba(40, 50, 65, 0.2),
+      inset 0 u(4) u(5) rgba(255, 255, 255, 0.95),
+      inset u(8) 0 u(14) rgba(255, 255, 255, 0.45),
+      inset 0 u(-10) u(18) rgba(40, 50, 65, 0.14),
+      inset 0 0 0 u(1) rgba(40, 50, 65, 0.1);
   }
 
-  &__pane {
+  // The step down from the moulding to the glass; the soft shadow round it is
+  // the moulding curving in towards the opening.
+  &__recess {
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: u(94);
-    overflow: hidden;
-    isolation: isolate;
-    background: #ffffff;
-    // The step between the moulding and the glass.
+    padding: u(10);
+    border-radius: u(116);
+    background: linear-gradient(180deg, #c9cdd3 0%, #dfe2e6 40%, #eaecef 100%);
     box-shadow:
-      0 0 0 u(4) #e9eef5,
-      0 0 0 u(5) #c9d3e0,
-      0 u(-2) u(6) u(4) rgba(10, 40, 90, 0.12);
-
-    // The pane's inner edge, so the white photo never melts into the white frame.
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      box-shadow:
-        inset 0 u(6) u(12) rgba(10, 40, 90, 0.26),
-        inset 0 0 0 u(1.5) rgba(10, 40, 90, 0.16);
-      pointer-events: none;
-      z-index: 3;
-    }
+      0 0 0 u(2) rgba(255, 255, 255, 0.8),
+      0 0 u(12) u(4) rgba(40, 50, 65, 0.16),
+      inset 0 u(8) u(10) rgba(40, 50, 65, 0.2),
+      inset 0 0 0 u(1) rgba(40, 50, 65, 0.12);
   }
 
-  // The window blind, pulled down a little.
-  &__shade {
+  // The blind's lip: it rides on the blind's bottom edge, from the bottom of
+  // the glass (down) to the top of the glass (up). The glass starts 40 units
+  // down and is 497 tall; the lip is centred on that edge.
+  &__lip {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: u(15);
-    background: linear-gradient(180deg, #f1f4f9 0%, #d8e0eb 100%);
-    box-shadow: 0 u(2) u(5) rgba(10, 40, 90, 0.18);
+    left: 50%;
+    top: u(33);
+    width: u(140);
+    height: u(14);
+    translate: -50% calc((1 - var(--open)) * 497 * var(--u));
+    border-radius: 50% / 35% 35% 65% 65%;
+    background: linear-gradient(180deg, #ffffff 0%, #eef0f3 40%, #cdd1d7 100%);
+    box-shadow:
+      0 u(3) u(6) rgba(40, 50, 65, 0.22),
+      inset 0 u(1) 0 #ffffff,
+      inset 0 u(-1.5) u(2) rgba(40, 50, 65, 0.12);
     pointer-events: none;
-    z-index: 2;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: u(3);
-      width: u(30);
-      height: u(4);
-      translate: -50% 0;
-      border-radius: 99px;
-      background: #bfcbda;
-    }
+    z-index: 5;
   }
 
   // The draggable comparison: the glass plus the knob that rides over it.
@@ -295,6 +282,54 @@ $blue: #1f6fe5;
     touch-action: pan-y;
     user-select: none;
     -webkit-user-select: none;
+  }
+
+  &__pane {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: u(106);
+    overflow: hidden;
+    isolation: isolate;
+    background: #ffffff;
+    // The thin seal round the glass.
+    box-shadow: 0 0 0 u(2) #b9bec6;
+
+    // Depth on the glass, so the white photo never melts into the frame.
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow:
+        inset 0 u(7) u(14) rgba(10, 30, 60, 0.24),
+        inset 0 0 0 u(1) rgba(10, 30, 60, 0.12);
+      pointer-events: none;
+      z-index: 4;
+    }
+  }
+
+  // The blind: plain cabin plastic that slides up out of sight as `--open` goes to 1,
+  // casting a soft shadow on the photo while it moves.
+  &__shutter {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    translate: 0 calc(var(--open) * -100%);
+    background:
+      radial-gradient(80% 50% at 30% 20%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 70%),
+      linear-gradient(180deg, #eef0f3 0%, #e4e7eb 60%, #d8dce1 100%);
+    box-shadow: 0 u(6) u(14) rgba(10, 30, 60, calc(0.3 * (1 - var(--open))));
+    pointer-events: none;
+  }
+
+  &__shutter-mark {
+    width: u(64);
+    height: auto;
+    opacity: 0.16;
+    filter: grayscale(1);
   }
 
   &__shot {
@@ -328,22 +363,24 @@ $blue: #1f6fe5;
     }
   }
 
+  // Shows only once the blind is nearly up.
   &__knob {
     position: absolute;
     top: 0;
     bottom: 0;
     width: 0;
     z-index: 4;
+    opacity: clamp(0, calc((var(--open) - 0.8) * 5), 1);
   }
 
   // Low on the photo, so it never covers the face.
   &__handle {
     position: absolute;
-    top: 88%;
+    top: 80%;
     left: 0;
     translate: -50% -50%;
-    width: max(32px, u(40));
-    height: max(32px, u(40));
+    width: max(38px, u(50));
+    height: max(38px, u(50));
     border-radius: 50%;
     background: #ffffff;
     color: #131313;
@@ -375,7 +412,7 @@ $blue: #1f6fe5;
     }
   }
 
-  // The orbit: its back half sits under the windows, its front half over them.
+  // The orbit: its back half sits under the window, its front half over it.
   &__orbit {
     position: absolute;
     inset: 0;
@@ -405,81 +442,9 @@ $blue: #1f6fe5;
       opacity: 0.45;
     }
   }
-
-  &__tag {
-    padding: u(2) u(20) u(8);
-    border-radius: u(18);
-    font-size: u(40);
-    font-weight: 700;
-    line-height: 1;
-    white-space: nowrap;
-    background: linear-gradient(180deg, #ffffff 0%, #e6f0ff 100%);
-    box-shadow:
-      0 u(12) u(24) rgba(10, 58, 117, 0.2),
-      inset 0 u(-2) 0 rgba(31, 111, 229, 0.12);
-
-    &--before {
-      color: #173a7a;
-    }
-
-    &--after {
-      color: $blue;
-    }
-  }
-
-  &__burst {
-    color: #ffffff;
-
-    svg {
-      display: block;
-      width: 100%;
-      height: auto;
-      overflow: visible;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 3.4;
-      stroke-linecap: round;
-    }
-  }
-
-  // A slow bob on the labels, each on its own beat.
-  &__float {
-    animation: hero-art-float 6s ease-in-out infinite;
-    animation-delay: calc(var(--delay, 0s) * -1);
-  }
-}
-
-@keyframes hero-art-float {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-
-  50% {
-    translate: 0 calc(-6 * var(--u));
-  }
-}
-
-// A small stage (phones): the labels move in towards the windows.
-@container hero-art (max-width: 460px) {
-  .hero-art__burst {
-    display: none;
-  }
-
-  .hero-art__tag--before {
-    margin-left: calc(24 * var(--u));
-  }
-
-  .hero-art__tag--after {
-    margin-left: calc(-16 * var(--u));
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-art__float {
-    animation: none;
-  }
-
   .hero-art__handle {
     transition: none;
   }
@@ -492,12 +457,13 @@ $blue: #1f6fe5;
 // Narrow and upright screens: the copy on top, the art filling the rest.
 @media (max-width: 899px) and (orientation: portrait) {
   .hero-section {
+    --hero-pb: clamp(32px, 7vh, 80px);
+
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr);
     align-items: stretch;
     row-gap: clamp(20px, 3.5vh, 40px);
     padding-top: clamp(96px, 13vh, 132px);
-    padding-bottom: clamp(32px, 7vh, 80px);
 
     &__content {
       margin-bottom: 0;
@@ -539,7 +505,7 @@ $blue: #1f6fe5;
   // Let the art run a little past the column so the window stays a good size;
   // only the far ends of the orbit leave the screen.
   .hero-art__stage {
-    width: min(118cqw, calc(100cqh * 640 / 620));
-    margin-inline: calc((100cqw - min(118cqw, calc(100cqh * 640 / 620))) / 2);
+    width: min(118cqw, calc(100cqh * 640 / 660));
+    margin-inline: calc((100cqw - min(118cqw, calc(100cqh * 640 / 660))) / 2);
   }
 }
