@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Alert02Icon, Upload01Icon } from "@hugeicons/core-free-icons";
+import { Alert02Icon, CloudUploadIcon } from "@hugeicons/core-free-icons";
 
 import CountrySelect from "../../DocumentModal/CountrySelect";
 import DocumentModal from "../../DocumentModal/DocumentModal";
@@ -154,17 +154,19 @@ export default function StartPanel() {
         onDragLeave={onDragLeave}
         onDrop={onDrop}
       >
-        <span className="start-drop__icon" aria-hidden="true">
-          <HugeiconsIcon icon={Upload01Icon} size={20} strokeWidth={2} />
+        {/* The same drop box as the landing hero's. */}
+        <HugeiconsIcon
+          className="start-drop__icon"
+          icon={CloudUploadIcon}
+          size={40}
+          strokeWidth={1.8}
+          color="currentColor"
+          aria-hidden="true"
+        />
+        <span className="start-drop__title">
+          {dragging ? "Drop it to start" : "Drop your photo here"}
         </span>
-        <span className="start-drop__text">
-          <span className="start-drop__title">
-            {dragging ? "Drop it to start" : "Drop your photo here"}
-          </span>
-          <span className="start-drop__sub">
-            or <span className="start-drop__browse">browse your files</span>
-          </span>
-        </span>
+        <span className="start-drop__sub">or click to upload</span>
       </button>
       {/* The same file chooser, as the site's black button, text only. */}
       <button

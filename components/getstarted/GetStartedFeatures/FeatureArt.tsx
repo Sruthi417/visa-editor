@@ -14,11 +14,12 @@ import {
 
 import { HERO_SPEC, SPEC_COUNT, flagClass, photoSpecs, sizeText } from "../../features/featureData";
 
-// The four feature pictures: white app cards over a dotted blue ground, with the same woman as
-// the landing pictures. Sizes are in cqw (the picture's width), so each scales as a whole. The
-// text beside each one says the same, so the section hides them from screen readers.
+// The four feature pictures: white app cards over a soft cloudy sky (the About page's story
+// picture's ground), with the same woman as the landing pictures. Sizes are in cqw (the
+// picture's width), so each scales as a whole. The text beside each one says the same, so the
+// section hides them from screen readers.
 
-const GROUND = "/images/get-started/feature-dots.webp";
+const GROUND = "/images/about/story-wash.webp";
 const PORTRAIT = "/images/features/sample-portrait.webp";
 const spec = HERO_SPEC;
 

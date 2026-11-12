@@ -104,7 +104,18 @@ export default function DocumentModal({
     if (open && initialFile) warmUp();
   }, [open, initialFile]);
 
+  // True while the picker was opened by Retake on the Choose view: the chosen
+  // photo then replaces the attached one instead of going straight to processing.
+  const replacing = useRef(false);
+
   const openPicker = useCallback(() => {
+    replacing.current = false;
+    warmUp();
+    inputRef.current?.click();
+  }, []);
+
+  const pickReplacement = useCallback(() => {
+    replacing.current = true;
     warmUp();
     inputRef.current?.click();
   }, []);
@@ -142,7 +153,18 @@ export default function DocumentModal({
     const file = event.target.files?.[0];
     // Reset so choosing the same file again still fires a change.
     event.target.value = "";
-    if (file) processSelectedFile(file);
+    if (!file) return;
+
+    if (replacing.current) {
+      replacing.current = false;
+      const problem = validatePhoto(file);
+      // A file that cannot be used leaves the current photo in place.
+      setError(problem);
+      if (!problem) setAttached(file);
+      return;
+    }
+
+    processSelectedFile(file);
   };
 
   // Run the pipeline for the uploaded photo. Closing the window, or starting
@@ -302,7 +324,7 @@ export default function DocumentModal({
                   onCountryChange={setCode}
                   onUpload={attached ? () => processSelectedFile(attached) : openPicker}
                   attachedFile={attached}
-                  onClearFile={() => setAttached(null)}
+                  onRetake={pickReplacement}
                   onFileDrop={processSelectedFile}
                   error={error}
                 />

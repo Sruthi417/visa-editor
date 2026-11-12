@@ -151,18 +151,12 @@
     border-radius: 22px;
     color: #ffffff;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
-
-    &--1 {
-      background: linear-gradient(145deg, #8fd0fb, #3a9be8);
-    }
-
-    &--2 {
-      background: linear-gradient(145deg, #63bdf8, #1d7fd8);
-    }
-
-    &--3 {
-      background: linear-gradient(145deg, #4f9df5, #1a5fc4);
-    }
+    // The site's icon blue with soft white corners, as on the landing page's step icons
+    // (.how__card-icon in landing/HowItWorks).
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.4) 0%, transparent 55%),
+      radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
+      #2b97f0;
   }
 
   // Folder -----------------------------------------------------------------------------------------

@@ -6,13 +6,11 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Alert02Icon,
   ArrowRight01Icon,
-  Cancel01Icon,
   Upload01Icon,
 } from "@hugeicons/core-free-icons";
 
 import CountrySelect from "./CountrySelect";
 import { EASE, itemVariants, panelVariants, viewVariants } from "./motion";
-import { formatFileSize } from "./photoFile";
 import { getSampleCutout } from "./processPhoto";
 import {
   CROP_ONLY_NOTICE,
@@ -51,7 +49,8 @@ type Props = {
   onFileDrop?: (file: File) => void;
   /** A photo already chosen (for example dropped on the /drop page). */
   attachedFile?: File | null;
-  onClearFile?: () => void;
+  /** Choose a different photo in place of the attached one. */
+  onRetake?: () => void;
   error: string | null;
 };
 
@@ -67,7 +66,7 @@ export default function ChooseView({
   onUpload,
   onFileDrop,
   attachedFile = null,
-  onClearFile,
+  onRetake,
   error,
 }: Props) {
   const crop = cropFor(spec);
@@ -219,36 +218,14 @@ export default function ChooseView({
           </AnimatePresence>
 
           <div className="doc-modal__actions">
-            {attachedFile && (
-              <div className="doc-modal__attached">
-                {attachedUrl && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={attachedUrl} alt="" className="doc-modal__attached-thumb" />
-                )}
-                <span className="doc-modal__attached-text">
-                  <strong>{attachedFile.name}</strong>
-                  <span>{formatFileSize(attachedFile.size)}</span>
-                </span>
-                <button
-                  type="button"
-                  className="doc-modal__attached-remove"
-                  aria-label="Remove this photo"
-                  onClick={onClearFile}
-                >
-                  <HugeiconsIcon icon={Cancel01Icon} size={18} strokeWidth={1.8} />
-                </button>
-              </div>
+            {/* With a photo attached, it shows as "Before" (with Retake under it)
+                and Continue sits under the previews instead. */}
+            {!attachedFile && (
+              <button type="button" className="doc-modal__upload" onClick={onUpload}>
+                <span>Upload photo</span>
+                <HugeiconsIcon icon={Upload01Icon} size={20} color="currentColor" strokeWidth={1.5} />
+              </button>
             )}
-
-            <button type="button" className="doc-modal__upload" onClick={onUpload}>
-              <span>{attachedFile ? "Continue" : "Upload photo"}</span>
-              <HugeiconsIcon
-                icon={attachedFile ? ArrowRight01Icon : Upload01Icon}
-                size={20}
-                color="currentColor"
-                strokeWidth={1.5}
-              />
-            </button>
 
             <p className="doc-modal__hint" role={error ? "alert" : undefined}>
               {error ?? "JPG, PNG or WebP, up to 15 MB. Your photo stays on your device."}
@@ -274,31 +251,64 @@ export default function ChooseView({
         >
           <figure className="doc-modal__preview">
             <figcaption>Before</figcaption>
-            <div className="doc-modal__before">
+            <div className={`doc-modal__before${attachedUrl ? " doc-modal__before--yours" : ""}`}>
+              {/* The visitor's own photo once they have chosen one, else the sample. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={SAMPLE_PHOTO.src} alt="Original portrait" />
+              <img
+                src={attachedUrl ?? SAMPLE_PHOTO.src}
+                alt={attachedUrl ? "Your photo" : "Original portrait"}
+              />
             </div>
+            {/* Choose a different photo: same pill as Continue, the width of the photo. */}
+            {attachedUrl && onRetake && (
+              <button
+                type="button"
+                className="doc-modal__upload doc-modal__replace"
+                aria-label="Upload a different photo"
+                onClick={onRetake}
+              >
+                {/* "photo" drops out when the photo above is too narrow for it. */}
+                <span>
+                  Upload<span className="doc-modal__replace-word"> photo</span>
+                </span>
+                <HugeiconsIcon icon={Upload01Icon} size={18} color="currentColor" strokeWidth={1.5} />
+              </button>
+            )}
           </figure>
 
           <figure className="doc-modal__preview">
             <figcaption>After</figcaption>
             <div className="doc-modal__after">
               <div
-                className="doc-modal__frame"
+                className={`doc-modal__frame${attachedUrl ? " doc-modal__frame--pending" : ""}`}
                 style={{ backgroundColor: spec.backgroundColor }}
+                {...(attachedUrl
+                  ? { role: "img", "aria-label": `Your ${documentName}, ready after you continue` }
+                  : {})}
               >
                 <div className="doc-modal__crop">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={sampleCutout ?? SAMPLE_PHOTO.src}
-                    alt={`Portrait cropped for a ${documentName}`}
-                    style={{
-                      width: `${crop.widthPct}%`,
-                      left: `${crop.leftPct}%`,
-                      top: `${crop.topPct}%`,
-                    }}
-                  />
+                  {attachedUrl ? (
+                    // Their photo, blurred: the finished one is made after Continue.
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={attachedUrl} alt="" className="doc-modal__pending" />
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={sampleCutout ?? SAMPLE_PHOTO.src}
+                      alt={`Portrait cropped for a ${documentName}`}
+                      style={{
+                        width: `${crop.widthPct}%`,
+                        left: `${crop.leftPct}%`,
+                        top: `${crop.topPct}%`,
+                      }}
+                    />
+                  )}
                 </div>
+                {attachedUrl && (
+                  <span className="doc-modal__mystery" aria-hidden="true">
+                    ?
+                  </span>
+                )}
 
                 <span className="doc-modal__ruler doc-modal__ruler--top">
                   <b>{spec.widthMm} mm</b>
@@ -322,6 +332,20 @@ export default function ChooseView({
               <strong>Background must not be changed.</strong> {CROP_ONLY_NOTICE}
             </span>
           </motion.p>
+        )}
+
+        {/* With a photo attached, the next step sits in the bottom-right corner. */}
+        {attachedFile && (
+          <motion.div className="doc-modal__next" variants={itemVariants}>
+            <button
+              type="button"
+              className="doc-modal__upload doc-modal__upload--next"
+              onClick={onUpload}
+            >
+              <span>Continue</span>
+              <HugeiconsIcon icon={ArrowRight01Icon} size={20} color="currentColor" strokeWidth={1.5} />
+            </button>
+          </motion.div>
         )}
       </section>
     </motion.div>

@@ -15,7 +15,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 
-const BEFORE_SRC = "/images/hero-section/girl-before.webp";
+const BEFORE_SRC = "/images/hero-section/girl-before-original.webp";
 const AFTER_SRC = "/images/hero-section/girl-after.webp";
 
 /**

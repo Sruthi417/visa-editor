@@ -2,8 +2,8 @@
 
 import { motion, MotionConfig, type Variants } from "motion/react";
 
-import GetStartedButton from "../../DocumentModal/GetStartedButton";
 import HeroArt from "./HeroArt";
+import UploadDrop from "./UploadDrop";
 import "./HeroSection.scss";
 
 const revealFromBottom: Variants = {
@@ -26,8 +26,8 @@ const stagger: Variants = {
 };
 
 /**
- * The landing hero with the copy on the left and, on the right, everyday
- * photos flying over to finished passport photos.
+ * The landing hero: the copy and the upload drop box on the left, the before /
+ * after photo in an airplane window on the right.
  */
 export default function HeroSection() {
   return (
@@ -45,13 +45,16 @@ export default function HeroSection() {
               <br />
               photos in seconds
             </motion.h1>
-            <motion.p className="hero-section__description" variants={revealFromBottom}>
-              Create passport and visa photos that
-              <br className="hero-section__br" /> match your destination&apos;s requirements
-            </motion.p>
-            <motion.div variants={revealFromBottom}>
-              <GetStartedButton className="hero-section__button" />
-            </motion.div>
+            {/* The subtitle (as wide as the title) and the upload panel under it. */}
+            <div className="hero-section__lead">
+              <motion.p className="hero-section__description" variants={revealFromBottom}>
+                Get passport and visa photos with the right size, background and framing for
+                your destination
+              </motion.p>
+              <motion.div className="hero-section__actions" variants={revealFromBottom}>
+                <UploadDrop />
+              </motion.div>
+            </div>
           </motion.div>
 
           <div className="hero-section__visual">

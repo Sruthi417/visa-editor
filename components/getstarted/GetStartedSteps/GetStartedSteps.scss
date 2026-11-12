@@ -126,7 +126,8 @@ $stage-ratio: 1.46;
   gap: 10px;
   overflow: hidden;
   border: 1px solid $tint-line;
-  background: #ffffff url("/images/get-started/steps-grid.webp") center / cover no-repeat;
+  // The soft cloudy sky of the About page's story picture.
+  background: #c4e3f7 url("/images/about/story-wash.webp") center / cover no-repeat;
   @include squircle(40px, 30px);
 
   // Sized by the panel, not by the pictures, so every picture gets the same room.

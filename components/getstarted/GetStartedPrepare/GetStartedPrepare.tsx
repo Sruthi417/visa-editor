@@ -3,30 +3,30 @@ import Link from "next/link";
 
 import "./GetStartedPrepare.scss";
 
-// What to have ready, each pictured with the same woman on the same dotted blue drape (640 x 480).
+// What to have ready, each pictured with the same woman against the same soft cloudy sky (640 x 480).
 const NEEDS = [
   {
     title: "A phone with a camera",
     text: "The rear camera gives the sharpest photo. Stand 1–2 m away, or hold it 40–50 cm away for a selfie.",
-    image: "/images/get-started/prep-phone.webp",
+    image: "/images/get-started/prep-phone-sky.webp",
     alt: "A woman standing 16 to 20 inches, 40 to 50 cm, from a phone on a tripod",
   },
   {
     title: "A plain, light wall",
     text: "Stand in front of a plain white or light wall, with nothing behind you.",
-    image: "/images/get-started/prep-wall.webp",
+    image: "/images/get-started/prep-wall-sky.webp",
     alt: "A woman facing the camera in front of a plain light wall",
   },
   {
     title: "Daylight from a window",
     text: "Face a window for soft, even light, with no shadows on your face or the wall.",
-    image: "/images/get-started/prep-light.webp",
+    image: "/images/get-started/prep-light-sky.webp",
     alt: "Her photo half in shadow, marked wrong, beside the same photo evenly lit, marked correct",
   },
   {
     title: "A helper or a timer",
     text: "Ask someone to take the photo, or prop the phone up and use the timer.",
-    image: "/images/get-started/prep-helper.webp",
+    image: "/images/get-started/prep-helper-sky.webp",
     alt: "A helper holding a phone to photograph her against a plain wall, marked correct",
   },
 ];

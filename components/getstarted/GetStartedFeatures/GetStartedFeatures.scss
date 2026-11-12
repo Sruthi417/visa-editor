@@ -98,6 +98,8 @@
     aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: 32px;
+    // The sky's own colour, behind its picture while that loads.
+    background: #c4e3f7;
     container-type: inline-size;
   }
 }

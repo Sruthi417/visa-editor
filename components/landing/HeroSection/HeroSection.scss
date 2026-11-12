@@ -9,6 +9,17 @@
 
 $blue: #1f6fe5;
 
+// Squircle corners where the browser supports them, else plain rounded ones (the same
+// mixin as the shared section tokens).
+@mixin squircle($radius, $fallback) {
+  border-radius: $fallback;
+
+  @supports (corner-shape: squircle) {
+    border-radius: $radius;
+    corner-shape: squircle;
+  }
+}
+
 .hero-section-bg {
   width: 100%;
   height: 100vh;
@@ -63,12 +74,14 @@ $blue: #1f6fe5;
 
   // The same box as the art beside it, with the copy centred in it, so the copy
   // and the window share one middle line.
+  // One column as wide as the title (never wider than the space): the subtitle and the
+  // upload panel take their widths from it.
   &__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-top: 6rem;
-    // justify-content: center;
+    display: grid;
+    grid-template-columns: minmax(0, max-content);
+    align-content: start;
+    justify-items: start;
+    padding-top: 3rem;
     height: calc(100% + var(--hero-pb) * 0.6);
     text-align: left;
     gap: clamp(16px, 2.4vh, 26px);
@@ -88,79 +101,30 @@ $blue: #1f6fe5;
     text-wrap: balance;
   }
 
+  // Exactly the title's width: it fills the column but adds nothing to its size.
   &__description {
-    max-width: 560px;
-    font-size: clamp(16px, 1.45vw, 21px);
+    width: 0;
+    min-width: 100%;
+    font-size: clamp(16px, 1.45vw, 18px);
     line-height: 1.5;
     color: #ffffff;
     opacity: 0.95;
     font-weight: 400;
+    text-wrap: balance;
   }
 
-  &__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 9px 10px 9px 36px;
+  // The subtitle and the upload panel, across the column.
+  &__lead {
+    justify-self: stretch;
+    display: grid;
+    gap: clamp(16px, 2.4vh, 26px);
+  }
+
+  // The upload panel keeps its own size (455px on a 1440 screen), never wider than the column.
+  &__actions {
+    width: 0;
+    min-width: min(100%, clamp(340px, 31.6vw, 465px));
     margin-top: clamp(6px, 1.2vh, 12px);
-    border: 0;
-    border-radius: 100px;
-    cursor: pointer;
-    background: #131313;
-    color: #ffffff;
-    text-decoration: none;
-    text-shadow: none;
-    white-space: nowrap;
-    transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease,
-      background-color 0.25s ease;
-
-    &:hover {
-      background: #000000;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(10, 40, 90, 0.28);
-    }
-
-    &:active {
-      transform: translateY(0) scale(0.98);
-      box-shadow: none;
-    }
-
-    &:focus-visible {
-      outline: 3px solid #ffffff;
-      outline-offset: 3px;
-    }
-
-    // The label and icon come from GetStartedButton, which shares the Hero's names.
-    .hero__button-text {
-      color: #ffffff;
-      font-size: 20px;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-    }
-
-    .hero__button-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.25s ease;
-
-      svg {
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    &:hover .hero__button-icon {
-      transform: translateY(-2px);
-    }
   }
 
   // Runs a little into the bottom space, so the window can be as big as possible.
@@ -169,6 +133,274 @@ $blue: #1f6fe5;
     height: calc(100% + var(--hero-pb) * 0.6);
     min-height: 0;
     min-width: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The upload panel: a white container holding a drop box (drop a photo, or
+// click to browse)
+// ---------------------------------------------------------------------------
+
+.hero-upload {
+  padding: 16px 16px 14px;
+  @include squircle(40px, 28px);
+  background: #ffffff;
+  box-shadow:
+    0 22px 48px rgba(10, 40, 90, 0.2),
+    0 4px 12px rgba(10, 40, 90, 0.08);
+  text-shadow: none;
+  container: hero-upload / inline-size;
+
+  // Passport or visa on the left, the country on the right, one row.
+  &__choose {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__switch {
+    flex-shrink: 0;
+    height: 40px;
+    padding: 3px;
+    display: inline-flex;
+    // The same squircle as the country picker beside it.
+    @include squircle(18px, 12px);
+    background: #f1f3f6;
+    box-shadow: inset 0 0 0 1px #e6e9ee;
+  }
+
+  &__type {
+    position: relative;
+    padding: 0 16px;
+    border: 0;
+    // The track's squircle less its 3px padding, so the thumb sits evenly inside it.
+    @include squircle(15px, 9px);
+    background: transparent;
+    color: #8e8e93;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.35s ease;
+
+    &:hover {
+      color: #4b5563;
+    }
+
+    &.is-on {
+      color: #111827;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+    }
+  }
+
+  // The white thumb under the chosen option; it slides between them.
+  &__thumb {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    @include squircle(15px, 9px);
+    background: #ffffff;
+    box-shadow:
+      0 1px 2px rgba(22, 38, 55, 0.08),
+      0 2px 8px rgba(22, 38, 55, 0.1);
+  }
+
+  &__type-label {
+    position: relative;
+    z-index: 1;
+  }
+
+  // The editor's country picker, as a pill the same height as the switch.
+  &__country {
+    flex: 0 1 auto;
+    min-width: 0;
+
+    .country-select__trigger {
+      height: 40px;
+      padding: 0 10px 0 12px;
+      border: 1px solid #e6e9ee;
+      @include squircle(18px, 12px);
+      background: #ffffff;
+      transition: border-color 0.2s ease;
+
+      &:hover {
+        border-color: #c9ced6;
+        background: #ffffff;
+      }
+
+      &:focus-visible {
+        outline-offset: 2px;
+      }
+    }
+
+    .country-select__trigger--open {
+      border-color: #c9ced6;
+    }
+
+    .country-select__selection {
+      gap: 8px;
+    }
+
+    .country-select__flag {
+      width: 22px;
+      height: 16px;
+      font-size: 16px;
+      line-height: 16px;
+    }
+
+    .country-select__value {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    // Wider than the pill, lined up with its right edge.
+    .country-select__list {
+      left: auto;
+      right: 0;
+      width: 260px;
+    }
+  }
+
+  // A narrow panel (it follows the subtitle's width): a tighter switch and pill, so the
+  // country's full name still fits beside the switch.
+  @container hero-upload (max-width: 400px) {
+    .hero-upload__choose {
+      gap: 8px;
+    }
+
+    .hero-upload__type {
+      padding: 0 11px;
+      font-size: 13px;
+    }
+
+    .hero-upload__country .country-select__trigger {
+      padding: 0 8px 0 10px;
+    }
+
+    .hero-upload__country .country-select__selection {
+      gap: 6px;
+    }
+
+    .hero-upload__country .country-select__value {
+      font-size: 13.5px;
+    }
+  }
+
+  // Too narrow for both on one row: the switch across the top, the country under it.
+  @container hero-upload (max-width: 330px) {
+    .hero-upload__choose {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-upload__switch {
+      display: flex;
+    }
+
+    .hero-upload__type {
+      flex: 1;
+    }
+
+    .hero-upload__country .country-select__trigger {
+      padding-inline: 14px 12px;
+    }
+  }
+
+  &__drop {
+    width: 100%;
+    padding: 40px 16px;
+    border: 2px dashed #c9ced6;
+    border-radius: 20px;
+    background: #f8f9fb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
+
+    &:hover {
+      background: #eef5ff;
+      border-color: #aeb4be;
+
+      .hero-upload__icon {
+        color: #8a919c;
+      }
+    }
+
+    &:active {
+      transform: scale(0.99);
+    }
+
+    &:focus-visible {
+      outline: 3px solid $blue;
+      outline-offset: 3px;
+    }
+
+    // A photo is being dragged over it.
+    &--over {
+      background: #e6f0ff;
+      border-color: #9aa1ab;
+    }
+  }
+
+  &__icon {
+    width: clamp(32px, 4.4vh, 42px);
+    height: auto;
+    margin-bottom: 4px;
+    color: #a3a9b3;
+    transition: color 0.25s ease;
+  }
+
+  &__title {
+    color: #1d2b4f;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  &__sub {
+    color: #5b7cb6;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  // The box itself takes the clicks and drops, not its contents.
+  &__icon,
+  &__title,
+  &__sub {
+    pointer-events: none;
+  }
+
+  &__note {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 8px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #6b6b78;
+
+    &--error {
+      width: fit-content;
+      margin-inline: auto;
+      padding: 6px 12px;
+      border-radius: 10px;
+      background: #fdecec;
+      color: #b42318;
+    }
   }
 }
 
@@ -444,10 +676,16 @@ $blue: #1f6fe5;
     row-gap: clamp(20px, 3.5vh, 40px);
     padding-top: clamp(108px, 14vh, 144px);
 
-    // Stacked, the copy just takes the height it needs.
+    // Stacked, the copy takes the height it needs and the full width.
     &__content {
       height: auto;
       padding-top: 0;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    // Stacked, the subtitle runs the full width, so the panel matches it.
+    &__actions {
+      min-width: 100%;
     }
 
     &__title {
@@ -456,7 +694,6 @@ $blue: #1f6fe5;
 
     &__description {
       font-size: clamp(16px, 2.9vw, 21px);
-      max-width: 34em;
     }
   }
 
@@ -471,24 +708,38 @@ $blue: #1f6fe5;
     &__br {
       display: none;
     }
+  }
 
-    &__button {
-      padding: 7px 8px 7px 28px;
-      gap: 16px;
+  .hero-upload {
+    padding: 12px 12px 10px;
+    @include squircle(34px, 24px);
 
-      .hero__button-text {
-        font-size: 18px;
-      }
+    &__choose {
+      margin-bottom: 14px;
+    }
 
-      .hero__button-icon {
-        width: 46px;
-        height: 46px;
+    &__country .country-select__list {
+      width: min(260px, calc(100vw - 48px));
+    }
 
-        svg {
-          width: 22px;
-          height: 22px;
-        }
-      }
+    &__drop {
+      border-radius: 18px;
+    }
+
+    &__icon {
+      width: 32px;
+    }
+
+    &__title {
+      font-size: 16px;
+    }
+
+    &__sub {
+      font-size: 13px;
+    }
+
+    &__note {
+      font-size: 14px;
     }
   }
 

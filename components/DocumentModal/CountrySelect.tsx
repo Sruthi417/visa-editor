@@ -15,6 +15,8 @@ type Props = {
   options: Option[];
   value: string;
   onChange: (value: string) => void;
+  /** Keep the label for screen readers only, when the layout already makes it clear. */
+  hideLabel?: boolean;
 };
 
 /** Returns the flag-icons CSS class for a given country code (e.g. "fi fi-us"). */
@@ -28,7 +30,7 @@ function getFlagClass(countryCode: string): string {
  * list that opens beneath it. Works with the keyboard (arrows, Home, End,
  * Enter, Escape and typing a letter) and with a screen reader.
  */
-export default function CountrySelect({ label, options, value, onChange }: Props) {
+export default function CountrySelect({ label, options, value, onChange, hideLabel = false }: Props) {
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -146,7 +148,10 @@ export default function CountrySelect({ label, options, value, onChange }: Props
         onClick={() => (open ? close(false) : openList())}
         onKeyDown={onTriggerKeyDown}
       >
-        <span className="country-select__label" id={`${id}-label`}>
+        <span
+          className={`country-select__label${hideLabel ? " country-select__label--hidden" : ""}`}
+          id={`${id}-label`}
+        >
           {label}
         </span>
         <div className="country-select__selection">

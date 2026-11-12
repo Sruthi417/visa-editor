@@ -52,9 +52,9 @@ function Mounted({
 }
 
 /** A glossy blue app tile with a white icon. */
-function Tile({ icon, className }: { icon: IconSvgElement; className: string }) {
+function Tile({ icon }: { icon: IconSvgElement }) {
   return (
-    <span className={`ab-explore__tile ${className}`}>
+    <span className="ab-explore__tile">
       <HugeiconsIcon icon={icon} size={30} strokeWidth={1.8} />
     </span>
   );
@@ -87,9 +87,9 @@ const PAGES: Page[] = [
     note: "every tool in one place",
     art: (
       <span className="ab-explore__tiles">
-        <Tile icon={ScanFaceIcon} className="ab-explore__tile--1" />
-        <Tile icon={CropIcon} className="ab-explore__tile--2" />
-        <Tile icon={PrinterIcon} className="ab-explore__tile--3" />
+        <Tile icon={ScanFaceIcon} />
+        <Tile icon={CropIcon} />
+        <Tile icon={PrinterIcon} />
       </span>
     ),
   },
