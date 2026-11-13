@@ -64,8 +64,9 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     cursor: pointer;
     transition: background-color 0.2s ease;
 
+    // A shade darker than $track, so it still shows over the grey card.
     &:hover {
-      background: $track;
+      background: #ebebe8;
     }
 
     &:focus-visible {
@@ -103,14 +104,21 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
 
+  // Every step of the flow: the right side sits in one light grey card, inset from the
+  // dialog's edges. The top and bottom padding drop by the inset, so the content stays
+  // where it was and Continue sits as far from the card's bottom edge as its right edge.
   &__right {
     // The right padding, named so Continue can line up with the close button over it.
     --right-pad: clamp(24px, 4.6vw, 56px);
+    --card-inset: 16px;
 
     min-height: 0;
-    padding: 44px var(--right-pad) 36px clamp(24px, 3.6vw, 44px);
+    margin: var(--card-inset);
+    padding: calc(44px - var(--card-inset)) var(--right-pad) calc(36px - var(--card-inset))
+      clamp(24px, 3.6vw, 44px);
     overflow-y: auto;
-    background: #ffffff;
+    border-radius: 20px;
+    background: #f6f6f6;
     // A column, so the Continue row (when a photo is attached) can sit at the bottom.
     display: flex;
     flex-direction: column;
@@ -125,19 +133,6 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       width: 0;
       height: 0;
     }
-  }
-
-  // Choose view: the whole right side (title, previews, Continue) sits in one light
-  // grey card, inset from the dialog's edges. The top padding drops by the inset so
-  // the title stays where it was.
-  &__right--choose {
-    --card-inset: 16px;
-    margin: var(--card-inset);
-    padding-top: calc(44px - var(--card-inset));
-    // Continue sits as far from the card's bottom edge as from its right edge.
-    padding-bottom: calc(36px - var(--card-inset));
-    border-radius: 20px;
-    background: #f6f6f6;
   }
 
   &__title {
@@ -495,7 +490,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   // window's right edge (the button sits 22px in; its icon adds the rest).
   &__next {
     margin-top: auto;
-    margin-right: calc(36px - var(--card-inset, 0px) - var(--right-pad));
+    margin-right: calc(36px - var(--card-inset) - var(--right-pad));
     padding-top: 28px;
     display: flex;
     justify-content: flex-end;
@@ -964,9 +959,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       min-height: auto;
     }
 
-    // Stacked: a hairline under the panel separates it from the previews.
+    // Stacked: the grey card below separates the two, so no hairline is needed.
     &__left {
-      border-bottom: 1px solid $hairline;
       padding: 72px 20px 28px;
     }
 
@@ -981,18 +975,10 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       margin-bottom: 20px;
     }
 
+    // The grey card hugs the screen edges more closely.
     &__right {
-      padding: 28px 20px 36px;
-    }
-
-    // Stacked: the grey card hugs the screen edges more closely, and replaces the
-    // hairline under the left panel as the separator.
-    &__right--choose {
       --card-inset: 12px;
-    }
-
-    &__left--choose {
-      border-bottom: 0;
+      padding: 28px 20px 36px;
     }
 
     &__spec-title {
