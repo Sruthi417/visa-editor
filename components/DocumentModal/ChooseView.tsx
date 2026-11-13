@@ -97,7 +97,7 @@ export default function ChooseView({
       animate="show"
       exit="exit"
     >
-      <section className="doc-modal__left">
+      <section className="doc-modal__left doc-modal__left--choose">
         <motion.h2 id={titleId} className="doc-modal__title" variants={itemVariants}>
           Choose a document
         </motion.h2>
@@ -234,7 +234,7 @@ export default function ChooseView({
         </motion.div>
       </section>
 
-      <section className="doc-modal__right">
+      <section className="doc-modal__right doc-modal__right--choose">
         <motion.div variants={itemVariants} className="doc-modal__spec-header">
           <h2 className="doc-modal__spec-title">
             Photo requirements for {entry.country} {type === "passport" ? "Passport" : "Visa"}

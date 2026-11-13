@@ -13,8 +13,10 @@ $blue-deep: #0087ca;
 $text: #1b1b1a;
 $muted: #7a7a76;
 $hairline: #e9e9e6;
+// A faint warm tint for small surfaces (hover fills, tags). The panels themselves are white.
 $sidebar: #f8f8f6;
 $track: #f0f0ee;
+$panel: #ffffff;
 
 $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -88,8 +90,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     min-height: 0;
     padding: 32px 28px 0;
     overflow-y: auto;
-    background: $sidebar;
-    border-right: 1px solid $hairline;
+    // White like the right side, with no line between the two.
+    background: $panel;
 
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -125,6 +127,19 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
 
+  // Choose view: the whole right side (title, previews, Continue) sits in one light
+  // grey card, inset from the dialog's edges. The top padding drops by the inset so
+  // the title stays where it was.
+  &__right--choose {
+    --card-inset: 16px;
+    margin: var(--card-inset);
+    padding-top: calc(44px - var(--card-inset));
+    // Continue sits as far from the card's bottom edge as from its right edge.
+    padding-bottom: calc(36px - var(--card-inset));
+    border-radius: 20px;
+    background: #f6f6f6;
+  }
+
   &__title {
     margin: 0 0 20px;
     color: $text;
@@ -142,6 +157,24 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     gap: 0;
   }
 
+  // Choose view: the panel is a column and the card fills it, so the hint can sit
+  // at the foot of the panel. The spare room is shared equally between the three
+  // gaps (title to switch, switch to Country, specs to hint), so they grow together;
+  // on short windows they all shrink back to their base sizes.
+  &__left--choose {
+    display: flex;
+    flex-direction: column;
+
+    .doc-modal__card {
+      flex: 1 0 auto;
+    }
+
+    .doc-modal__switch,
+    .country-select {
+      margin-top: auto;
+    }
+  }
+
   &__switch {
     display: inline-grid;
     grid-template-columns: 1fr 1fr;
@@ -150,10 +183,14 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     border: 0;
     border-radius: 12px;
     background: $track;
+    // On the white panel the track needs its own edge.
+    box-shadow: inset 0 0 0 1px $hairline;
     width: fit-content;
     min-width: 200px;
     max-width: 240px;
-    margin: 0 0 8px;
+    // No bottom margin: the Country row's own 18px top padding makes the gap under the
+    // switch match the title's 20px margin above it.
+    margin: 0;
   }
 
   &__switch-btn {
@@ -208,8 +245,11 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     position: sticky;
     bottom: 0;
     z-index: 5;
-    padding: 16px 0 24px;
-    background: linear-gradient(to bottom, rgba($sidebar, 0), $sidebar 16px);
+    margin-top: auto;
+    // The bottom gap matches the panel's top padding, so the hint sits as far from
+    // the bottom as the title does from the top.
+    padding: 16px 0 32px;
+    background: linear-gradient(to bottom, rgba($panel, 0), $panel 16px);
   }
 
   &__doc-card {
@@ -455,7 +495,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   // window's right edge (the button sits 22px in; its icon adds the rest).
   &__next {
     margin-top: auto;
-    margin-right: calc(36px - var(--right-pad));
+    margin-right: calc(36px - var(--card-inset, 0px) - var(--right-pad));
     padding-top: 28px;
     display: flex;
     justify-content: flex-end;
@@ -521,8 +561,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     line-height: 1.4;
   }
 
-  // Before / After always sit side by side. --preview-h shrinks with the width
-  // of the right column (250px max, as before) so both always fit.
+  // Before / After always sit side by side, straight on the grey card. --preview-h
+  // shrinks with the width of the right column (250px max, as before) so both always fit.
   &__previews {
     --preview-gap: 32px;
     --preview-h: clamp(
@@ -582,9 +622,10 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     gap: 8px;
     font-size: 15px;
     line-height: 1.2;
-    // A light pill, so Continue stays the one dark (main) button.
+    // A light pill, so Continue stays the one dark (main) button. White, so it
+    // stands out from the grey card it sits on.
     border: 1px solid #e6e6e6;
-    background: #f6f6f6;
+    background: #ffffff;
     color: #1b1b1b;
     transition:
       transform 0.3s ease,
@@ -605,7 +646,6 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     width: calc(var(--preview-h) * var(--frame-ratio, 1));
     margin-top: 1rem;
     outline: 1px dashed $ink-900;
-    box-shadow: 0 10px 28px rgba(11, 27, 43, 0.12);
     transition:
       width 0.55s $preview-ease,
       background-color 0.35s ease;
@@ -895,8 +935,9 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       padding: 12px 0;
     }
 
+    // Matches the 24px top padding above.
     &__actions {
-      padding-bottom: 16px;
+      padding-bottom: 24px;
     }
   }
 }
@@ -923,8 +964,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       min-height: auto;
     }
 
+    // Stacked: a hairline under the panel separates it from the previews.
     &__left {
-      border-right: 0;
       border-bottom: 1px solid $hairline;
       padding: 72px 20px 28px;
     }
@@ -942,6 +983,16 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
     &__right {
       padding: 28px 20px 36px;
+    }
+
+    // Stacked: the grey card hugs the screen edges more closely, and replaces the
+    // hairline under the left panel as the separator.
+    &__right--choose {
+      --card-inset: 12px;
+    }
+
+    &__left--choose {
+      border-bottom: 0;
     }
 
     &__spec-title {
