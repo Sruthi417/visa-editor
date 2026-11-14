@@ -1,0 +1,108 @@
+// The drawn scrollbar for CustomScroll.tsx, in the dialog's palette: a soft warm-grey
+// track and a rounded thumb in the same near-black ink as the main buttons, kept
+// light until it is hovered or dragged.
+
+$ink: #1b1b1a;
+$track: #f0f0ee;
+$blue: #2b97f0;
+
+// Room between the content and the bar, and the bar's width at rest and on hover.
+$gap: 12px;
+$width: 6px;
+$width-hover: 8px;
+
+.cscroll {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  &__viewport {
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    // The native bar is replaced by the drawn one.
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $blue;
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+  }
+
+  // Keep the content clear of the bar, only while there is one.
+  &--overflow &__viewport {
+    padding-right: $width-hover + $gap;
+  }
+
+  &__track {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    right: 0;
+    display: none;
+    width: $width;
+    border-radius: 999px;
+    background: $track;
+    cursor: pointer;
+    touch-action: none;
+    transition: width 0.18s ease;
+  }
+
+  &--overflow &__track {
+    display: block;
+  }
+
+  &__track:hover,
+  &--dragging &__track {
+    width: $width-hover;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-radius: 999px;
+    background: rgba($ink, 0.22);
+    cursor: grab;
+    touch-action: none;
+    transition: background-color 0.2s ease;
+  }
+
+  &:hover &__thumb {
+    background: rgba($ink, 0.34);
+  }
+
+  &__thumb:hover {
+    background: rgba($ink, 0.5);
+  }
+
+  &--dragging {
+    user-select: none;
+    cursor: grabbing;
+
+    .cscroll__thumb {
+      background: rgba($ink, 0.62);
+      cursor: grabbing;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cscroll__track,
+  .cscroll__thumb {
+    transition: none;
+  }
+}

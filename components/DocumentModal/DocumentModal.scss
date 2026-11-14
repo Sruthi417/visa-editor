@@ -1,4 +1,13 @@
+@use "sass:math";
 @use "../eyebrow" as *;
+
+// A length that follows the window height: $min on short windows (640px tall and
+// below), $max on tall ones (960px and up), scaling smoothly in between. The Choose
+// panel sizes its spacing with it, so its contents always fit without scrolling.
+@function fit($min, $max) {
+  $span: math.div($max - $min, 1px);
+  @return clamp(#{$min}, calc(#{$min} + #{$span} * (100vh - 640px) / 320), #{$max});
+}
 
 $ink-900: #111827;
 $ink-700: #374151;
@@ -156,9 +165,18 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   // at the foot of the panel. The spare room is shared equally between the three
   // gaps (title to switch, switch to Country, specs to hint), so they grow together;
   // on short windows they all shrink back to their base sizes.
+  //
+  // It never scrolls: every gap, the passport cover and the spec rows shrink with the
+  // window height (see fit()), so the whole panel fits from tall screens down to
+  // ~640px-tall laptop windows. Only shorter windows than that fall back to scrolling.
   &__left--choose {
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
+
+    &.doc-modal__left {
+      padding-top: fit(18px, 32px);
+    }
 
     .doc-modal__card {
       flex: 1 0 auto;
@@ -167,6 +185,54 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     .doc-modal__switch,
     .country-select {
       margin-top: auto;
+    }
+
+    .doc-modal__title,
+    .doc-modal__switch {
+      margin-bottom: fit(12px, 20px);
+    }
+
+    .doc-modal__card .country-select__trigger {
+      padding-block: fit(10px, 14px);
+    }
+
+    // A little more room around the passport card, a touch more below than above:
+    // the cover's shadow falls downwards, so this makes the two gaps look even.
+    .doc-modal__doc-header {
+      padding-top: fit(12px, 22px);
+      padding-bottom: fit(14px, 26px);
+    }
+
+    .doc-modal__cover {
+      width: fit(62px, 90px);
+      height: fit(84px, 124px);
+      padding: fit(9px, 12px) 6px fit(8px, 10px);
+    }
+
+    .doc-modal__cover-globe {
+      width: fit(24px, 36px);
+      height: fit(24px, 36px);
+      margin-block: fit(2px, 4px);
+    }
+
+    .doc-modal__cover-code {
+      font-size: fit(16px, 22px);
+    }
+
+    .doc-modal__details dl {
+      gap: fit(5px, 8px);
+
+      > div {
+        padding-block: fit(6px, 14px);
+      }
+    }
+
+    .doc-modal__summary {
+      margin-bottom: fit(8px, 16px);
+    }
+
+    .doc-modal__actions {
+      padding: fit(10px, 16px) 0 fit(16px, 32px);
     }
   }
 
@@ -183,9 +249,28 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     width: fit-content;
     min-width: 200px;
     max-width: 240px;
-    // No bottom margin: the Country row's own 18px top padding makes the gap under the
-    // switch match the title's 20px margin above it.
-    margin: 0;
+    // The gap under the switch matches the title's 20px margin above it (the Country
+    // box below has no outside padding of its own).
+    margin: 0 0 20px;
+  }
+
+  // Country, as its own bordered card, like each spec row below. Scoped to the
+  // dialog: the hero and get-started pages use the same select with their own look.
+  // It is the one control among the cards, so it gets a firmer edge than the hairline
+  // spec rows, plus a faint lift, and darkens further when hovered or open.
+  &__card .country-select__trigger {
+    padding: 14px 16px;
+    border: 1px solid #d6d6d1;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(11, 27, 43, 0.06);
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover,
+    &.country-select__trigger--open {
+      border-color: #b9b9b4;
+    }
   }
 
   &__switch-btn {
@@ -255,8 +340,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     display: flex;
     align-items: flex-start;
     gap: 18px;
-    padding: 18px 0;
-    border-bottom: 1px solid $hairline;
+    padding: 22px 0 26px;
   }
 
   &__cover {
@@ -337,10 +421,13 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     font-weight: 400;
   }
 
+  // The specs: each row is its own bordered card, the same as Country, with a small
+  // gap between them.
   &__details {
     dl {
       display: flex;
       flex-direction: column;
+      gap: 8px;
       margin: 0;
       padding: 0;
 
@@ -348,8 +435,10 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 14px 0;
-        border-bottom: 1px solid $hairline;
+        gap: 12px;
+        padding: 14px 16px;
+        border: 1px solid $hairline;
+        border-radius: 16px;
         font-size: 14.5px;
       }
     }
@@ -360,8 +449,10 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
       margin: 0;
     }
 
+    // A touch smaller than the labels: the weight already makes the values stand out.
     dd {
       color: $text;
+      font-size: 13.5px;
       font-weight: 500;
       margin: 0;
       display: inline-flex;
@@ -540,7 +631,8 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   &__spec-title {
     color: $text;
     font-family: var(--font-heading);
-    font-size: 22px;
+    // Larger than the sidebar title: the main heading of the dialog.
+    font-size: clamp(24px, 2.2vw, 28px);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -921,19 +1013,14 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     &__title {
       margin-bottom: 12px;
     }
+  }
+}
 
-    &__details dl > div {
-      padding: 10px 0;
-    }
-
-    &__doc-header {
-      padding: 12px 0;
-    }
-
-    // Matches the 24px top padding above.
-    &__actions {
-      padding-bottom: 24px;
-    }
+// Shorter still than fit() can make room for: let the Choose panel scroll rather
+// than cut its specs off.
+@media (max-height: 639px) {
+  .doc-modal__left--choose {
+    overflow-y: auto;
   }
 }
 
@@ -982,7 +1069,7 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     &__spec-title {
-      font-size: 20px;
+      font-size: 24px;
     }
 
     // Phones have little side padding, so the previews keep the full room the

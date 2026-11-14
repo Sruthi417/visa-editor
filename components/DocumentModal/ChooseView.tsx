@@ -237,7 +237,8 @@ export default function ChooseView({
       <section className="doc-modal__right">
         <motion.div variants={itemVariants} className="doc-modal__spec-header">
           <h2 className="doc-modal__spec-title">
-            Photo requirements for {entry.country} {type === "passport" ? "Passport" : "Visa"}
+            {/* "Indian Passport Photo Requirements", "United States Visa Photo Requirements". */}
+            {documentName} Requirements
           </h2>
           <p className="doc-modal__spec-sub">
             Standard {sizeLabel(spec)} format with official {spec.background.toLowerCase()} background.

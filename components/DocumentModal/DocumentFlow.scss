@@ -385,12 +385,18 @@ $red: #d63b3f;
     line-height: 1.5;
   }
 
-  &__checks {
-    list-style: none;
+  // The checks' scroll area (CustomScroll, with its own drawn scrollbar). It uses the
+  // panel's spare height instead of a fixed cap: the whole list shows when it fits,
+  // and it only scrolls (with Download still pinned below) when the window is too
+  // short. The scroller sets min-height: 0, which is what lets it shrink here.
+  &__scroll {
+    flex: 0 1 auto;
     margin: 22px 0 30px;
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 6px;
+  }
+
+  &__checks {
+    margin: 0;
+    list-style: none;
   }
 
   &__check {

@@ -30,7 +30,13 @@ import {
   type ProcessResult,
 } from "./processPhoto";
 import { ACCEPTED, validatePhoto } from "./photoFile";
-import { countriesFor, type DocumentType, type PhotoSpec, type CountrySpecs } from "./specs";
+import {
+  countriesFor,
+  documentLabel,
+  type DocumentType,
+  type PhotoSpec,
+  type CountrySpecs,
+} from "./specs";
 import "./DocumentModal.scss";
 import "./DocumentFlow.scss";
 import "./Checkout.scss";
@@ -95,10 +101,8 @@ export default function DocumentModal({
   // otherwise fall back to the first one in the list.
   const entry = countries.find((item) => item.code === code) ?? countries[0];
   const spec = entry[type]!;
-  const documentName =
-    type === "passport"
-      ? `${entry.country} Passport Photo`
-      : `${entry.country} Visa Photo`;
+  // "Indian Passport Photo", "United States Visa Photo".
+  const documentName = `${documentLabel(entry, type)} Photo`;
 
   useEffect(() => {
     if (open && initialFile) warmUp();

@@ -8,6 +8,7 @@ import {
   Download01Icon,
 } from "@hugeicons/core-free-icons";
 
+import CustomScroll from "./CustomScroll";
 import { itemVariants, panelVariants, viewVariants } from "./motion";
 import type { Check, ProcessResult } from "./processPhoto";
 import { formatLength, type PhotoSpec } from "./specs";
@@ -61,27 +62,29 @@ export default function ResultView({
           Final acceptance is always decided by the issuing authority.
         </motion.p>
 
-        <ul className="res__checks">
-          {result.checks.map((check) => (
-            <motion.li key={check.id} className="res__check" variants={itemVariants}>
-              <div>
-                <span className="res__check-label">{check.label}</span>
-                {check.detail && <span className="res__check-detail">{check.detail}</span>}
-              </div>
-              <motion.span
-                className={`res__pill res__pill--${check.status}`}
-                initial={{ scale: 0.7, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 380, damping: 20, delay: 0.5 }}
-              >
-                {check.status === "passed" && (
-                  <HugeiconsIcon icon={CheckmarkCircle02Icon} size={16} strokeWidth={2} />
-                )}
-                {STATUS_LABEL[check.status]}
-              </motion.span>
-            </motion.li>
-          ))}
-        </ul>
+        <CustomScroll className="res__scroll" label="Photo checks">
+          <ul className="res__checks">
+            {result.checks.map((check) => (
+              <motion.li key={check.id} className="res__check" variants={itemVariants}>
+                <div>
+                  <span className="res__check-label">{check.label}</span>
+                  {check.detail && <span className="res__check-detail">{check.detail}</span>}
+                </div>
+                <motion.span
+                  className={`res__pill res__pill--${check.status}`}
+                  initial={{ scale: 0.7, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 20, delay: 0.5 }}
+                >
+                  {check.status === "passed" && (
+                    <HugeiconsIcon icon={CheckmarkCircle02Icon} size={16} strokeWidth={2} />
+                  )}
+                  {STATUS_LABEL[check.status]}
+                </motion.span>
+              </motion.li>
+            ))}
+          </ul>
+        </CustomScroll>
 
         <motion.button
           type="button"

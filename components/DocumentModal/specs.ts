@@ -254,6 +254,43 @@ const FILE_LIMITS: Record<string, Partial<Record<DocumentType, [number, number]>
   US: { passport: [54, 10240], visa: [50, 240] },
 };
 
+/**
+ * How a country reads in front of "Passport" or "Visa" ("Indian Passport"), where
+ * that differs from its name. The rest use the name as it is ("United States Visa").
+ */
+const ADJECTIVES: Record<string, string> = {
+  AU: "Australian",
+  BR: "Brazilian",
+  CA: "Canadian",
+  CN: "Chinese",
+  FR: "French",
+  DE: "German",
+  IN: "Indian",
+  ID: "Indonesian",
+  IE: "Irish",
+  IT: "Italian",
+  JP: "Japanese",
+  MX: "Mexican",
+  NL: "Dutch",
+  PK: "Pakistani",
+  PH: "Philippine",
+  RU: "Russian",
+  SA: "Saudi",
+  ZA: "South African",
+  KR: "South Korean",
+  ES: "Spanish",
+  SCH: "Schengen",
+  TR: "Turkish",
+  AE: "UAE",
+  GB: "UK",
+};
+
+/** "Indian Passport", "United States Visa", "Schengen Visa". */
+export function documentLabel(entry: CountrySpecs, type: DocumentType): string {
+  const country = ADJECTIVES[entry.code] ?? entry.country;
+  return `${country} ${type === "passport" ? "Passport" : "Visa"}`;
+}
+
 function withFile(code: string, type: DocumentType, spec?: SpecBase): PhotoSpec | undefined {
   return spec && {
     ...spec,
